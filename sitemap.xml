@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://hqd8080.github.io/2020/05/22/go-gmp/</loc>
+    
+    <lastmod>2021-09-06</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://hqd8080.github.io/2020/06/03/go-goland-setting/</loc>
     
     <lastmod>2021-09-04</lastmod>
@@ -227,13 +234,6 @@
   
   <url>
     <loc>https://hqd8080.github.io/2020/05/14/go-gobuild/</loc>
-    
-    <lastmod>2021-08-31</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://hqd8080.github.io/2020/05/22/go-gmp/</loc>
     
     <lastmod>2021-08-31</lastmod>
     
