@@ -1,8 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>https://hqd8080.github.io/2021/11/16/linux-db-backup/</loc>
+    <lastmod>2021-11-17</lastmod>
+  </url>
+  <url>
     <loc>https://hqd8080.github.io/2020/06/04/websocket/</loc>
-    <lastmod>2021-10-07</lastmod>
+    <lastmod>2021-11-11</lastmod>
   </url>
   <url>
     <loc>https://hqd8080.github.io/2020/05/22/go-gmp/</loc>
