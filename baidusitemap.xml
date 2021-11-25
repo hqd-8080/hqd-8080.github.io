@@ -1,155 +1,155 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://hqd8080.github.io/2021/11/16/linux-db-backup/</loc>
-    <lastmod>2021-11-17</lastmod>
+    <loc>https://hqd8080.github.io/2021/11/16/linux/linux-db-backup/</loc>
+    <lastmod>2021-11-25</lastmod>
   </url>
   <url>
-    <loc>https://hqd8080.github.io/2020/06/04/websocket/</loc>
-    <lastmod>2021-11-11</lastmod>
+    <loc>https://hqd8080.github.io/2020/06/04/golang/websocket/</loc>
+    <lastmod>2021-11-25</lastmod>
   </url>
   <url>
-    <loc>https://hqd8080.github.io/2020/05/22/go-gmp/</loc>
+    <loc>https://hqd8080.github.io/2020/06/02/golang/go-concurrent-safe/</loc>
+    <lastmod>2021-11-25</lastmod>
+  </url>
+  <url>
+    <loc>https://hqd8080.github.io/2020/05/22/golang/go-gmp/</loc>
     <lastmod>2021-09-06</lastmod>
   </url>
   <url>
-    <loc>https://hqd8080.github.io/2020/06/03/go-goland-setting/</loc>
+    <loc>https://hqd8080.github.io/2020/06/03/golang/go-goland-setting/</loc>
     <lastmod>2021-09-04</lastmod>
   </url>
   <url>
-    <loc>https://hqd8080.github.io/2020/05/22/redis-rdb-aof/</loc>
+    <loc>https://hqd8080.github.io/2020/05/22/redis/redis-rdb-aof/</loc>
     <lastmod>2021-09-01</lastmod>
   </url>
   <url>
-    <loc>https://hqd8080.github.io/2020/05/22/redis-hyperLogLog/</loc>
+    <loc>https://hqd8080.github.io/2020/05/22/redis/redis-hyperLogLog/</loc>
     <lastmod>2021-09-01</lastmod>
   </url>
   <url>
-    <loc>https://hqd8080.github.io/2020/05/22/redis-zset/</loc>
+    <loc>https://hqd8080.github.io/2020/05/22/redis/redis-zset/</loc>
     <lastmod>2021-09-01</lastmod>
   </url>
   <url>
-    <loc>https://hqd8080.github.io/2020/05/22/redis-set/</loc>
+    <loc>https://hqd8080.github.io/2020/05/22/redis/redis-set/</loc>
     <lastmod>2021-09-01</lastmod>
   </url>
   <url>
-    <loc>https://hqd8080.github.io/2020/05/22/redis-hash/</loc>
+    <loc>https://hqd8080.github.io/2020/05/22/redis/redis-hash/</loc>
     <lastmod>2021-09-01</lastmod>
   </url>
   <url>
-    <loc>https://hqd8080.github.io/2020/05/22/redis-list/</loc>
+    <loc>https://hqd8080.github.io/2020/05/22/redis/redis-list/</loc>
     <lastmod>2021-09-01</lastmod>
   </url>
   <url>
-    <loc>https://hqd8080.github.io/2020/05/22/redis-string/</loc>
+    <loc>https://hqd8080.github.io/2020/05/22/redis/redis-string/</loc>
     <lastmod>2021-09-01</lastmod>
   </url>
   <url>
-    <loc>https://hqd8080.github.io/2020/05/26/docker-dockerfile/</loc>
+    <loc>https://hqd8080.github.io/2020/05/26/docker/docker-dockerfile/</loc>
     <lastmod>2021-09-01</lastmod>
   </url>
   <url>
-    <loc>https://hqd8080.github.io/2020/05/24/docker-warehouse/</loc>
+    <loc>https://hqd8080.github.io/2020/05/24/docker/docker-warehouse/</loc>
     <lastmod>2021-09-01</lastmod>
   </url>
   <url>
-    <loc>https://hqd8080.github.io/2020/05/24/docker-container/</loc>
+    <loc>https://hqd8080.github.io/2020/05/24/docker/docker-container/</loc>
     <lastmod>2021-09-01</lastmod>
   </url>
   <url>
-    <loc>https://hqd8080.github.io/2020/05/24/docker-image/</loc>
+    <loc>https://hqd8080.github.io/2020/05/24/docker/docker-image/</loc>
     <lastmod>2021-09-01</lastmod>
   </url>
   <url>
-    <loc>https://hqd8080.github.io/2020/05/22/git-flow/</loc>
+    <loc>https://hqd8080.github.io/2020/05/22/git/git-flow/</loc>
     <lastmod>2021-09-01</lastmod>
   </url>
   <url>
-    <loc>https://hqd8080.github.io/2020/05/24/docker-power/</loc>
+    <loc>https://hqd8080.github.io/2020/05/24/docker/docker-power/</loc>
     <lastmod>2021-09-01</lastmod>
   </url>
   <url>
-    <loc>https://hqd8080.github.io/2020/05/24/docker-install-decker-compose/</loc>
+    <loc>https://hqd8080.github.io/2020/05/24/docker/docker-install-decker-compose/</loc>
     <lastmod>2021-09-01</lastmod>
   </url>
   <url>
-    <loc>https://hqd8080.github.io/2020/05/24/docker-install-ubuntu1604/</loc>
+    <loc>https://hqd8080.github.io/2020/05/24/docker/docker-install-ubuntu1604/</loc>
     <lastmod>2021-09-01</lastmod>
   </url>
   <url>
-    <loc>https://hqd8080.github.io/2020/05/24/docker-create-base-img/</loc>
+    <loc>https://hqd8080.github.io/2020/05/24/docker/docker-create-base-img/</loc>
     <lastmod>2021-09-01</lastmod>
   </url>
   <url>
-    <loc>https://hqd8080.github.io/2020/05/22/microservice-CAP/</loc>
+    <loc>https://hqd8080.github.io/2020/05/22/microservice/microservice-CAP/</loc>
     <lastmod>2021-08-31</lastmod>
   </url>
   <url>
-    <loc>https://hqd8080.github.io/2020/05/22/microservice/</loc>
+    <loc>https://hqd8080.github.io/2020/05/22/microservice/microservice/</loc>
     <lastmod>2021-08-31</lastmod>
   </url>
   <url>
-    <loc>https://hqd8080.github.io/2020/06/02/go-concurrent-safe/</loc>
+    <loc>https://hqd8080.github.io/2020/05/22/golang/go-data-type-convert/</loc>
     <lastmod>2021-08-31</lastmod>
   </url>
   <url>
-    <loc>https://hqd8080.github.io/2020/05/22/go-data-type-convert/</loc>
+    <loc>https://hqd8080.github.io/2020/05/22/golang/go-chan/</loc>
     <lastmod>2021-08-31</lastmod>
   </url>
   <url>
-    <loc>https://hqd8080.github.io/2020/05/22/go-chan/</loc>
+    <loc>https://hqd8080.github.io/2020/05/22/golang/go-work/</loc>
     <lastmod>2021-08-31</lastmod>
   </url>
   <url>
-    <loc>https://hqd8080.github.io/2020/05/22/go-work/</loc>
+    <loc>https://hqd8080.github.io/2020/05/22/golang/go-reflect/</loc>
     <lastmod>2021-08-31</lastmod>
   </url>
   <url>
-    <loc>https://hqd8080.github.io/2020/05/22/go-reflect/</loc>
+    <loc>https://hqd8080.github.io/2020/05/14/grpc/grpc/</loc>
     <lastmod>2021-08-31</lastmod>
   </url>
   <url>
-    <loc>https://hqd8080.github.io/2020/05/14/grpc/</loc>
+    <loc>https://hqd8080.github.io/2020/05/14/golang/go-gc/</loc>
     <lastmod>2021-08-31</lastmod>
   </url>
   <url>
-    <loc>https://hqd8080.github.io/2020/05/14/go-gc/</loc>
+    <loc>https://hqd8080.github.io/2020/01/02/golang/go-producer-consumer/</loc>
     <lastmod>2021-08-31</lastmod>
   </url>
   <url>
-    <loc>https://hqd8080.github.io/2020/01/02/go-producer-consumer/</loc>
+    <loc>https://hqd8080.github.io/2020/05/24/docker/docker-summary/</loc>
     <lastmod>2021-08-31</lastmod>
   </url>
   <url>
-    <loc>https://hqd8080.github.io/2020/05/24/docker-summary/</loc>
+    <loc>https://hqd8080.github.io/2020/05/26/docker/docker-ssh/</loc>
     <lastmod>2021-08-31</lastmod>
   </url>
   <url>
-    <loc>https://hqd8080.github.io/2020/05/26/docker-ssh/</loc>
+    <loc>https://hqd8080.github.io/2020/05/24/docker/docker-install-mysql/</loc>
     <lastmod>2021-08-31</lastmod>
   </url>
   <url>
-    <loc>https://hqd8080.github.io/2020/05/24/docker-install-mysql/</loc>
+    <loc>https://hqd8080.github.io/2020/05/14/golang/go-runecountInstring/</loc>
     <lastmod>2021-08-31</lastmod>
   </url>
   <url>
-    <loc>https://hqd8080.github.io/2020/05/14/go-runecountInstring/</loc>
+    <loc>https://hqd8080.github.io/2020/05/14/golang/go-gobuild/</loc>
     <lastmod>2021-08-31</lastmod>
   </url>
   <url>
-    <loc>https://hqd8080.github.io/2020/05/14/go-gobuild/</loc>
+    <loc>https://hqd8080.github.io/2020/05/14/golang/go-simplejson/</loc>
     <lastmod>2021-08-31</lastmod>
   </url>
   <url>
-    <loc>https://hqd8080.github.io/2020/05/14/go-simplejson/</loc>
+    <loc>https://hqd8080.github.io/2020/05/14/golang/go-struct-to-map/</loc>
     <lastmod>2021-08-31</lastmod>
   </url>
   <url>
-    <loc>https://hqd8080.github.io/2020/05/14/go-struct-to-map/</loc>
-    <lastmod>2021-08-31</lastmod>
-  </url>
-  <url>
-    <loc>https://hqd8080.github.io/2020/06/04/go-leakage/</loc>
+    <loc>https://hqd8080.github.io/2020/06/04/golang/go-leakage/</loc>
     <lastmod>2021-08-31</lastmod>
   </url>
 </urlset> 
