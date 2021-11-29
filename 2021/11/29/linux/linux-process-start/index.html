@@ -17,20 +17,21 @@
   <meta http-equiv="window-target" content="_top" />
   
   
-  <title>关于 | @@</title>
-  <meta name="description" content="12345678910111213141516171819&amp;#123;  &quot;name&quot;: &quot;hqd&quot;,  &quot;profession&quot;: &quot;backend developer&quot;,  &quot;experience&quot;: &quot;9年&quot;,  &quot;address&quot;: &quot;上海长">
-<meta property="og:type" content="website">
-<meta property="og:title" content="关于">
-<meta property="og:url" content="https://hqd8080.github.io/about/index.html">
+  <title>Linux进程维护shell脚本 | @@</title>
+  <meta name="description" content="start.sh 1234567891011121314151617181920212223242526272829303132333435363738394041424344454647#!&#x2F;bin&#x2F;bashprocess_name&#x3D;&#96;pwd | xargs basename&#96;usage() &amp;#123;    echo &quot;.&#x2F;start.sh [ start | stop | rel">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Linux进程维护shell脚本">
+<meta property="og:url" content="https://hqd8080.github.io/2021/11/29/linux/linux-process-start/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="12345678910111213141516171819&amp;#123;  &quot;name&quot;: &quot;hqd&quot;,  &quot;profession&quot;: &quot;backend developer&quot;,  &quot;experience&quot;: &quot;9年&quot;,  &quot;address&quot;: &quot;上海长">
+<meta property="og:description" content="start.sh 1234567891011121314151617181920212223242526272829303132333435363738394041424344454647#!&#x2F;bin&#x2F;bashprocess_name&#x3D;&#96;pwd | xargs basename&#96;usage() &amp;#123;    echo &quot;.&#x2F;start.sh [ start | stop | rel">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2021-10-08T02:11:21.077Z">
-<meta property="article:modified_time" content="2021-10-08T02:11:21.077Z">
+<meta property="article:published_time" content="2021-11-29T06:30:28.000Z">
+<meta property="article:modified_time" content="2021-11-29T06:45:36.095Z">
 <meta property="article:author" content="hqd8080">
+<meta property="article:tag" content="linux">
 <meta name="twitter:card" content="summary">
   <!-- Canonical links -->
-  <link rel="canonical" href="https://hqd8080.github.io/about/index.html">
+  <link rel="canonical" href="https://hqd8080.github.io/2021/11/29/linux/linux-process-start/index.html">
   
     <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
   
@@ -211,177 +212,135 @@
 </aside>
 
   
-  <!--<aside class="sidebar" itemscope itemtype="http://schema.org/WPSideBar">
-  <div class="slimContent">
-    
-    <div class="widget">
-      <h3 class="widget-title">个人链接</h3>
-      <div class="widget-body">
-        <ul class="link-list lh-2x">
-          
-          <li>
-            Github:
-            
-              <a href="https://github.com/hqd8080" target="_blank">https://github.com/hqd8080</a>
-            
-          </li>
-          
-          <li>
-            Blog:
-            
-              <a href="http://blog.cofess.com" target="_blank">http://blog.cofess.com</a>
-            
-          </li>
-          
-          <li>
-            微博:
-            
-              <a href="http://weibo.com/cofess" target="_blank">http://weibo.com/cofess</a>
-            
-          </li>
-          
-          <li>
-            花瓣:
-            
-              <a href="http://huaban.com/cofess" target="_blank">http://huaban.com/cofess</a>
-            
-          </li>
-          
-          <li>
-            Behance:
-            
-              <a href="https://www.behance.net/cofess" target="_blank">https://www.behance.net/cofess</a>
-            
-          </li>
-          
-        </ul>
-      </div>
-    </div>
-    
-    
-    <div class="widget">
-      <h3 class="widget-title">技能</h3>
-      <div class="widget-body">
-        <ul class="skill-list lh-2x">
-          
-          <li class="clearfix">
-            <span>Git</span>
-            <span class="pull-right">★★★☆☆</span>
-          </li>
-          
-          <li class="clearfix">
-            <span>Gulp</span>
-            <span class="pull-right">★★★☆☆</span>
-          </li>
-          
-          <li class="clearfix">
-            <span>Javascript</span>
-            <span class="pull-right">★★★☆☆</span>
-          </li>
-          
-          <li class="clearfix">
-            <span>HTML+CSS</span>
-            <span class="pull-right">★★★☆☆</span>
-          </li>
-          
-          <li class="clearfix">
-            <span>Bootstrap</span>
-            <span class="pull-right">★★★☆☆</span>
-          </li>
-          
-          <li class="clearfix">
-            <span>ThinkPHP</span>
-            <span class="pull-right">★★★☆☆</span>
-          </li>
-          
-          <li class="clearfix">
-            <span>平面设计</span>
-            <span class="pull-right">★★★☆☆</span>
-          </li>
-          
-        </ul>
-      </div>
-    </div>
-    
-    
-    <div class="widget">
-      <h3 class="widget-title">个人标签</h3>
-      <div class="widget-body">
-        
-        <span class="label label-default mb">前端</span>
-        
-        <span class="label label-default mb">前端开发</span>
-        
-        <span class="label label-default mb">前端重构</span>
-        
-        <span class="label label-default mb">Web前端</span>
-        
-        <span class="label label-default mb">网页重构</span>
-        
-      </div>
-    </div>
-    
-    
-    <div class="widget">
-      <h3 class="widget-title">个人作品</h3>
-      <div class="widget-body">
-        <ul class="work-list lh-2x">
-          
-          <li class="clearfix">
-            <a href="http://www.example.com" target="_blank" title="name">
-              <span>name</span>
-              <span class="pull-right text-muted">2020</span>
-            </a>
-          </li>
-          
-        </ul>
-      </div>
-    </div>
-    
-    
-    <div class="widget">
-      <h3 class="widget-title">个人项目</h3>
-      <div class="widget-body">
-        <ul class="project-list list-square lh-2x">
-          
-          <li class="public source">
-            <a href="https://github.com/hqd8080/gulp-startpro" target="_blank" title="cofess/gulp-startpro">
-              <span class="repo-icon octicon octicon-repo"></span>
-              <span class="repo-and-owner css-truncate-target">cofess/gulp-startpro</span>
-            </a>
-          </li>
-          
-          <li class="public source">
-            <a href="https://github.com/hqd8080/hexo-theme-pure" target="_blank" title="cofess/hexo-theme-pure">
-              <span class="repo-icon octicon octicon-repo"></span>
-              <span class="repo-and-owner css-truncate-target">cofess/hexo-theme-pure</span>
-            </a>
-          </li>
-          
-        </ul>
-      </div>
-    </div>
-    
-  </div>
-</aside>
--->
+  
 <main class="main" role="main">
-  <article class="article archives-about article-type-normal" itemscope="">
-  <header class="article-header">
-    <h1 itemprop="title">关于</h1>
+  <div class="content">
+  <article id="post-linux/linux-process-start" class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
     
-    <p class="text-muted">总有一些事情需要坚持！</p>
-    
-  </header>
-  <div class="article-body">
-    <figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="attr">&quot;name&quot;</span>: <span class="string">&quot;hqd&quot;</span>,</span><br><span class="line">  <span class="attr">&quot;profession&quot;</span>: <span class="string">&quot;backend developer&quot;</span>,</span><br><span class="line">  <span class="attr">&quot;experience&quot;</span>: <span class="string">&quot;9年&quot;</span>,</span><br><span class="line">  <span class="attr">&quot;address&quot;</span>: <span class="string">&quot;上海长宁&quot;</span>,</span><br><span class="line">  <span class="attr">&quot;email&quot;</span>: <span class="string">&quot;hanquanding@163.com&quot;</span>,</span><br><span class="line">  <span class="attr">&quot;description&quot;</span>: <span class="string">&quot;总有一些事情需要坚持!&quot;</span>,</span><br><span class="line">  </span><br><span class="line">  <span class="attr">&quot;skills&quot;</span>: [</span><br><span class="line">    [ <span class="string">&quot;Golang&quot;</span>, <span class="string">&quot;MySQL&quot;</span>, <span class="string">&quot;Redis&quot;</span>, <span class="string">&quot;MongoDB&quot;</span> ],</span><br><span class="line">    [ <span class="string">&quot;Gin&quot;</span>, <span class="string">&quot;Beego&quot;</span>, <span class="string">&quot;gRPC&quot;</span>, <span class="string">&quot;Microservice&quot;</span> ],</span><br><span class="line">    [ <span class="string">&quot;WebSocket&quot;</span>, <span class="string">&quot;XML&quot;</span>, <span class="string">&quot;JSON&quot;</span>, <span class="string">&quot;ProtoBuf&quot;</span> ],</span><br><span class="line">    [ <span class="string">&quot;Docker&quot;</span>, <span class="string">&quot;Docker-composer&quot;</span>, <span class="string">&quot;Kubernetes&quot;</span> ],</span><br><span class="line">    [ <span class="string">&quot;Nsq&quot;</span>, <span class="string">&quot;RabbitMQ&quot;</span> ],</span><br><span class="line">    [ <span class="string">&quot;Etcd&quot;</span>, <span class="string">&quot;Go-micro/Go-kit&quot;</span> ],</span><br><span class="line">    [ <span class="string">&quot;Linux&quot;</span>, <span class="string">&quot;Git&quot;</span> ],</span><br><span class="line">    [ <span class="string">&quot;Ethereum&quot;</span>, <span class="string">&quot;Hyperledger Fabric&quot;</span>, <span class="string">&quot;EOS&quot;</span>]</span><br><span class="line">  ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+    <div class="article-header">
+      
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Linux进程维护shell脚本
+    </h1>
+  
 
-<p>计算机软件工程专业；<br>9年多互联网开发经验；5年多Golang使用经验；</p>
-<p>对IT领域的软件开发和设计工作有浓厚兴趣，喜欢新技术，关注新技术发展；</p>
+      
+      <div class="article-meta">
+        <span class="article-date">
+    <i class="icon icon-calendar-check"></i>
+	<a href="/2021/11/29/linux/linux-process-start/" class="article-date">
+	  <time datetime="2021-11-29T06:30:28.000Z" itemprop="datePublished">2021-11-29</time>
+	</a>
+</span>
+        
+  <span class="article-category">
+    <i class="icon icon-folder"></i>
+    <a class="article-category-link" href="/categories/Linux/">Linux</a>
+  </span>
 
+        
+  <span class="article-tag">
+    <i class="icon icon-tags"></i>
+	<a class="article-tag-link-link" href="/tags/linux/" rel="tag">linux</a>
+  </span>
+
+
+        
+	<span class="article-read hidden-xs">
+	    <i class="icon icon-eye-fill" aria-hidden="true"></i>
+	    <span id="busuanzi_container_page_pv">
+			<span id="busuanzi_value_page_pv">0</span>
+		</span>
+	</span>
+
+
+        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2021/11/29/linux/linux-process-start/#comments" class="article-comment-link">评论</a></span>
+        
+      </div>
+    </div>
+    <div class="article-entry marked-body" itemprop="articleBody">
+      
+        <p><code>start.sh</code></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line">#!/bin/bash</span><br><span class="line"></span><br><span class="line">process_name=`pwd | xargs basename`</span><br><span class="line"></span><br><span class="line">usage() &#123;</span><br><span class="line">    echo &quot;./start.sh [ start | stop | reload | status ]&quot;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">status() &#123;</span><br><span class="line">    ps -ef | grep $process_name | grep -v grep</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">start() &#123;</span><br><span class="line">    echo &quot;start $process_name....&quot;</span><br><span class="line">    nohup ./$process_name 2&gt;&amp;1 1&gt;/dev/null &amp;</span><br><span class="line">    status</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">stop() &#123;</span><br><span class="line">    echo &quot;stop $process_name...&quot;</span><br><span class="line">    ps -ef | grep $process_name | grep -v grep | awk &#x27;&#123;print $2&#125;&#x27; |xargs kill -9</span><br><span class="line">    status</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">reload() &#123;</span><br><span class="line">    echo &quot;reload $process_name...&quot;</span><br><span class="line">    ps -ef | grep $process_name |grep -v grep | awk &#x27;&#123;print $2&#125;&#x27; |xargs kill -HUP</span><br><span class="line">    status</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">case &quot;$1&quot; in</span><br><span class="line">    start)</span><br><span class="line">        start</span><br><span class="line">        ;;</span><br><span class="line">    stop)</span><br><span class="line">        stop</span><br><span class="line">        ;;</span><br><span class="line">    reload)</span><br><span class="line">        reload</span><br><span class="line">        ;;</span><br><span class="line">    status)</span><br><span class="line">        status</span><br><span class="line">        ;;</span><br><span class="line">    *)</span><br><span class="line">        usage</span><br><span class="line">        ;;</span><br><span class="line">esac</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    <div class="article-footer">
+      <!--<blockquote class="mt-2x">-->
+<!--  <ul class="post-copyright list-unstyled">-->
+<!--    -->
+<!--    <li class="post-copyright-link hidden-xs">-->
+<!--      <strong>本文链接：</strong>-->
+<!--      <a href="https://hqd8080.github.io/2021/11/29/linux/linux-process-start/" title="Linux进程维护shell脚本" target="_blank" rel="external">https://hqd8080.github.io/2021/11/29/linux/linux-process-start/</a>-->
+<!--    </li>-->
+<!--    -->
+<!--    <li class="post-copyright-license">-->
+<!--      <strong>版权声明： </strong> 本博客所有文章除特别声明外，均采用 <a href="http://creativecommons.org/licenses/by/4.0/deed.zh" target="_blank" rel="external">CC BY 4.0 CN协议</a> 许可协议。转载请注明出处！-->
+<!--    </li>-->
+<!--  </ul>-->
+<!--</blockquote>-->
+
+
+<div class="panel panel-default panel-badger">
+  <div class="panel-body">
+    <figure class="media">
+      <div class="media-left">
+        <a href="https://github.com/hqd8080" target="_blank" class="img-burn thumb-sm visible-lg">
+          <img src="/images/avatar.jpeg" class="img-rounded w-full" alt="">
+        </a>
+      </div>
+      <div class="media-body">
+        <h3 class="media-heading"><a href="https://github.com/hqd8080" target="_blank"><span class="text-dark">@@</span><small class="ml-1x">Backend Developer</small></a></h3>
+        <div>总有一些事情需要坚持！</div>
+      </div>
+    </figure>
   </div>
-</article>
+</div>
 
+
+    </div>
+  </article>
+  
+    
+  <section id="comments">
+  	
+      <div id="lv-container" data-id="city" data-uid="MTAyMC81NDE4NC8zMDY1Ng==">
+        <noscript> 为正常使用来必力评论功能请激活JavaScript</noscript>
+      </div>    
+    
+  </section>
+
+
+  
+</div>
+
+  <nav class="bar bar-footer clearfix" data-stick-bottom>
+  <div class="bar-inner">
+  
+  <ul class="pager pull-left">
+    
+    <li class="prev">
+      <a href="/2021/11/29/grpc/grpc-demo/" title="gRPC使用实例"><i class="icon icon-angle-left" aria-hidden="true"></i><span>&nbsp;&nbsp;上一篇</span></a>
+    </li>
+    
+    
+    <li class="next">
+      <a href="/2021/11/16/linux/linux-db-backup/" title="Linux服务器备份数据库shell脚本"><span>下一篇&nbsp;&nbsp;</span><i class="icon icon-angle-right" aria-hidden="true"></i></a>
+    </li>
+    
+    
+  </ul>
+  
+  
+  
+  <div class="bar-right">
+    
+    <div class="share-component" data-sites="weibo,qq,wechat" data-mobile-sites="weibo,qq,qzone"></div>
+    
+  </div>
+  </div>
+</nav>
   
 
 
@@ -438,6 +397,30 @@ window.jQuery || document.write('<script src="js/jquery.min.js"><\/script>')
 
 
 
+
+
+   
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+
+   
+    
+<script defer type="text/javascript">
+  (function(d, s) {
+    var j, e = d.getElementsByTagName(s)[0];
+
+    if (typeof LivereTower === 'function') { return; }
+
+    j = d.createElement(s);
+    j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+    j.async = true;
+
+    e.parentNode.insertBefore(j, e);
+  })(document, 'script');
+</script>
 
 
 

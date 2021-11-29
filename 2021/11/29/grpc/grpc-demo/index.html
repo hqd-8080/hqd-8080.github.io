@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang=zh>
+<head>
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="Cache-Control" content="no-transform" />
+  <meta http-equiv="Cache-Control" content="no-siteapp" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="format-detection" content="telephone=no,email=no,adress=no">
+  <!-- Color theme for statusbar -->
+  <meta name="theme-color" content="#000000" />
+  <!-- 强制页面在当前窗口以独立页面显示,防止别人在框架里调用页面 -->
+  <meta http-equiv="window-target" content="_top" />
+  
+  
+  <title>gRPC使用实例 | @@</title>
+  <meta name="description" content="首先使用gRPC先定义protobuf协议文件hello.proto 12345678910111213141516syntax &#x3D; &quot;proto3&quot;;package services;message HelloRequest &amp;#123;    string name &#x3D; 1;&amp;#125;message HelloReply &amp;#123;    string message">
+<meta property="og:type" content="article">
+<meta property="og:title" content="gRPC使用实例">
+<meta property="og:url" content="https://hqd8080.github.io/2021/11/29/grpc/grpc-demo/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="首先使用gRPC先定义protobuf协议文件hello.proto 12345678910111213141516syntax &#x3D; &quot;proto3&quot;;package services;message HelloRequest &amp;#123;    string name &#x3D; 1;&amp;#125;message HelloReply &amp;#123;    string message">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2021-11-29T07:30:30.000Z">
+<meta property="article:modified_time" content="2021-11-29T07:36:57.561Z">
+<meta property="article:author" content="hqd8080">
+<meta property="article:tag" content="golang">
+<meta property="article:tag" content="gRPC">
+<meta name="twitter:card" content="summary">
+  <!-- Canonical links -->
+  <link rel="canonical" href="https://hqd8080.github.io/2021/11/29/grpc/grpc-demo/index.html">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png" type="image/x-icon">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+  
+  
+  
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body class="main-center" itemscope itemtype="http://schema.org/WebPage">
+  <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+  <div class="slimContent">
+    <div class="navbar-header">
+      
+      
+      <div class="profile-block text-center">
+        <a id="avatar" href="/">
+          <img class="img-circle" src="/images/avatar.jpeg" width="200" height="200">
+        </a>
+        <h2 id="name" class="hidden-xs hidden-sm">@@</h2>
+        <h3 id="title" class="hidden-xs hidden-sm hidden-md">Backend Developer</h3>
+        <small id="location" class="text-muted hidden-xs hidden-sm"><i class="icon icon-map-marker"></i> Shanghai, China</small>
+      </div>
+      
+      <div class="search" id="search-form-wrap">
+
+    <form class="search-form sidebar-form">
+        <div class="input-group">
+            <input type="text" class="search-form-input form-control" placeholder="搜索" />
+            <span class="input-group-btn">
+                <button type="submit" class="search-form-submit btn btn-flat" onclick="return false;"><i class="icon icon-search"></i></button>
+            </span>
+        </div>
+    </form>
+    <div class="ins-search">
+  <div class="ins-search-mask"></div>
+  <div class="ins-search-container">
+    <div class="ins-input-wrapper">
+      <input type="text" class="ins-search-input" placeholder="想要查找什么..." x-webkit-speech />
+      <button type="button" class="close ins-close ins-selectable" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+    </div>
+    <div class="ins-section-wrapper">
+      <div class="ins-section-container"></div>
+    </div>
+  </div>
+</div>
+
+
+</div>
+      <button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target="#main-navbar" aria-controls="main-navbar" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+    </div>
+    <nav id="main-navbar" class="collapse navbar-collapse" itemscope itemtype="http://schema.org/SiteNavigationElement" role="navigation">
+      <ul class="nav navbar-nav main-nav ">
+        
+        
+        <li class="menu-item menu-item-home">
+          <a href="/.">
+            
+            <i class="icon icon-home-fill"></i>
+            
+            <span class="menu-title">首页</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives">
+            
+            <i class="icon icon-archives-fill"></i>
+            
+            <span class="menu-title">归档</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories">
+            
+            <i class="icon icon-folder"></i>
+            
+            <span class="menu-title">分类</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags">
+            
+            <i class="icon icon-tags"></i>
+            
+            <span class="menu-title">标签</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about">
+            
+            <i class="icon icon-cup-fill"></i>
+            
+            <span class="menu-title">关于</span>
+          </a>
+        </li>
+        
+      </ul>
+      
+	
+    <ul class="social-links">
+    	
+        <li><a href="https://github.com/hqd8080" target="_blank" title="Github" data-toggle=tooltip data-placement=top><i class="icon icon-github"></i></a></li>
+        
+        <li><a href="/atom.xml" target="_blank" title="Rss" data-toggle=tooltip data-placement=top><i class="icon icon-rss"></i></a></li>
+        
+    </ul>
+
+    </nav>
+  </div>
+</header>
+
+  
+    <aside class="sidebar" itemscope itemtype="http://schema.org/WPSideBar">
+  <div class="slimContent">
+    
+      <!--<div class="widget">-->
+<!--    <h3 class="widget-title">公告</h3>-->
+<!--    <div class="widget-body">-->
+<!--        <div id="board">-->
+<!--            <div class="content">-->
+<!--                -->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--</div>-->
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">分类</h3>
+    <div class="widget-body">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Docker/">Docker</a><span class="category-list-count">11</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Git/">Git</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Go/">Go</a><span class="category-list-count">15</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Redis/">Redis</a><span class="category-list-count">7</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/gRPC/">gRPC</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%BE%AE%E6%9C%8D%E5%8A%A1/">微服务</a><span class="category-list-count">2</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">标签</h3>
+    <div class="widget-body">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/MySQL/" rel="tag">MySQL</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/docker/" rel="tag">docker</a><span class="tag-list-count">11</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/gRPC/" rel="tag">gRPC</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/" rel="tag">git</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/golang/" rel="tag">golang</a><span class="tag-list-count">17</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux/" rel="tag">linux</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/microservice/" rel="tag">microservice</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/redis/" rel="tag">redis</a><span class="tag-list-count">7</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/webSocket/" rel="tag">webSocket</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%BE%AE%E6%9C%8D%E5%8A%A1/" rel="tag">微服务</a><span class="tag-list-count">2</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">标签云</h3>
+    <div class="widget-body tagcloud">
+      <a href="/tags/MySQL/" style="font-size: 13px;">MySQL</a> <a href="/tags/docker/" style="font-size: 13.75px;">docker</a> <a href="/tags/gRPC/" style="font-size: 13.25px;">gRPC</a> <a href="/tags/git/" style="font-size: 13px;">git</a> <a href="/tags/golang/" style="font-size: 14px;">golang</a> <a href="/tags/linux/" style="font-size: 13.25px;">linux</a> <a href="/tags/microservice/" style="font-size: 13.25px;">microservice</a> <a href="/tags/redis/" style="font-size: 13.5px;">redis</a> <a href="/tags/webSocket/" style="font-size: 13px;">webSocket</a> <a href="/tags/%E5%BE%AE%E6%9C%8D%E5%8A%A1/" style="font-size: 13.25px;">微服务</a>
+    </div>
+  </div>
+
+    
+  </div>
+</aside>
+
+  
+  
+<main class="main" role="main">
+  <div class="content">
+  <article id="post-grpc/grpc-demo" class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
+    
+    <div class="article-header">
+      
+        
+  
+    <h1 class="article-title" itemprop="name">
+      gRPC使用实例
+    </h1>
+  
+
+      
+      <div class="article-meta">
+        <span class="article-date">
+    <i class="icon icon-calendar-check"></i>
+	<a href="/2021/11/29/grpc/grpc-demo/" class="article-date">
+	  <time datetime="2021-11-29T07:30:30.000Z" itemprop="datePublished">2021-11-29</time>
+	</a>
+</span>
+        
+  <span class="article-category">
+    <i class="icon icon-folder"></i>
+    <a class="article-category-link" href="/categories/gRPC/">gRPC</a>
+  </span>
+
+        
+  <span class="article-tag">
+    <i class="icon icon-tags"></i>
+	<a class="article-tag-link-link" href="/tags/gRPC/" rel="tag">gRPC</a>, <a class="article-tag-link-link" href="/tags/golang/" rel="tag">golang</a>
+  </span>
+
+
+        
+	<span class="article-read hidden-xs">
+	    <i class="icon icon-eye-fill" aria-hidden="true"></i>
+	    <span id="busuanzi_container_page_pv">
+			<span id="busuanzi_value_page_pv">0</span>
+		</span>
+	</span>
+
+
+        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2021/11/29/grpc/grpc-demo/#comments" class="article-comment-link">评论</a></span>
+        
+      </div>
+    </div>
+    <div class="article-entry marked-body" itemprop="articleBody">
+      
+        <h5 id="首先使用gRPC先定义protobuf协议文件"><a href="#首先使用gRPC先定义protobuf协议文件" class="headerlink" title="首先使用gRPC先定义protobuf协议文件"></a>首先使用gRPC先定义protobuf协议文件</h5><p><code>hello.proto</code></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">syntax = &quot;proto3&quot;;</span><br><span class="line"></span><br><span class="line">package services;</span><br><span class="line"></span><br><span class="line">message HelloRequest &#123;</span><br><span class="line">    string name = 1;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">message HelloReply &#123;</span><br><span class="line">    string message = 2;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">service HelloService &#123;</span><br><span class="line">    rpc SayHello(HelloRequest) returns (HelloReply);</span><br><span class="line">    rpc Streaming(stream HelloRequest) returns (stream HelloReply);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><code>user.proto</code></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br></pre></td><td class="code"><pre><span class="line">syntax = &quot;proto3&quot;;</span><br><span class="line"></span><br><span class="line">package services;</span><br><span class="line"></span><br><span class="line">// 测试官方类型</span><br><span class="line">import &quot;google/protobuf/timestamp.proto&quot;;</span><br><span class="line">import &quot;google/protobuf/empty.proto&quot;;</span><br><span class="line">import &quot;google/protobuf/any.proto&quot;;</span><br><span class="line"></span><br><span class="line">//import &quot;common.proto&quot;;</span><br><span class="line"></span><br><span class="line">// 测试枚举类型</span><br><span class="line">enum LoginStatus &#123;</span><br><span class="line">    success     = 0;    // 登录成功</span><br><span class="line">    failed      = 1;    // 登录失败</span><br><span class="line">    error       = 2;    // 错误</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// 用户登录请求</span><br><span class="line">message UserLoginRequest &#123;</span><br><span class="line">    int64  user_id        = 1;       // 用户编号</span><br><span class="line">    string user_name      = 2;       // 用户名</span><br><span class="line">    string user_nickname  = 3;       // 用户昵称</span><br><span class="line">    string user_country   = 4;       // 用户国籍</span><br><span class="line">    int32  user_gender    = 5;       // 用户性别</span><br><span class="line">    double user_credits   = 6;       // 用户积分</span><br><span class="line">    bool   is_admin       = 7;       // 是否是管理员</span><br><span class="line">    bytes  auth_code      = 8;       // 授权码</span><br><span class="line">    float  user_balance   = 9;       // 用户余额</span><br><span class="line">    // 用户爱好</span><br><span class="line">    enum Hobby &#123;</span><br><span class="line">        music      = 0;  // 音乐</span><br><span class="line">        basketball = 1;  // 篮球</span><br><span class="line">        tour       = 2;  // 旅游</span><br><span class="line">    &#125;</span><br><span class="line">    Hobby user_hobby                  = 10;     // 用户爱好</span><br><span class="line">    </span><br><span class="line">    repeated int32  lucky_numbers     = 11;     // 幸运数字</span><br><span class="line">    map&lt;string, string&gt; user_email    = 12;     // 用户email</span><br><span class="line">    map&lt;string, int32&gt; user_weight    = 13;     // 用户体重</span><br><span class="line">    map&lt;string, PhoneNumber&gt; user_num = 14;     // 测试map</span><br><span class="line">    </span><br><span class="line">    LoginStatus login_status          = 15;     // 登录状态</span><br><span class="line">    </span><br><span class="line">    // 手机类型枚举</span><br><span class="line">    enum PhoneType &#123;</span><br><span class="line">        mobile = 0;   // 移动</span><br><span class="line">        home   = 1;   // 家庭</span><br><span class="line">        work   = 2;   // 办公室</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    // 手机号码类型</span><br><span class="line">    message PhoneNumber &#123;</span><br><span class="line">        string    phone_number   = 1;    // 手机号码</span><br><span class="line">        PhoneType phone_type     = 2;    // 手机号码类型</span><br><span class="line">    </span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    repeated PhoneNumber phones                = 16;    // 手机号码</span><br><span class="line">    google.protobuf.Timestamp last_update_date = 17;    // 最后更新日期</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// 用户登录响应</span><br><span class="line">message UserLoginResponse &#123;</span><br><span class="line">    int64  user_id        =  1;         // 用户编号</span><br><span class="line">    string user_name      =  2;         // 用户名</span><br><span class="line">    string user_pwd       =  3;         // 用户密码</span><br><span class="line">    int32  user_gender    =  5;         // 用户性别</span><br><span class="line">    double user_credits   =  6;         // 用户积分</span><br><span class="line">    bool   is_admin       =  7;         // 是否是管理员</span><br><span class="line">    bytes  auth_code      =  8;         // 授权码</span><br><span class="line">    float  user_balance   =  9;         // 用户余额</span><br><span class="line">    // 用户爱好</span><br><span class="line">    enum Hobby &#123;</span><br><span class="line">        music      = 0;  // 音乐</span><br><span class="line">        basketball = 1;  // 篮球</span><br><span class="line">        tour       = 2;  // 旅游</span><br><span class="line">    &#125;</span><br><span class="line">    Hobby user_hobby       = 10;     // 用户爱好</span><br><span class="line">    // 手机类型</span><br><span class="line">    enum PhoneType &#123;</span><br><span class="line">        mobile = 0;   // 移动</span><br><span class="line">        home   = 1;   // 家庭</span><br><span class="line">        work   = 2;   // 办公室</span><br><span class="line">    &#125;</span><br><span class="line">    // 手机号码类型</span><br><span class="line">    message PhoneNumber &#123;</span><br><span class="line">        string    phone_number   = 1;    // 手机号码</span><br><span class="line">        PhoneType phone_type     = 2;    // 手机号码类型</span><br><span class="line">    </span><br><span class="line">    &#125;</span><br><span class="line">    repeated PhoneNumber phones                = 11;    // 手机号码</span><br><span class="line">    google.protobuf.Timestamp last_update_date = 12;    // 最后更新日期</span><br><span class="line">    map&lt;string, PhoneNumber&gt; user_num          = 13;    // 测试map</span><br><span class="line">    repeated int32  lucky_numbers              = 14;    // 幸运数字</span><br><span class="line">    map&lt;string, string&gt; user_email             = 15;    // 用户email</span><br><span class="line">    map&lt;string, int32&gt; user_weight             = 16;    // 用户体重</span><br><span class="line">    LoginStatus login_status                   = 17;    // 登录状态</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">message TestRequest &#123;</span><br><span class="line">    string   name = 1;</span><br><span class="line">    repeated Extension extensions = 2;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">message TestResponse &#123;</span><br><span class="line">    string msg      = 1;</span><br><span class="line">    string name     = 2;</span><br><span class="line">    repeated Extension extensions = 3;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">message Extension &#123;</span><br><span class="line">    uint64 id = 1;</span><br><span class="line">    google.protobuf.Any data = 2;   //测试官方any类型</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">// user service</span><br><span class="line">service UserService &#123;</span><br><span class="line">    rpc Login(UserLoginRequest)  returns  (UserLoginResponse);</span><br><span class="line">    rpc LoginStreaming(stream UserLoginRequest)  returns  (stream UserLoginResponse);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// test service</span><br><span class="line">service TestService &#123;</span><br><span class="line">    rpc Test(TestRequest)  returns (TestResponse);</span><br><span class="line">    rpc Ping (google.protobuf.Empty) returns (google.protobuf.Empty);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><code>common.proto</code></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">syntax = &quot;proto3&quot;;</span><br><span class="line"></span><br><span class="line">package services;</span><br><span class="line"></span><br><span class="line">//enum LoginStatus &#123;</span><br><span class="line">//  success = 0;    // 登录成功</span><br><span class="line">//  failed  = 1;    // 登录失败</span><br><span class="line">//  error   = 3;    // 错误</span><br><span class="line">//&#125;</span><br></pre></td></tr></table></figure>
+
+<h5 id="根据protobuf文件生成pb文件"><a href="#根据protobuf文件生成pb文件" class="headerlink" title="根据protobuf文件生成pb文件"></a>根据protobuf文件生成pb文件</h5><p><code>generate.sh</code></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">!/bin/bash</span></span><br><span class="line">protoc -I. --go_out=plugins=grpc:../services/pb *.proto</span><br></pre></td></tr></table></figure>
+
+<h5 id="实现接口协议"><a href="#实现接口协议" class="headerlink" title="实现接口协议"></a>实现接口协议</h5><p><code>services/hello.go</code></p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> services</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">    <span class="string">&quot;context&quot;</span></span><br><span class="line">    pb <span class="string">&quot;tests/grpc/services/pb&quot;</span></span><br><span class="line">    <span class="string">&quot;io&quot;</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> HelloService <span class="keyword">struct</span>&#123;&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(h *HelloService)</span> <span class="title">SayHello</span><span class="params">(ctx context.Context, request *pb.HelloRequest)</span> <span class="params">(*pb.HelloReply, error)</span></span> &#123;</span><br><span class="line">	reply := &amp;pb.HelloReply&#123;Message: <span class="string">&quot;hello &quot;</span> + request.GetName()&#125;</span><br><span class="line">	<span class="keyword">return</span> reply, <span class="literal">nil</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(h *HelloService)</span> <span class="title">Streaming</span><span class="params">(stream pb.HelloService_StreamingServer)</span> <span class="title">error</span></span> &#123;</span><br><span class="line">	<span class="keyword">for</span> &#123;</span><br><span class="line">		req, err := stream.Recv()</span><br><span class="line">		<span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">			<span class="keyword">if</span> err == io.EOF &#123;</span><br><span class="line">				<span class="keyword">return</span> <span class="literal">nil</span></span><br><span class="line">			&#125;</span><br><span class="line">			<span class="keyword">return</span> err</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">		reply := &amp;pb.HelloReply&#123;Message: <span class="string">&quot;hello &quot;</span> + req.GetName()&#125;</span><br><span class="line"></span><br><span class="line">		err = stream.Send(reply)</span><br><span class="line">		<span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">			<span class="keyword">return</span> err</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">return</span> <span class="literal">nil</span></span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><code>services/user.go</code></p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> services</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">	<span class="string">&quot;context&quot;</span></span><br><span class="line">	pb <span class="string">&quot;tests/grpc/services/pb&quot;</span></span><br><span class="line">	<span class="string">&quot;io&quot;</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> UserService <span class="keyword">struct</span>&#123;&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(u *UserService)</span> <span class="title">Login</span><span class="params">(ctx context.Context, request *pb.UserLoginRequest)</span> <span class="params">(*pb.UserLoginResponse, error)</span></span> &#123;</span><br><span class="line">	<span class="keyword">var</span> phones = []*pb.UserLoginResponse_PhoneNumber&#123;</span><br><span class="line">		&amp;pb.UserLoginResponse_PhoneNumber&#123;</span><br><span class="line">			PhoneNumber: <span class="string">&quot;返回手机号码:&quot;</span> + request.GetPhones()[<span class="number">0</span>].PhoneNumber,</span><br><span class="line">			PhoneType:   pb.UserLoginResponse_PhoneType(request.GetPhones()[<span class="number">0</span>].PhoneType),</span><br><span class="line">		&#125;,</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">var</span> userNum = <span class="keyword">map</span>[<span class="keyword">string</span>]*pb.UserLoginResponse_PhoneNumber&#123;</span><br><span class="line">		<span class="string">&quot;phone_001&quot;</span>: &amp;pb.UserLoginResponse_PhoneNumber&#123;</span><br><span class="line">			PhoneNumber: <span class="string">&quot;001&quot;</span>,</span><br><span class="line">			PhoneType:   pb.UserLoginResponse_mobile,</span><br><span class="line">		&#125;,</span><br><span class="line">		<span class="string">&quot;phone_002&quot;</span>: &amp;pb.UserLoginResponse_PhoneNumber&#123;</span><br><span class="line">			PhoneNumber: <span class="string">&quot;002&quot;</span>,</span><br><span class="line">			PhoneType:   pb.UserLoginResponse_home,</span><br><span class="line">		&#125;,</span><br><span class="line">		<span class="string">&quot;phone_003&quot;</span>: &amp;pb.UserLoginResponse_PhoneNumber&#123;</span><br><span class="line">			PhoneNumber: <span class="string">&quot;003&quot;</span>,</span><br><span class="line">			PhoneType:   pb.UserLoginResponse_work,</span><br><span class="line">		&#125;,</span><br><span class="line">	&#125;</span><br><span class="line">	reply := &amp;pb.UserLoginResponse&#123;</span><br><span class="line">		UserId:         request.GetUserId(),</span><br><span class="line">		UserName:       <span class="string">&quot;获取用户名称：&quot;</span> + request.GetUserName(),</span><br><span class="line">		UserPwd:        <span class="string">&quot;用户密码12345678900&quot;</span>,</span><br><span class="line">		UserGender:     request.GetUserGender(),</span><br><span class="line">		UserCredits:    request.GetUserCredits(),</span><br><span class="line">		IsAdmin:        request.GetIsAdmin(),</span><br><span class="line">		AuthCode:       request.GetAuthCode(),</span><br><span class="line">		UserBalance:    request.GetUserBalance(),</span><br><span class="line">		UserHobby:      pb.UserLoginResponse_Hobby(request.GetUserHobby()),</span><br><span class="line">		Phones:         phones,</span><br><span class="line">		LastUpdateDate: request.GetLastUpdateDate(),</span><br><span class="line">		UserNum:        userNum,</span><br><span class="line">		LuckyNumbers:   request.GetLuckyNumbers(),</span><br><span class="line">		UserEmail:      request.GetUserEmail(),</span><br><span class="line">		UserWeight:     request.GetUserWeight(),</span><br><span class="line">		LoginStatus:    request.GetLoginStatus(),</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> reply, <span class="literal">nil</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 双向流</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(u *UserService)</span> <span class="title">LoginStreaming</span><span class="params">(stream pb.UserService_LoginStreamingServer)</span> <span class="title">error</span></span> &#123;</span><br><span class="line">	<span class="keyword">for</span> &#123;</span><br><span class="line">		req, err := stream.Recv()</span><br><span class="line">		<span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">			<span class="keyword">if</span> err == io.EOF &#123;</span><br><span class="line">				<span class="keyword">return</span> <span class="literal">nil</span></span><br><span class="line">			&#125;</span><br><span class="line">			<span class="keyword">return</span> err</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">		<span class="keyword">var</span> phones = []*pb.UserLoginResponse_PhoneNumber&#123;</span><br><span class="line">			&amp;pb.UserLoginResponse_PhoneNumber&#123;</span><br><span class="line">				PhoneNumber: <span class="string">&quot;返回手机号码:&quot;</span> + req.GetPhones()[<span class="number">0</span>].PhoneNumber,</span><br><span class="line">				PhoneType:   pb.UserLoginResponse_PhoneType(req.GetPhones()[<span class="number">0</span>].PhoneType),</span><br><span class="line">			&#125;,</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">		<span class="keyword">var</span> userNum = <span class="keyword">map</span>[<span class="keyword">string</span>]*pb.UserLoginResponse_PhoneNumber&#123;</span><br><span class="line">			<span class="string">&quot;phone001&quot;</span>: &amp;pb.UserLoginResponse_PhoneNumber&#123;</span><br><span class="line">				PhoneNumber: <span class="string">&quot;1111111111&quot;</span>,</span><br><span class="line">				PhoneType:   pb.UserLoginResponse_mobile,</span><br><span class="line">			&#125;,</span><br><span class="line">			<span class="string">&quot;phone002&quot;</span>: &amp;pb.UserLoginResponse_PhoneNumber&#123;</span><br><span class="line">				PhoneNumber: <span class="string">&quot;2222222222&quot;</span>,</span><br><span class="line">				PhoneType:   pb.UserLoginResponse_home,</span><br><span class="line">			&#125;,</span><br><span class="line">			<span class="string">&quot;phone003&quot;</span>: &amp;pb.UserLoginResponse_PhoneNumber&#123;</span><br><span class="line">				PhoneNumber: <span class="string">&quot;3333333333&quot;</span>,</span><br><span class="line">				PhoneType:   pb.UserLoginResponse_work,</span><br><span class="line">			&#125;,</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">		reply := &amp;pb.UserLoginResponse&#123;</span><br><span class="line">			UserId:         req.GetUserId(),</span><br><span class="line">			UserName:       <span class="string">&quot;返回用户名称：&quot;</span> + req.GetUserName(),</span><br><span class="line">			UserPwd:        <span class="string">&quot;用户密码111111111111&quot;</span>,</span><br><span class="line">			UserGender:     req.GetUserGender(),</span><br><span class="line">			UserCredits:    req.GetUserCredits(),</span><br><span class="line">			IsAdmin:        req.GetIsAdmin(),</span><br><span class="line">			AuthCode:       req.GetAuthCode(),</span><br><span class="line">			UserBalance:    req.GetUserBalance(),</span><br><span class="line">			UserHobby:      pb.UserLoginResponse_Hobby(req.GetUserHobby()),</span><br><span class="line">			Phones:         phones,</span><br><span class="line">			LastUpdateDate: req.GetLastUpdateDate(),</span><br><span class="line">			UserNum:        userNum,</span><br><span class="line">			LuckyNumbers:   req.GetLuckyNumbers(),</span><br><span class="line">			UserEmail:      req.GetUserEmail(),</span><br><span class="line">			UserWeight:     req.GetUserWeight(),</span><br><span class="line">			LoginStatus:    req.GetLoginStatus(),</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">		err = stream.Send(reply)</span><br><span class="line">		<span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">			<span class="keyword">return</span> err</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">return</span> <span class="literal">nil</span></span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><code>services/test.go</code></p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> services</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">	<span class="string">&quot;context&quot;</span></span><br><span class="line">	pb <span class="string">&quot;tests/grpc/services/pb&quot;</span></span><br><span class="line">	<span class="string">&quot;strconv&quot;</span></span><br><span class="line"></span><br><span class="line">	<span class="string">&quot;github.com/golang/protobuf/ptypes/empty&quot;</span></span><br><span class="line">	anypb <span class="string">&quot;google.golang.org/protobuf/types/known/anypb&quot;</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> TestService <span class="keyword">struct</span>&#123;&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(t *TestService)</span> <span class="title">Test</span><span class="params">(ctx context.Context, req *pb.TestRequest)</span> <span class="params">(*pb.TestResponse, error)</span></span> &#123;</span><br><span class="line">	<span class="keyword">var</span> extension = []*pb.Extension&#123;</span><br><span class="line">		&amp;pb.Extension&#123;</span><br><span class="line">			Id:   req.GetExtensions()[<span class="number">0</span>].Id,</span><br><span class="line">			Data: req.GetExtensions()[<span class="number">0</span>].GetData(),</span><br><span class="line">		&#125;,</span><br><span class="line">		&amp;pb.Extension&#123;</span><br><span class="line">			Id:   <span class="number">100</span>,</span><br><span class="line">			Data: &amp;anypb.Any&#123;TypeUrl: <span class="string">&quot;test any type `type_url`&quot;</span>&#125;,</span><br><span class="line">		&#125;,</span><br><span class="line">	&#125;</span><br><span class="line">	reply := &amp;pb.TestResponse&#123;</span><br><span class="line">		Msg:        <span class="string">&quot;ok 200&quot;</span>,</span><br><span class="line">		Name:       req.GetName() + <span class="string">&quot;:&quot;</span> + strconv.FormatInt(<span class="keyword">int64</span>(req.Extensions[<span class="number">0</span>].Id), <span class="number">10</span>),</span><br><span class="line">		Extensions: extension,</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> reply, <span class="literal">nil</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(t *TestService)</span> <span class="title">Ping</span><span class="params">(ctx context.Context, req *empty.Empty)</span> <span class="params">(*empty.Empty, error)</span></span> &#123;</span><br><span class="line">	<span class="keyword">return</span> &amp;empty.Empty&#123;&#125;, <span class="literal">nil</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h5 id="实现gRPC客户端"><a href="#实现gRPC客户端" class="headerlink" title="实现gRPC客户端"></a>实现gRPC客户端</h5><p><code>client/client.go</code></p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br><span class="line">202</span><br><span class="line">203</span><br><span class="line">204</span><br><span class="line">205</span><br><span class="line">206</span><br><span class="line">207</span><br><span class="line">208</span><br><span class="line">209</span><br><span class="line">210</span><br><span class="line">211</span><br><span class="line">212</span><br><span class="line">213</span><br><span class="line">214</span><br><span class="line">215</span><br><span class="line">216</span><br><span class="line">217</span><br><span class="line">218</span><br><span class="line">219</span><br><span class="line">220</span><br><span class="line">221</span><br><span class="line">222</span><br><span class="line">223</span><br><span class="line">224</span><br><span class="line">225</span><br><span class="line">226</span><br><span class="line">227</span><br><span class="line">228</span><br><span class="line">229</span><br><span class="line">230</span><br><span class="line">231</span><br><span class="line">232</span><br><span class="line">233</span><br><span class="line">234</span><br><span class="line">235</span><br><span class="line">236</span><br><span class="line">237</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">	<span class="string">&quot;context&quot;</span></span><br><span class="line">	<span class="string">&quot;crypto/tls&quot;</span></span><br><span class="line">	<span class="string">&quot;crypto/x509&quot;</span></span><br><span class="line">	<span class="string">&quot;flag&quot;</span></span><br><span class="line">	pb <span class="string">&quot;tests/grpc/services/pb&quot;</span></span><br><span class="line">	<span class="string">&quot;io&quot;</span></span><br><span class="line">	<span class="string">&quot;io/ioutil&quot;</span></span><br><span class="line">	<span class="string">&quot;log&quot;</span></span><br><span class="line">	<span class="string">&quot;time&quot;</span></span><br><span class="line"></span><br><span class="line">	<span class="string">&quot;github.com/golang/protobuf/ptypes/empty&quot;</span></span><br><span class="line">	<span class="string">&quot;github.com/golang/protobuf/ptypes/timestamp&quot;</span></span><br><span class="line">	<span class="string">&quot;google.golang.org/grpc&quot;</span></span><br><span class="line">	<span class="string">&quot;google.golang.org/grpc/credentials&quot;</span></span><br><span class="line">	<span class="string">&quot;google.golang.org/protobuf/types/known/anypb&quot;</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> (</span><br><span class="line">	address = flag.String(<span class="string">&quot;addr&quot;</span>, <span class="string">&quot;localhost:8888&quot;</span>, <span class="string">&quot;addr&quot;</span>)</span><br><span class="line">	name    = flag.String(<span class="string">&quot;name&quot;</span>, <span class="string">&quot;world&quot;</span>, <span class="string">&quot;name&quot;</span>)</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	flag.Parse()</span><br><span class="line"></span><br><span class="line">	cert, err := tls.LoadX509KeyPair(<span class="string">&quot;cert/client.pem&quot;</span>, <span class="string">&quot;cert/client.key&quot;</span>)</span><br><span class="line">	<span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">		log.Fatalf(<span class="string">&quot;load cert files failed,err:%v&quot;</span>, err)</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	certPool := x509.NewCertPool()</span><br><span class="line">	ca, err := ioutil.ReadFile(<span class="string">&quot;cert/ca.pem&quot;</span>)</span><br><span class="line">	<span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">		log.Fatalf(<span class="string">&quot;read ca file failed,err:%v&quot;</span>, err)</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">if</span> ok := certPool.AppendCertsFromPEM(ca); !ok &#123;</span><br><span class="line">		log.Fatal(<span class="string">&quot;failed to append ca certs&quot;</span>)</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	creds := credentials.NewTLS(&amp;tls.Config&#123;</span><br><span class="line">		Certificates: []tls.Certificate&#123;cert&#125;, <span class="comment">// 客户端证书</span></span><br><span class="line">		ServerName:   <span class="string">&quot;localhost&quot;</span>,</span><br><span class="line">		RootCAs:      certPool,</span><br><span class="line">	&#125;)</span><br><span class="line"></span><br><span class="line">	<span class="comment">//conn, err := grpc.Dial(*address, grpc.WithInsecure())</span></span><br><span class="line">	conn, err := grpc.Dial(*address, grpc.WithTransportCredentials(creds))</span><br><span class="line">	<span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">		log.Fatalf(<span class="string">&quot;failed to connect server,err:%v&quot;</span>, err)</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">defer</span> conn.Close()</span><br><span class="line"></span><br><span class="line">	<span class="comment">// hello client</span></span><br><span class="line">	helloClient := pb.NewHelloServiceClient(conn)</span><br><span class="line">	sayHello(helloClient)</span><br><span class="line"></span><br><span class="line">	<span class="comment">// user client</span></span><br><span class="line">	userClient := pb.NewUserServiceClient(conn)</span><br><span class="line">	login(userClient)</span><br><span class="line">	loginStreaming(userClient)</span><br><span class="line"></span><br><span class="line">	<span class="comment">// test client</span></span><br><span class="line">	testClient := pb.NewTestServiceClient(conn)</span><br><span class="line">	test(testClient)</span><br><span class="line">	ping(testClient)</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">sayHello</span><span class="params">(client pb.HelloServiceClient)</span></span> &#123;</span><br><span class="line">	reply, err := client.SayHello(context.Background(), &amp;pb.HelloRequest&#123;Name: *name&#125;)</span><br><span class="line">	<span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">		log.Fatal(err)</span><br><span class="line">	&#125;</span><br><span class="line">	log.Println(reply.GetMessage())</span><br><span class="line"></span><br><span class="line">	stream, err := client.Streaming(context.Background())</span><br><span class="line">	<span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">		log.Fatalf(<span class="string">&quot;failed to call:%v&quot;</span>, err)</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">go</span> <span class="function"><span class="keyword">func</span><span class="params">()</span></span> &#123;</span><br><span class="line">		<span class="keyword">for</span> &#123;</span><br><span class="line">			err := stream.Send(&amp;pb.HelloRequest&#123;Name: *name&#125;)</span><br><span class="line">			<span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">				log.Fatalf(<span class="string">&quot;failed to send,err:%v&quot;</span>, err)</span><br><span class="line">				<span class="keyword">break</span></span><br><span class="line">			&#125;</span><br><span class="line">			time.Sleep(time.Second)</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;()</span><br><span class="line"></span><br><span class="line">	<span class="keyword">for</span> &#123;</span><br><span class="line">		reply, err := stream.Recv()</span><br><span class="line">		<span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">			<span class="keyword">if</span> err == io.EOF &#123;</span><br><span class="line">				<span class="keyword">break</span></span><br><span class="line">			&#125;</span><br><span class="line">			log.Fatalf(<span class="string">&quot;failed to recv,err:%v&quot;</span>, err)</span><br><span class="line">			<span class="keyword">break</span></span><br><span class="line">		&#125;</span><br><span class="line">		log.Println(reply.GetMessage())</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">login</span><span class="params">(client pb.UserServiceClient)</span></span> &#123;</span><br><span class="line">	<span class="keyword">var</span> userEmail = <span class="keyword">map</span>[<span class="keyword">string</span>]<span class="keyword">string</span>&#123;<span class="string">&quot;email&quot;</span>: <span class="string">&quot;test@qq.com&quot;</span>&#125;</span><br><span class="line">	<span class="keyword">var</span> userWeight = <span class="keyword">map</span>[<span class="keyword">string</span>]<span class="keyword">int32</span>&#123;<span class="string">&quot;weight&quot;</span>: <span class="number">170</span>&#125;</span><br><span class="line">	<span class="keyword">var</span> userNum = <span class="keyword">map</span>[<span class="keyword">string</span>]*pb.UserLoginRequest_PhoneNumber&#123;</span><br><span class="line">		<span class="string">&quot;001&quot;</span>: &#123;PhoneNumber: <span class="string">&quot;001&quot;</span>, PhoneType: pb.UserLoginRequest_mobile&#125;,</span><br><span class="line">		<span class="string">&quot;002&quot;</span>: &#123;PhoneNumber: <span class="string">&quot;002&quot;</span>, PhoneType: pb.UserLoginRequest_home&#125;,</span><br><span class="line">		<span class="string">&quot;003&quot;</span>: &#123;PhoneNumber: <span class="string">&quot;003&quot;</span>, PhoneType: pb.UserLoginRequest_work&#125;,</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">var</span> phones = []*pb.UserLoginRequest_PhoneNumber&#123;</span><br><span class="line">		&#123;PhoneNumber: <span class="string">&quot;1111111&quot;</span>, PhoneType: pb.UserLoginRequest_mobile&#125;,</span><br><span class="line">		&#123;PhoneNumber: <span class="string">&quot;2222222&quot;</span>, PhoneType: pb.UserLoginRequest_home&#125;,</span><br><span class="line">		&#123;PhoneNumber: <span class="string">&quot;3333333&quot;</span>, PhoneType: pb.UserLoginRequest_work&#125;,</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">var</span> lastUpdateDate = &amp;timestamp.Timestamp&#123;</span><br><span class="line">		Seconds: time.Now().Unix(),</span><br><span class="line">		Nanos:   <span class="keyword">int32</span>(<span class="number">999999999</span>),</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	request := &amp;pb.UserLoginRequest&#123;</span><br><span class="line">		UserId:         <span class="keyword">int64</span>(<span class="number">100</span>),</span><br><span class="line">		UserName:       <span class="string">&quot;aaaaa&quot;</span>,</span><br><span class="line">		UserNickname:   <span class="string">&quot;用户昵称&quot;</span>,</span><br><span class="line">		UserCountry:    <span class="string">&quot;china&quot;</span>,</span><br><span class="line">		UserGender:     <span class="number">1</span>,</span><br><span class="line">		UserCredits:    <span class="number">111.111</span>,</span><br><span class="line">		IsAdmin:        <span class="literal">true</span>,</span><br><span class="line">		AuthCode:       []<span class="keyword">byte</span>(<span class="string">&quot;abcdefg&quot;</span>),</span><br><span class="line">		UserBalance:    <span class="number">10000000.0000</span>,</span><br><span class="line">		UserHobby:      pb.UserLoginRequest_music,</span><br><span class="line">		LuckyNumbers:   []<span class="keyword">int32</span>&#123;<span class="number">2</span>, <span class="number">4</span>, <span class="number">6</span>, <span class="number">8</span>, <span class="number">10</span>&#125;,</span><br><span class="line">		UserEmail:      userEmail,</span><br><span class="line">		UserWeight:     userWeight,</span><br><span class="line">		UserNum:        userNum,</span><br><span class="line">		LoginStatus:    pb.LoginStatus_success,</span><br><span class="line">		Phones:         phones,</span><br><span class="line">		LastUpdateDate: lastUpdateDate,</span><br><span class="line">	&#125;</span><br><span class="line">	resp, err := client.Login(context.Background(), request)</span><br><span class="line">	<span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">		log.Fatal(err)</span><br><span class="line">	&#125;</span><br><span class="line">	log.Println(resp)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">loginStreaming</span><span class="params">(client pb.UserServiceClient)</span></span> &#123;</span><br><span class="line">	<span class="keyword">var</span> userEmail = <span class="keyword">map</span>[<span class="keyword">string</span>]<span class="keyword">string</span>&#123;<span class="string">&quot;email&quot;</span>: <span class="string">&quot;test123@qq.com&quot;</span>&#125;</span><br><span class="line">	<span class="keyword">var</span> userWeight = <span class="keyword">map</span>[<span class="keyword">string</span>]<span class="keyword">int32</span>&#123;<span class="string">&quot;weight&quot;</span>: <span class="number">180</span>&#125;</span><br><span class="line">	<span class="keyword">var</span> userNum = <span class="keyword">map</span>[<span class="keyword">string</span>]*pb.UserLoginRequest_PhoneNumber&#123;</span><br><span class="line">		<span class="string">&quot;test001&quot;</span>: &#123;PhoneNumber: <span class="string">&quot;001&quot;</span>, PhoneType: pb.UserLoginRequest_mobile&#125;,</span><br><span class="line">		<span class="string">&quot;test002&quot;</span>: &#123;PhoneNumber: <span class="string">&quot;002&quot;</span>, PhoneType: pb.UserLoginRequest_home&#125;,</span><br><span class="line">		<span class="string">&quot;test003&quot;</span>: &#123;PhoneNumber: <span class="string">&quot;003&quot;</span>, PhoneType: pb.UserLoginRequest_work&#125;,</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">var</span> phones = []*pb.UserLoginRequest_PhoneNumber&#123;</span><br><span class="line">		&#123;PhoneNumber: <span class="string">&quot;test-1111111&quot;</span>, PhoneType: pb.UserLoginRequest_mobile&#125;,</span><br><span class="line">		&#123;PhoneNumber: <span class="string">&quot;test-2222222&quot;</span>, PhoneType: pb.UserLoginRequest_home&#125;,</span><br><span class="line">		&#123;PhoneNumber: <span class="string">&quot;test-3333333&quot;</span>, PhoneType: pb.UserLoginRequest_work&#125;,</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">var</span> lastUpdateDate = &amp;timestamp.Timestamp&#123;</span><br><span class="line">		Seconds: time.Now().Unix(),</span><br><span class="line">		Nanos:   <span class="keyword">int32</span>(<span class="number">999999999</span>),</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	login := &amp;pb.UserLoginRequest&#123;</span><br><span class="line">		UserId:         <span class="keyword">int64</span>(<span class="number">101</span>),</span><br><span class="line">		UserName:       <span class="string">&quot;bbbbbbb&quot;</span>,</span><br><span class="line">		UserNickname:   <span class="string">&quot;用户昵称&quot;</span>,</span><br><span class="line">		UserCountry:    <span class="string">&quot;china&quot;</span>,</span><br><span class="line">		UserGender:     <span class="number">2</span>,</span><br><span class="line">		UserCredits:    <span class="number">222.222</span>,</span><br><span class="line">		IsAdmin:        <span class="literal">true</span>,</span><br><span class="line">		AuthCode:       []<span class="keyword">byte</span>(<span class="string">&quot;xxxxx&quot;</span>),</span><br><span class="line">		UserBalance:    <span class="number">20000000.0000</span>,</span><br><span class="line">		UserHobby:      pb.UserLoginRequest_tour,</span><br><span class="line">		LuckyNumbers:   []<span class="keyword">int32</span>&#123;<span class="number">34</span>, <span class="number">55</span>, <span class="number">333</span>, <span class="number">33</span>, <span class="number">199</span>&#125;,</span><br><span class="line">		UserEmail:      userEmail,</span><br><span class="line">		UserWeight:     userWeight,</span><br><span class="line">		UserNum:        userNum,</span><br><span class="line">		LoginStatus:    pb.LoginStatus_error,</span><br><span class="line">		Phones:         phones,</span><br><span class="line">		LastUpdateDate: lastUpdateDate,</span><br><span class="line">	&#125;</span><br><span class="line">	stream, err := client.LoginStreaming(context.Background())</span><br><span class="line">	<span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">		log.Fatalf(<span class="string">&quot;failed to call:%v&quot;</span>, err)</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">go</span> <span class="function"><span class="keyword">func</span><span class="params">()</span></span> &#123;</span><br><span class="line">		<span class="keyword">for</span> &#123;</span><br><span class="line">			err := stream.Send(login)</span><br><span class="line">			<span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">				log.Fatalf(<span class="string">&quot;failed to send,err:%v&quot;</span>, err)</span><br><span class="line">				<span class="keyword">break</span></span><br><span class="line">			&#125;</span><br><span class="line">			time.Sleep(time.Second)</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;()</span><br><span class="line"></span><br><span class="line">	<span class="keyword">for</span> &#123;</span><br><span class="line">		reply, err := stream.Recv()</span><br><span class="line">		<span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">			<span class="keyword">if</span> err == io.EOF &#123;</span><br><span class="line">				<span class="keyword">break</span></span><br><span class="line">			&#125;</span><br><span class="line">			log.Printf(<span class="string">&quot;failed to recv,err:%v&quot;</span>, err)</span><br><span class="line">			<span class="keyword">break</span></span><br><span class="line">		&#125;</span><br><span class="line">		log.Println(reply)</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">test</span><span class="params">(client pb.TestServiceClient)</span></span> &#123;</span><br><span class="line">	req := &amp;pb.TestRequest&#123;</span><br><span class="line">		Name: <span class="string">&quot;test&quot;</span>,</span><br><span class="line">		Extensions: []*pb.Extension&#123;</span><br><span class="line">			&amp;pb.Extension&#123;Id: <span class="number">8888</span>, Data: <span class="literal">nil</span>&#125;,</span><br><span class="line">			&amp;pb.Extension&#123;Id: <span class="number">9999</span>, Data: &amp;anypb.Any&#123;TypeUrl: <span class="string">&quot;type url&quot;</span>&#125;&#125;,</span><br><span class="line">		&#125;,</span><br><span class="line">	&#125;</span><br><span class="line">	reply, err := client.Test(context.Background(), req)</span><br><span class="line">	<span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">		log.Fatal(err)</span><br><span class="line">	&#125;</span><br><span class="line">	log.Println(reply)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">ping</span><span class="params">(client pb.TestServiceClient)</span></span> &#123;</span><br><span class="line">	reply, err := client.Ping(context.Background(), &amp;empty.Empty&#123;&#125;)</span><br><span class="line">	<span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">		log.Fatal(err)</span><br><span class="line">	&#125;</span><br><span class="line">	log.Printf(<span class="string">&quot;%v&quot;</span>, reply)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h5 id="gRPC服务端"><a href="#gRPC服务端" class="headerlink" title="gRPC服务端"></a>gRPC服务端</h5><p><code>server/server.go</code></p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">	<span class="string">&quot;crypto/tls&quot;</span></span><br><span class="line">	<span class="string">&quot;crypto/x509&quot;</span></span><br><span class="line">	<span class="string">&quot;flag&quot;</span></span><br><span class="line">	<span class="string">&quot;tests/grpc/services&quot;</span></span><br><span class="line">	pb <span class="string">&quot;tests/grpc/services/pb&quot;</span></span><br><span class="line">	<span class="string">&quot;io/ioutil&quot;</span></span><br><span class="line">	<span class="string">&quot;log&quot;</span></span><br><span class="line">	<span class="string">&quot;net&quot;</span></span><br><span class="line"></span><br><span class="line">	<span class="string">&quot;google.golang.org/grpc&quot;</span></span><br><span class="line">	<span class="string">&quot;google.golang.org/grpc/credentials&quot;</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> (</span><br><span class="line">	serverPort = flag.String(<span class="string">&quot;port&quot;</span>, <span class="string">&quot;:8888&quot;</span>, <span class="string">&quot;port&quot;</span>)</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	flag.Parse()</span><br><span class="line"></span><br><span class="line">	cert, err := tls.LoadX509KeyPair(<span class="string">&quot;cert/server.pem&quot;</span>, <span class="string">&quot;cert/server.key&quot;</span>)</span><br><span class="line">	<span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">		log.Fatalf(<span class="string">&quot;load cert files failed,err:%v&quot;</span>, err)</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	certPool := x509.NewCertPool()</span><br><span class="line">	ca, err := ioutil.ReadFile(<span class="string">&quot;cert/ca.pem&quot;</span>)</span><br><span class="line">	<span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">		log.Fatalf(<span class="string">&quot;read ca file failed,err:%v&quot;</span>, err)</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">if</span> ok := certPool.AppendCertsFromPEM(ca); !ok &#123;</span><br><span class="line">		log.Fatal(<span class="string">&quot;failed to append certs&quot;</span>)</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	creds := credentials.NewTLS(&amp;tls.Config&#123;</span><br><span class="line">		Certificates: []tls.Certificate&#123;cert&#125;, <span class="comment">// 服务端证书</span></span><br><span class="line">		ClientAuth:   tls.RequireAndVerifyClientCert,</span><br><span class="line">		ClientCAs:    certPool,</span><br><span class="line">	&#125;)</span><br><span class="line"></span><br><span class="line">	server := grpc.NewServer(grpc.Creds(creds))</span><br><span class="line"></span><br><span class="line">	pb.RegisterHelloServiceServer(server, <span class="built_in">new</span>(services.HelloService))</span><br><span class="line">	pb.RegisterUserServiceServer(server, <span class="built_in">new</span>(services.UserService))</span><br><span class="line">	pb.RegisterTestServiceServer(server, <span class="built_in">new</span>(services.TestService))</span><br><span class="line"></span><br><span class="line">	l, err := net.Listen(<span class="string">&quot;tcp&quot;</span>, *serverPort)</span><br><span class="line">	<span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">		log.Fatalf(<span class="string">&quot;failed to listen,err:%v&quot;</span>, err)</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	log.Printf(<span class="string">&quot;server start at [%s]&quot;</span>, *serverPort)</span><br><span class="line"></span><br><span class="line">	err = server.Serve(l)</span><br><span class="line">	<span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">		log.Fatal(err)</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h5 id="gRPC使用实例"><a href="#gRPC使用实例" class="headerlink" title="gRPC使用实例"></a>gRPC使用实例</h5><p>查看目录结构：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cd tests</span><br></pre></td></tr></table></figure>
+
+<p>查看目录层级：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tree -L 1</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">└── grpc</span><br><span class="line">    ├── client</span><br><span class="line">    ├── proto</span><br><span class="line">    ├── server</span><br><span class="line">    └── services</span><br><span class="line"></span><br><span class="line">5 directories, 0 files</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">└── grpc</span><br><span class="line">    ├── client</span><br><span class="line">    │   ├── cert</span><br><span class="line">    │   │   ├── ca.pem</span><br><span class="line">    │   │   ├── client.key</span><br><span class="line">    │   │   └── client.pem</span><br><span class="line">    │   └── client.go</span><br><span class="line">    ├── proto</span><br><span class="line">    │   ├── common.proto</span><br><span class="line">    │   ├── generate.sh</span><br><span class="line">    │   ├── hello.proto</span><br><span class="line">    │   └── user.proto</span><br><span class="line">    ├── server</span><br><span class="line">    │   ├── auth_server.go</span><br><span class="line">    │   ├── cert</span><br><span class="line">    │   │   ├── ca.pem</span><br><span class="line">    │   │   ├── server.key</span><br><span class="line">    │   │   └── server.pem</span><br><span class="line">    │   └── server.go</span><br><span class="line">    └── services</span><br><span class="line">        ├── hello.go</span><br><span class="line">        ├── pb</span><br><span class="line">        │   ├── common.pb.go</span><br><span class="line">        │   ├── hello.pb.go</span><br><span class="line">        │   └── user.pb.go</span><br><span class="line">        ├── test.go</span><br><span class="line">        └── user.go</span><br><span class="line"></span><br><span class="line">8 directories, 19 files</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    <div class="article-footer">
+      <!--<blockquote class="mt-2x">-->
+<!--  <ul class="post-copyright list-unstyled">-->
+<!--    -->
+<!--    <li class="post-copyright-link hidden-xs">-->
+<!--      <strong>本文链接：</strong>-->
+<!--      <a href="https://hqd8080.github.io/2021/11/29/grpc/grpc-demo/" title="gRPC使用实例" target="_blank" rel="external">https://hqd8080.github.io/2021/11/29/grpc/grpc-demo/</a>-->
+<!--    </li>-->
+<!--    -->
+<!--    <li class="post-copyright-license">-->
+<!--      <strong>版权声明： </strong> 本博客所有文章除特别声明外，均采用 <a href="http://creativecommons.org/licenses/by/4.0/deed.zh" target="_blank" rel="external">CC BY 4.0 CN协议</a> 许可协议。转载请注明出处！-->
+<!--    </li>-->
+<!--  </ul>-->
+<!--</blockquote>-->
+
+
+<div class="panel panel-default panel-badger">
+  <div class="panel-body">
+    <figure class="media">
+      <div class="media-left">
+        <a href="https://github.com/hqd8080" target="_blank" class="img-burn thumb-sm visible-lg">
+          <img src="/images/avatar.jpeg" class="img-rounded w-full" alt="">
+        </a>
+      </div>
+      <div class="media-body">
+        <h3 class="media-heading"><a href="https://github.com/hqd8080" target="_blank"><span class="text-dark">@@</span><small class="ml-1x">Backend Developer</small></a></h3>
+        <div>总有一些事情需要坚持！</div>
+      </div>
+    </figure>
+  </div>
+</div>
+
+
+    </div>
+  </article>
+  
+    
+  <section id="comments">
+  	
+      <div id="lv-container" data-id="city" data-uid="MTAyMC81NDE4NC8zMDY1Ng==">
+        <noscript> 为正常使用来必力评论功能请激活JavaScript</noscript>
+      </div>    
+    
+  </section>
+
+
+  
+</div>
+
+  <nav class="bar bar-footer clearfix" data-stick-bottom>
+  <div class="bar-inner">
+  
+  <ul class="pager pull-left">
+    
+    
+    <li class="next">
+      <a href="/2021/11/29/linux/linux-process-start/" title="Linux进程维护shell脚本"><span>下一篇&nbsp;&nbsp;</span><i class="icon icon-angle-right" aria-hidden="true"></i></a>
+    </li>
+    
+    
+  </ul>
+  
+  
+  
+  <div class="bar-right">
+    
+    <div class="share-component" data-sites="weibo,qq,wechat" data-mobile-sites="weibo,qq,qzone"></div>
+    
+  </div>
+  </div>
+</nav>
+  
+
+
+</main>
+
+  <footer class="footer" itemscope itemtype="http://schema.org/WPFooter">
+	
+	
+    <ul class="social-links">
+    	
+        <li><a href="https://github.com/hqd8080" target="_blank" title="Github" data-toggle=tooltip data-placement=top><i class="icon icon-github"></i></a></li>
+        
+        <li><a href="/atom.xml" target="_blank" title="Rss" data-toggle=tooltip data-placement=top><i class="icon icon-rss"></i></a></li>
+        
+    </ul>
+
+    <div class="copyright">
+    	
+        <div class="publishby">
+            <a href="https://github.com/hqd8080" target="_blank"> hqd8080 </a>All Rights Reserved <a href="https://github.com/cofess/hexo-theme-pure" target="_blank"></a>
+        </div>
+    </div>
+</footer>
+  <script src="//cdn.jsdelivr.net/npm/jquery@1.12.4/dist/jquery.min.js"></script>
+<script>
+window.jQuery || document.write('<script src="js/jquery.min.js"><\/script>')
+</script>
+
+<script src="/js/plugin.min.js"></script>
+
+
+<script src="/js/application.js"></script>
+
+
+    <script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: '文章',
+            PAGES: '页面',
+            CATEGORIES: '分类',
+            TAGS: '标签',
+            UNTITLED: '(未命名)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+
+<script src="/js/insight.js"></script>
+
+
+
+
+
+
+   
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+
+   
+    
+<script defer type="text/javascript">
+  (function(d, s) {
+    var j, e = d.getElementsByTagName(s)[0];
+
+    if (typeof LivereTower === 'function') { return; }
+
+    j = d.createElement(s);
+    j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+    j.async = true;
+
+    e.parentNode.insertBefore(j, e);
+  })(document, 'script');
+</script>
+
+
+
+
+
+
+
+
+</body>
+</html>
