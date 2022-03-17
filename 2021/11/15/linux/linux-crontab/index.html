@@ -1,0 +1,559 @@
+<!DOCTYPE html>
+<html lang=zh>
+<head>
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="Cache-Control" content="no-transform" />
+  <meta http-equiv="Cache-Control" content="no-siteapp" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="format-detection" content="telephone=no,email=no,adress=no">
+  <!-- Color theme for statusbar -->
+  <meta name="theme-color" content="#000000" />
+  <!-- 强制页面在当前窗口以独立页面显示,防止别人在框架里调用页面 -->
+  <meta http-equiv="window-target" content="_top" />
+  
+  
+  <title>Linux计划任务Crontab实例详解 | @@</title>
+  <meta name="description" content="crontab是一个用于设置周期性被执行任务的工具，类似于Windows系统中的任务计划程序。 安装并检查crontab服务 检查crond工具是不是安装：crontab -l #任务列表 检查crond服务是否启动：service crond status  #查看crontab状态  安装crontab yum install vixie-cron #安装  chkconfig crond o">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Linux计划任务Crontab实例详解">
+<meta property="og:url" content="https://hqd8080.github.io/2021/11/15/linux/linux-crontab/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="crontab是一个用于设置周期性被执行任务的工具，类似于Windows系统中的任务计划程序。 安装并检查crontab服务 检查crond工具是不是安装：crontab -l #任务列表 检查crond服务是否启动：service crond status  #查看crontab状态  安装crontab yum install vixie-cron #安装  chkconfig crond o">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2021-11-15T01:40:28.000Z">
+<meta property="article:modified_time" content="2021-12-02T09:01:57.337Z">
+<meta property="article:author" content="hqd8080">
+<meta property="article:tag" content="linux">
+<meta name="twitter:card" content="summary">
+  <!-- Canonical links -->
+  <link rel="canonical" href="https://hqd8080.github.io/2021/11/15/linux/linux-crontab/index.html">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png" type="image/x-icon">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+  
+  
+  
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body class="main-center" itemscope itemtype="http://schema.org/WebPage">
+  <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+  <div class="slimContent">
+    <div class="navbar-header">
+      
+      
+      <div class="profile-block text-center">
+        <a id="avatar" href="/">
+          <img class="img-circle" src="/images/avatar.jpeg" width="200" height="200">
+        </a>
+        <h2 id="name" class="hidden-xs hidden-sm">@@</h2>
+        <h3 id="title" class="hidden-xs hidden-sm hidden-md">Backend Developer</h3>
+        <small id="location" class="text-muted hidden-xs hidden-sm"><i class="icon icon-map-marker"></i> Shanghai, China</small>
+      </div>
+      
+      <div class="search" id="search-form-wrap">
+
+    <form class="search-form sidebar-form">
+        <div class="input-group">
+            <input type="text" class="search-form-input form-control" placeholder="搜索" />
+            <span class="input-group-btn">
+                <button type="submit" class="search-form-submit btn btn-flat" onclick="return false;"><i class="icon icon-search"></i></button>
+            </span>
+        </div>
+    </form>
+    <div class="ins-search">
+  <div class="ins-search-mask"></div>
+  <div class="ins-search-container">
+    <div class="ins-input-wrapper">
+      <input type="text" class="ins-search-input" placeholder="想要查找什么..." x-webkit-speech />
+      <button type="button" class="close ins-close ins-selectable" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+    </div>
+    <div class="ins-section-wrapper">
+      <div class="ins-section-container"></div>
+    </div>
+  </div>
+</div>
+
+
+</div>
+      <button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target="#main-navbar" aria-controls="main-navbar" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+    </div>
+    <nav id="main-navbar" class="collapse navbar-collapse" itemscope itemtype="http://schema.org/SiteNavigationElement" role="navigation">
+      <ul class="nav navbar-nav main-nav ">
+        
+        
+        <li class="menu-item menu-item-home">
+          <a href="/.">
+            
+            <i class="icon icon-home-fill"></i>
+            
+            <span class="menu-title">首页</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives">
+            
+            <i class="icon icon-archives-fill"></i>
+            
+            <span class="menu-title">归档</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories">
+            
+            <i class="icon icon-folder"></i>
+            
+            <span class="menu-title">分类</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags">
+            
+            <i class="icon icon-tags"></i>
+            
+            <span class="menu-title">标签</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about">
+            
+            <i class="icon icon-cup-fill"></i>
+            
+            <span class="menu-title">关于</span>
+          </a>
+        </li>
+        
+      </ul>
+      
+	
+    <ul class="social-links">
+    	
+        <li><a href="https://github.com/hqd8080" target="_blank" title="Github" data-toggle=tooltip data-placement=top><i class="icon icon-github"></i></a></li>
+        
+        <li><a href="/atom.xml" target="_blank" title="Rss" data-toggle=tooltip data-placement=top><i class="icon icon-rss"></i></a></li>
+        
+    </ul>
+
+    </nav>
+  </div>
+</header>
+
+  
+    <aside class="sidebar" itemscope itemtype="http://schema.org/WPSideBar">
+  <div class="slimContent">
+    
+      <!--<div class="widget">-->
+<!--    <h3 class="widget-title">公告</h3>-->
+<!--    <div class="widget-body">-->
+<!--        <div id="board">-->
+<!--            <div class="content">-->
+<!--                -->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--</div>-->
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">分类</h3>
+    <div class="widget-body">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Docker/">Docker</a><span class="category-list-count">12</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Git/">Git</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Golang/">Golang</a><span class="category-list-count">15</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Nginx/">Nginx</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Redis/">Redis</a><span class="category-list-count">7</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/gRPC/">gRPC</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%BE%AE%E6%9C%8D%E5%8A%A1/">微服务</a><span class="category-list-count">2</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">标签</h3>
+    <div class="widget-body">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/MySQL/" rel="tag">MySQL</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Nginx/" rel="tag">Nginx</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/docker/" rel="tag">docker</a><span class="tag-list-count">12</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/gRPC/" rel="tag">gRPC</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/" rel="tag">git</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/golang/" rel="tag">golang</a><span class="tag-list-count">17</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux/" rel="tag">linux</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/microservice/" rel="tag">microservice</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/redis/" rel="tag">redis</a><span class="tag-list-count">8</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/webSocket/" rel="tag">webSocket</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%BE%AE%E6%9C%8D%E5%8A%A1/" rel="tag">微服务</a><span class="tag-list-count">2</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">标签云</h3>
+    <div class="widget-body tagcloud">
+      <a href="/tags/MySQL/" style="font-size: 13px;">MySQL</a> <a href="/tags/Nginx/" style="font-size: 13px;">Nginx</a> <a href="/tags/docker/" style="font-size: 13.8px;">docker</a> <a href="/tags/gRPC/" style="font-size: 13.2px;">gRPC</a> <a href="/tags/git/" style="font-size: 13.2px;">git</a> <a href="/tags/golang/" style="font-size: 14px;">golang</a> <a href="/tags/linux/" style="font-size: 13.4px;">linux</a> <a href="/tags/microservice/" style="font-size: 13.2px;">microservice</a> <a href="/tags/redis/" style="font-size: 13.6px;">redis</a> <a href="/tags/webSocket/" style="font-size: 13px;">webSocket</a> <a href="/tags/%E5%BE%AE%E6%9C%8D%E5%8A%A1/" style="font-size: 13.2px;">微服务</a>
+    </div>
+  </div>
+
+    
+  </div>
+</aside>
+
+  
+  
+<main class="main" role="main">
+  <div class="content">
+  <article id="post-linux/linux-crontab" class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
+    
+    <div class="article-header">
+      
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Linux计划任务Crontab实例详解
+    </h1>
+  
+
+      
+      <div class="article-meta">
+        <span class="article-date">
+    <i class="icon icon-calendar-check"></i>
+	<a href="/2021/11/15/linux/linux-crontab/" class="article-date">
+	  <time datetime="2021-11-15T01:40:28.000Z" itemprop="datePublished">2021-11-15</time>
+	</a>
+</span>
+        
+  <span class="article-category">
+    <i class="icon icon-folder"></i>
+    <a class="article-category-link" href="/categories/Linux/">Linux</a>
+  </span>
+
+        
+  <span class="article-tag">
+    <i class="icon icon-tags"></i>
+	<a class="article-tag-link-link" href="/tags/linux/" rel="tag">linux</a>
+  </span>
+
+
+        
+	<span class="article-read hidden-xs">
+	    <i class="icon icon-eye-fill" aria-hidden="true"></i>
+	    <span id="busuanzi_container_page_pv">
+			<span id="busuanzi_value_page_pv">0</span>
+		</span>
+	</span>
+
+
+        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2021/11/15/linux/linux-crontab/#comments" class="article-comment-link">评论</a></span>
+        
+      </div>
+    </div>
+    <div class="article-entry marked-body" itemprop="articleBody">
+      
+        <p>crontab是一个用于设置周期性被执行任务的工具，类似于Windows系统中的任务计划程序。</p>
+<h5 id="安装并检查crontab服务"><a href="#安装并检查crontab服务" class="headerlink" title="安装并检查crontab服务"></a>安装并检查crontab服务</h5><ul>
+<li>检查crond工具是不是安装：<code>crontab -l</code> #任务列表</li>
+<li>检查crond服务是否启动：<code>service crond status</code>  #查看crontab状态</li>
+</ul>
+<h5 id="安装crontab"><a href="#安装crontab" class="headerlink" title="安装crontab"></a>安装crontab</h5><ul>
+<li><p><code>yum install vixie-cron</code> #安装</p>
+</li>
+<li><p><code>chkconfig crond on</code> #设为开机启动，先要安装chkconfig（yum install chkconfig）</p>
+</li>
+<li><p><code>service crond start</code> #启动</p>
+</li>
+<li><p><code>service crond stop</code> #停止</p>
+</li>
+<li><p><code>/etc/rc.d/init.d/crond restart</code> #重启</p>
+</li>
+<li><p><code>/etc/rc.d/init.d/crond reload</code> #不中断服务，重新载入配置</p>
+</li>
+</ul>
+<h5 id="设置任务计划"><a href="#设置任务计划" class="headerlink" title="设置任务计划"></a>设置任务计划</h5><ul>
+<li><p><code>/home/test.sh</code> #要自动执行的脚本程序路径</p>
+</li>
+<li><p><code>chmod +x /home/test.sh</code> #对脚本文件添加执行权限，否则不能执行</p>
+</li>
+<li><p><code>crontab -e</code> #编辑配置文件，在最后一行添加内容</p>
+</li>
+<li><p><code>30 1 * * * root /home/test.sh</code> #表示每天凌晨1点30分执行脚本</p>
+</li>
+<li><p><code>:wq!</code>  #保存退出</p>
+</li>
+</ul>
+<h5 id="crontab文件的格式"><a href="#crontab文件的格式" class="headerlink" title="crontab文件的格式"></a>crontab文件的格式</h5><p><code>minute hour  day  month  weekday  username  command</code></p>
+<ul>
+<li><p><code>minute：分，值为0-59</code></p>
+</li>
+<li><p><code>hour：小时，值为1-23</code></p>
+</li>
+<li><p><code>day：天，值为1-31</code></p>
+</li>
+<li><p><code>month：月，值为1-12</code></p>
+</li>
+<li><p><code>weekday：星期，值为0-6</code>（0代表星期天，1代表星期一，以此类推）</p>
+</li>
+<li><p><code>username：要执行程序的用户，一般设置为root</code></p>
+</li>
+<li><p><code>command：要执行的程序路径（设置为绝对路径）</code>例如：<code>/home/test.sh</code></p>
+</li>
+</ul>
+<h5 id="crontab实例"><a href="#crontab实例" class="headerlink" title="crontab实例"></a>crontab实例</h5><ul>
+<li>每晚的21：30重启apache</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">30 21 * * * service httpd restart</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>每月的1，10，22日的4：45重启apache</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">45 4 1，10，22，* * service httpd restart</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>每月的1到10日的4：45重启apache</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">45 4 1-10 * * service httpd restart</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>每隔两分钟重启apache服务器</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">*/2 * * * * service httpd restart</span><br><span class="line">1-59/2 * * * * service httpd restart</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>晚上11点到早上7点之间，每隔一小时重启apache</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">0 23-7/1 * * * service httpd restart</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>每天18：00至23：00之间每隔30分钟重启apache</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">0，30 18-23 * * * service httpd restart</span><br><span class="line">0-59/30 18-23 * * * service httpd restart</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>每周一到周五的11:41开始，每隔10分钟执行一次</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">41,51 11 * * 1-5 root /home/test.sh</span><br><span class="line"></span><br><span class="line">1-59/10 12-23 * * 1-5 root /home/test.sh</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>在每天的10:31开始，每隔2小时重复一次</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">31 10-23/2 * * * root /home/test.sh</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>每天的10:30开始，每隔2小时重复一次</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">30 10-23/2 * * * root /home/test.sh</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>每周一到周五9:30</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">30 9 * * 1-5 root /home/test.sh</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>每周一到周五8:00，每周一到周五9:00</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">0 8,9 * * 1-5 root /home/test.sh</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>每周一到周五9:25到11:35之间、13:00到15:00之间，每隔10分钟运行一次</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">25,35,45,55 9 * * 1-5 root /home/test.sh</span><br><span class="line"></span><br><span class="line">5-59/10 10 * * 1-5 root /home/test.sh</span><br><span class="line"></span><br><span class="line">5,15,25,35 11 * * 1-5 root /home/test.sh</span><br><span class="line"></span><br><span class="line">*/10 13-15 * * 1-5 root /home/test.sh</span><br></pre></td></tr></table></figure>
+
+
+<ul>
+<li>每周一到周五8:30、8:50、9:30、10:00、10:30、11:00、11:30、13:30、14:00、14:30、5:00分别执行一次</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">30,50 8 * * 1-5 root /home/test.sh</span><br><span class="line"></span><br><span class="line">30 9 * * 1-5 root /home/test.sh</span><br><span class="line"></span><br><span class="line">*/30 10-11 * * 1-5 root /home/test.sh</span><br><span class="line"></span><br><span class="line">30 13 * * 1-5 root /home/test.sh</span><br><span class="line"></span><br><span class="line">0,30 14-15 * * 1-5 root /home/test.sh</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">`crontab -e -u root` #为某个用户添加计划任务</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>crontab中最小只能设置到每分钟执行一个命令，如果想每半分钟执行某个命令，可以通过shell脚本的sleep命令配合crontab即可完成这一功能</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">*/1 * * * * sleep 30s； echo &quot;this is a test!!&quot;</span><br></pre></td></tr></table></figure>
+
+<h5 id="小结"><a href="#小结" class="headerlink" title="小结:"></a>小结:</h5><ul>
+<li>*，表示任何时候都匹配</li>
+<li>可以用&ldquo;A，B，C&rdquo;表示A或者B或者C时执行命令</li>
+<li>可以用&ldquo;A-B&rdquo;表示A到B之间时执行命令</li>
+<li>可以用&ldquo;*/A&rdquo;表示每A分钟（小时等）执行一次命令</li>
+</ul>
+
+      
+    </div>
+    <div class="article-footer">
+      <!--<blockquote class="mt-2x">-->
+<!--  <ul class="post-copyright list-unstyled">-->
+<!--    -->
+<!--    <li class="post-copyright-link hidden-xs">-->
+<!--      <strong>本文链接：</strong>-->
+<!--      <a href="https://hqd8080.github.io/2021/11/15/linux/linux-crontab/" title="Linux计划任务Crontab实例详解" target="_blank" rel="external">https://hqd8080.github.io/2021/11/15/linux/linux-crontab/</a>-->
+<!--    </li>-->
+<!--    -->
+<!--    <li class="post-copyright-license">-->
+<!--      <strong>版权声明： </strong> 本博客所有文章除特别声明外，均采用 <a href="http://creativecommons.org/licenses/by/4.0/deed.zh" target="_blank" rel="external">CC BY 4.0 CN协议</a> 许可协议。转载请注明出处！-->
+<!--    </li>-->
+<!--  </ul>-->
+<!--</blockquote>-->
+
+
+<div class="panel panel-default panel-badger">
+  <div class="panel-body">
+    <figure class="media">
+      <div class="media-left">
+        <a href="https://github.com/hqd8080" target="_blank" class="img-burn thumb-sm visible-lg">
+          <img src="/images/avatar.jpeg" class="img-rounded w-full" alt="">
+        </a>
+      </div>
+      <div class="media-body">
+        <h3 class="media-heading"><a href="https://github.com/hqd8080" target="_blank"><span class="text-dark">@@</span><small class="ml-1x">Backend Developer</small></a></h3>
+        <div>总有一些事情需要坚持！</div>
+      </div>
+    </figure>
+  </div>
+</div>
+
+
+    </div>
+  </article>
+  
+    
+  <section id="comments">
+  	
+      <div id="lv-container" data-id="city" data-uid="MTAyMC81NDE4NC8zMDY1Ng==">
+        <noscript> 为正常使用来必力评论功能请激活JavaScript</noscript>
+      </div>    
+    
+  </section>
+
+
+  
+</div>
+
+  <nav class="bar bar-footer clearfix" data-stick-bottom>
+  <div class="bar-inner">
+  
+  <ul class="pager pull-left">
+    
+    <li class="prev">
+      <a href="/2021/11/16/linux/linux-db-backup/" title="Linux服务器备份数据库shell脚本"><i class="icon icon-angle-left" aria-hidden="true"></i><span>&nbsp;&nbsp;上一篇</span></a>
+    </li>
+    
+    
+    <li class="next">
+      <a href="/2021/11/15/linux/linux-cp/" title="Linux使用cp命令直接覆盖不提示的方法"><span>下一篇&nbsp;&nbsp;</span><i class="icon icon-angle-right" aria-hidden="true"></i></a>
+    </li>
+    
+    
+  </ul>
+  
+  
+  
+  <div class="bar-right">
+    
+    <div class="share-component" data-sites="weibo,qq,wechat" data-mobile-sites="weibo,qq,qzone"></div>
+    
+  </div>
+  </div>
+</nav>
+  
+
+
+</main>
+
+  <footer class="footer" itemscope itemtype="http://schema.org/WPFooter">
+	
+	
+    <ul class="social-links">
+    	
+        <li><a href="https://github.com/hqd8080" target="_blank" title="Github" data-toggle=tooltip data-placement=top><i class="icon icon-github"></i></a></li>
+        
+        <li><a href="/atom.xml" target="_blank" title="Rss" data-toggle=tooltip data-placement=top><i class="icon icon-rss"></i></a></li>
+        
+    </ul>
+
+    <div class="copyright">
+    	
+        <div class="publishby">
+            <a href="https://github.com/hqd8080" target="_blank"> hqd8080 </a>All Rights Reserved <a href="https://github.com/cofess/hexo-theme-pure" target="_blank"></a>
+        </div>
+    </div>
+</footer>
+  <script src="//cdn.jsdelivr.net/npm/jquery@1.12.4/dist/jquery.min.js"></script>
+<script>
+window.jQuery || document.write('<script src="js/jquery.min.js"><\/script>')
+</script>
+
+<script src="/js/plugin.min.js"></script>
+
+
+<script src="/js/application.js"></script>
+
+
+    <script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: '文章',
+            PAGES: '页面',
+            CATEGORIES: '分类',
+            TAGS: '标签',
+            UNTITLED: '(未命名)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+
+<script src="/js/insight.js"></script>
+
+
+
+
+
+
+   
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+
+   
+    
+<script defer type="text/javascript">
+  (function(d, s) {
+    var j, e = d.getElementsByTagName(s)[0];
+
+    if (typeof LivereTower === 'function') { return; }
+
+    j = d.createElement(s);
+    j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+    j.async = true;
+
+    e.parentNode.insertBefore(j, e);
+  })(document, 'script');
+</script>
+
+
+
+
+
+
+
+
+</body>
+</html>
