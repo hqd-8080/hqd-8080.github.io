@@ -361,6 +361,13 @@
 
   
   <url>
+    <loc>https://hqd8080.github.io/tags/git/</loc>
+    <lastmod>2022-03-21</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>https://hqd8080.github.io/tags/docker/</loc>
     <lastmod>2022-03-21</lastmod>
     <changefreq>daily</changefreq>
@@ -375,7 +382,7 @@
   </url>
   
   <url>
-    <loc>https://hqd8080.github.io/tags/git/</loc>
+    <loc>https://hqd8080.github.io/tags/gRPC/</loc>
     <lastmod>2022-03-21</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
@@ -431,13 +438,6 @@
   </url>
   
   <url>
-    <loc>https://hqd8080.github.io/tags/gRPC/</loc>
-    <lastmod>2022-03-21</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
     <loc>https://hqd8080.github.io/tags/Nginx/</loc>
     <lastmod>2022-03-21</lastmod>
     <changefreq>daily</changefreq>
@@ -447,6 +447,13 @@
 
   
   <url>
+    <loc>https://hqd8080.github.io/categories/Git/</loc>
+    <lastmod>2022-03-21</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>https://hqd8080.github.io/categories/Docker/</loc>
     <lastmod>2022-03-21</lastmod>
     <changefreq>daily</changefreq>
@@ -454,7 +461,7 @@
   </url>
   
   <url>
-    <loc>https://hqd8080.github.io/categories/Git/</loc>
+    <loc>https://hqd8080.github.io/categories/gRPC/</loc>
     <lastmod>2022-03-21</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
@@ -476,13 +483,6 @@
   
   <url>
     <loc>https://hqd8080.github.io/categories/%E5%BE%AE%E6%9C%8D%E5%8A%A1/</loc>
-    <lastmod>2022-03-21</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://hqd8080.github.io/categories/gRPC/</loc>
     <lastmod>2022-03-21</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
