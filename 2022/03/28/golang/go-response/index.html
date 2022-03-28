@@ -17,21 +17,21 @@
   <meta http-equiv="window-target" content="_top" />
   
   
-  <title>Go语言使用反射获取结构体中的Tag信息 | @@</title>
-  <meta name="description" content="Go语言使用反射获取结构体中的Tag信息 1234567891011121314151617181920212223242526272829303132package mainimport (	&quot;fmt&quot;	&quot;reflect&quot;)type Cat struct &amp;#123;	Name string	Attr string &#96;json:&quot;attr&amp;quo">
+  <title>Go语言统一接口响应格式 | @@</title>
+  <meta name="description" content="自己封装统一api接口响应格式，使用Gin框架的项目可直接使用1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950515253545556575859606162636465666768697071&#x2F;** * @Author: hqd8080 * @Descriptio">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Go语言使用反射获取结构体中的Tag信息">
-<meta property="og:url" content="https://hqd8080.github.io/2020/05/22/golang/go-reflect/index.html">
+<meta property="og:title" content="Go语言统一接口响应格式">
+<meta property="og:url" content="https://hqd8080.github.io/2022/03/28/golang/go-response/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="Go语言使用反射获取结构体中的Tag信息 1234567891011121314151617181920212223242526272829303132package mainimport (	&quot;fmt&quot;	&quot;reflect&quot;)type Cat struct &amp;#123;	Name string	Attr string &#96;json:&quot;attr&amp;quo">
+<meta property="og:description" content="自己封装统一api接口响应格式，使用Gin框架的项目可直接使用1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950515253545556575859606162636465666768697071&#x2F;** * @Author: hqd8080 * @Descriptio">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2020-05-22T12:40:28.000Z">
-<meta property="article:modified_time" content="2022-02-17T09:21:34.019Z">
+<meta property="article:published_time" content="2022-03-28T02:10:10.000Z">
+<meta property="article:modified_time" content="2022-03-28T03:36:44.431Z">
 <meta property="article:author" content="hqd8080">
 <meta property="article:tag" content="golang">
 <meta name="twitter:card" content="summary">
   <!-- Canonical links -->
-  <link rel="canonical" href="https://hqd8080.github.io/2020/05/22/golang/go-reflect/index.html">
+  <link rel="canonical" href="https://hqd8080.github.io/2022/03/28/golang/go-response/index.html">
   
     <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
   
@@ -215,14 +215,14 @@
   
 <main class="main" role="main">
   <div class="content">
-  <article id="post-golang/go-reflect" class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
+  <article id="post-golang/go-response" class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
     
     <div class="article-header">
       
         
   
     <h1 class="article-title" itemprop="name">
-      Go语言使用反射获取结构体中的Tag信息
+      Go语言统一接口响应格式
     </h1>
   
 
@@ -230,8 +230,8 @@
       <div class="article-meta">
         <span class="article-date">
     <i class="icon icon-calendar-check"></i>
-	<a href="/2020/05/22/golang/go-reflect/" class="article-date">
-	  <time datetime="2020-05-22T12:40:28.000Z" itemprop="datePublished">2020-05-22</time>
+	<a href="/2022/03/28/golang/go-response/" class="article-date">
+	  <time datetime="2022-03-28T02:10:10.000Z" itemprop="datePublished">2022-03-28</time>
 	</a>
 </span>
         
@@ -256,15 +256,14 @@
 	</span>
 
 
-        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2020/05/22/golang/go-reflect/#comments" class="article-comment-link">评论</a></span>
+        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2022/03/28/golang/go-response/#comments" class="article-comment-link">评论</a></span>
         
       </div>
     </div>
     <div class="article-entry marked-body" itemprop="articleBody">
       
-        <p>Go语言使用反射获取结构体中的Tag信息</p>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">	<span class="string">&quot;fmt&quot;</span></span><br><span class="line">	<span class="string">&quot;reflect&quot;</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> Cat <span class="keyword">struct</span> &#123;</span><br><span class="line">	Name <span class="keyword">string</span></span><br><span class="line">	Attr <span class="keyword">string</span> <span class="string">`json:&quot;attr&quot; id:&quot;222&quot;`</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	ins := Cat&#123;</span><br><span class="line">		Name: <span class="string">&quot;BBA&quot;</span>,</span><br><span class="line">		Attr: <span class="string">&quot;BNW&quot;</span>,</span><br><span class="line">	&#125;</span><br><span class="line">	t := reflect.TypeOf(ins)</span><br><span class="line"></span><br><span class="line">	<span class="keyword">for</span> i := <span class="number">0</span>; i &lt; t.NumField(); i++ &#123;</span><br><span class="line">		field := t.Field(i)</span><br><span class="line">		fmt.Println(field.Name)</span><br><span class="line">		fmt.Println(field.Type)</span><br><span class="line">		fmt.Println(field.Tag)</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	fmt.Println(<span class="string">&quot;--------------------------&quot;</span>)</span><br><span class="line">	<span class="keyword">if</span> f, ok := t.FieldByName(<span class="string">&quot;Attr&quot;</span>); ok &#123;</span><br><span class="line">		fmt.Println(f.Tag.Get(<span class="string">&quot;json&quot;</span>))</span><br><span class="line">		fmt.Println(f.Tag.Get(<span class="string">&quot;id&quot;</span>))</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">Name</span><br><span class="line">string</span><br><span class="line"></span><br><span class="line">Attr</span><br><span class="line">string</span><br><span class="line">json:&quot;attr&quot; id:&quot;222&quot;</span><br><span class="line">--------------------------</span><br><span class="line">attr</span><br><span class="line">222</span><br></pre></td></tr></table></figure>
+        <h5 id="自己封装统一api接口响应格式，使用Gin框架的项目可直接使用"><a href="#自己封装统一api接口响应格式，使用Gin框架的项目可直接使用" class="headerlink" title="自己封装统一api接口响应格式，使用Gin框架的项目可直接使用"></a>自己封装统一api接口响应格式，使用Gin框架的项目可直接使用</h5><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * @Author: hqd8080</span></span><br><span class="line"><span class="comment"> * @Description: response,响应处理</span></span><br><span class="line"><span class="comment"> * @Date: 2022-03-28 10:53</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">package</span> resp</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">    <span class="string">&quot;go-vueadmin/pkg/errcode&quot;</span></span><br><span class="line">    <span class="string">&quot;github.com/gin-gonic/gin&quot;</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="comment">// Response 统一格式返回</span></span><br><span class="line"><span class="keyword">type</span> Response <span class="keyword">struct</span> &#123;</span><br><span class="line">    Code <span class="keyword">int</span>         <span class="string">`json:&quot;code&quot;`</span></span><br><span class="line">    Msg  <span class="keyword">string</span>      <span class="string">`json:&quot;msg&quot;`</span></span><br><span class="line">    Data <span class="keyword">interface</span>&#123;&#125; <span class="string">`json:&quot;data&quot;`</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// PaginationParam 分页参数</span></span><br><span class="line"><span class="keyword">type</span> PaginationParam <span class="keyword">struct</span> &#123;</span><br><span class="line">    List      <span class="keyword">interface</span>&#123;&#125; <span class="string">`json:&quot;list&quot;`</span></span><br><span class="line">    Count     <span class="keyword">int64</span>       <span class="string">`json:&quot;count&quot;`</span></span><br><span class="line">    PageIndex <span class="keyword">int</span>         <span class="string">`json:&quot;page_index&quot;`</span></span><br><span class="line">    PageSize  <span class="keyword">int</span>         <span class="string">`json:&quot;page_size&quot;`</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// PageResponse 分页统一格式</span></span><br><span class="line"><span class="keyword">type</span> PageResponse <span class="keyword">struct</span> &#123;</span><br><span class="line">    Code <span class="keyword">int</span>             <span class="string">`json:&quot;code&quot;`</span></span><br><span class="line">    Msg  <span class="keyword">string</span>          <span class="string">`json:&quot;msg&quot;`</span></span><br><span class="line">    Data PaginationParam <span class="string">`json:&quot;data&quot;`</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// Correct 正常返回数据,无分页</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">Correct</span><span class="params">(c *gin.Context, httpCode <span class="keyword">int</span>, errCode <span class="keyword">int</span>, data <span class="keyword">interface</span>&#123;&#125;)</span></span> &#123;</span><br><span class="line">    response := &amp;Response&#123;</span><br><span class="line">        Code: errCode,</span><br><span class="line">        Msg:  errcode.GetErrorMsg(errCode),</span><br><span class="line">        Data: data,</span><br><span class="line">    &#125;</span><br><span class="line">    c.JSON(httpCode, response)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// CorrectOK 正常返回分页数据</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">CorrectOK</span><span class="params">(c *gin.Context, httpCode <span class="keyword">int</span>, errCode <span class="keyword">int</span>, data <span class="keyword">interface</span>&#123;&#125;, count <span class="keyword">int64</span>, pageIndex <span class="keyword">int</span>, pageSize <span class="keyword">int</span>)</span></span> &#123;</span><br><span class="line">    pagination := PaginationParam&#123;</span><br><span class="line">        List:      data,</span><br><span class="line">        Count:     count,</span><br><span class="line">        PageIndex: pageIndex,</span><br><span class="line">        PageSize:  pageSize,</span><br><span class="line">    &#125;</span><br><span class="line">    response := &amp;PageResponse&#123;</span><br><span class="line">        Code: errCode,</span><br><span class="line">        Msg:  errcode.GetErrorMsg(errCode),</span><br><span class="line">        Data: pagination,</span><br><span class="line">    &#125;</span><br><span class="line">    c.JSON(httpCode, response)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// ErrorCode 可以定制返回错误码，错误信息</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">ErrorCode</span><span class="params">(c *gin.Context, httpCode <span class="keyword">int</span>, errCode <span class="keyword">int</span>)</span></span> &#123;</span><br><span class="line">    response := &amp;Response&#123;</span><br><span class="line">        Code: errCode,</span><br><span class="line">        Msg:  errcode.GetErrorMsg(errCode),</span><br><span class="line">        Data: <span class="literal">nil</span>,</span><br><span class="line">    &#125;</span><br><span class="line">    c.JSON(httpCode, response)</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
       
     </div>
     <div class="article-footer">
@@ -273,7 +272,7 @@
 <!--    -->
 <!--    <li class="post-copyright-link hidden-xs">-->
 <!--      <strong>本文链接：</strong>-->
-<!--      <a href="https://hqd8080.github.io/2020/05/22/golang/go-reflect/" title="Go语言使用反射获取结构体中的Tag信息" target="_blank" rel="external">https://hqd8080.github.io/2020/05/22/golang/go-reflect/</a>-->
+<!--      <a href="https://hqd8080.github.io/2022/03/28/golang/go-response/" title="Go语言统一接口响应格式" target="_blank" rel="external">https://hqd8080.github.io/2022/03/28/golang/go-response/</a>-->
 <!--    </li>-->
 <!--    -->
 <!--    <li class="post-copyright-license">-->
@@ -317,13 +316,9 @@
   
   <ul class="pager pull-left">
     
-    <li class="prev">
-      <a href="/2020/05/22/golang/go-gmp/" title="Go语言的G-P-M模型"><i class="icon icon-angle-left" aria-hidden="true"></i><span>&nbsp;&nbsp;上一篇</span></a>
-    </li>
-    
     
     <li class="next">
-      <a href="/2020/05/22/golang/go-work/" title="Go语言启动4个协程处理10个任务的例子"><span>下一篇&nbsp;&nbsp;</span><i class="icon icon-angle-right" aria-hidden="true"></i></a>
+      <a href="/2022/03/21/golang/go-gorm2/" title="GORM 2.0使用教程"><span>下一篇&nbsp;&nbsp;</span><i class="icon icon-angle-right" aria-hidden="true"></i></a>
     </li>
     
     
