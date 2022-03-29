@@ -368,14 +368,14 @@
 
   
   <url>
-    <loc>https://hqd8080.github.io/tags/gRPC/</loc>
+    <loc>https://hqd8080.github.io/tags/docker/</loc>
     <lastmod>2022-03-29</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
-    <loc>https://hqd8080.github.io/tags/golang/</loc>
+    <loc>https://hqd8080.github.io/tags/redis/</loc>
     <lastmod>2022-03-29</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
@@ -383,6 +383,13 @@
   
   <url>
     <loc>https://hqd8080.github.io/tags/git/</loc>
+    <lastmod>2022-03-29</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://hqd8080.github.io/tags/golang/</loc>
     <lastmod>2022-03-29</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
@@ -403,6 +410,13 @@
   </url>
   
   <url>
+    <loc>https://hqd8080.github.io/tags/gRPC/</loc>
+    <lastmod>2022-03-29</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>https://hqd8080.github.io/tags/linux/</loc>
     <lastmod>2022-03-29</lastmod>
     <changefreq>daily</changefreq>
@@ -411,20 +425,6 @@
   
   <url>
     <loc>https://hqd8080.github.io/tags/MySQL/</loc>
-    <lastmod>2022-03-29</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://hqd8080.github.io/tags/docker/</loc>
-    <lastmod>2022-03-29</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://hqd8080.github.io/tags/redis/</loc>
     <lastmod>2022-03-29</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
@@ -454,7 +454,7 @@
 
   
   <url>
-    <loc>https://hqd8080.github.io/categories/gRPC/</loc>
+    <loc>https://hqd8080.github.io/categories/Docker/</loc>
     <lastmod>2022-03-29</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
@@ -475,21 +475,14 @@
   </url>
   
   <url>
+    <loc>https://hqd8080.github.io/categories/gRPC/</loc>
+    <lastmod>2022-03-29</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>https://hqd8080.github.io/categories/Linux/</loc>
-    <lastmod>2022-03-29</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://hqd8080.github.io/categories/Docker/</loc>
-    <lastmod>2022-03-29</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://hqd8080.github.io/categories/Redis/</loc>
     <lastmod>2022-03-29</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
@@ -504,6 +497,13 @@
   
   <url>
     <loc>https://hqd8080.github.io/categories/Nginx/</loc>
+    <lastmod>2022-03-29</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://hqd8080.github.io/categories/Redis/</loc>
     <lastmod>2022-03-29</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
