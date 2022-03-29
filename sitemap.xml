@@ -389,6 +389,13 @@
   </url>
   
   <url>
+    <loc>https://hqd8080.github.io/tags/gRPC/</loc>
+    <lastmod>2022-03-29</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>https://hqd8080.github.io/tags/golang/</loc>
     <lastmod>2022-03-29</lastmod>
     <changefreq>daily</changefreq>
@@ -404,13 +411,6 @@
   
   <url>
     <loc>https://hqd8080.github.io/tags/webSocket/</loc>
-    <lastmod>2022-03-29</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://hqd8080.github.io/tags/gRPC/</loc>
     <lastmod>2022-03-29</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
@@ -468,14 +468,14 @@
   </url>
   
   <url>
-    <loc>https://hqd8080.github.io/categories/Golang/</loc>
+    <loc>https://hqd8080.github.io/categories/gRPC/</loc>
     <lastmod>2022-03-29</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
-    <loc>https://hqd8080.github.io/categories/gRPC/</loc>
+    <loc>https://hqd8080.github.io/categories/Golang/</loc>
     <lastmod>2022-03-29</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
