@@ -17,16 +17,21 @@
   <meta http-equiv="window-target" content="_top" />
   
   
-  <title>归档: 2021 | @@</title>
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Hexo">
-<meta property="og:url" content="https://hqd8080.github.io/archives/2021/index.html">
+  <title>Linux系统SSH隧道与端口转发及内网穿透 | @@</title>
+  <meta name="description" content="Linux系统SSH隧道与端口转发及内网穿透#&#x2F;usr&#x2F;bin&#x2F;sshpass -p dbuser &#x2F;usr&#x2F;bin&#x2F;ssh -N -f -L 3307:10.141.96.240:3306 root@121.41.118.64 -o ExitOnForwardFailure&#x3D;yes 说明：需要安装sshpass 3307:10.141.96.240:3306   &#x2F;&#x2F; 从10.141.96.24">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Linux系统SSH隧道与端口转发及内网穿透">
+<meta property="og:url" content="https://hqd8080.github.io/2021/11/30/linux/linux-ssh/index.html">
 <meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="Linux系统SSH隧道与端口转发及内网穿透#&#x2F;usr&#x2F;bin&#x2F;sshpass -p dbuser &#x2F;usr&#x2F;bin&#x2F;ssh -N -f -L 3307:10.141.96.240:3306 root@121.41.118.64 -o ExitOnForwardFailure&#x3D;yes 说明：需要安装sshpass 3307:10.141.96.240:3306   &#x2F;&#x2F; 从10.141.96.24">
 <meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2021-11-30T07:30:28.000Z">
+<meta property="article:modified_time" content="2022-04-02T02:57:24.464Z">
 <meta property="article:author" content="hqd8080">
+<meta property="article:tag" content="linux">
 <meta name="twitter:card" content="summary">
   <!-- Canonical links -->
-  <link rel="canonical" href="https://hqd8080.github.io/archives/2021/index.html">
+  <link rel="canonical" href="https://hqd8080.github.io/2021/11/30/linux/linux-ssh/index.html">
   
     <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
   
@@ -210,118 +215,144 @@
   
   
 <main class="main" role="main">
-  	<article class="content article article-archives article-type-list" itemscope="">
-	    <header class="article-header">
-	      <h1 itemprop="title">归档: 2021</h1>
-	      <p class="text-muted">共 8 篇文章</p>
-	    </header>
-	    <div class="article-body">
-	      
-  
-  
+  <div class="content">
+  <article id="post-linux/linux-ssh" class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
     
-    
+    <div class="article-header">
       
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Linux系统SSH隧道与端口转发及内网穿透
+    </h1>
+  
+
       
-      <section class="panel panel-default b-no">
-        <div class="panel-heading" role="tab">
-          <h3 class="panel-title">
-            <a data-toggle="collapse" href="#collapse2021" aria-expanded="true">
-              <i class="icon icon-calendar-plus text-active"></i><i class="icon icon-calendar-minus text"></i>
-              2021
-            </a>
-            <!-- <a href="/archives/2021" class="archive-year">2021</a> -->
-          </h3>
-        </div>
-        <div id="collapse2021" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="heading2021">
-        <div class="panel-body">
-          <div class="collection">
+      <div class="article-meta">
+        <span class="article-date">
+    <i class="icon icon-calendar-check"></i>
+	<a href="/2021/11/30/linux/linux-ssh/" class="article-date">
+	  <time datetime="2021-11-30T07:30:28.000Z" itemprop="datePublished">2021-11-30</time>
+	</a>
+</span>
+        
+  <span class="article-category">
+    <i class="icon icon-folder"></i>
+    <a class="article-category-link" href="/categories/Linux/">Linux</a>
+  </span>
+
+        
+  <span class="article-tag">
+    <i class="icon icon-tags"></i>
+	<a class="article-tag-link-link" href="/tags/linux/" rel="tag">linux</a>
+  </span>
+
+
+        
+	<span class="article-read hidden-xs">
+	    <i class="icon icon-eye-fill" aria-hidden="true"></i>
+	    <span id="busuanzi_container_page_pv">
+			<span id="busuanzi_value_page_pv">0</span>
+		</span>
+	</span>
+
+
+        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2021/11/30/linux/linux-ssh/#comments" class="article-comment-link">评论</a></span>
+        
+      </div>
+    </div>
+    <div class="article-entry marked-body" itemprop="articleBody">
+      
+        <h4 id="Linux系统SSH隧道与端口转发及内网穿透"><a href="#Linux系统SSH隧道与端口转发及内网穿透" class="headerlink" title="Linux系统SSH隧道与端口转发及内网穿透"></a>Linux系统SSH隧道与端口转发及内网穿透</h4><p><code>#/usr/bin/sshpass -p dbuser /usr/bin/ssh -N -f -L 3307:10.141.96.240:3306 root@121.41.118.64 -o ExitOnForwardFailure=yes</code></p>
+<h5 id="说明：需要安装sshpass"><a href="#说明：需要安装sshpass" class="headerlink" title="说明：需要安装sshpass"></a>说明：需要安装sshpass</h5><ul>
+<li><code>3307:10.141.96.240:3306</code>   // 从10.141.96.240服务器上的3306数据库转发到3307端口</li>
+<li><code>root@121.41.118.64</code>        // 我本地能直接访问的服务器用户名和服务器ip地址</li>
+<li><code>dbuser</code> //数据库用户名</li>
+</ul>
+<p>然后就能在本地愉快的玩远程不能直接链接的数据库了</p>
+<p><code>mysql -h127.0.0.1 -udbuser -pdbpass -P3307</code></p>
+<h5 id="举个例子"><a href="#举个例子" class="headerlink" title="举个例子"></a>举个例子</h5><p>比如，我们有1台web服务器（内网ip: 192.168.1.101,外网ip:123.123.123.123），1台db服务器（内网ip: 192.168.1.102, 无外网ip)<br>这时，我想从我本地连接到数据库</p>
+<p><code>ssh -N -f -L 3307:192.168.1.102:3306 123.123.123.123</code><br><code>mysql -uuser -ppasswd -h127.0.0.1 -P3307</code></p>
+<p>就可以连接到数据库了</p>
+<p>在需要保持连接的情况下，多次重复建立隧道会出现警告，但是不会退出当前进程，结果就会出现多个ssh进程，加上下面这个参数后，会在创建失败后将当前进程自动退出，<br>适合在crontab中让ssh保持与服务端的连接</p>
+<p><code>-o ExitOnForwardFailure=yes</code></p>
+
+      
+    </div>
+    <div class="article-footer">
+      <!--<blockquote class="mt-2x">-->
+<!--  <ul class="post-copyright list-unstyled">-->
+<!--    -->
+<!--    <li class="post-copyright-link hidden-xs">-->
+<!--      <strong>本文链接：</strong>-->
+<!--      <a href="https://hqd8080.github.io/2021/11/30/linux/linux-ssh/" title="Linux系统SSH隧道与端口转发及内网穿透" target="_blank" rel="external">https://hqd8080.github.io/2021/11/30/linux/linux-ssh/</a>-->
+<!--    </li>-->
+<!--    -->
+<!--    <li class="post-copyright-license">-->
+<!--      <strong>版权声明： </strong> 本博客所有文章除特别声明外，均采用 <a href="http://creativecommons.org/licenses/by/4.0/deed.zh" target="_blank" rel="external">CC BY 4.0 CN协议</a> 许可协议。转载请注明出处！-->
+<!--    </li>-->
+<!--  </ul>-->
+<!--</blockquote>-->
+
+
+<div class="panel panel-default panel-badger">
+  <div class="panel-body">
+    <figure class="media">
+      <div class="media-left">
+        <a href="https://github.com/hqd8080" target="_blank" class="img-burn thumb-sm visible-lg">
+          <img src="/images/avatar.jpeg" class="img-rounded w-full" alt="">
+        </a>
+      </div>
+      <div class="media-body">
+        <h3 class="media-heading"><a href="https://github.com/hqd8080" target="_blank"><span class="text-dark">@@</span><small class="ml-1x">Backend Developer</small></a></h3>
+        <div>总有一些事情需要坚持！</div>
+      </div>
+    </figure>
+  </div>
+</div>
+
+
+    </div>
+  </article>
+  
     
-    
-<a href="/2021/11/30/linux/linux-ssh/" class="collection-item" target="_blank" itemprop="url">
-  <time datetime="2021-11-30T07:30:28.000Z" itemprop="datePublished">2021-11-30</time>
-  <span>&nbsp;&nbsp;&nbsp;</span> Linux系统SSH隧道与端口转发及内网穿透
-</a>
+  <section id="comments">
+  	
+  </section>
 
 
   
-    
-    
-    
-<a href="/2021/11/29/grpc/grpc-demo/" class="collection-item" target="_blank" itemprop="url">
-  <time datetime="2021-11-29T07:30:30.000Z" itemprop="datePublished">2021-11-29</time>
-  <span>&nbsp;&nbsp;&nbsp;</span> gRPC使用实例
-</a>
+</div>
 
-
+  <nav class="bar bar-footer clearfix" data-stick-bottom>
+  <div class="bar-inner">
   
+  <ul class="pager pull-left">
+    
+    <li class="prev">
+      <a href="/2022/02/17/nginx/nginx-ssl/" title="Nginx配置HTTPS详细教程"><i class="icon icon-angle-left" aria-hidden="true"></i><span>&nbsp;&nbsp;上一篇</span></a>
+    </li>
     
     
-    
-<a href="/2021/11/29/linux/linux-process-start/" class="collection-item" target="_blank" itemprop="url">
-  <time datetime="2021-11-29T06:30:28.000Z" itemprop="datePublished">2021-11-29</time>
-  <span>&nbsp;&nbsp;&nbsp;</span> Linux进程维护shell脚本
-</a>
-
-
-  
+    <li class="next">
+      <a href="/2021/11/29/grpc/grpc-demo/" title="gRPC使用实例"><span>下一篇&nbsp;&nbsp;</span><i class="icon icon-angle-right" aria-hidden="true"></i></a>
+    </li>
     
     
-    
-<a href="/2021/11/29/linux/linux-tar-exclude/" class="collection-item" target="_blank" itemprop="url">
-  <time datetime="2021-11-29T06:30:28.000Z" itemprop="datePublished">2021-11-29</time>
-  <span>&nbsp;&nbsp;&nbsp;</span> Linux使用tar压缩时排除某个目录或文件
-</a>
-
-
-  
-    
-    
-    
-<a href="/2021/11/16/linux/linux-db-backup/" class="collection-item" target="_blank" itemprop="url">
-  <time datetime="2021-11-16T09:42:28.000Z" itemprop="datePublished">2021-11-16</time>
-  <span>&nbsp;&nbsp;&nbsp;</span> Linux服务器备份数据库shell脚本
-</a>
-
-
-  
-    
-    
-    
-<a href="/2021/11/15/linux/linux-crontab/" class="collection-item" target="_blank" itemprop="url">
-  <time datetime="2021-11-15T01:40:28.000Z" itemprop="datePublished">2021-11-15</time>
-  <span>&nbsp;&nbsp;&nbsp;</span> Linux计划任务Crontab实例详解
-</a>
-
-
-  
-    
-    
-    
-<a href="/2021/11/15/linux/linux-cp/" class="collection-item" target="_blank" itemprop="url">
-  <time datetime="2021-11-15T01:30:28.000Z" itemprop="datePublished">2021-11-15</time>
-  <span>&nbsp;&nbsp;&nbsp;</span> Linux使用cp命令直接覆盖不提示的方法
-</a>
-
-
-  
-    
-    
-    
-<a href="/2021/03/28/blockchain/blockchain-eth-develop/" class="collection-item" target="_blank" itemprop="url">
-  <time datetime="2021-03-28T02:10:10.000Z" itemprop="datePublished">2021-03-28</time>
-  <span>&nbsp;&nbsp;&nbsp;</span> 以太坊私网开发环境搭建
-</a>
-
-
+  </ul>
   
   
-    </div></div></div></section>
+  
+  <div class="bar-right">
+    
+    <div class="share-component" data-sites="weibo,qq,wechat" data-mobile-sites="weibo,qq,qzone"></div>
+    
+  </div>
+  </div>
+</nav>
   
 
-	    </div>
-  	</article>
-  	 	
+
 </main>
 
   <footer class="footer" itemscope itemtype="http://schema.org/WPFooter">
@@ -377,6 +408,14 @@ window.jQuery || document.write('<script src="js/jquery.min.js"><\/script>')
 
 
 
+   
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+
+   
 
 
   <script src="//cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.3.5/dist/jquery.fancybox.min.js"></script>
