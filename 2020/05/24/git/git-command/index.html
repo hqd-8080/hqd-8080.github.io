@@ -17,21 +17,21 @@
   <meta http-equiv="window-target" content="_top" />
   
   
-  <title>Go语言启动10个goroutine处理任务的例子 | @@</title>
-  <meta name="description" content="Go语言启动10个goroutine处理任务的例子 123456789101112131415161718192021222324252627package mainimport (	&quot;fmt&quot;	&quot;time&quot;)func main() &amp;#123;	channels :&#x3D; make([]chan int, 10)	for i :&#x3D; 0; i &lt; 10;">
+  <title>Git常用命令整理 | @@</title>
+  <meta name="description" content="Git常用命令整理初始化设置123git config --global user.name &quot;&lt;用户名&gt;&quot; #设置用户名git config --global user.email &quot;&lt;电子邮件&gt;&quot; #设置电子邮件  本地操作12345git add [-i] #保存更新，-i为逐个确认git status #检查更新git com">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Go语言启动10个goroutine处理任务的例子">
-<meta property="og:url" content="https://hqd8080.github.io/2020/05/22/golang/go-chan/index.html">
+<meta property="og:title" content="Git常用命令整理">
+<meta property="og:url" content="https://hqd8080.github.io/2020/05/24/git/git-command/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="Go语言启动10个goroutine处理任务的例子 123456789101112131415161718192021222324252627package mainimport (	&quot;fmt&quot;	&quot;time&quot;)func main() &amp;#123;	channels :&#x3D; make([]chan int, 10)	for i :&#x3D; 0; i &lt; 10;">
+<meta property="og:description" content="Git常用命令整理初始化设置123git config --global user.name &quot;&lt;用户名&gt;&quot; #设置用户名git config --global user.email &quot;&lt;电子邮件&gt;&quot; #设置电子邮件  本地操作12345git add [-i] #保存更新，-i为逐个确认git status #检查更新git com">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2020-05-22T12:40:28.000Z">
-<meta property="article:modified_time" content="2022-02-17T09:21:34.013Z">
+<meta property="article:published_time" content="2020-05-24T10:40:28.000Z">
+<meta property="article:modified_time" content="2022-04-02T02:39:50.516Z">
 <meta property="article:author" content="hqd8080">
-<meta property="article:tag" content="golang">
+<meta property="article:tag" content="git">
 <meta name="twitter:card" content="summary">
   <!-- Canonical links -->
-  <link rel="canonical" href="https://hqd8080.github.io/2020/05/22/golang/go-chan/index.html">
+  <link rel="canonical" href="https://hqd8080.github.io/2020/05/24/git/git-command/index.html">
   
     <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
   
@@ -216,14 +216,14 @@
   
 <main class="main" role="main">
   <div class="content">
-  <article id="post-golang/go-chan" class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
+  <article id="post-git/git-command" class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
     
     <div class="article-header">
       
         
   
     <h1 class="article-title" itemprop="name">
-      Go语言启动10个goroutine处理任务的例子
+      Git常用命令整理
     </h1>
   
 
@@ -231,20 +231,20 @@
       <div class="article-meta">
         <span class="article-date">
     <i class="icon icon-calendar-check"></i>
-	<a href="/2020/05/22/golang/go-chan/" class="article-date">
-	  <time datetime="2020-05-22T12:40:28.000Z" itemprop="datePublished">2020-05-22</time>
+	<a href="/2020/05/24/git/git-command/" class="article-date">
+	  <time datetime="2020-05-24T10:40:28.000Z" itemprop="datePublished">2020-05-24</time>
 	</a>
 </span>
         
   <span class="article-category">
     <i class="icon icon-folder"></i>
-    <a class="article-category-link" href="/categories/Golang/">Golang</a>
+    <a class="article-category-link" href="/categories/Git/">Git</a>
   </span>
 
         
   <span class="article-tag">
     <i class="icon icon-tags"></i>
-	<a class="article-tag-link-link" href="/tags/golang/" rel="tag">golang</a>
+	<a class="article-tag-link-link" href="/tags/git/" rel="tag">git</a>
   </span>
 
 
@@ -257,17 +257,33 @@
 	</span>
 
 
-        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2020/05/22/golang/go-chan/#comments" class="article-comment-link">评论</a></span>
+        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2020/05/24/git/git-command/#comments" class="article-comment-link">评论</a></span>
         
       </div>
     </div>
     <div class="article-entry marked-body" itemprop="articleBody">
       
-        <p>Go语言启动10个goroutine处理任务的例子</p>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">	<span class="string">&quot;fmt&quot;</span></span><br><span class="line">	<span class="string">&quot;time&quot;</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	channels := <span class="built_in">make</span>([]<span class="keyword">chan</span> <span class="keyword">int</span>, <span class="number">10</span>)</span><br><span class="line"></span><br><span class="line">	<span class="keyword">for</span> i := <span class="number">0</span>; i &lt; <span class="number">10</span>; i++ &#123;</span><br><span class="line">		channels[i] = <span class="built_in">make</span>(<span class="keyword">chan</span> <span class="keyword">int</span>)</span><br><span class="line">		<span class="keyword">go</span> process(channels[i])</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">for</span> i, ch := <span class="keyword">range</span> channels &#123;</span><br><span class="line">		&lt;-ch</span><br><span class="line">		fmt.Println(<span class="string">&quot;routine:&quot;</span>, i, <span class="string">&quot;quit&quot;</span>)</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">process</span><span class="params">(ch <span class="keyword">chan</span> <span class="keyword">int</span>)</span></span> &#123;</span><br><span class="line">	<span class="comment">// 模拟处理任务</span></span><br><span class="line">	time.Sleep(time.Second)</span><br><span class="line">	ch &lt;- <span class="number">1</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+        <h4 id="Git常用命令整理"><a href="#Git常用命令整理" class="headerlink" title="Git常用命令整理"></a>Git常用命令整理</h4><h5 id="初始化设置"><a href="#初始化设置" class="headerlink" title="初始化设置"></a>初始化设置</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git config --global user.name &quot;&lt;用户名&gt;&quot; #设置用户名</span><br><span class="line"></span><br><span class="line">git config --global user.email &quot;&lt;电子邮件&gt;&quot; #设置电子邮件</span><br></pre></td></tr></table></figure>
 
-<p>输出</p>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">routine: <span class="number">0</span> quit</span><br><span class="line">routine: <span class="number">1</span> quit</span><br><span class="line">routine: <span class="number">2</span> quit</span><br><span class="line">routine: <span class="number">3</span> quit</span><br><span class="line">routine: <span class="number">4</span> quit</span><br><span class="line">routine: <span class="number">5</span> quit</span><br><span class="line">routine: <span class="number">6</span> quit</span><br><span class="line">routine: <span class="number">7</span> quit</span><br><span class="line">routine: <span class="number">8</span> quit</span><br><span class="line">routine: <span class="number">9</span> quit</span><br></pre></td></tr></table></figure>
+<h5 id="本地操作"><a href="#本地操作" class="headerlink" title="本地操作"></a>本地操作</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">git add [-i] #保存更新，-i为逐个确认</span><br><span class="line"></span><br><span class="line">git status #检查更新</span><br><span class="line"></span><br><span class="line">git commit [-a] -m &quot;&lt;更新说明&gt;&quot; #提交更新，-a为(all)包含内容修改和增删，-m为说明信息，也可以使用 -am</span><br></pre></td></tr></table></figure>
+
+<h5 id="远端操作"><a href="#远端操作" class="headerlink" title="远端操作"></a>远端操作</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">git clone #克隆项目到本地</span><br><span class="line"></span><br><span class="line">git fetch #远端抓取</span><br><span class="line"></span><br><span class="line">git merge #与本地当前分支合并</span><br><span class="line"></span><br><span class="line">git pull [&lt;远端别名&gt;] [&lt;远端branch&gt;] #抓取并合并,相当于第2、3步</span><br><span class="line"></span><br><span class="line">git push [-f] [&lt;远端别名&gt;] [&lt;远端branch&gt;] #推送到远端，-f为强制覆盖</span><br><span class="line"></span><br><span class="line">git remote add &lt;别名&gt; #设置远端别名</span><br><span class="line"></span><br><span class="line">git remote [-v] #列出远端，-v为详细信息</span><br><span class="line"></span><br><span class="line">git remote show &lt;远端别名&gt; #查看远端信息</span><br><span class="line"></span><br><span class="line">git remote rename &lt;远端别名&gt; &lt;新远端别名&gt; #重命名远端</span><br><span class="line"></span><br><span class="line">git remote rm &lt;远端别名&gt; #删除远端</span><br><span class="line"></span><br><span class="line">git remote update [&lt;远端别名&gt;] #更新分支列表</span><br></pre></td></tr></table></figure>
+
+<h5 id="分支相关"><a href="#分支相关" class="headerlink" title="分支相关"></a>分支相关</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">git branch [-r] [-a] #列出分支，-r远端 ,-a全部</span><br><span class="line"></span><br><span class="line">git branch &lt;分支名&gt; #新建分支</span><br><span class="line"></span><br><span class="line">git branch -b &lt;分支名&gt; #新建并切换分支</span><br><span class="line"></span><br><span class="line">git branch -d &lt;分支名&gt; #删除分支</span><br><span class="line"></span><br><span class="line">git checkout &lt;分支名&gt; #切换到分支</span><br><span class="line"></span><br><span class="line">git checkout -b &lt;本地branch&gt; [-t &lt;远端别名&gt;/&lt;远端分支&gt;] #-b新建本地分支并切换到分支, -t绑定远端分支</span><br><span class="line"></span><br><span class="line">git merge &lt;分支名&gt; #合并某分支到当前分支</span><br></pre></td></tr></table></figure>
+
+<h5 id="Git使用例子"><a href="#Git使用例子" class="headerlink" title="Git使用例子"></a>Git使用例子</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">workspace:本地的工作目录（记作A）</span><br><span class="line">index:缓存区域，临时保存本地改动（记作B）</span><br><span class="line">local repository:本地仓库，只想最后一次提交HEAD（记作C）</span><br><span class="line">remote repository:远程仓库（记作D）</span><br></pre></td></tr></table></figure>
+
+<h5 id="初始化"><a href="#初始化" class="headerlink" title="初始化"></a>初始化</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">git init       #项目初始化</span><br><span class="line"></span><br><span class="line">git clone /path/to/repository   #检出，可重命名</span><br><span class="line"></span><br><span class="line">git config --global user.email &quot;you@163.com&quot;   #配置email</span><br><span class="line"></span><br><span class="line">git config --global user.name &quot;hqd8080&quot;       #配置用户名</span><br></pre></td></tr></table></figure>
+
+<h5 id="操作"><a href="#操作" class="headerlink" title="操作"></a>操作</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">git add                            # 文件添加，A → B</span><br><span class="line"></span><br><span class="line">git add .                          # 所有文件添加，A → B</span><br><span class="line"></span><br><span class="line">git commit -m &quot;代码提交信息&quot;        # 文件提交，B → C</span><br><span class="line"></span><br><span class="line">git commit --amend                # 与上次commit合并, *B → C</span><br><span class="line"></span><br><span class="line">git push origin master            # 推送至master分支, C → D</span><br><span class="line"></span><br><span class="line">git pull                          # 更新本地仓库至最新改动， D → A</span><br><span class="line"></span><br><span class="line">git fetch                         # 抓取远程仓库更新， D → C</span><br><span class="line">git log                           # 查看提交记录,git log -5</span><br><span class="line"></span><br><span class="line">git status                        # 查看修改状态</span><br><span class="line"></span><br><span class="line">git diff                         # 查看详细修改内容</span><br><span class="line"></span><br><span class="line">git show                         # 显示某次提交的内容</span><br></pre></td></tr></table></figure>
+
+<h5 id="撤销操作"><a href="#撤销操作" class="headerlink" title="撤销操作"></a>撤销操作</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">git reset                       # 某个文件索引会回滚到最后一次提交， C → B</span><br><span class="line"></span><br><span class="line">git reset                       # 索引会回滚到最后一次提交， C → B</span><br><span class="line"></span><br><span class="line">git reset --hard                # 索引会回滚到最后一次提交， C → B → A</span><br><span class="line"></span><br><span class="line">git checkout                    # 从index复制到workspace， B → A</span><br><span class="line"></span><br><span class="line">git checkout -- files           # 文件从index复制到workspace， B → A</span><br><span class="line"></span><br><span class="line">git checkout HEAD -- files      # 文件从local repository复制到workspace， C → A</span><br></pre></td></tr></table></figure>
+
+<h5 id="分支相关-1"><a href="#分支相关-1" class="headerlink" title="分支相关"></a>分支相关</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">git checkout -b branch_name        # 创建名叫“branch_name”的分支，并切换过去</span><br><span class="line"></span><br><span class="line">git checkout master                # 切换回主分支</span><br><span class="line"></span><br><span class="line">git branch -d branch_name          # 删除名叫“branch_name”的分支</span><br><span class="line"></span><br><span class="line">git push origin branch_name        # 推送分支到远端仓库</span><br><span class="line"></span><br><span class="line">git merge branch_name              # 合并分支branch_name到当前分支(如master)</span><br><span class="line"></span><br><span class="line">git rebase                         # 衍合，线性化的自动， D → A</span><br></pre></td></tr></table></figure>
+
+<h5 id="冲突处理"><a href="#冲突处理" class="headerlink" title="冲突处理"></a>冲突处理</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">git diff         # 对比workspace与index</span><br><span class="line"></span><br><span class="line">git diff HEAD    # 对于workspace与最后一次commit</span><br><span class="line"></span><br><span class="line">git diff         # 对比差异</span><br><span class="line"></span><br><span class="line">git add          # 修改完冲突，需要add以标记合并成功</span><br></pre></td></tr></table></figure>
+
+<h5 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">gitk                          # 开灯图形化git</span><br><span class="line"></span><br><span class="line">git config color.ui true      # 彩色的 git 输出</span><br><span class="line"></span><br><span class="line">git config format.pretty oneline # 显示历史记录时，每个提交的信息只显示一行</span><br><span class="line"></span><br><span class="line">git add -i  # 交互式添加文件到暂存区</span><br></pre></td></tr></table></figure>
       
     </div>
     <div class="article-footer">
@@ -276,7 +292,7 @@
 <!--    -->
 <!--    <li class="post-copyright-link hidden-xs">-->
 <!--      <strong>本文链接：</strong>-->
-<!--      <a href="https://hqd8080.github.io/2020/05/22/golang/go-chan/" title="Go语言启动10个goroutine处理任务的例子" target="_blank" rel="external">https://hqd8080.github.io/2020/05/22/golang/go-chan/</a>-->
+<!--      <a href="https://hqd8080.github.io/2020/05/24/git/git-command/" title="Git常用命令整理" target="_blank" rel="external">https://hqd8080.github.io/2020/05/24/git/git-command/</a>-->
 <!--    </li>-->
 <!--    -->
 <!--    <li class="post-copyright-license">-->
@@ -321,12 +337,12 @@
   <ul class="pager pull-left">
     
     <li class="prev">
-      <a href="/2020/05/22/golang/go-data-type-convert/" title="Go语言字符串和数据类型转换总结"><i class="icon icon-angle-left" aria-hidden="true"></i><span>&nbsp;&nbsp;上一篇</span></a>
+      <a href="/2020/05/26/docker/docker-ssh/" title="Docker镜像SSH服务"><i class="icon icon-angle-left" aria-hidden="true"></i><span>&nbsp;&nbsp;上一篇</span></a>
     </li>
     
     
     <li class="next">
-      <a href="/2020/05/22/golang/go-gmp/" title="Go语言的G-P-M模型"><span>下一篇&nbsp;&nbsp;</span><i class="icon icon-angle-right" aria-hidden="true"></i></a>
+      <a href="/2020/05/24/docker/docker-summary/" title="Docker常用命令说明（总结）"><span>下一篇&nbsp;&nbsp;</span><i class="icon icon-angle-right" aria-hidden="true"></i></a>
     </li>
     
     
