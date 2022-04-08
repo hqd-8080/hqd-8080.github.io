@@ -424,20 +424,6 @@
   </url>
   
   <url>
-    <loc>https://hqd8080.github.io/tags/gRPC/</loc>
-    <lastmod>2022-04-08</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://hqd8080.github.io/tags/golang/</loc>
-    <lastmod>2022-04-08</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
     <loc>https://hqd8080.github.io/tags/git/</loc>
     <lastmod>2022-04-08</lastmod>
     <changefreq>daily</changefreq>
@@ -445,14 +431,7 @@
   </url>
   
   <url>
-    <loc>https://hqd8080.github.io/tags/linux/</loc>
-    <lastmod>2022-04-08</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://hqd8080.github.io/tags/MySQL/</loc>
+    <loc>https://hqd8080.github.io/tags/golang/</loc>
     <lastmod>2022-04-08</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
@@ -487,6 +466,27 @@
   </url>
   
   <url>
+    <loc>https://hqd8080.github.io/tags/gRPC/</loc>
+    <lastmod>2022-04-08</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://hqd8080.github.io/tags/linux/</loc>
+    <lastmod>2022-04-08</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://hqd8080.github.io/tags/MySQL/</loc>
+    <lastmod>2022-04-08</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>https://hqd8080.github.io/tags/Nginx/</loc>
     <lastmod>2022-04-08</lastmod>
     <changefreq>daily</changefreq>
@@ -510,21 +510,7 @@
   </url>
   
   <url>
-    <loc>https://hqd8080.github.io/categories/gRPC/</loc>
-    <lastmod>2022-04-08</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
     <loc>https://hqd8080.github.io/categories/Git/</loc>
-    <lastmod>2022-04-08</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://hqd8080.github.io/categories/Linux/</loc>
     <lastmod>2022-04-08</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
@@ -539,6 +525,20 @@
   
   <url>
     <loc>https://hqd8080.github.io/categories/Microservice/</loc>
+    <lastmod>2022-04-08</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://hqd8080.github.io/categories/gRPC/</loc>
+    <lastmod>2022-04-08</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://hqd8080.github.io/categories/Linux/</loc>
     <lastmod>2022-04-08</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
