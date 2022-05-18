@@ -17,16 +17,21 @@
   <meta http-equiv="window-target" content="_top" />
   
   
-  <title>分类: Golang | @@</title>
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Hexo">
-<meta property="og:url" content="https://hqd8080.github.io/categories/Golang/page/2/index.html">
+  <title>MySQL5.7版本sql_mode=only_full_group_by问题解决 | @@</title>
+  <meta name="description" content="MySQL5.7版本sql_mode&#x3D;only_full_group_by问题 MySQL5.7.x版本，默认是开启了only_full_group_by模式的，但开启这个模式后，原先的group by语句就报错，然后又把它移除了 一旦开启only_full_group_by，感觉group by将变成和distinct一样，只能获取受到其影响的字段信息，无法和其他未受其影响的字段共存，这样gro">
+<meta property="og:type" content="article">
+<meta property="og:title" content="MySQL5.7版本sql_mode&#x3D;only_full_group_by问题解决">
+<meta property="og:url" content="https://hqd8080.github.io/2021/03/28/MySQL/mysql-only-full-group-by/index.html">
 <meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="MySQL5.7版本sql_mode&#x3D;only_full_group_by问题 MySQL5.7.x版本，默认是开启了only_full_group_by模式的，但开启这个模式后，原先的group by语句就报错，然后又把它移除了 一旦开启only_full_group_by，感觉group by将变成和distinct一样，只能获取受到其影响的字段信息，无法和其他未受其影响的字段共存，这样gro">
 <meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2021-03-28T02:10:10.000Z">
+<meta property="article:modified_time" content="2022-05-18T02:43:18.215Z">
 <meta property="article:author" content="hqd8080">
+<meta property="article:tag" content="MySQL">
 <meta name="twitter:card" content="summary">
   <!-- Canonical links -->
-  <link rel="canonical" href="https://hqd8080.github.io/categories/Golang/page/2/index.html">
+  <link rel="canonical" href="https://hqd8080.github.io/2021/03/28/MySQL/mysql-only-full-group-by/index.html">
   
     <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
   
@@ -208,143 +213,168 @@
 </aside>
 
   
-  <main class="main" role="main">
-  <article class="content article article-categories article-type-list" itemscope="">
-    <header class="article-header">
-      <h1 itemprop="name" class="hidden-xs">分类: Golang</h1>
-      <p class="hidden-xs">共 7 篇文章</p>
-      <nav role="navigation" id="nav-main" class="okayNav">
-        <ul>
-          <li><a href="/categories">All</a></li>
-          
-          <li><a href="/categories/区块链/">区块链</a></li>
-          
-          <li><a href="/categories/MySQL/">MySQL</a></li>
-          
-          <li><a href="/categories/Docker/">Docker</a></li>
-          
-          <li><a href="/categories/Git/">Git</a></li>
-          
-          <li><a href="/categories/Golang/">Golang</a></li>
-          
-          <li><a href="/categories/gRPC/">gRPC</a></li>
-          
-          <li><a href="/categories/Linux/">Linux</a></li>
-          
-          <li><a href="/categories/微服务/">微服务</a></li>
-          
-          <li><a href="/categories/Redis/">Redis</a></li>
-          
-          <li><a href="/categories/Nginx/">Nginx</a></li>
-          
-        </ul>
-      </nav>
-    </header>
-    <!-- /header -->
-    <div class="article-body">
-      <div class="panel panel-default b-no">
-    <div class="panel-heading" role="tab">
-        <h4 class="panel-title">
-            <a data-toggle="collapse" href="#collapseGolang" aria-expanded="true">
-              <i class="icon icon-folder text-active"></i><i class="icon icon-folder-open text"></i>
-              Golang
-            </a>
-            <small class="text-muted">(Total 7 articles)</small>
-        </h4>
+  
+<main class="main" role="main">
+  <div class="content">
+  <article id="post-MySQL/mysql-only-full-group-by" class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
+    
+    <div class="article-header">
+      
+        
+  
+    <h1 class="article-title" itemprop="name">
+      MySQL5.7版本sql_mode=only_full_group_by问题解决
+    </h1>
+  
+
+      
+      <div class="article-meta">
+        <span class="article-date">
+    <i class="icon icon-calendar-check"></i>
+	<a href="/2021/03/28/MySQL/mysql-only-full-group-by/" class="article-date">
+	  <time datetime="2021-03-28T02:10:10.000Z" itemprop="datePublished">2021-03-28</time>
+	</a>
+</span>
+        
+  <span class="article-category">
+    <i class="icon icon-folder"></i>
+    <a class="article-category-link" href="/categories/MySQL/">MySQL</a>
+  </span>
+
+        
+  <span class="article-tag">
+    <i class="icon icon-tags"></i>
+	<a class="article-tag-link-link" href="/tags/MySQL/" rel="tag">MySQL</a>
+  </span>
+
+
+        
+	<span class="article-read hidden-xs">
+	    <i class="icon icon-eye-fill" aria-hidden="true"></i>
+	    <span id="busuanzi_container_page_pv">
+			<span id="busuanzi_value_page_pv">0</span>
+		</span>
+	</span>
+
+
+        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2021/03/28/MySQL/mysql-only-full-group-by/#comments" class="article-comment-link">评论</a></span>
+        
+      </div>
     </div>
-    <div id="collapseGolang" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingGolang">
-        <div class="panel-body">
-            <div class="collection">
-              
-                
-<a href="/2020/05/22/golang/go-work/" class="collection-item" target="_blank" itemprop="url">
-  <time datetime="2020-05-22T12:40:28.000Z" itemprop="datePublished">2020-05-22</time>
-  <span>&nbsp;&nbsp;&nbsp;</span> Go语言启动4个协程处理10个任务的例子
-</a>
+    <div class="article-entry marked-body" itemprop="articleBody">
+      
+        <p>MySQL5.7版本sql_mode=only_full_group_by问题</p>
+<p>MySQL5.7.x版本，默认是开启了<code>only_full_group_by</code>模式的，但开启这个模式后，原先的<code>group by</code>语句就报错，然后又把它移除了 一旦开启<code>only_full_group_by</code>，感觉<code>group by</code>将变成和<code>distinct</code>一样，只能获取受到其影响的字段信息，无法和其他未受其影响的字段共存，这样<code>group by</code>的功能将变得十分狭窄了</p>
+<p>only_full_group_by 模式开启比较好</p>
+<p>因为在 mysql 中有一个函数：<code>any_value(field)</code> 允许，非分组字段的出现（和关闭<code>only_full_group_by</code>模式有相同效果）</p>
+<p>具体出错提示：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[Err] 1055 - Expression #1 of ORDER BY clause is not in GROUP BY clause and contains nonaggregated column &#x27;information_schema.PROFILING.SEQ&#x27; which is not functionally dependent on columns in GROUP BY clause; this is incompatible with sql_mode=only_full_group_by</span><br></pre></td></tr></table></figure>
+
+<p>1、查看sql_mode</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select @@global.sql_mode;</span><br></pre></td></tr></table></figure>
 
 
-              
-                
-<a href="/2020/05/14/golang/go-simplejson/" class="collection-item" target="_blank" itemprop="url">
-  <time datetime="2020-05-14T13:03:20.000Z" itemprop="datePublished">2020-05-14</time>
-  <span>&nbsp;&nbsp;&nbsp;</span> Go语言解析复杂格式json数据（simplejson包）
-</a>
+<p>查询出来的值为：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION;</span><br></pre></td></tr></table></figure>
 
+<p>2、去掉ONLY_FULL_GROUP_BY，重新设置值</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">set @@global.sql_mode =&#x27;STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION&#x27;;</span><br></pre></td></tr></table></figure>
 
-              
-                
-<a href="/2020/05/14/golang/go-struct-to-map/" class="collection-item" target="_blank" itemprop="url">
-  <time datetime="2020-05-14T12:59:30.000Z" itemprop="datePublished">2020-05-14</time>
-  <span>&nbsp;&nbsp;&nbsp;</span> Go语言结构体转字典实例
-</a>
+<p>3、上面是改变了全局sql_mode，对于新建的数据库有效。对于已存在的数据库，则需要在对应的数据下执行：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">set sql_mode =&#x27;STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION&#x27;;</span><br></pre></td></tr></table></figure>
 
+<p>解决办法大致有两种：</p>
+<p>1：在sql查询语句中不需要group by的字段上使用any_value()函数</p>
+<p>这种对于已经开发了不少功能的项目不太合适，毕竟要把原来的sql都给修改一遍</p>
+<p>2：修改my.cnf（windows下是my.ini）配置文件，删掉only_full_group_by这一项</p>
+<p>若我们项目的mysql安装在ubuntu上面，找到这个文件打开一看，里面并没有sql_mode这一配置项，想删都没得删。</p>
+<p>当然，还有别的办法，打开mysql命令行，执行命令</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select @@sql_mode;</span><br></pre></td></tr></table></figure>
 
-              
-                
-<a href="/2020/05/14/golang/go-runecountInstring/" class="collection-item" target="_blank" itemprop="url">
-  <time datetime="2020-05-14T12:56:28.000Z" itemprop="datePublished">2020-05-14</time>
-  <span>&nbsp;&nbsp;&nbsp;</span> Go语言计算字符串长度（包含汉字）
-</a>
+<p>这样就可以查出sql_mode的值，复制这个值，在my.cnf中添加配置项（把查询到的值删掉only_full_group_by这个选项，其他的都复制过去）</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sql_mode=STRICT_TRANS_TABLES,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION;</span><br></pre></td></tr></table></figure>
 
+<p>如果<code>[mysqld]</code>这行被注释掉的话记得要打开注释，然后重重启mysql服务</p>
+<p>注：使用命令</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">set sql_mode=STRICT_TRANS_TABLES,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION</span><br></pre></td></tr></table></figure>
+<p>这样可以修改一个会话中的配置项，在其他会话中是不生效的</p>
 
-              
-                
-<a href="/2020/05/14/golang/go-gc/" class="collection-item" target="_blank" itemprop="url">
-  <time datetime="2020-05-14T12:49:40.000Z" itemprop="datePublished">2020-05-14</time>
-  <span>&nbsp;&nbsp;&nbsp;</span> Go语言的GC垃圾回收
-</a>
-
-
-              
-                
-<a href="/2020/05/14/golang/go-gobuild/" class="collection-item" target="_blank" itemprop="url">
-  <time datetime="2020-05-14T12:49:40.000Z" itemprop="datePublished">2020-05-14</time>
-  <span>&nbsp;&nbsp;&nbsp;</span> Go语言的交叉编译
-</a>
-
-
-              
-                
-<a href="/2020/01/02/golang/go-producer-consumer/" class="collection-item" target="_blank" itemprop="url">
-  <time datetime="2020-01-02T03:17:10.000Z" itemprop="datePublished">2020-01-02</time>
-  <span>&nbsp;&nbsp;&nbsp;</span> Go语言生产者和消费者模式
-</a>
-
-
-              
-            </div>
-        </div>
+      
     </div>
+    <div class="article-footer">
+      <!--<blockquote class="mt-2x">-->
+<!--  <ul class="post-copyright list-unstyled">-->
+<!--    -->
+<!--    <li class="post-copyright-link hidden-xs">-->
+<!--      <strong>本文链接：</strong>-->
+<!--      <a href="https://hqd8080.github.io/2021/03/28/MySQL/mysql-only-full-group-by/" title="MySQL5.7版本sql_mode=only_full_group_by问题解决" target="_blank" rel="external">https://hqd8080.github.io/2021/03/28/MySQL/mysql-only-full-group-by/</a>-->
+<!--    </li>-->
+<!--    -->
+<!--    <li class="post-copyright-license">-->
+<!--      <strong>版权声明： </strong> 本博客所有文章除特别声明外，均采用 <a href="http://creativecommons.org/licenses/by/4.0/deed.zh" target="_blank" rel="external">CC BY 4.0 CN协议</a> 许可协议。转载请注明出处！-->
+<!--    </li>-->
+<!--  </ul>-->
+<!--</blockquote>-->
+
+
+<div class="panel panel-default panel-badger">
+  <div class="panel-body">
+    <figure class="media">
+      <div class="media-left">
+        <a href="https://github.com/hqd8080" target="_blank" class="img-burn thumb-sm visible-lg">
+          <img src="/images/avatar.jpeg" class="img-rounded w-full" alt="">
+        </a>
+      </div>
+      <div class="media-body">
+        <h3 class="media-heading"><a href="https://github.com/hqd8080" target="_blank"><span class="text-dark">@@</span><small class="ml-1x">Backend Developer</small></a></h3>
+        <div>总有一些事情需要坚持！</div>
+      </div>
+    </figure>
+  </div>
 </div>
+
+
     </div>
   </article>
   
     
-    <nav class="bar bar-footer clearfix" data-stick-bottom>
-        <div class="bar-inner">
-        <ul class="pager pull-left">
-            
-            <li class="prev">
-                <a href="/categories/Golang/">
-                    <i class="icon icon-angle-left"></i>
-                    上一页
-                </a>
-            </li>
-            
-            
-            <li class="next disabled">
-                <a href="javascript:;">
-                    下一页
-                    <i class="icon icon-angle-right"></i>                    
-                </a>
-            </li>
-            
-        </ul>
-        <div class="total-article bar-right">Page 2 of 2</div>
-        </div>
-    </nav>
+  <section id="comments">
+  	
+  </section>
+
+
+  
+</div>
+
+  <nav class="bar bar-footer clearfix" data-stick-bottom>
+  <div class="bar-inner">
+  
+  <ul class="pager pull-left">
     
- 
+    <li class="prev">
+      <a href="/2021/03/28/blockchain/blockchain-eth-develop/" title="以太坊私网开发环境搭建"><i class="icon icon-angle-left" aria-hidden="true"></i><span>&nbsp;&nbsp;上一篇</span></a>
+    </li>
+    
+    
+    <li class="next">
+      <a href="/2020/06/04/golang/go-leakage/" title="Go语言协程泄漏"><span>下一篇&nbsp;&nbsp;</span><i class="icon icon-angle-right" aria-hidden="true"></i></a>
+    </li>
+    
+    
+  </ul>
+  
+  
+  
+  <div class="bar-right">
+    
+    <div class="share-component" data-sites="weibo,qq,wechat" data-mobile-sites="weibo,qq,qzone"></div>
+    
+  </div>
+  </div>
+</nav>
+  
+
+
 </main>
 
   <footer class="footer" itemscope itemtype="http://schema.org/WPFooter">
@@ -400,6 +430,14 @@ window.jQuery || document.write('<script src="js/jquery.min.js"><\/script>')
 
 
 
+   
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+
+   
 
 
   <script src="//cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.3.5/dist/jquery.fancybox.min.js"></script>
