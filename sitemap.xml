@@ -177,14 +177,14 @@
   </url>
   
   <url>
-    <loc>https://abcd8080.github.io/2020/05/14/golang/go-gobuild/</loc>
+    <loc>https://abcd8080.github.io/2020/05/22/golang/go-reflect/</loc>
     
     <lastmod>2022-02-17</lastmod>
     
   </url>
   
   <url>
-    <loc>https://abcd8080.github.io/2020/06/03/golang/go-goland-setting/</loc>
+    <loc>https://abcd8080.github.io/2020/05/14/golang/go-gobuild/</loc>
     
     <lastmod>2022-02-17</lastmod>
     
@@ -198,7 +198,7 @@
   </url>
   
   <url>
-    <loc>https://abcd8080.github.io/2020/05/22/golang/go-reflect/</loc>
+    <loc>https://abcd8080.github.io/2020/06/03/golang/go-goland-setting/</loc>
     
     <lastmod>2022-02-17</lastmod>
     
@@ -466,14 +466,14 @@
   </url>
   
   <url>
-    <loc>https://abcd8080.github.io/tags/gRPC/</loc>
+    <loc>https://abcd8080.github.io/tags/golang/</loc>
     <lastmod>2022-09-26</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
-    <loc>https://abcd8080.github.io/tags/golang/</loc>
+    <loc>https://abcd8080.github.io/tags/go-zero/</loc>
     <lastmod>2022-09-26</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
@@ -488,6 +488,13 @@
   
   <url>
     <loc>https://abcd8080.github.io/tags/webSocket/</loc>
+    <lastmod>2022-09-26</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://abcd8080.github.io/tags/gRPC/</loc>
     <lastmod>2022-09-26</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
@@ -516,13 +523,6 @@
   
   <url>
     <loc>https://abcd8080.github.io/tags/Nginx/</loc>
-    <lastmod>2022-09-26</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://abcd8080.github.io/tags/go-zero/</loc>
     <lastmod>2022-09-26</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
@@ -559,14 +559,21 @@
   </url>
   
   <url>
-    <loc>https://abcd8080.github.io/categories/gRPC/</loc>
+    <loc>https://abcd8080.github.io/categories/Golang/</loc>
     <lastmod>2022-09-26</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
-    <loc>https://abcd8080.github.io/categories/Golang/</loc>
+    <loc>https://abcd8080.github.io/categories/go-zero/</loc>
+    <lastmod>2022-09-26</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://abcd8080.github.io/categories/gRPC/</loc>
     <lastmod>2022-09-26</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
@@ -595,13 +602,6 @@
   
   <url>
     <loc>https://abcd8080.github.io/categories/Redis/</loc>
-    <lastmod>2022-09-26</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://abcd8080.github.io/categories/go-zero/</loc>
     <lastmod>2022-09-26</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
