@@ -17,16 +17,22 @@
   <meta http-equiv="window-target" content="_top" />
   
   
-  <title>归档: 2020 | @@</title>
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Hexo">
-<meta property="og:url" content="https://abcd8080.github.io/archives/2020/index.html">
+  <title>go-zero代码生成工具goctl的使用 | @@</title>
+  <meta name="description" content="go-zero代码生成工具goctl的使用go-zero生成API代码命令12345678910mkdir gozero_demo &amp;&amp; cd gozero_demomkdir -p user-api&#x2F;api cd user-api&#x2F;api&#x2F;&#x2F; 创建user.api定义文件touch user.api    1234567891011121314151617181920212223">
+<meta property="og:type" content="article">
+<meta property="og:title" content="go-zero代码生成工具goctl的使用">
+<meta property="og:url" content="https://abcd8080.github.io/2021/03/29/go-zero/gozero002/index.html">
 <meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="go-zero代码生成工具goctl的使用go-zero生成API代码命令12345678910mkdir gozero_demo &amp;&amp; cd gozero_demomkdir -p user-api&#x2F;api cd user-api&#x2F;api&#x2F;&#x2F; 创建user.api定义文件touch user.api    1234567891011121314151617181920212223">
 <meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2021-03-29T02:10:10.000Z">
+<meta property="article:modified_time" content="2022-09-27T11:05:39.465Z">
 <meta property="article:author" content="abcd8080">
+<meta property="article:tag" content="golang">
+<meta property="article:tag" content="go-zero">
 <meta name="twitter:card" content="summary">
   <!-- Canonical links -->
-  <link rel="canonical" href="https://abcd8080.github.io/archives/2020/index.html">
+  <link rel="canonical" href="https://abcd8080.github.io/2021/03/29/go-zero/gozero002/index.html">
   
     <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
   
@@ -210,164 +216,152 @@
   
   
 <main class="main" role="main">
-  	<article class="content article article-archives article-type-list" itemscope="">
-	    <header class="article-header">
-	      <h1 itemprop="title">归档: 2020</h1>
-	      <p class="text-muted">共 10 篇文章</p>
-	    </header>
-	    <div class="article-body">
-	      
-  
-  
+  <div class="content">
+  <article id="post-go-zero/gozero002" class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
     
-    
+    <div class="article-header">
       
+        
+  
+    <h1 class="article-title" itemprop="name">
+      go-zero代码生成工具goctl的使用
+    </h1>
+  
+
       
-      <section class="panel panel-default b-no">
-        <div class="panel-heading" role="tab">
-          <h3 class="panel-title">
-            <a data-toggle="collapse" href="#collapse2020" aria-expanded="true">
-              <i class="icon icon-calendar-plus text-active"></i><i class="icon icon-calendar-minus text"></i>
-              2020
-            </a>
-            <!-- <a href="/archives/2020" class="archive-year">2020</a> -->
-          </h3>
-        </div>
-        <div id="collapse2020" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="heading2020">
-        <div class="panel-body">
-          <div class="collection">
-    
-    
-<a href="/2020/06/04/golang/go-leakage/" class="collection-item" target="_blank" itemprop="url">
-  <time datetime="2020-06-04T12:40:28.000Z" itemprop="datePublished">2020-06-04</time>
-  <span>&nbsp;&nbsp;&nbsp;</span> Go语言协程泄漏
-</a>
+      <div class="article-meta">
+        <span class="article-date">
+    <i class="icon icon-calendar-check"></i>
+	<a href="/2021/03/29/go-zero/gozero002/" class="article-date">
+	  <time datetime="2021-03-29T02:10:10.000Z" itemprop="datePublished">2021-03-29</time>
+	</a>
+</span>
+        
+  <span class="article-category">
+    <i class="icon icon-folder"></i>
+    <a class="article-category-link" href="/categories/go-zero/">go-zero</a>
+  </span>
+
+        
+  <span class="article-tag">
+    <i class="icon icon-tags"></i>
+	<a class="article-tag-link-link" href="/tags/go-zero/" rel="tag">go-zero</a>, <a class="article-tag-link-link" href="/tags/golang/" rel="tag">golang</a>
+  </span>
 
 
+        
+	<span class="article-read hidden-xs">
+	    <i class="icon icon-eye-fill" aria-hidden="true"></i>
+	    <span id="busuanzi_container_page_pv">
+			<span id="busuanzi_value_page_pv">0</span>
+		</span>
+	</span>
+
+
+        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2021/03/29/go-zero/gozero002/#comments" class="article-comment-link">评论</a></span>
+        
+      </div>
+    </div>
+    <div class="article-entry marked-body" itemprop="articleBody">
+      
+        <h3 id="go-zero代码生成工具goctl的使用"><a href="#go-zero代码生成工具goctl的使用" class="headerlink" title="go-zero代码生成工具goctl的使用"></a>go-zero代码生成工具goctl的使用</h3><h4 id="go-zero生成API代码命令"><a href="#go-zero生成API代码命令" class="headerlink" title="go-zero生成API代码命令"></a>go-zero生成API代码命令</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">mkdir gozero_demo &amp;&amp; cd gozero_demo</span><br><span class="line"></span><br><span class="line">mkdir -p user-api/api </span><br><span class="line"></span><br><span class="line">cd user-api/api</span><br><span class="line"></span><br><span class="line">// 创建user.api定义文件</span><br><span class="line"></span><br><span class="line">touch user.api  </span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">syntax = &quot;v1&quot;</span><br><span class="line"></span><br><span class="line">info(</span><br><span class="line">	author: &quot;hqd8080&quot;</span><br><span class="line">	date: &quot;2022-09-27&quot;</span><br><span class="line">	desc: &quot;api 语法示例及语法说明&quot;</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">type (</span><br><span class="line">	UserInfoReq &#123;</span><br><span class="line">		UserId int64 `json:&quot;userId&quot;`</span><br><span class="line">	&#125;</span><br><span class="line">	UserInfoResp &#123;</span><br><span class="line">		UserId   int64  `json:&quot;userId&quot;`</span><br><span class="line">		Nickname string `json:&quot;nickname&quot;`</span><br><span class="line">	&#125;</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">service user-api&#123;</span><br><span class="line">	@doc &quot;获取用户信息&quot;</span><br><span class="line">	@handler userInfo</span><br><span class="line">	post /user/info (UserInfoReq) returns (UserInfoResp)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">// 在当前目录下执行</span><br><span class="line">goctl api go -api *.api -dir ../  --style=gozero</span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="go-zero生成RPC代码命令"><a href="#go-zero生成RPC代码命令" class="headerlink" title="go-zero生成RPC代码命令"></a>go-zero生成RPC代码命令</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">在项目根路径创建user-rpc目录，在目录里面创建pb文件夹，在pb文件夹里面创建user.proto文件</span><br><span class="line">syntax = &quot;proto3&quot;;</span><br><span class="line"></span><br><span class="line">option go_package = &quot;./pb&quot;;</span><br><span class="line"></span><br><span class="line">package pb;</span><br><span class="line"></span><br><span class="line">message GetUserInfoReq &#123;</span><br><span class="line">  int64 id = 1;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">message GetUserInfoResp &#123;</span><br><span class="line">  int64 id = 1;</span><br><span class="line">  string nickname = 2;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">service usercenter &#123;</span><br><span class="line">  rpc GetUserInfo(GetUserInfoReq) returns (GetUserInfoResp);</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">在当前目录执行</span><br><span class="line">goctl rpc protoc *.proto --go_out=../ --go-grpc_out=../  --zrpc_out=../ --style=goZero</span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="go-zero生成model文件命令"><a href="#go-zero生成model文件命令" class="headerlink" title="go-zero生成model文件命令"></a>go-zero生成model文件命令</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">goctl model mysql datasource -url=&quot;$&#123;username&#125;:$&#123;passwd&#125;@tcp($&#123;host&#125;:$&#123;port&#125;)/$&#123;dbname&#125;&quot; -table=&quot;$&#123;tables&#125;&quot;  -dir=&quot;$&#123;modeldir&#125;&quot; -cache=true --style=goZero</span><br><span class="line"></span><br><span class="line">goctl model mysql datasource -url=root:12345678@tcp(127.0.0.1:3306)/zerodemo -table=user  -dir=./model -cache=true --style=goZero</span><br></pre></td></tr></table></figure>
+
+
+<h4 id="go-zero生成dockerfile文件"><a href="#go-zero生成dockerfile文件" class="headerlink" title="go-zero生成dockerfile文件"></a>go-zero生成dockerfile文件</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">goctl docker -go user.go</span><br></pre></td></tr></table></figure>
+
+
+<h4 id="go-zero生成k8s部署文件"><a href="#go-zero生成k8s部署文件" class="headerlink" title="go-zero生成k8s部署文件"></a>go-zero生成k8s部署文件</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">goctl kube deploy -name user-api -namespace go-zero -image user-api:v1.0 -o user-api.yaml -port 1001 -nodePort 31001</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    <div class="article-footer">
+      <!--<blockquote class="mt-2x">-->
+<!--  <ul class="post-copyright list-unstyled">-->
+<!--    -->
+<!--    <li class="post-copyright-link hidden-xs">-->
+<!--      <strong>本文链接：</strong>-->
+<!--      <a href="https://abcd8080.github.io/2021/03/29/go-zero/gozero002/" title="go-zero代码生成工具goctl的使用" target="_blank" rel="external">https://abcd8080.github.io/2021/03/29/go-zero/gozero002/</a>-->
+<!--    </li>-->
+<!--    -->
+<!--    <li class="post-copyright-license">-->
+<!--      <strong>版权声明： </strong> 本博客所有文章除特别声明外，均采用 <a href="http://creativecommons.org/licenses/by/4.0/deed.zh" target="_blank" rel="external">CC BY 4.0 CN协议</a> 许可协议。转载请注明出处！-->
+<!--    </li>-->
+<!--  </ul>-->
+<!--</blockquote>-->
+
+
+<div class="panel panel-default panel-badger">
+  <div class="panel-body">
+    <figure class="media">
+      <div class="media-left">
+        <a href="https://github.com/abcd8080" target="_blank" class="img-burn thumb-sm visible-lg">
+          <img src="/images/avatar.jpeg" class="img-rounded w-full" alt="">
+        </a>
+      </div>
+      <div class="media-body">
+        <h3 class="media-heading"><a href="https://github.com/abcd8080" target="_blank"><span class="text-dark">@@</span><small class="ml-1x">Backend Developer</small></a></h3>
+        <div>总有一些事情需要坚持！</div>
+      </div>
+    </figure>
+  </div>
+</div>
+
+
+    </div>
+  </article>
   
     
-    
-    
-<a href="/2020/06/04/golang/websocket/" class="collection-item" target="_blank" itemprop="url">
-  <time datetime="2020-06-04T12:40:28.000Z" itemprop="datePublished">2020-06-04</time>
-  <span>&nbsp;&nbsp;&nbsp;</span> WebSocket协议
-</a>
-
-
-  
-    
-    
-    
-<a href="/2020/06/03/golang/go-goland-setting/" class="collection-item" target="_blank" itemprop="url">
-  <time datetime="2020-06-03T06:22:50.000Z" itemprop="datePublished">2020-06-03</time>
-  <span>&nbsp;&nbsp;&nbsp;</span> Goland文件自动注释配置
-</a>
-
-
-  
-    
-    
-    
-<a href="/2020/06/02/golang/go-concurrent-safe/" class="collection-item" target="_blank" itemprop="url">
-  <time datetime="2020-06-02T03:24:02.000Z" itemprop="datePublished">2020-06-02</time>
-  <span>&nbsp;&nbsp;&nbsp;</span> Go语言保证并发程序的数据安全性
-</a>
-
-
-  
-    
-    
-    
-<a href="/2020/05/26/docker/docker-dockerfile/" class="collection-item" target="_blank" itemprop="url">
-  <time datetime="2020-05-26T08:58:17.000Z" itemprop="datePublished">2020-05-26</time>
-  <span>&nbsp;&nbsp;&nbsp;</span> Dockerfile文件常用指令
-</a>
-
-
-  
-    
-    
-    
-<a href="/2020/05/26/docker/docker-ssh/" class="collection-item" target="_blank" itemprop="url">
-  <time datetime="2020-05-26T03:22:56.000Z" itemprop="datePublished">2020-05-26</time>
-  <span>&nbsp;&nbsp;&nbsp;</span> Docker镜像SSH服务
-</a>
-
-
-  
-    
-    
-    
-<a href="/2020/05/24/git/git-command/" class="collection-item" target="_blank" itemprop="url">
-  <time datetime="2020-05-24T10:40:28.000Z" itemprop="datePublished">2020-05-24</time>
-  <span>&nbsp;&nbsp;&nbsp;</span> Git常用命令整理
-</a>
-
-
-  
-    
-    
-    
-<a href="/2020/05/24/docker/docker-summary/" class="collection-item" target="_blank" itemprop="url">
-  <time datetime="2020-05-24T09:01:26.000Z" itemprop="datePublished">2020-05-24</time>
-  <span>&nbsp;&nbsp;&nbsp;</span> Docker常用命令说明（总结）
-</a>
-
-
-  
-    
-    
-    
-<a href="/2020/05/24/docker/docker-container/" class="collection-item" target="_blank" itemprop="url">
-  <time datetime="2020-05-24T08:59:56.000Z" itemprop="datePublished">2020-05-24</time>
-  <span>&nbsp;&nbsp;&nbsp;</span> 理解Docker容器container
-</a>
-
-
-  
-    
-    
-    
-<a href="/2020/05/24/docker/docker-image/" class="collection-item" target="_blank" itemprop="url">
-  <time datetime="2020-05-24T08:58:48.000Z" itemprop="datePublished">2020-05-24</time>
-  <span>&nbsp;&nbsp;&nbsp;</span> 理解Docker的镜像image
-</a>
-
-
-  
-  
-    </div></div></div></section>
-  
-
-	    </div>
-  	</article>
+  <section id="comments">
   	
+  </section>
+
+
+  
+</div>
+
+  <nav class="bar bar-footer clearfix" data-stick-bottom>
+  <div class="bar-inner">
+  
+  <ul class="pager pull-left">
     
-    <nav class="bar bar-footer clearfix" data-stick-bottom>
-        <div class="bar-inner">
-        <ul class="pager pull-left">
-            
-            <li class="prev disabled">
-                <a href="javascript:;">
-                    <i class="icon icon-angle-left"></i>
-                    上一页
-                </a>
-            </li>
-            
-            
-            <li class="next">
-                <a href="/archives/2020/page/2/">
-                    下一页
-                    <i class="icon icon-angle-right"></i>
-                </a>
-            </li>
-            
-        </ul>
-        <div class="total-article bar-right">Page 1 of 4</div>
-        </div>
-    </nav>
+    <li class="prev">
+      <a href="/2021/03/29/blockchain/blockchain-eth-erc/" title="以太坊代币协议标准ERC-20与ERC-223的区别"><i class="icon icon-angle-left" aria-hidden="true"></i><span>&nbsp;&nbsp;上一篇</span></a>
+    </li>
     
- 	
+    
+    <li class="next">
+      <a href="/2021/03/28/MySQL/mysql-only-full-group-by/" title="MySQL5.7版本sql_mode=only_full_group_by问题解决"><span>下一篇&nbsp;&nbsp;</span><i class="icon icon-angle-right" aria-hidden="true"></i></a>
+    </li>
+    
+    
+  </ul>
+  
+  
+  
+  <div class="bar-right">
+    
+    <div class="share-component" data-sites="weibo,qq,wechat" data-mobile-sites="weibo,qq,qzone"></div>
+    
+  </div>
+  </div>
+</nav>
+  
+
+
 </main>
 
   <footer class="footer" itemscope itemtype="http://schema.org/WPFooter">
@@ -423,6 +417,14 @@ window.jQuery || document.write('<script src="js/jquery.min.js"><\/script>')
 
 
 
+   
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+
+   
 
 
   <script src="//cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.3.5/dist/jquery.fancybox.min.js"></script>
