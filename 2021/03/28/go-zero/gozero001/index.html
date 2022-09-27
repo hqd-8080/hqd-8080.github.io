@@ -27,7 +27,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://s2.loli.net/2022/09/26/O981QRmWKijgrzE.png">
 <meta property="article:published_time" content="2021-03-28T02:10:10.000Z">
-<meta property="article:modified_time" content="2022-09-26T14:58:36.091Z">
+<meta property="article:modified_time" content="2022-09-27T05:56:18.056Z">
 <meta property="article:author" content="abcd8080">
 <meta property="article:tag" content="golang">
 <meta property="article:tag" content="go-zero">
@@ -307,7 +307,7 @@
 <h3 id="项目架构图"><a href="#项目架构图" class="headerlink" title="项目架构图"></a>项目架构图</h3><p><img src="https://s2.loli.net/2022/09/26/O981QRmWKijgrzE.png" alt="go-zero_001.png"></p>
 <h3 id="开发环境安装"><a href="#开发环境安装" class="headerlink" title="开发环境安装"></a>开发环境安装</h3><h4 id="安装goctl工具"><a href="#安装goctl工具" class="headerlink" title="安装goctl工具"></a>安装goctl工具</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">// Go 1.16 及以后版本</span><br><span class="line">GOPROXY=https://goproxy.cn/,direct go install github.com/zeromicro/go-zero/tools/goctl@latest</span><br></pre></td></tr></table></figure>
 
-<h4 id="并设置环境变量"><a href="#并设置环境变量" class="headerlink" title="并设置环境变量"></a>并设置环境变量</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">sudo vim ~/.bash_profile</span><br><span class="line"></span><br><span class="line"># golang</span><br><span class="line">export GOROOT=/usr/local/go</span><br><span class="line">export GOPATH=/Users/hqd/go</span><br><span class="line">export GOPROXY=https://goproxy.cn,direct</span><br><span class="line">export GOSUMDB=sum.golang.google.cn</span><br><span class="line">export GO111MODULE=on</span><br><span class="line">export GOPRIVATE=*gitee.com</span><br><span class="line">export PATH=$GOROOT/bin:$GOPATH/bin:$PATH</span><br><span class="line"></span><br><span class="line">source ~/.bash_profile</span><br></pre></td></tr></table></figure>
+<h4 id="设置环境变量"><a href="#设置环境变量" class="headerlink" title="设置环境变量"></a>设置环境变量</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">sudo vim ~/.bash_profile</span><br><span class="line"></span><br><span class="line"># golang</span><br><span class="line">export GOROOT=/usr/local/go</span><br><span class="line">export GOPATH=/Users/hqd/go</span><br><span class="line">export GOPROXY=https://goproxy.cn,direct</span><br><span class="line">export GOSUMDB=sum.golang.google.cn</span><br><span class="line">export GO111MODULE=on</span><br><span class="line">export GOPRIVATE=*gitee.com</span><br><span class="line">export PATH=$GOROOT/bin:$GOPATH/bin:$PATH</span><br><span class="line"></span><br><span class="line">source ~/.bash_profile</span><br></pre></td></tr></table></figure>
 
 
 
@@ -381,7 +381,7 @@
     
     
     <li class="next">
-      <a href="/2021/03/28/MySQL/mysql-only-full-group-by/" title="MySQL5.7版本sql_mode=only_full_group_by问题解决"><span>下一篇&nbsp;&nbsp;</span><i class="icon icon-angle-right" aria-hidden="true"></i></a>
+      <a href="/2020/06/04/golang/go-leakage/" title="Go语言协程泄漏"><span>下一篇&nbsp;&nbsp;</span><i class="icon icon-angle-right" aria-hidden="true"></i></a>
     </li>
     
     
