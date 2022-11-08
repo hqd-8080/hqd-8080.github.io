@@ -21,17 +21,17 @@
   <meta name="description" content="创建目录和文件123mkdir sshd_buildercd sshd_buildertouch Dockerfile run.sh 编写run.sh脚本和authorized_keys文件123#run.sh#!&#x2F;bin&#x2F;bash&#x2F;usr&#x2F;sbin&#x2F;sshd -D  1cat ~&#x2F;.ssh&#x2F;id_rsa.pub  &gt;authorized_keys  编写Dockerfile文件123456">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Docker镜像SSH服务">
-<meta property="og:url" content="https://abcd8080.github.io/2020/05/26/docker/docker-ssh/index.html">
+<meta property="og:url" content="https://hqd8080.github.io/2020/05/26/docker/docker-ssh/index.html">
 <meta property="og:site_name" content="Hexo">
 <meta property="og:description" content="创建目录和文件123mkdir sshd_buildercd sshd_buildertouch Dockerfile run.sh 编写run.sh脚本和authorized_keys文件123#run.sh#!&#x2F;bin&#x2F;bash&#x2F;usr&#x2F;sbin&#x2F;sshd -D  1cat ~&#x2F;.ssh&#x2F;id_rsa.pub  &gt;authorized_keys  编写Dockerfile文件123456">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2020-05-26T03:22:56.000Z">
-<meta property="article:modified_time" content="2022-07-13T08:07:46.000Z">
-<meta property="article:author" content="abcd8080">
+<meta property="article:modified_time" content="2022-11-08T07:22:49.804Z">
+<meta property="article:author" content="hqd8080">
 <meta property="article:tag" content="docker">
 <meta name="twitter:card" content="summary">
   <!-- Canonical links -->
-  <link rel="canonical" href="https://abcd8080.github.io/2020/05/26/docker/docker-ssh/index.html">
+  <link rel="canonical" href="https://hqd8080.github.io/2020/05/26/docker/docker-ssh/index.html">
   
     <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
   
@@ -155,7 +155,7 @@
 	
     <ul class="social-links">
     	
-        <li><a href="https://github.com/abcd8080" target="_blank" title="Github" data-toggle=tooltip data-placement=top><i class="icon icon-github"></i></a></li>
+        <li><a href="https://github.com/hqd8080" target="_blank" title="Github" data-toggle=tooltip data-placement=top><i class="icon icon-github"></i></a></li>
         
         <li><a href="/atom.xml" target="_blank" title="Rss" data-toggle=tooltip data-placement=top><i class="icon icon-rss"></i></a></li>
         
@@ -268,7 +268,7 @@
 
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cat ~/.ssh/id_rsa.pub  &gt;authorized_keys</span><br></pre></td></tr></table></figure>
 
-<h6 id="编写Dockerfile文件"><a href="#编写Dockerfile文件" class="headerlink" title="编写Dockerfile文件"></a>编写Dockerfile文件</h6><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"># 基础镜像</span><br><span class="line">FROM ubuntu:18.04</span><br><span class="line"></span><br><span class="line"># 维护者   </span><br><span class="line">LABEL maintainer abcd8080&lt;github.com/abcd8080&gt;</span><br><span class="line"></span><br><span class="line"># 更换为163源码</span><br><span class="line">RUN echo &quot;deb http://mirrors.163.com/ubuntu/ bionic main restricted universe multiverse&quot;            &gt; /etc/apt/sources.list</span><br><span class="line">RUN echo &quot;deb http://mirrors.163.com/ubuntu/ bionic-security main restricted universe multiverse&quot;   &gt;&gt; /etc/apt/sources.list</span><br><span class="line">RUN echo &quot;deb http://mirrors.163.com/ubuntu/ bionic-updates main restricted universe multiverse&quot;    &gt;&gt; /etc/apt/sources.list</span><br><span class="line">RUN echo &quot;deb http://mirrors.163.com/ubuntu/ bionic-proposed main restricted universe multiverse&quot;   &gt;&gt; /etc/apt/sources.list</span><br><span class="line">RUN echo &quot;deb http://mirrors.163.com/ubuntu/ bionic-backports main restricted universe multiverse&quot;  &gt;&gt; /etc/apt/sources.list</span><br><span class="line">RUN echo &quot;deb-src http://mirrors.163.com/ubuntu/ bionic main restricted universe multiverse&quot;        &gt;&gt; /etc/apt/sources.list</span><br><span class="line">RUN echo &quot;deb-src http://mirrors.163.com/ubuntu/ bionic-security main restricted universe multiverse&quot;   &gt;&gt; /etc/apt/sources.list</span><br><span class="line">RUN echo &quot;deb-src http://mirrors.163.com/ubuntu/ bionic-updates main restricted universe multiverse&quot;    &gt;&gt; /etc/apt/sources.list</span><br><span class="line">RUN echo &quot;deb-src http://mirrors.163.com/ubuntu/ bionic-proposed main restricted universe multiverse&quot;   &gt;&gt; /etc/apt/sources.list</span><br><span class="line">RUN echo &quot;deb-src http://mirrors.163.com/ubuntu/ bionic-backports main restricted universe multiverse&quot;  &gt;&gt; /etc/apt/sources.list</span><br><span class="line"></span><br><span class="line">RUN apt-get update </span><br><span class="line"></span><br><span class="line"># 安装ssh服务</span><br><span class="line">RUN apt-get install -y openssh-server</span><br><span class="line">RUN mkdir -p /var/run/sshd</span><br><span class="line">RUN mkdir -p /root/.ssh</span><br><span class="line"></span><br><span class="line"># 取消pam限制</span><br><span class="line">RUN sed  -ri &#x27;s/session  required pam_loginuid.so/#session  required  pam_loginuid.so/g&#x27;  /etc/pam.d/sshd</span><br><span class="line"></span><br><span class="line"># 复制文件到容器</span><br><span class="line">ADD authorized_keys  /root/.ssh/authorized_keys</span><br><span class="line">ADD run.sh           /run.sh</span><br><span class="line"></span><br><span class="line"># 修改执行权限</span><br><span class="line">RUN chmod 755        /run.sh</span><br><span class="line"></span><br><span class="line"># 开放端口</span><br><span class="line">EXPOSE 22</span><br><span class="line"></span><br><span class="line"># 设置自启动命令</span><br><span class="line">CMD [ &quot;/run.sh&quot; ]</span><br></pre></td></tr></table></figure>
+<h6 id="编写Dockerfile文件"><a href="#编写Dockerfile文件" class="headerlink" title="编写Dockerfile文件"></a>编写Dockerfile文件</h6><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"># 基础镜像</span><br><span class="line">FROM ubuntu:18.04</span><br><span class="line"></span><br><span class="line"># 维护者   </span><br><span class="line">LABEL maintainer hqd8080&lt;github.com/hqd8080&gt;</span><br><span class="line"></span><br><span class="line"># 更换为163源码</span><br><span class="line">RUN echo &quot;deb http://mirrors.163.com/ubuntu/ bionic main restricted universe multiverse&quot;            &gt; /etc/apt/sources.list</span><br><span class="line">RUN echo &quot;deb http://mirrors.163.com/ubuntu/ bionic-security main restricted universe multiverse&quot;   &gt;&gt; /etc/apt/sources.list</span><br><span class="line">RUN echo &quot;deb http://mirrors.163.com/ubuntu/ bionic-updates main restricted universe multiverse&quot;    &gt;&gt; /etc/apt/sources.list</span><br><span class="line">RUN echo &quot;deb http://mirrors.163.com/ubuntu/ bionic-proposed main restricted universe multiverse&quot;   &gt;&gt; /etc/apt/sources.list</span><br><span class="line">RUN echo &quot;deb http://mirrors.163.com/ubuntu/ bionic-backports main restricted universe multiverse&quot;  &gt;&gt; /etc/apt/sources.list</span><br><span class="line">RUN echo &quot;deb-src http://mirrors.163.com/ubuntu/ bionic main restricted universe multiverse&quot;        &gt;&gt; /etc/apt/sources.list</span><br><span class="line">RUN echo &quot;deb-src http://mirrors.163.com/ubuntu/ bionic-security main restricted universe multiverse&quot;   &gt;&gt; /etc/apt/sources.list</span><br><span class="line">RUN echo &quot;deb-src http://mirrors.163.com/ubuntu/ bionic-updates main restricted universe multiverse&quot;    &gt;&gt; /etc/apt/sources.list</span><br><span class="line">RUN echo &quot;deb-src http://mirrors.163.com/ubuntu/ bionic-proposed main restricted universe multiverse&quot;   &gt;&gt; /etc/apt/sources.list</span><br><span class="line">RUN echo &quot;deb-src http://mirrors.163.com/ubuntu/ bionic-backports main restricted universe multiverse&quot;  &gt;&gt; /etc/apt/sources.list</span><br><span class="line"></span><br><span class="line">RUN apt-get update </span><br><span class="line"></span><br><span class="line"># 安装ssh服务</span><br><span class="line">RUN apt-get install -y openssh-server</span><br><span class="line">RUN mkdir -p /var/run/sshd</span><br><span class="line">RUN mkdir -p /root/.ssh</span><br><span class="line"></span><br><span class="line"># 取消pam限制</span><br><span class="line">RUN sed  -ri &#x27;s/session  required pam_loginuid.so/#session  required  pam_loginuid.so/g&#x27;  /etc/pam.d/sshd</span><br><span class="line"></span><br><span class="line"># 复制文件到容器</span><br><span class="line">ADD authorized_keys  /root/.ssh/authorized_keys</span><br><span class="line">ADD run.sh           /run.sh</span><br><span class="line"></span><br><span class="line"># 修改执行权限</span><br><span class="line">RUN chmod 755        /run.sh</span><br><span class="line"></span><br><span class="line"># 开放端口</span><br><span class="line">EXPOSE 22</span><br><span class="line"></span><br><span class="line"># 设置自启动命令</span><br><span class="line">CMD [ &quot;/run.sh&quot; ]</span><br></pre></td></tr></table></figure>
 
 <h6 id="创建镜像"><a href="#创建镜像" class="headerlink" title="创建镜像"></a>创建镜像</h6><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cd sshd_builder</span><br><span class="line">docker build -t sshd_ubuntu:v1 .</span><br></pre></td></tr></table></figure>
 
@@ -276,7 +276,7 @@
 
 <h6 id="连接容器"><a href="#连接容器" class="headerlink" title="连接容器"></a>连接容器</h6><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh 192.168.0.200 -p 2222</span><br></pre></td></tr></table></figure>
 
-<h6 id="github地址"><a href="#github地址" class="headerlink" title="github地址"></a>github地址</h6><p><code>https://github.com/abcd8080/sshd_builder</code></p>
+<h6 id="github地址"><a href="#github地址" class="headerlink" title="github地址"></a>github地址</h6><p><code>https://github.com/hqd8080/sshd_builder</code></p>
 
       
     </div>
@@ -286,7 +286,7 @@
 <!--    -->
 <!--    <li class="post-copyright-link hidden-xs">-->
 <!--      <strong>本文链接：</strong>-->
-<!--      <a href="https://abcd8080.github.io/2020/05/26/docker/docker-ssh/" title="Docker镜像SSH服务" target="_blank" rel="external">https://abcd8080.github.io/2020/05/26/docker/docker-ssh/</a>-->
+<!--      <a href="https://hqd8080.github.io/2020/05/26/docker/docker-ssh/" title="Docker镜像SSH服务" target="_blank" rel="external">https://hqd8080.github.io/2020/05/26/docker/docker-ssh/</a>-->
 <!--    </li>-->
 <!--    -->
 <!--    <li class="post-copyright-license">-->
@@ -300,12 +300,12 @@
   <div class="panel-body">
     <figure class="media">
       <div class="media-left">
-        <a href="https://github.com/abcd8080" target="_blank" class="img-burn thumb-sm visible-lg">
+        <a href="https://github.com/hqd8080" target="_blank" class="img-burn thumb-sm visible-lg">
           <img src="/images/avatar.jpeg" class="img-rounded w-full" alt="">
         </a>
       </div>
       <div class="media-body">
-        <h3 class="media-heading"><a href="https://github.com/abcd8080" target="_blank"><span class="text-dark">@@</span><small class="ml-1x">Backend Developer</small></a></h3>
+        <h3 class="media-heading"><a href="https://github.com/hqd8080" target="_blank"><span class="text-dark">@@</span><small class="ml-1x">Backend Developer</small></a></h3>
         <div>总有一些事情需要坚持！</div>
       </div>
     </figure>
@@ -361,7 +361,7 @@
 	
     <ul class="social-links">
     	
-        <li><a href="https://github.com/abcd8080" target="_blank" title="Github" data-toggle=tooltip data-placement=top><i class="icon icon-github"></i></a></li>
+        <li><a href="https://github.com/hqd8080" target="_blank" title="Github" data-toggle=tooltip data-placement=top><i class="icon icon-github"></i></a></li>
         
         <li><a href="/atom.xml" target="_blank" title="Rss" data-toggle=tooltip data-placement=top><i class="icon icon-rss"></i></a></li>
         
@@ -370,7 +370,7 @@
     <div class="copyright">
     	
         <div class="publishby">
-            <a href="https://github.com/abcd8080" target="_blank"> abcd8080 </a>All Rights Reserved <a href="https://github.com/cofess/hexo-theme-pure" target="_blank"></a>
+            <a href="https://github.com/hqd8080" target="_blank"> hqd8080 </a>All Rights Reserved <a href="https://github.com/cofess/hexo-theme-pure" target="_blank"></a>
         </div>
     </div>
 </footer>

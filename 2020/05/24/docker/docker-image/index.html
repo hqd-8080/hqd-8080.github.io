@@ -21,17 +21,17 @@
   <meta name="description" content="Docker通过容器来打包应用，（环境和代码）Docker的三大核心概念： 1.镜像（image） 2.容器（container） 3.仓库（repository） 镜像：类似于虚拟机环境，只读的模板，镜像是创建容器的基础 容器：从镜像创建的应用运行实例，盒子，沙箱，互不可见，隔离 仓库：docker集中存放镜像的场所，类似代码仓库 Docker仓库和仓库注册服务器的关系仓库注册服务器是存放仓库的">
 <meta property="og:type" content="article">
 <meta property="og:title" content="理解Docker的镜像image">
-<meta property="og:url" content="https://abcd8080.github.io/2020/05/24/docker/docker-image/index.html">
+<meta property="og:url" content="https://hqd8080.github.io/2020/05/24/docker/docker-image/index.html">
 <meta property="og:site_name" content="Hexo">
 <meta property="og:description" content="Docker通过容器来打包应用，（环境和代码）Docker的三大核心概念： 1.镜像（image） 2.容器（container） 3.仓库（repository） 镜像：类似于虚拟机环境，只读的模板，镜像是创建容器的基础 容器：从镜像创建的应用运行实例，盒子，沙箱，互不可见，隔离 仓库：docker集中存放镜像的场所，类似代码仓库 Docker仓库和仓库注册服务器的关系仓库注册服务器是存放仓库的">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2020-05-24T08:58:48.000Z">
-<meta property="article:modified_time" content="2022-07-13T08:07:46.000Z">
-<meta property="article:author" content="abcd8080">
+<meta property="article:modified_time" content="2022-11-08T07:22:49.564Z">
+<meta property="article:author" content="hqd8080">
 <meta property="article:tag" content="docker">
 <meta name="twitter:card" content="summary">
   <!-- Canonical links -->
-  <link rel="canonical" href="https://abcd8080.github.io/2020/05/24/docker/docker-image/index.html">
+  <link rel="canonical" href="https://hqd8080.github.io/2020/05/24/docker/docker-image/index.html">
   
     <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
   
@@ -155,7 +155,7 @@
 	
     <ul class="social-links">
     	
-        <li><a href="https://github.com/abcd8080" target="_blank" title="Github" data-toggle=tooltip data-placement=top><i class="icon icon-github"></i></a></li>
+        <li><a href="https://github.com/hqd8080" target="_blank" title="Github" data-toggle=tooltip data-placement=top><i class="icon icon-github"></i></a></li>
         
         <li><a href="/atom.xml" target="_blank" title="Rss" data-toggle=tooltip data-placement=top><i class="icon icon-rss"></i></a></li>
         
@@ -272,7 +272,7 @@
 <p><code>仓库</code>：docker集中存放镜像的场所，类似代码仓库</p>
 <h4 id="Docker仓库和仓库注册服务器的关系"><a href="#Docker仓库和仓库注册服务器的关系" class="headerlink" title="Docker仓库和仓库注册服务器的关系"></a>Docker仓库和仓库注册服务器的关系</h4><p>仓库注册服务器是存放仓库的地方，每个仓库集中存放某一类镜像，通过不同的tag来区分(类似git管理)</p>
 <p><code>注册服务器  --&gt;     创库      --&gt;       各种仓库的不同tag版本</code></p>
-<h4 id="将当前用户加入安装中自带的Docker组"><a href="#将当前用户加入安装中自带的Docker组" class="headerlink" title="将当前用户加入安装中自带的Docker组"></a>将当前用户加入安装中自带的Docker组</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo usermod -aG docker abcd8080</span><br></pre></td></tr></table></figure>
+<h4 id="将当前用户加入安装中自带的Docker组"><a href="#将当前用户加入安装中自带的Docker组" class="headerlink" title="将当前用户加入安装中自带的Docker组"></a>将当前用户加入安装中自带的Docker组</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo usermod -aG docker hqd8080</span><br></pre></td></tr></table></figure>
 
 <h4 id="获取镜像"><a href="#获取镜像" class="headerlink" title="获取镜像"></a>获取镜像</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">docker pull name:tag      //(名称+标签)</span><br><span class="line">docker pull ubuntu:18.04  //默认从官方拉取</span><br><span class="line">docker pull ubuntu        //下载最新的镜像,默认是(ubuntu:latest)</span><br></pre></td></tr></table></figure>
 
@@ -288,7 +288,7 @@
 
 <h4 id="搜索镜像（远端仓库共享镜像-官方）"><a href="#搜索镜像（远端仓库共享镜像-官方）" class="headerlink" title="搜索镜像（远端仓库共享镜像|官方）"></a>搜索镜像（远端仓库共享镜像|官方）</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker search ubuntu</span><br></pre></td></tr></table></figure>
 
-<h4 id="删除镜像"><a href="#删除镜像" class="headerlink" title="删除镜像"></a>删除镜像</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">docker rmi myubuntu:latest</span><br><span class="line">docker images -a</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash">使用镜像ID删除镜像的相关注意事项</span></span><br><span class="line"><span class="meta">#</span><span class="bash">有容器正在运行无法通过ID直接删除镜像，必须先删除依赖的容器，或者用-f强制删除</span></span><br><span class="line"></span><br><span class="line">docker run ubuntu:18.04 echo &#x27;hello abcd8080&#x27;</span><br><span class="line">docker ps -a</span><br><span class="line">docker rmi ubuntu:18.04</span><br><span class="line">docker rmi -f ubuntu:18.04</span><br><span class="line">docker rm a5212cvvbdgfsh // 使用镜像ID删除镜像</span><br></pre></td></tr></table></figure>
+<h4 id="删除镜像"><a href="#删除镜像" class="headerlink" title="删除镜像"></a>删除镜像</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">docker rmi myubuntu:latest</span><br><span class="line">docker images -a</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash">使用镜像ID删除镜像的相关注意事项</span></span><br><span class="line"><span class="meta">#</span><span class="bash">有容器正在运行无法通过ID直接删除镜像，必须先删除依赖的容器，或者用-f强制删除</span></span><br><span class="line"></span><br><span class="line">docker run ubuntu:18.04 echo &#x27;hello hqd8080&#x27;</span><br><span class="line">docker ps -a</span><br><span class="line">docker rmi ubuntu:18.04</span><br><span class="line">docker rmi -f ubuntu:18.04</span><br><span class="line">docker rm a5212cvvbdgfsh // 使用镜像ID删除镜像</span><br></pre></td></tr></table></figure>
 
 <h4 id="创建镜像的三种方法："><a href="#创建镜像的三种方法：" class="headerlink" title="创建镜像的三种方法："></a>创建镜像的三种方法：</h4><p>1.基于已有的镜像的容器创建</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sudo docker run -ti ubuntu:18.04 /bin/bash #(基于ubuntu18.04创建)</span><br><span class="line"><span class="meta">#</span><span class="bash">记住容器ID xxxxx</span></span><br><span class="line">sudo docker commit -m&quot;Added a new file&quot; -a &quot;docker newbee&quot; xxxxx test #test是tag</span><br></pre></td></tr></table></figure>
@@ -305,7 +305,7 @@
 <!--    -->
 <!--    <li class="post-copyright-link hidden-xs">-->
 <!--      <strong>本文链接：</strong>-->
-<!--      <a href="https://abcd8080.github.io/2020/05/24/docker/docker-image/" title="理解Docker的镜像image" target="_blank" rel="external">https://abcd8080.github.io/2020/05/24/docker/docker-image/</a>-->
+<!--      <a href="https://hqd8080.github.io/2020/05/24/docker/docker-image/" title="理解Docker的镜像image" target="_blank" rel="external">https://hqd8080.github.io/2020/05/24/docker/docker-image/</a>-->
 <!--    </li>-->
 <!--    -->
 <!--    <li class="post-copyright-license">-->
@@ -319,12 +319,12 @@
   <div class="panel-body">
     <figure class="media">
       <div class="media-left">
-        <a href="https://github.com/abcd8080" target="_blank" class="img-burn thumb-sm visible-lg">
+        <a href="https://github.com/hqd8080" target="_blank" class="img-burn thumb-sm visible-lg">
           <img src="/images/avatar.jpeg" class="img-rounded w-full" alt="">
         </a>
       </div>
       <div class="media-body">
-        <h3 class="media-heading"><a href="https://github.com/abcd8080" target="_blank"><span class="text-dark">@@</span><small class="ml-1x">Backend Developer</small></a></h3>
+        <h3 class="media-heading"><a href="https://github.com/hqd8080" target="_blank"><span class="text-dark">@@</span><small class="ml-1x">Backend Developer</small></a></h3>
         <div>总有一些事情需要坚持！</div>
       </div>
     </figure>
@@ -380,7 +380,7 @@
 	
     <ul class="social-links">
     	
-        <li><a href="https://github.com/abcd8080" target="_blank" title="Github" data-toggle=tooltip data-placement=top><i class="icon icon-github"></i></a></li>
+        <li><a href="https://github.com/hqd8080" target="_blank" title="Github" data-toggle=tooltip data-placement=top><i class="icon icon-github"></i></a></li>
         
         <li><a href="/atom.xml" target="_blank" title="Rss" data-toggle=tooltip data-placement=top><i class="icon icon-rss"></i></a></li>
         
@@ -389,7 +389,7 @@
     <div class="copyright">
     	
         <div class="publishby">
-            <a href="https://github.com/abcd8080" target="_blank"> abcd8080 </a>All Rights Reserved <a href="https://github.com/cofess/hexo-theme-pure" target="_blank"></a>
+            <a href="https://github.com/hqd8080" target="_blank"> hqd8080 </a>All Rights Reserved <a href="https://github.com/cofess/hexo-theme-pure" target="_blank"></a>
         </div>
     </div>
 </footer>
