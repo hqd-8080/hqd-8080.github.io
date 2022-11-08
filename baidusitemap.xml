@@ -89,10 +89,6 @@
     <lastmod>2022-03-04</lastmod>
   </url>
   <url>
-    <loc>https://hqd8080.github.io/2020/05/14/golang/go-gc/</loc>
-    <lastmod>2022-02-17</lastmod>
-  </url>
-  <url>
     <loc>https://hqd8080.github.io/2020/05/22/golang/go-chan/</loc>
     <lastmod>2022-02-17</lastmod>
   </url>
@@ -101,11 +97,19 @@
     <lastmod>2022-02-17</lastmod>
   </url>
   <url>
-    <loc>https://hqd8080.github.io/2020/05/14/golang/go-gobuild/</loc>
+    <loc>https://hqd8080.github.io/2020/05/14/golang/go-gc/</loc>
     <lastmod>2022-02-17</lastmod>
   </url>
   <url>
     <loc>https://hqd8080.github.io/2020/06/03/golang/go-goland-setting/</loc>
+    <lastmod>2022-02-17</lastmod>
+  </url>
+  <url>
+    <loc>https://hqd8080.github.io/2020/05/14/golang/go-gobuild/</loc>
+    <lastmod>2022-02-17</lastmod>
+  </url>
+  <url>
+    <loc>https://hqd8080.github.io/2020/06/04/golang/go-leakage/</loc>
     <lastmod>2022-02-17</lastmod>
   </url>
   <url>
@@ -122,10 +126,6 @@
   </url>
   <url>
     <loc>https://hqd8080.github.io/2020/06/04/golang/websocket/</loc>
-    <lastmod>2022-02-17</lastmod>
-  </url>
-  <url>
-    <loc>https://hqd8080.github.io/2020/06/04/golang/go-leakage/</loc>
     <lastmod>2022-02-17</lastmod>
   </url>
   <url>
