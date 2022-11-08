@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>https://hqd8080.github.io/2021/03/29/go-zero/gozero002/</loc>
+    <lastmod>2022-11-08</lastmod>
+  </url>
+  <url>
     <loc>https://hqd8080.github.io/2022/03/21/golang/go-gorm2/</loc>
     <lastmod>2022-11-08</lastmod>
   </url>
@@ -45,10 +49,6 @@
     <lastmod>2022-11-08</lastmod>
   </url>
   <url>
-    <loc>https://hqd8080.github.io/2021/03/29/go-zero/gozero002/</loc>
-    <lastmod>2022-09-27</lastmod>
-  </url>
-  <url>
     <loc>https://hqd8080.github.io/2021/03/28/go-zero/gozero001/</loc>
     <lastmod>2022-09-27</lastmod>
   </url>
@@ -89,11 +89,11 @@
     <lastmod>2022-03-04</lastmod>
   </url>
   <url>
-    <loc>https://hqd8080.github.io/2020/05/22/golang/go-chan/</loc>
+    <loc>https://hqd8080.github.io/2020/05/22/golang/go-gmp/</loc>
     <lastmod>2022-02-17</lastmod>
   </url>
   <url>
-    <loc>https://hqd8080.github.io/2020/05/22/golang/go-gmp/</loc>
+    <loc>https://hqd8080.github.io/2020/05/22/golang/go-chan/</loc>
     <lastmod>2022-02-17</lastmod>
   </url>
   <url>
@@ -121,19 +121,19 @@
     <lastmod>2022-02-17</lastmod>
   </url>
   <url>
-    <loc>https://hqd8080.github.io/2020/05/22/golang/go-work/</loc>
-    <lastmod>2022-02-17</lastmod>
-  </url>
-  <url>
     <loc>https://hqd8080.github.io/2020/06/04/golang/websocket/</loc>
     <lastmod>2022-02-17</lastmod>
   </url>
   <url>
-    <loc>https://hqd8080.github.io/2020/06/02/golang/go-concurrent-safe/</loc>
+    <loc>https://hqd8080.github.io/2020/05/22/golang/go-work/</loc>
     <lastmod>2022-02-17</lastmod>
   </url>
   <url>
     <loc>https://hqd8080.github.io/2020/05/22/golang/go-data-type-convert/</loc>
+    <lastmod>2022-02-17</lastmod>
+  </url>
+  <url>
+    <loc>https://hqd8080.github.io/2020/06/02/golang/go-concurrent-safe/</loc>
     <lastmod>2022-02-17</lastmod>
   </url>
   <url>
