@@ -2,6 +2,97 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://hqd8080.github.io/2022/03/31/golang/go-struct/</loc>
+    
+    <lastmod>2022-12-22</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://hqd8080.github.io/2022/03/30/golang/go-map/</loc>
+    
+    <lastmod>2022-12-22</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://hqd8080.github.io/2022/03/29/golang/go-string/</loc>
+    
+    <lastmod>2022-12-22</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://hqd8080.github.io/2022/03/30/golang/go-slice/</loc>
+    
+    <lastmod>2022-12-22</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://hqd8080.github.io/2022/03/31/golang/go-time/</loc>
+    
+    <lastmod>2022-12-22</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://hqd8080.github.io/2022/04/01/golang/go-channel/</loc>
+    
+    <lastmod>2022-12-22</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://hqd8080.github.io/2022/03/29/golang/go-array/</loc>
+    
+    <lastmod>2022-12-22</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://hqd8080.github.io/2022/03/31/golang/go-error/</loc>
+    
+    <lastmod>2022-12-21</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://hqd8080.github.io/about/index.html</loc>
+    
+    <lastmod>2022-12-21</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://hqd8080.github.io/2022/04/01/golang/go-stw/</loc>
+    
+    <lastmod>2022-12-17</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://hqd8080.github.io/2021/03/30/go-zero/gozero003/</loc>
+    
+    <lastmod>2022-11-21</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://hqd8080.github.io/2022/04/01/golang/go-goroutine/</loc>
+    
+    <lastmod>2022-11-20</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://hqd8080.github.io/2022/03/31/golang/go-interface/</loc>
+    
+    <lastmod>2022-11-19</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://hqd8080.github.io/2021/03/28/blockchain/blockchain-eth-develop/</loc>
     
     <lastmod>2022-11-19</lastmod>
@@ -205,13 +296,6 @@
   </url>
   
   <url>
-    <loc>https://hqd8080.github.io/about/index.html</loc>
-    
-    <lastmod>2022-06-22</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>https://hqd8080.github.io/2020/05/22/microservice/microservice-CAP/</loc>
     
     <lastmod>2022-04-14</lastmod>
@@ -410,7 +494,7 @@
 
   <url>
     <loc>https://hqd8080.github.io/</loc>
-    <lastmod>2022-11-19</lastmod>
+    <lastmod>2022-12-22</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
   </url>
@@ -418,119 +502,119 @@
   
   <url>
     <loc>https://hqd8080.github.io/tags/MySQL/</loc>
-    <lastmod>2022-11-19</lastmod>
+    <lastmod>2022-12-22</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://hqd8080.github.io/tags/%E5%8C%BA%E5%9D%97%E9%93%BE/</loc>
-    <lastmod>2022-11-19</lastmod>
+    <lastmod>2022-12-22</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://hqd8080.github.io/tags/blockchain/</loc>
-    <lastmod>2022-11-19</lastmod>
+    <lastmod>2022-12-22</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://hqd8080.github.io/tags/ethereum/</loc>
-    <lastmod>2022-11-19</lastmod>
+    <lastmod>2022-12-22</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://hqd8080.github.io/tags/solidity/</loc>
-    <lastmod>2022-11-19</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://hqd8080.github.io/tags/docker/</loc>
-    <lastmod>2022-11-19</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://hqd8080.github.io/tags/redis/</loc>
-    <lastmod>2022-11-19</lastmod>
+    <lastmod>2022-12-22</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://hqd8080.github.io/tags/git/</loc>
-    <lastmod>2022-11-19</lastmod>
+    <lastmod>2022-12-22</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
-    <loc>https://hqd8080.github.io/tags/linux/</loc>
-    <lastmod>2022-11-19</lastmod>
+    <loc>https://hqd8080.github.io/tags/docker/</loc>
+    <lastmod>2022-12-22</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
-    <loc>https://hqd8080.github.io/tags/gRPC/</loc>
-    <lastmod>2022-11-19</lastmod>
+    <loc>https://hqd8080.github.io/tags/redis/</loc>
+    <lastmod>2022-12-22</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://hqd8080.github.io/tags/golang/</loc>
-    <lastmod>2022-11-19</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://hqd8080.github.io/tags/nginx/</loc>
-    <lastmod>2022-11-19</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://hqd8080.github.io/tags/gorm/</loc>
-    <lastmod>2022-11-19</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://hqd8080.github.io/tags/webSocket/</loc>
-    <lastmod>2022-11-19</lastmod>
+    <lastmod>2022-12-22</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://hqd8080.github.io/tags/go-zero/</loc>
-    <lastmod>2022-11-19</lastmod>
+    <lastmod>2022-12-22</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://hqd8080.github.io/tags/gRPC/</loc>
+    <lastmod>2022-12-22</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://hqd8080.github.io/tags/linux/</loc>
+    <lastmod>2022-12-22</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://hqd8080.github.io/tags/gorm/</loc>
+    <lastmod>2022-12-22</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://hqd8080.github.io/tags/webSocket/</loc>
+    <lastmod>2022-12-22</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://hqd8080.github.io/tags/nginx/</loc>
+    <lastmod>2022-12-22</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://hqd8080.github.io/tags/%E5%BE%AE%E6%9C%8D%E5%8A%A1/</loc>
-    <lastmod>2022-11-19</lastmod>
+    <lastmod>2022-12-22</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://hqd8080.github.io/tags/microservice/</loc>
-    <lastmod>2022-11-19</lastmod>
+    <lastmod>2022-12-22</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
@@ -539,77 +623,77 @@
   
   <url>
     <loc>https://hqd8080.github.io/categories/MySQL/</loc>
-    <lastmod>2022-11-19</lastmod>
+    <lastmod>2022-12-22</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://hqd8080.github.io/categories/%E5%8C%BA%E5%9D%97%E9%93%BE/</loc>
-    <lastmod>2022-11-19</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://hqd8080.github.io/categories/Docker/</loc>
-    <lastmod>2022-11-19</lastmod>
+    <lastmod>2022-12-22</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://hqd8080.github.io/categories/Git/</loc>
-    <lastmod>2022-11-19</lastmod>
+    <lastmod>2022-12-22</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
-    <loc>https://hqd8080.github.io/categories/Linux/</loc>
-    <lastmod>2022-11-19</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://hqd8080.github.io/categories/gRPC/</loc>
-    <lastmod>2022-11-19</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://hqd8080.github.io/categories/Nginx/</loc>
-    <lastmod>2022-11-19</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://hqd8080.github.io/categories/Go%E8%AF%AD%E8%A8%80/</loc>
-    <lastmod>2022-11-19</lastmod>
+    <loc>https://hqd8080.github.io/categories/Docker/</loc>
+    <lastmod>2022-12-22</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://hqd8080.github.io/categories/go-zero/</loc>
-    <lastmod>2022-11-19</lastmod>
+    <lastmod>2022-12-22</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://hqd8080.github.io/categories/gRPC/</loc>
+    <lastmod>2022-12-22</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://hqd8080.github.io/categories/Linux/</loc>
+    <lastmod>2022-12-22</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://hqd8080.github.io/categories/Go%E8%AF%AD%E8%A8%80/</loc>
+    <lastmod>2022-12-22</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://hqd8080.github.io/categories/Nginx/</loc>
+    <lastmod>2022-12-22</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://hqd8080.github.io/categories/%E5%BE%AE%E6%9C%8D%E5%8A%A1/</loc>
-    <lastmod>2022-11-19</lastmod>
+    <lastmod>2022-12-22</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://hqd8080.github.io/categories/Redis/</loc>
-    <lastmod>2022-11-19</lastmod>
+    <lastmod>2022-12-22</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
