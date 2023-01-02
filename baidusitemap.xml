@@ -1,6 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>https://hqd8080.github.io/2021/03/01/kubernetes/0002/</loc>
+    <lastmod>2023-01-02</lastmod>
+  </url>
+  <url>
+    <loc>https://hqd8080.github.io/2021/03/01/kubernetes/0001/</loc>
+    <lastmod>2023-01-02</lastmod>
+  </url>
+  <url>
     <loc>https://hqd8080.github.io/2022/03/31/golang/go-struct/</loc>
     <lastmod>2022-12-22</lastmod>
   </url>

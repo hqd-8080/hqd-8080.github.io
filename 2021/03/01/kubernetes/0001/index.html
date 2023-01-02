@@ -1,0 +1,547 @@
+<!DOCTYPE html>
+<html lang=zh>
+<head>
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="Cache-Control" content="no-transform" />
+  <meta http-equiv="Cache-Control" content="no-siteapp" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="format-detection" content="telephone=no,email=no,adress=no">
+  <!-- Color theme for statusbar -->
+  <meta name="theme-color" content="#000000" />
+  <!-- 强制页面在当前窗口以独立页面显示,防止别人在框架里调用页面 -->
+  <meta http-equiv="window-target" content="_top" />
+  
+  
+  <title>Kubernetes 概述和架构 | @@</title>
+  <meta name="description" content="Kubernetes 概述和架构1.1 Kubernetes 简介Kubernetes，首字母 K，尾字母 s，中间 8 个字母，简称 K8s 1.2 Kubernetes 功能1.自动装箱   （基于容器对应用运行环境的资源配置要求自动部署应用容器）  2.自我修复   （当容器失败时，会对容器进行重启）  （当所部署的 Node 节点有问题时，会对容器进行重新部署和重新调度）  （当容器未通过">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Kubernetes 概述和架构">
+<meta property="og:url" content="https://hqd8080.github.io/2021/03/01/kubernetes/0001/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="Kubernetes 概述和架构1.1 Kubernetes 简介Kubernetes，首字母 K，尾字母 s，中间 8 个字母，简称 K8s 1.2 Kubernetes 功能1.自动装箱   （基于容器对应用运行环境的资源配置要求自动部署应用容器）  2.自我修复   （当容器失败时，会对容器进行重启）  （当所部署的 Node 节点有问题时，会对容器进行重新部署和重新调度）  （当容器未通过">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2021-03-01T11:10:10.000Z">
+<meta property="article:modified_time" content="2023-01-02T14:04:13.486Z">
+<meta property="article:author" content="hqd8080">
+<meta property="article:tag" content="kubernetes">
+<meta property="article:tag" content="k8s">
+<meta name="twitter:card" content="summary">
+  <!-- Canonical links -->
+  <link rel="canonical" href="https://hqd8080.github.io/2021/03/01/kubernetes/0001/index.html">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png" type="image/x-icon">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+  
+  
+    <link href="//cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.3.5/dist/jquery.fancybox.min.css" rel="stylesheet">
+  
+  
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body class="main-center" itemscope itemtype="http://schema.org/WebPage">
+  <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+  <div class="slimContent">
+    <div class="navbar-header">
+      
+      
+      <div class="profile-block text-center">
+        <a id="avatar" href="/">
+          <img class="img-circle" src="/images/avatar.jpeg" width="200" height="200">
+        </a>
+        <h2 id="name" class="hidden-xs hidden-sm">@@</h2>
+        <h3 id="title" class="hidden-xs hidden-sm hidden-md">Backend Developer</h3>
+        <small id="location" class="text-muted hidden-xs hidden-sm"><i class="icon icon-map-marker"></i> Shanghai, China</small>
+      </div>
+      
+      <div class="search" id="search-form-wrap">
+
+    <form class="search-form sidebar-form">
+        <div class="input-group">
+            <input type="text" class="search-form-input form-control" placeholder="搜索" />
+            <span class="input-group-btn">
+                <button type="submit" class="search-form-submit btn btn-flat" onclick="return false;"><i class="icon icon-search"></i></button>
+            </span>
+        </div>
+    </form>
+    <div class="ins-search">
+  <div class="ins-search-mask"></div>
+  <div class="ins-search-container">
+    <div class="ins-input-wrapper">
+      <input type="text" class="ins-search-input" placeholder="想要查找什么..." x-webkit-speech />
+      <button type="button" class="close ins-close ins-selectable" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+    </div>
+    <div class="ins-section-wrapper">
+      <div class="ins-section-container"></div>
+    </div>
+  </div>
+</div>
+
+
+</div>
+      <button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target="#main-navbar" aria-controls="main-navbar" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+    </div>
+    <nav id="main-navbar" class="collapse navbar-collapse" itemscope itemtype="http://schema.org/SiteNavigationElement" role="navigation">
+      <ul class="nav navbar-nav main-nav menu-highlight">
+        
+        
+        <li class="menu-item menu-item-home">
+          <a href="/.">
+            
+            <i class="icon icon-home-fill"></i>
+            
+            <span class="menu-title">首页</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives">
+            
+            <i class="icon icon-archives-fill"></i>
+            
+            <span class="menu-title">归档</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories">
+            
+            <i class="icon icon-folder"></i>
+            
+            <span class="menu-title">分类</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags">
+            
+            <i class="icon icon-tags"></i>
+            
+            <span class="menu-title">标签</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about">
+            
+            <i class="icon icon-cup-fill"></i>
+            
+            <span class="menu-title">关于</span>
+          </a>
+        </li>
+        
+      </ul>
+      
+	
+    <ul class="social-links">
+    	
+        <li><a href="https://github.com/hqd8080" target="_blank" title="Github" data-toggle=tooltip data-placement=top><i class="icon icon-github"></i></a></li>
+        
+        <li><a href="/atom.xml" target="_blank" title="Rss" data-toggle=tooltip data-placement=top><i class="icon icon-rss"></i></a></li>
+        
+    </ul>
+
+    </nav>
+  </div>
+</header>
+
+  
+    <aside class="sidebar" itemscope itemtype="http://schema.org/WPSideBar">
+  <div class="slimContent">
+    
+      <!--<div class="widget">-->
+<!--    <h3 class="widget-title">公告</h3>-->
+<!--    <div class="widget-body">-->
+<!--        <div id="board">-->
+<!--            <div class="content">-->
+<!--                -->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--</div>-->
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">分类</h3>
+    <div class="widget-body">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Docker/">Docker</a><span class="category-list-count">12</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Git/">Git</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Go%E8%AF%AD%E8%A8%80/">Go语言</a><span class="category-list-count">28</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Kubernetes/">Kubernetes</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a><span class="category-list-count">6</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/MySQL/">MySQL</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Nginx/">Nginx</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Redis/">Redis</a><span class="category-list-count">7</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/gRPC/">gRPC</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/go-zero/">go-zero</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%8C%BA%E5%9D%97%E9%93%BE/">区块链</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%BE%AE%E6%9C%8D%E5%8A%A1/">微服务</a><span class="category-list-count">2</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      <!---->
+<!--  <div class="widget">-->
+<!--    <h3 class="widget-title">标签</h3>-->
+<!--    <div class="widget-body">-->
+<!--      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/MySQL/" rel="tag">MySQL</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/blockchain/" rel="tag">blockchain</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/docker/" rel="tag">docker</a><span class="tag-list-count">12</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ethereum/" rel="tag">ethereum</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/gRPC/" rel="tag">gRPC</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/" rel="tag">git</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/go-zero/" rel="tag">go-zero</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/golang/" rel="tag">golang</a><span class="tag-list-count">33</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/gorm/" rel="tag">gorm</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/k8s/" rel="tag">k8s</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/kubernetes/" rel="tag">kubernetes</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux/" rel="tag">linux</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/microservice/" rel="tag">microservice</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nginx/" rel="tag">nginx</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/redis/" rel="tag">redis</a><span class="tag-list-count">8</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/solidity/" rel="tag">solidity</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/webSocket/" rel="tag">webSocket</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8C%BA%E5%9D%97%E9%93%BE/" rel="tag">区块链</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%BE%AE%E6%9C%8D%E5%8A%A1/" rel="tag">微服务</a><span class="tag-list-count">2</span></li></ul>-->
+<!--    </div>-->
+<!--  </div>-->
+<!---->
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">标签云</h3>
+    <div class="widget-body tagcloud">
+      <a href="/tags/MySQL/" style="font-size: 13.17px;">MySQL</a> <a href="/tags/blockchain/" style="font-size: 13.17px;">blockchain</a> <a href="/tags/docker/" style="font-size: 13.83px;">docker</a> <a href="/tags/ethereum/" style="font-size: 13.17px;">ethereum</a> <a href="/tags/gRPC/" style="font-size: 13.17px;">gRPC</a> <a href="/tags/git/" style="font-size: 13.33px;">git</a> <a href="/tags/go-zero/" style="font-size: 13.33px;">go-zero</a> <a href="/tags/golang/" style="font-size: 14px;">golang</a> <a href="/tags/gorm/" style="font-size: 13px;">gorm</a> <a href="/tags/k8s/" style="font-size: 13.17px;">k8s</a> <a href="/tags/kubernetes/" style="font-size: 13.17px;">kubernetes</a> <a href="/tags/linux/" style="font-size: 13.5px;">linux</a> <a href="/tags/microservice/" style="font-size: 13.17px;">microservice</a> <a href="/tags/nginx/" style="font-size: 13px;">nginx</a> <a href="/tags/redis/" style="font-size: 13.67px;">redis</a> <a href="/tags/solidity/" style="font-size: 13px;">solidity</a> <a href="/tags/webSocket/" style="font-size: 13px;">webSocket</a> <a href="/tags/%E5%8C%BA%E5%9D%97%E9%93%BE/" style="font-size: 13.17px;">区块链</a> <a href="/tags/%E5%BE%AE%E6%9C%8D%E5%8A%A1/" style="font-size: 13.17px;">微服务</a>
+    </div>
+  </div>
+
+    
+  </div>
+</aside>
+
+  
+  
+<main class="main" role="main">
+  <div class="content">
+  <article id="post-kubernetes/0001" class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
+    
+    <div class="article-header">
+      
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Kubernetes 概述和架构
+    </h1>
+  
+
+      
+      <div class="article-meta">
+        <span class="article-date">
+    <i class="icon icon-calendar-check"></i>
+	<a href="/2021/03/01/kubernetes/0001/" class="article-date">
+	  <time datetime="2021-03-01T11:10:10.000Z" itemprop="datePublished">2021-03-01</time>
+	</a>
+</span>
+        
+  <span class="article-category">
+    <i class="icon icon-folder"></i>
+    <a class="article-category-link" href="/categories/Kubernetes/">Kubernetes</a>
+  </span>
+
+        
+  <span class="article-tag">
+    <i class="icon icon-tags"></i>
+	<a class="article-tag-link-link" href="/tags/k8s/" rel="tag">k8s</a>, <a class="article-tag-link-link" href="/tags/kubernetes/" rel="tag">kubernetes</a>
+  </span>
+
+
+        
+	<span class="article-read hidden-xs">
+	    <i class="icon icon-eye-fill" aria-hidden="true"></i>
+	    <span id="busuanzi_container_page_pv">
+			<span id="busuanzi_value_page_pv">0</span>
+		</span>
+	</span>
+
+
+        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2021/03/01/kubernetes/0001/#comments" class="article-comment-link">评论</a></span>
+        
+      </div>
+    </div>
+    <div class="article-entry marked-body" itemprop="articleBody">
+      
+        <h4 id="Kubernetes-概述和架构"><a href="#Kubernetes-概述和架构" class="headerlink" title="Kubernetes 概述和架构"></a>Kubernetes 概述和架构</h4><h5 id="1-1-Kubernetes-简介"><a href="#1-1-Kubernetes-简介" class="headerlink" title="1.1 Kubernetes 简介"></a>1.1 Kubernetes 简介</h5><p>Kubernetes，首字母 K，尾字母 s，中间 8 个字母，简称 K8s</p>
+<h5 id="1-2-Kubernetes-功能"><a href="#1-2-Kubernetes-功能" class="headerlink" title="1.2 Kubernetes 功能"></a>1.2 Kubernetes 功能</h5><p>1.自动装箱 </p>
+<ul>
+<li>（基于容器对应用运行环境的资源配置要求自动部署应用容器）</li>
+</ul>
+<p>2.自我修复 </p>
+<ul>
+<li>（当容器失败时，会对容器进行重启） </li>
+<li>（当所部署的 Node 节点有问题时，会对容器进行重新部署和重新调度） </li>
+<li>（当容器未通过监控检查时，会关闭此容器直到容器正常运行时，才会对外提供服务）</li>
+</ul>
+<p>3.水平扩展</p>
+<ul>
+<li>（通过简单的命令、用户 UI 界面或基于 CPU 等资源使用情况，对应用容器进行规模扩大或规模剪裁） </li>
+<li>（当我们有大量的请求来临时，我们可以增加副本数量，从而达到水平扩展的效果）</li>
+</ul>
+<p>4.服务发现</p>
+<ul>
+<li>（用户不需使用额外的服务发现机制，就能够基于 Kubernetes 自身能力实现服务发现和负载均衡）</li>
+</ul>
+<p>5.滚动更新</p>
+<ul>
+<li>（可以根据应用的变化，对应用容器运行的应用，进行一次性或批量式更新）</li>
+</ul>
+<p>6.版本回退</p>
+<ul>
+<li>（可以根据应用部署情况，对应用容器运行的应用，进行历史版本即时回退）</li>
+</ul>
+<p>7.密钥和配置管理 </p>
+<ul>
+<li>（在不需要重新构建镜像的情况下，可以部署和更新密钥和应用配置，类似热部署）</li>
+</ul>
+<p>8.存储编排</p>
+<ul>
+<li>（自动实现存储系统挂载及应用，特别对有状态应用实现数据持久化非常重要） </li>
+<li>（存储系统可以来自于本地目录、网络存储 (NFS、Gluster、Ceph 等）、公共云存储服务）</li>
+</ul>
+<p>9.批处理 </p>
+<ul>
+<li>（提供一次性任务，定时任务；满足批量数据处理和分析的场景）</li>
+</ul>
+<h5 id="1-3-Kubernetes-架构组件"><a href="#1-3-Kubernetes-架构组件" class="headerlink" title="1.3 Kubernetes 架构组件"></a>1.3 Kubernetes 架构组件</h5><blockquote>
+<p>Kubernetes 架构主要包含两部分：Master（主控节点）和 Work node（工作节点）</p>
+</blockquote>
+<p>Kubernetes 组件</p>
+<h6 id="Master：主控节点"><a href="#Master：主控节点" class="headerlink" title="Master：主控节点"></a>Master：主控节点</h6><ul>
+<li>API Server：集群统一入口，以 restful 风格进行操作，同时交给 etcd 存储,提供认证、授权、访问控制、API 注册和发现等机制</li>
+<li>scheduler：节点的调度，选择 node 节点应用部署</li>
+<li>controller-manager：处理集群中常规后台任务，一个资源对应一个控制器</li>
+<li>etcd：存储系统，用于保存集群中的相关数据</li>
+</ul>
+<h6 id="Worker-node：工作节点"><a href="#Worker-node：工作节点" class="headerlink" title="Worker node：工作节点"></a>Worker node：工作节点</h6><ul>
+<li>Kubelet：master 派到 node 节点代表，管理本机容器 <ul>
+<li>一个集群中每个节点上运行的代理，它保证容器都运行在 Pod 中</li>
+<li>负责维护容器的生命周期，同时也负责 Volume(CSI) 和 网络 (CNI) 的管理</li>
+</ul>
+</li>
+<li>kube-proxy：提供网络代理，负载均衡等操作</li>
+</ul>
+<h6 id="容器运行环境【Container-Runtime】"><a href="#容器运行环境【Container-Runtime】" class="headerlink" title="容器运行环境【Container Runtime】"></a>容器运行环境【Container Runtime】</h6><ul>
+<li>容器运行环境是负责运行容器的软件 </li>
+<li>Kubernetes 支持多个容器运行环境：Docker、containerd、cri-o、rktlet 以及任何实现 Kubernetes CRI （容器运行环境接口） 的软件。</li>
+</ul>
+<h6 id="fluentd：是一个守护进程，它有助于提升集群层面日志"><a href="#fluentd：是一个守护进程，它有助于提升集群层面日志" class="headerlink" title="fluentd：是一个守护进程，它有助于提升集群层面日志"></a>fluentd：是一个守护进程，它有助于提升集群层面日志</h6><h5 id="1-4-Kubernetes-核心概念"><a href="#1-4-Kubernetes-核心概念" class="headerlink" title="1.4 Kubernetes 核心概念"></a>1.4 Kubernetes 核心概念</h5><h6 id="1-Pod"><a href="#1-Pod" class="headerlink" title="1.Pod"></a>1.Pod</h6><ul>
+<li>Pod 是 K8s 中最小的单元 一组容器的集合</li>
+<li>共享网络【一个 Pod 中的所有容器共享同一网络】</li>
+<li>生命周期是短暂的（服务器重启后，就找不到了）</li>
+</ul>
+<h6 id="2-Volume"><a href="#2-Volume" class="headerlink" title="2.Volume"></a>2.Volume</h6><ul>
+<li>声明在 Pod 容器中可访问的文件目录</li>
+<li>可以被挂载到 Pod 中一个或多个容器指定路径下</li>
+<li>支持多种后端存储抽象【本地存储、分布式存储、云存储】</li>
+</ul>
+<h6 id="3-Controller"><a href="#3-Controller" class="headerlink" title="3.Controller"></a>3.Controller</h6><ul>
+<li>确保预期的 pod 副本数量【ReplicaSet】</li>
+<li>无状态应用部署【Deployment】 (无状态就是指，不需要依赖于网络或者 ip)</li>
+<li>有状态应用部署【StatefulSet】 (有状态需要特定的条件)</li>
+<li>确保所有的 node 运行同一个 pod 【DaemonSet】</li>
+<li>一次性任务和定时任务【Job 和 CronJob】</li>
+</ul>
+<h6 id="4-Deployment"><a href="#4-Deployment" class="headerlink" title="4.Deployment"></a>4.Deployment</h6><ul>
+<li>定义一组 Pod 副本数目，版本等</li>
+<li>通过控制器【Controller】维持 Pod 数目【自动回复失败的 Pod】</li>
+<li>通过控制器以指定的策略控制版本【滚动升级、回滚等】</li>
+</ul>
+<h6 id="5-Service"><a href="#5-Service" class="headerlink" title="5.Service"></a>5.Service</h6><ul>
+<li>定义一组 pod 的访问规则</li>
+<li>Pod 的负载均衡，提供一个或多个 Pod 的稳定访问地址</li>
+<li>支持多种方式【ClusterIP、NodePort、LoadBalancer】</li>
+</ul>
+<h6 id="6-Label"><a href="#6-Label" class="headerlink" title="6.Label"></a>6.Label</h6><ul>
+<li>label：标签，用于对象资源查询，筛选</li>
+</ul>
+<h6 id="7-Namespace"><a href="#7-Namespace" class="headerlink" title="7.Namespace"></a>7.Namespace</h6><ul>
+<li>命名空间，逻辑隔离</li>
+<li>一个集群内部的逻辑隔离机制【鉴权、资源】</li>
+<li>每个资源都属于一个 namespace</li>
+<li>同一个 namespace 所有资源不能重复</li>
+<li>不同 namespace 可以资源名重复</li>
+</ul>
+<h6 id="8-API"><a href="#8-API" class="headerlink" title="8.API"></a>8.API</h6><ul>
+<li>我们通过 Kubernetes 的 API 来操作整个集群</li>
+<li>同时我们可以通过 kubectl 、ui、curl 最终发送 http + json/yaml 方式的请求给 API Server，然后控制整个 K8S 集群，K8S 中所有的资源对象都可以采用 yaml 或 json 格式的文件定义或描述</li>
+</ul>
+
+      
+    </div>
+    <div class="article-footer">
+      <!--<blockquote class="mt-2x">-->
+<!--  <ul class="post-copyright list-unstyled">-->
+<!--    -->
+<!--    <li class="post-copyright-link hidden-xs">-->
+<!--      <strong>本文链接：</strong>-->
+<!--      <a href="https://hqd8080.github.io/2021/03/01/kubernetes/0001/" title="Kubernetes 概述和架构" target="_blank" rel="external">https://hqd8080.github.io/2021/03/01/kubernetes/0001/</a>-->
+<!--    </li>-->
+<!--    -->
+<!--    <li class="post-copyright-license">-->
+<!--      <strong>版权声明： </strong> 本博客所有文章除特别声明外，均采用 <a href="http://creativecommons.org/licenses/by/4.0/deed.zh" target="_blank" rel="external">CC BY 4.0 CN协议</a> 许可协议。转载请注明出处！-->
+<!--    </li>-->
+<!--  </ul>-->
+<!--</blockquote>-->
+
+
+<div class="panel panel-default panel-badger">
+  <div class="panel-body">
+    <figure class="media">
+      <div class="media-left">
+        <a href="https://github.com/hqd8080" target="_blank" class="img-burn thumb-sm visible-lg">
+          <img src="/images/avatar.jpeg" class="img-rounded w-full" alt="">
+        </a>
+      </div>
+      <div class="media-body">
+        <h3 class="media-heading"><a href="https://github.com/hqd8080" target="_blank"><span class="text-dark">@@</span><small class="ml-1x">Backend Developer</small></a></h3>
+        <div>总有一些事情需要坚持！</div>
+      </div>
+    </figure>
+  </div>
+</div>
+
+
+    </div>
+  </article>
+  
+    
+  <section id="comments">
+  	
+  </section>
+
+
+  
+</div>
+
+  <nav class="bar bar-footer clearfix" data-stick-bottom>
+  <div class="bar-inner">
+  
+  <ul class="pager pull-left">
+    
+    <li class="prev">
+      <a href="/2021/03/01/kubernetes/0002/" title="从零开始搭建 K8s 集群"><i class="icon icon-angle-left" aria-hidden="true"></i><span>&nbsp;&nbsp;上一篇</span></a>
+    </li>
+    
+    
+    <li class="next">
+      <a href="/2020/06/04/golang/go-leakage/" title="Go语言协程泄漏"><span>下一篇&nbsp;&nbsp;</span><i class="icon icon-angle-right" aria-hidden="true"></i></a>
+    </li>
+    
+    
+  </ul>
+  
+  
+  
+  <div class="bar-right">
+    
+    <div class="share-component" data-sites="weibo,qq,wechat" data-mobile-sites="weibo,qq,qzone"></div>
+    
+  </div>
+  </div>
+</nav>
+  
+
+
+</main>
+
+  <footer class="footer" itemscope itemtype="http://schema.org/WPFooter">
+	
+	
+    <ul class="social-links">
+    	
+        <li><a href="https://github.com/hqd8080" target="_blank" title="Github" data-toggle=tooltip data-placement=top><i class="icon icon-github"></i></a></li>
+        
+        <li><a href="/atom.xml" target="_blank" title="Rss" data-toggle=tooltip data-placement=top><i class="icon icon-rss"></i></a></li>
+        
+    </ul>
+
+    <div class="copyright">
+    	
+        <div class="publishby">
+            <a href="https://github.com/hqd8080" target="_blank"> hqd8080 </a>All Rights Reserved <a href="https://github.com/cofess/hexo-theme-pure" target="_blank"></a>
+        </div>
+    </div>
+</footer>
+  <script src="//cdn.jsdelivr.net/npm/jquery@1.12.4/dist/jquery.min.js"></script>
+<script>
+window.jQuery || document.write('<script src="js/jquery.min.js"><\/script>')
+</script>
+
+<script src="/js/plugin.min.js"></script>
+
+
+<script src="/js/application.js"></script>
+
+
+    <script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: '文章',
+            PAGES: '页面',
+            CATEGORIES: '分类',
+            TAGS: '标签',
+            UNTITLED: '(未命名)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+
+<script src="/js/insight.js"></script>
+
+
+
+
+
+
+   
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+
+   
+
+
+  <script src="//cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.3.5/dist/jquery.fancybox.min.js"></script>
+  <script>
+  //利用 FancyBox 实现点击图片放大
+  $(document).ready(function() {
+    $('article img').not('[hidden]').not('.panel-body img').each(function() {
+      var $image = $(this);
+      var imageCaption = $image.attr('alt');
+      var $imageWrapLink = $image.parent('a');
+      if ($imageWrapLink.length < 1) {
+        var src = this.getAttribute('src');
+        var idx = src.lastIndexOf('?');
+        if (idx != -1) {
+          src = src.substring(0, idx);
+        }
+        $imageWrapLink = $image.wrap('<a href="' + src + '"></a>').parent('a');
+      }
+      $imageWrapLink.attr('data-fancybox', 'images');
+      if (imageCaption) {
+        $imageWrapLink.attr('data-caption', imageCaption);
+      }
+    });
+    $().fancybox({
+      selector: '[data-fancybox="images"]',
+      hash: false,
+      loop: false,
+    });
+  });
+  </script>
+
+
+
+
+
+</body>
+</html>
