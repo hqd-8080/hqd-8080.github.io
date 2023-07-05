@@ -578,13 +578,6 @@
 
   
   <url>
-    <loc>https://hqd8080.github.io/tags/MySQL/</loc>
-    <lastmod>2023-07-05</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
     <loc>https://hqd8080.github.io/tags/%E5%8C%BA%E5%9D%97%E9%93%BE/</loc>
     <lastmod>2023-07-05</lastmod>
     <changefreq>daily</changefreq>
@@ -614,6 +607,13 @@
   
   <url>
     <loc>https://hqd8080.github.io/tags/ethereum/</loc>
+    <lastmod>2023-07-05</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://hqd8080.github.io/tags/MySQL/</loc>
     <lastmod>2023-07-05</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
@@ -669,13 +669,6 @@
   </url>
   
   <url>
-    <loc>https://hqd8080.github.io/tags/gRPC/</loc>
-    <lastmod>2023-07-05</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
     <loc>https://hqd8080.github.io/tags/kubernetes/</loc>
     <lastmod>2023-07-05</lastmod>
     <changefreq>daily</changefreq>
@@ -725,6 +718,13 @@
   </url>
   
   <url>
+    <loc>https://hqd8080.github.io/tags/gRPC/</loc>
+    <lastmod>2023-07-05</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>https://hqd8080.github.io/tags/nginx/</loc>
     <lastmod>2023-07-05</lastmod>
     <changefreq>daily</changefreq>
@@ -734,14 +734,14 @@
 
   
   <url>
-    <loc>https://hqd8080.github.io/categories/MySQL/</loc>
+    <loc>https://hqd8080.github.io/categories/%E5%8C%BA%E5%9D%97%E9%93%BE-blockchain/</loc>
     <lastmod>2023-07-05</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
-    <loc>https://hqd8080.github.io/categories/%E5%8C%BA%E5%9D%97%E9%93%BE-blockchain/</loc>
+    <loc>https://hqd8080.github.io/categories/MySQL/</loc>
     <lastmod>2023-07-05</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
@@ -776,13 +776,6 @@
   </url>
   
   <url>
-    <loc>https://hqd8080.github.io/categories/gRPC/</loc>
-    <lastmod>2023-07-05</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
     <loc>https://hqd8080.github.io/categories/Kubernetes/</loc>
     <lastmod>2023-07-05</lastmod>
     <changefreq>daily</changefreq>
@@ -804,7 +797,7 @@
   </url>
   
   <url>
-    <loc>https://hqd8080.github.io/categories/Nginx/</loc>
+    <loc>https://hqd8080.github.io/categories/gRPC/</loc>
     <lastmod>2023-07-05</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
@@ -812,6 +805,13 @@
   
   <url>
     <loc>https://hqd8080.github.io/categories/Redis/</loc>
+    <lastmod>2023-07-05</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://hqd8080.github.io/categories/Nginx/</loc>
     <lastmod>2023-07-05</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
