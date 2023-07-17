@@ -578,6 +578,13 @@
 
   
   <url>
+    <loc>https://hqd88.github.io/tags/MySQL/</loc>
+    <lastmod>2023-07-17</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>https://hqd88.github.io/tags/%E5%8C%BA%E5%9D%97%E9%93%BE/</loc>
     <lastmod>2023-07-17</lastmod>
     <changefreq>daily</changefreq>
@@ -607,13 +614,6 @@
   
   <url>
     <loc>https://hqd88.github.io/tags/ethereum/</loc>
-    <lastmod>2023-07-17</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://hqd88.github.io/tags/MySQL/</loc>
     <lastmod>2023-07-17</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
@@ -734,14 +734,14 @@
 
   
   <url>
-    <loc>https://hqd88.github.io/categories/%E5%8C%BA%E5%9D%97%E9%93%BE-blockchain/</loc>
+    <loc>https://hqd88.github.io/categories/MySQL/</loc>
     <lastmod>2023-07-17</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
-    <loc>https://hqd88.github.io/categories/MySQL/</loc>
+    <loc>https://hqd88.github.io/categories/%E5%8C%BA%E5%9D%97%E9%93%BE-blockchain/</loc>
     <lastmod>2023-07-17</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
