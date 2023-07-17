@@ -21,17 +21,17 @@
   <meta name="description" content="Go语言的切片类型、数组和切片的区别切片slice、也叫动态数组； 切片的数据结构: 1234567&#x2F;&#x2F; 源码来自Go 1.19&#x2F;&#x2F; 源码包：&#x2F;usr&#x2F;local&#x2F;go&#x2F;src&#x2F;runtime&#x2F;slice.gotype slice struct &amp;#123;    array unsafe.Pointer   &#x2F;&#x2F; 底层数组    len   int              &#x2F;&#x2F; 切片的长度">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Go语言笔记—Go的切片类型、数组和切片的区别（slice）">
-<meta property="og:url" content="https://hqd8080.github.io/2022/03/30/golang/go-slice/index.html">
+<meta property="og:url" content="https://hqd88.github.io/2022/03/30/golang/go-slice/index.html">
 <meta property="og:site_name" content="Hexo">
 <meta property="og:description" content="Go语言的切片类型、数组和切片的区别切片slice、也叫动态数组； 切片的数据结构: 1234567&#x2F;&#x2F; 源码来自Go 1.19&#x2F;&#x2F; 源码包：&#x2F;usr&#x2F;local&#x2F;go&#x2F;src&#x2F;runtime&#x2F;slice.gotype slice struct &amp;#123;    array unsafe.Pointer   &#x2F;&#x2F; 底层数组    len   int              &#x2F;&#x2F; 切片的长度">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2022-03-30T12:10:10.000Z">
-<meta property="article:modified_time" content="2023-07-10T02:28:25.662Z">
-<meta property="article:author" content="hqd8080">
+<meta property="article:modified_time" content="2023-07-10T03:37:00.979Z">
+<meta property="article:author" content="hqd88">
 <meta property="article:tag" content="golang">
 <meta name="twitter:card" content="summary">
   <!-- Canonical links -->
-  <link rel="canonical" href="https://hqd8080.github.io/2022/03/30/golang/go-slice/index.html">
+  <link rel="canonical" href="https://hqd88.github.io/2022/03/30/golang/go-slice/index.html">
   
     <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
   
@@ -155,7 +155,7 @@
 	
     <ul class="social-links">
     	
-        <li><a href="https://github.com/hqd8080" target="_blank" title="Github" data-toggle=tooltip data-placement=top><i class="icon icon-github"></i></a></li>
+        <li><a href="https://github.com/hqd88" target="_blank" title="Github" data-toggle=tooltip data-placement=top><i class="icon icon-github"></i></a></li>
         
         <li><a href="/atom.xml" target="_blank" title="Rss" data-toggle=tooltip data-placement=top><i class="icon icon-rss"></i></a></li>
         
@@ -277,13 +277,15 @@
 <li>①、如果原slice的容量小于1024，则新slice的容量将扩大为原来的2倍；</li>
 <li>②、如果原slice的容量大于或等于1024，则新slice的容量将扩大为原来的1.25倍；</li>
 </ul>
+<h4 id="理解切片的长度和容量"><a href="#理解切片的长度和容量" class="headerlink" title="理解切片的长度和容量"></a>理解切片的长度和容量</h4><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">slice := []<span class="keyword">int</span>&#123;<span class="number">10</span>, <span class="number">20</span>, <span class="number">30</span>, <span class="number">40</span>, <span class="number">50</span>&#125;</span><br><span class="line"><span class="built_in">new</span> := slice[<span class="number">1</span>:<span class="number">3</span>]</span><br><span class="line">fmt.Println(<span class="built_in">new</span>)        <span class="comment">// [20, 30]</span></span><br><span class="line">fmt.Println(<span class="built_in">len</span>(<span class="built_in">new</span>))   <span class="comment">// 2</span></span><br><span class="line">fmt.Println(<span class="built_in">cap</span>(<span class="built_in">new</span>))   <span class="comment">// 4</span></span><br></pre></td></tr></table></figure>
+
+
 <h4 id="切片的使用例子"><a href="#切片的使用例子" class="headerlink" title="切片的使用例子"></a>切片的使用例子</h4><p>声明、初始化切片</p>
 <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 变量声明</span></span><br><span class="line"><span class="keyword">var</span> s []<span class="keyword">int</span>    </span><br></pre></td></tr></table></figure>
 
 <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 字面量声明</span></span><br><span class="line">s1 := []<span class="keyword">int</span>&#123;&#125;</span><br><span class="line">s2 := []<span class="keyword">int</span>&#123;<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>&#125;</span><br></pre></td></tr></table></figure>
 
 <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 使用内置函数make创建</span></span><br><span class="line">s1 := <span class="built_in">make</span>([]<span class="keyword">int</span>, <span class="number">12</span>)        <span class="comment">// 指定长度</span></span><br><span class="line">s2 := <span class="built_in">make</span>([]<span class="keyword">int</span>, <span class="number">10</span>, <span class="number">100</span>)   <span class="comment">// 指定长度和空间</span></span><br></pre></td></tr></table></figure>
-
 
 <h4 id="基于数组创建切片例子"><a href="#基于数组创建切片例子" class="headerlink" title="基于数组创建切片例子"></a>基于数组创建切片例子</h4><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">array := [<span class="number">5</span>]<span class="keyword">int</span>&#123;<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>&#125;</span><br><span class="line">s1 := array[<span class="number">0</span>:<span class="number">2</span>]    <span class="comment">// 1  2</span></span><br><span class="line">s2 := array[<span class="number">0</span>:<span class="number">1</span>]    <span class="comment">// 1</span></span><br><span class="line"></span><br><span class="line">fmt.Println(s1)</span><br><span class="line">fmt.Println(s2)</span><br></pre></td></tr></table></figure>
       
@@ -294,7 +296,7 @@
 <!--    -->
 <!--    <li class="post-copyright-link hidden-xs">-->
 <!--      <strong>本文链接：</strong>-->
-<!--      <a href="https://hqd8080.github.io/2022/03/30/golang/go-slice/" title="Go语言笔记—Go的切片类型、数组和切片的区别（slice）" target="_blank" rel="external">https://hqd8080.github.io/2022/03/30/golang/go-slice/</a>-->
+<!--      <a href="https://hqd88.github.io/2022/03/30/golang/go-slice/" title="Go语言笔记—Go的切片类型、数组和切片的区别（slice）" target="_blank" rel="external">https://hqd88.github.io/2022/03/30/golang/go-slice/</a>-->
 <!--    </li>-->
 <!--    -->
 <!--    <li class="post-copyright-license">-->
@@ -308,12 +310,12 @@
   <div class="panel-body">
     <figure class="media">
       <div class="media-left">
-        <a href="https://github.com/hqd8080" target="_blank" class="img-burn thumb-sm visible-lg">
+        <a href="https://github.com/hqd88" target="_blank" class="img-burn thumb-sm visible-lg">
           <img src="/images/avatar.jpeg" class="img-rounded w-full" alt="">
         </a>
       </div>
       <div class="media-body">
-        <h3 class="media-heading"><a href="https://github.com/hqd8080" target="_blank"><span class="text-dark">🌴🌴🥥</span><small class="ml-1x">Golang</small></a></h3>
+        <h3 class="media-heading"><a href="https://github.com/hqd88" target="_blank"><span class="text-dark">🌴🌴🥥</span><small class="ml-1x">Golang</small></a></h3>
         <div>总有一些事情需要坚持！</div>
       </div>
     </figure>
@@ -373,7 +375,7 @@
 	
     <ul class="social-links">
     	
-        <li><a href="https://github.com/hqd8080" target="_blank" title="Github" data-toggle=tooltip data-placement=top><i class="icon icon-github"></i></a></li>
+        <li><a href="https://github.com/hqd88" target="_blank" title="Github" data-toggle=tooltip data-placement=top><i class="icon icon-github"></i></a></li>
         
         <li><a href="/atom.xml" target="_blank" title="Rss" data-toggle=tooltip data-placement=top><i class="icon icon-rss"></i></a></li>
         
@@ -382,7 +384,7 @@
     <div class="copyright">
     	
         <div class="publishby">
-            <a href="https://github.com/hqd80" target="_blank"> hqd8080 </a>All Rights Reserved <a href="https://github.com/cofess/hexo-theme-pure" target="_blank"></a>
+            <a href="https://github.com/hqd88" target="_blank"> hqd88 </a>All Rights Reserved <a href="https://github.com/cofess/hexo-theme-pure" target="_blank"></a>
         </div>
     </div>
 </footer>
@@ -435,7 +437,7 @@ window.jQuery || document.write('<script src="js/jquery.min.js"><\/script>')
         var giscus = document.createElement('script');
         giscus.type = 'text/javascript';
         giscus.async = true;
-        giscus.setAttribute('data-repo', 'hqd8080/giscus_discussions');
+        giscus.setAttribute('data-repo', 'hqd88/giscus_discussions');
         giscus.setAttribute('data-repo-id', 'R_kgDOJ1fP4Q');
         giscus.setAttribute('data-category', 'Announcements');
         giscus.setAttribute('data-category-id', 'DIC_kwDOJ1fP4c4CXjPf');
