@@ -578,6 +578,48 @@
 
   
   <url>
+    <loc>https://hanquanding.github.io/tags/MySQL/</loc>
+    <lastmod>2023-07-18</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://hanquanding.github.io/tags/golang/</loc>
+    <lastmod>2023-07-18</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://hanquanding.github.io/tags/go-zero/</loc>
+    <lastmod>2023-07-18</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://hanquanding.github.io/tags/docker/</loc>
+    <lastmod>2023-07-18</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://hanquanding.github.io/tags/redis/</loc>
+    <lastmod>2023-07-18</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://hanquanding.github.io/tags/git/</loc>
+    <lastmod>2023-07-18</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>https://hanquanding.github.io/tags/%E5%8C%BA%E5%9D%97%E9%93%BE/</loc>
     <lastmod>2023-07-18</lastmod>
     <changefreq>daily</changefreq>
@@ -606,49 +648,7 @@
   </url>
   
   <url>
-    <loc>https://hanquanding.github.io/tags/MySQL/</loc>
-    <lastmod>2023-07-18</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
     <loc>https://hanquanding.github.io/tags/ethereum/</loc>
-    <lastmod>2023-07-18</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://hanquanding.github.io/tags/docker/</loc>
-    <lastmod>2023-07-18</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://hanquanding.github.io/tags/redis/</loc>
-    <lastmod>2023-07-18</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://hanquanding.github.io/tags/git/</loc>
-    <lastmod>2023-07-18</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://hanquanding.github.io/tags/golang/</loc>
-    <lastmod>2023-07-18</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://hanquanding.github.io/tags/go-zero/</loc>
     <lastmod>2023-07-18</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
@@ -734,14 +734,14 @@
 
   
   <url>
-    <loc>https://hanquanding.github.io/categories/%E5%8C%BA%E5%9D%97%E9%93%BE-blockchain/</loc>
+    <loc>https://hanquanding.github.io/categories/MySQL/</loc>
     <lastmod>2023-07-18</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
-    <loc>https://hanquanding.github.io/categories/MySQL/</loc>
+    <loc>https://hanquanding.github.io/categories/go-zero/</loc>
     <lastmod>2023-07-18</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
@@ -762,7 +762,7 @@
   </url>
   
   <url>
-    <loc>https://hanquanding.github.io/categories/go-zero/</loc>
+    <loc>https://hanquanding.github.io/categories/%E5%8C%BA%E5%9D%97%E9%93%BE-blockchain/</loc>
     <lastmod>2023-07-18</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
