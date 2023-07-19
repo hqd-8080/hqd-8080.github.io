@@ -676,13 +676,6 @@
   </url>
   
   <url>
-    <loc>https://hanquanding.github.io/tags/linux/</loc>
-    <lastmod>2023-07-19</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
     <loc>https://hanquanding.github.io/tags/kubernetes/</loc>
     <lastmod>2023-07-19</lastmod>
     <changefreq>daily</changefreq>
@@ -705,6 +698,13 @@
   
   <url>
     <loc>https://hanquanding.github.io/tags/grafana/</loc>
+    <lastmod>2023-07-19</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://hanquanding.github.io/tags/linux/</loc>
     <lastmod>2023-07-19</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
@@ -783,14 +783,14 @@
   </url>
   
   <url>
-    <loc>https://hanquanding.github.io/categories/Linux/</loc>
+    <loc>https://hanquanding.github.io/categories/Kubernetes/</loc>
     <lastmod>2023-07-19</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
-    <loc>https://hanquanding.github.io/categories/Kubernetes/</loc>
+    <loc>https://hanquanding.github.io/categories/Linux/</loc>
     <lastmod>2023-07-19</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
