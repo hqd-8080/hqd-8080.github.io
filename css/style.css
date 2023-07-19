@@ -6442,6 +6442,9 @@ body.no-sidebar .sidebar {
 
 .article-list .article-title {
   font-size: 18px;
+
+  font-weight: normal;
+  font: 300 18px/1.45 'Helvetica Neue', Helvetica, Arial, sans-serif;
 }
 
 .article-toc .toc-title {
