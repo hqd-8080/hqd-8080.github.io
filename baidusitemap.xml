@@ -1,6 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>https://hanquanding.github.io/2020/05/22/microservice/microservice/</loc>
+    <lastmod>2023-08-05</lastmod>
+  </url>
+  <url>
+    <loc>https://hanquanding.github.io/2020/05/22/microservice/microservice-CAP/</loc>
+    <lastmod>2023-08-05</lastmod>
+  </url>
+  <url>
     <loc>https://hanquanding.github.io/2022/03/30/golang/go-slice/</loc>
     <lastmod>2023-07-10</lastmod>
   </url>
@@ -227,14 +235,6 @@
   <url>
     <loc>https://hanquanding.github.io/2021/03/28/go-zero/gozero001/</loc>
     <lastmod>2022-09-27</lastmod>
-  </url>
-  <url>
-    <loc>https://hanquanding.github.io/2020/05/22/microservice/microservice-CAP/</loc>
-    <lastmod>2022-04-14</lastmod>
-  </url>
-  <url>
-    <loc>https://hanquanding.github.io/2020/05/22/microservice/microservice/</loc>
-    <lastmod>2022-04-14</lastmod>
   </url>
   <url>
     <loc>https://hanquanding.github.io/2021/11/30/linux/linux-ssh/</loc>
