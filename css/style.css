@@ -9214,3 +9214,8 @@ body.okayNav-loaded {
     max-height: 200px;
   }
 }
+
+/*about json*/
+.archives-about .json {
+  text-shadow: none !important;
+}
