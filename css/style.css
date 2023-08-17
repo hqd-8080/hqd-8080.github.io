@@ -6443,7 +6443,7 @@ body.no-sidebar .sidebar {
 .article-list .article-title {
   font-size: 18px;
 
-  /*样式优化*/
+  /*******************/
   font-weight: normal;
   font: 300 19px/1.45 'Helvetica Neue', Helvetica, Arial, sans-serif;
 }
