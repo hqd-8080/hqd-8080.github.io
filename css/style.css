@@ -5526,8 +5526,7 @@ pre .js .function {
   color: #8959a8;
 }
 
-pre,
-.highlight {
+pre, .highlight {
   background: #fafafa;
   margin: 10px 0;
   padding: 15px 10px;
