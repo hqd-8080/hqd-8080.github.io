@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>https://hanquanding.github.io/2022/03/30/golang/go-map/</loc>
+    <lastmod>2023-10-24</lastmod>
+  </url>
+  <url>
     <loc>https://hanquanding.github.io/2022/03/31/golang/go-error/</loc>
     <lastmod>2023-10-24</lastmod>
   </url>
@@ -66,10 +70,6 @@
   </url>
   <url>
     <loc>https://hanquanding.github.io/2020/06/04/golang/go-leakage/</loc>
-    <lastmod>2023-10-07</lastmod>
-  </url>
-  <url>
-    <loc>https://hanquanding.github.io/2022/03/30/golang/go-map/</loc>
     <lastmod>2023-10-07</lastmod>
   </url>
   <url>
