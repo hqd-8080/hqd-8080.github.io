@@ -17,21 +17,21 @@
   <meta http-equiv="window-target" content="_top" />
   
   
-  <title>Go语言接口类型（interface） | @@</title>
-  <meta name="description" content="Go语言的接口类型（interface）在Go语言中、如果一个类型实现了一个接口的所有方法，那么这个类型的实例就可以存储在这个接口类型的实例中「鸭子类型」 Go语言不是一个「面向对象」的编程语言、使用「interface」实现类似面向对象的、继承、封装、多态、编程的思想；">
+  <title>Go语言两种（超时退出）程序的对比 | @@</title>
+  <meta name="description" content="Go语言两种（超时退出）程序的对比Go语言实现超时退出有好几种方式，比较常用的有两种：① 使用定时器 time.After、time.timer 和 select 配合使用② 使用 Context 包的 context.WithTimeout 方式实现 这两种方式还是有区别的，我比较喜欢使用 context.WithTimeout 的方式、一是比较优雅、二是 context 包是可重入的、比较适合">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Go语言接口类型（interface）">
-<meta property="og:url" content="https://hanquanding.github.io/2022/03/31/golang/go-interface/index.html">
+<meta property="og:title" content="Go语言两种（超时退出）程序的对比">
+<meta property="og:url" content="https://hanquanding.github.io/2023/08/15/golang/go-timeout/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="Go语言的接口类型（interface）在Go语言中、如果一个类型实现了一个接口的所有方法，那么这个类型的实例就可以存储在这个接口类型的实例中「鸭子类型」 Go语言不是一个「面向对象」的编程语言、使用「interface」实现类似面向对象的、继承、封装、多态、编程的思想；">
+<meta property="og:description" content="Go语言两种（超时退出）程序的对比Go语言实现超时退出有好几种方式，比较常用的有两种：① 使用定时器 time.After、time.timer 和 select 配合使用② 使用 Context 包的 context.WithTimeout 方式实现 这两种方式还是有区别的，我比较喜欢使用 context.WithTimeout 的方式、一是比较优雅、二是 context 包是可重入的、比较适合">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2022-03-31T13:10:10.000Z">
-<meta property="article:modified_time" content="2023-10-07T11:34:46.603Z">
+<meta property="article:published_time" content="2023-08-15T14:09:10.000Z">
+<meta property="article:modified_time" content="2023-11-22T05:29:38.919Z">
 <meta property="article:author" content="hanquanding">
 <meta property="article:tag" content="golang">
 <meta name="twitter:card" content="summary">
   <!-- Canonical links -->
-  <link rel="canonical" href="https://hanquanding.github.io/2022/03/31/golang/go-interface/index.html">
+  <link rel="canonical" href="https://hanquanding.github.io/2023/08/15/golang/go-timeout/index.html">
   
     <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
   
@@ -216,14 +216,14 @@
   
 <main class="main" role="main">
   <div class="content">
-  <article id="post-golang/go-interface" class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
+  <article id="post-golang/go-timeout" class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
     
     <div class="article-header">
       
         
   
     <h1 class="article-title" itemprop="name">
-      Go语言接口类型（interface）
+      Go语言两种（超时退出）程序的对比
     </h1>
   
 
@@ -231,8 +231,8 @@
       <div class="article-meta">
         <span class="article-date">
     <i class="icon icon-calendar-check"></i>
-	<a href="/2022/03/31/golang/go-interface/" class="article-date">
-	  <time datetime="2022-03-31T13:10:10.000Z" itemprop="datePublished">2022-03-31</time>
+	<a href="/2023/08/15/golang/go-timeout/" class="article-date">
+	  <time datetime="2023-08-15T14:09:10.000Z" itemprop="datePublished">2023-08-15</time>
 	</a>
 </span>
         
@@ -257,14 +257,25 @@
 	</span>
 
 
-        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2022/03/31/golang/go-interface/#comments" class="article-comment-link">评论</a></span>
+        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2023/08/15/golang/go-timeout/#comments" class="article-comment-link">评论</a></span>
         
       </div>
     </div>
     <div class="article-entry marked-body" itemprop="articleBody">
       
-        <h5 id="Go语言的接口类型（interface）"><a href="#Go语言的接口类型（interface）" class="headerlink" title="Go语言的接口类型（interface）"></a>Go语言的接口类型（interface）</h5><p>在Go语言中、如果一个类型实现了一个接口的所有方法，那么这个类型的实例就可以存储在这个接口类型的实例中「鸭子类型」</p>
-<p>Go语言不是一个「面向对象」的编程语言、使用「interface」实现类似面向对象的、继承、封装、多态、编程的思想；</p>
+        <h4 id="Go语言两种（超时退出）程序的对比"><a href="#Go语言两种（超时退出）程序的对比" class="headerlink" title="Go语言两种（超时退出）程序的对比"></a>Go语言两种（超时退出）程序的对比</h4><p>Go语言实现超时退出有好几种方式，比较常用的有两种：<br>① 使用定时器 time.After、time.timer 和 select 配合使用<br>② 使用 Context 包的 context.WithTimeout 方式实现</p>
+<p>这两种方式还是有区别的，我比较喜欢使用 context.WithTimeout 的方式、一是比较优雅、二是 context 包是可重入的、比较适合复杂的业务场景</p>
+<h4 id="使用定时器-time-After、time-timer-和-select-配合实现超时退出"><a href="#使用定时器-time-After、time-timer-和-select-配合实现超时退出" class="headerlink" title="使用定时器 time.After、time.timer 和 select 配合实现超时退出"></a>使用定时器 time.After、time.timer 和 select 配合实现超时退出</h4><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">    <span class="string">&quot;fmt&quot;</span></span><br><span class="line">    <span class="string">&quot;time&quot;</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">    done := <span class="built_in">make</span>(<span class="keyword">chan</span> <span class="keyword">bool</span>)    <span class="comment">// 退出信号</span></span><br><span class="line">    timeout := time.Second * <span class="number">5</span> <span class="comment">// 设置超时时间</span></span><br><span class="line">    </span><br><span class="line">    <span class="keyword">go</span> <span class="function"><span class="keyword">func</span><span class="params">()</span></span> &#123;</span><br><span class="line">        <span class="comment">// 模拟处理业务逻辑、并且任务超时</span></span><br><span class="line">        time.Sleep(time.Second * <span class="number">10</span>)</span><br><span class="line">        done &lt;- <span class="literal">true</span></span><br><span class="line">        <span class="built_in">close</span>(done)</span><br><span class="line">    &#125;()</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 监听多个通道的IO执行情况</span></span><br><span class="line">    <span class="keyword">select</span> &#123;</span><br><span class="line">    <span class="keyword">case</span> &lt;-done:</span><br><span class="line">        fmt.Println(<span class="string">&quot;Task finished...&quot;</span>)</span><br><span class="line">    <span class="keyword">case</span> &lt;-time.After(timeout):</span><br><span class="line">        fmt.Println(<span class="string">&quot;Task timeout...&quot;</span>)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Task timeout...</span><br></pre></td></tr></table></figure>
+
+<h4 id="使用-Context-包的-context-WithTimeout-方式实现"><a href="#使用-Context-包的-context-WithTimeout-方式实现" class="headerlink" title="使用 Context 包的 context.WithTimeout 方式实现"></a>使用 Context 包的 context.WithTimeout 方式实现</h4><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">    <span class="string">&quot;context&quot;</span></span><br><span class="line">    <span class="string">&quot;fmt&quot;</span></span><br><span class="line">    <span class="string">&quot;time&quot;</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">    timeout := time.Second * <span class="number">5</span></span><br><span class="line">    ctx, cancel := context.WithTimeout(context.Background(), timeout)</span><br><span class="line">    <span class="keyword">defer</span> cancel()</span><br><span class="line">    </span><br><span class="line">    done := <span class="built_in">make</span>(<span class="keyword">chan</span> <span class="keyword">bool</span>) <span class="comment">// 任务完成信号</span></span><br><span class="line">    </span><br><span class="line">    <span class="keyword">go</span> <span class="function"><span class="keyword">func</span><span class="params">()</span></span> &#123;</span><br><span class="line">        <span class="comment">// 模拟处理业务逻辑、并且任务超时</span></span><br><span class="line">        time.Sleep(time.Second * <span class="number">2</span>)</span><br><span class="line">        done &lt;- <span class="literal">true</span></span><br><span class="line">        <span class="built_in">close</span>(done)</span><br><span class="line">    &#125;()</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">select</span> &#123;</span><br><span class="line">    <span class="keyword">case</span> &lt;-done:</span><br><span class="line">        fmt.Println(<span class="string">&quot;Task finished...&quot;</span>)</span><br><span class="line">    <span class="keyword">case</span> &lt;-ctx.Done():</span><br><span class="line">        fmt.Println(<span class="string">&quot;Task timeout...&quot;</span>)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Task timeout...</span><br></pre></td></tr></table></figure>
+
+<h4 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h4><hr>
+<p>1.如果是实现简单的超时程序直接使用 time.After、time.timer 和 select 配合使用就可以、但是实际应用场景大多会是多个协程交互的完成业务，这个<br>时候使用 time.After 和 select 就比较难以实现复杂的业务场景.</p>
+<p>2.Context包是go1.7提供的上下文，原生的并发控制原语；比较适合父协程和子协程和派出孙子协程的并发控制，尤其是超时控制直接就提供了context.WithTimeout 使用起来比较优雅，比较适合复杂的业务场景.</p>
 
       
     </div>
@@ -274,7 +285,7 @@
 <!--    -->
 <!--    <li class="post-copyright-link hidden-xs">-->
 <!--      <strong>本文链接：</strong>-->
-<!--      <a href="https://hanquanding.github.io/2022/03/31/golang/go-interface/" title="Go语言接口类型（interface）" target="_blank" rel="external">https://hanquanding.github.io/2022/03/31/golang/go-interface/</a>-->
+<!--      <a href="https://hanquanding.github.io/2023/08/15/golang/go-timeout/" title="Go语言两种（超时退出）程序的对比" target="_blank" rel="external">https://hanquanding.github.io/2023/08/15/golang/go-timeout/</a>-->
 <!--    </li>-->
 <!--    -->
 <!--    <li class="post-copyright-license">-->
@@ -322,13 +333,9 @@
   
   <ul class="pager pull-left">
     
-    <li class="prev">
-      <a href="/2022/03/31/golang/go-error/" title="Go的异常处理、异常处理机制defer、recover、panic（error）"><i class="icon icon-angle-left" aria-hidden="true"></i><span>&nbsp;&nbsp;上一篇</span></a>
-    </li>
-    
     
     <li class="next">
-      <a href="/2022/03/31/golang/go-struct/" title="Go语言结构体类型、使用组合实现OOP（struct）"><span>下一篇&nbsp;&nbsp;</span><i class="icon icon-angle-right" aria-hidden="true"></i></a>
+      <a href="/2023/08/15/golang/go-gosimplejson/" title="Go语言未知结构的json解析包go-simplejson"><span>下一篇&nbsp;&nbsp;</span><i class="icon icon-angle-right" aria-hidden="true"></i></a>
     </li>
     
     
