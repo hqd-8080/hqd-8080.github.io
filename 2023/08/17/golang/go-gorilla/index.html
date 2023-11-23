@@ -17,22 +17,22 @@
   <meta http-equiv="window-target" content="_top" />
   
   
-  <title>Go语言使用WebSocket协议 | @@</title>
-  <meta name="description" content="WebSocket协议原理在WebSocket中，客户端（浏览器）和服务器只需要完成一次握手，在二者之间就能创建持久性的连接（长连接），而后进行双向的数据传输。WebSocket能更好的节省服务器资源和带宽，并且能够更实时的进行通信。一旦建立WebSocket连接，无论是服务器还是客户端，任意一方都可以直接向对方发送数据。 客户端为了和服务端建立一个WebSocket连接，首先要向服务器发起一个H">
+  <title>Go语言使用 WebSocket 总结 | @@</title>
+  <meta name="description" content="WebSocket是什么鬼?1.「WebSocket」是一种在TCP连接上进行全双工通信的协议。WebSocket 通信协议于2011年被IETF定为标准RFC 6455，并由RFC7936补充规范。WebSocket API也被W3C定为标准; 2.WebSocket使得客户端和服务器之间的数据交换变得更加简单，允许服务端主动向客户端推送数据。在WebSocket API中，浏览器和服务器只需要">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Go语言使用WebSocket协议">
-<meta property="og:url" content="https://hanquanding.github.io/2020/06/04/golang/websocket/index.html">
+<meta property="og:title" content="Go语言使用 WebSocket 总结">
+<meta property="og:url" content="https://hanquanding.github.io/2023/08/17/golang/go-gorilla/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="WebSocket协议原理在WebSocket中，客户端（浏览器）和服务器只需要完成一次握手，在二者之间就能创建持久性的连接（长连接），而后进行双向的数据传输。WebSocket能更好的节省服务器资源和带宽，并且能够更实时的进行通信。一旦建立WebSocket连接，无论是服务器还是客户端，任意一方都可以直接向对方发送数据。 客户端为了和服务端建立一个WebSocket连接，首先要向服务器发起一个H">
+<meta property="og:description" content="WebSocket是什么鬼?1.「WebSocket」是一种在TCP连接上进行全双工通信的协议。WebSocket 通信协议于2011年被IETF定为标准RFC 6455，并由RFC7936补充规范。WebSocket API也被W3C定为标准; 2.WebSocket使得客户端和服务器之间的数据交换变得更加简单，允许服务端主动向客户端推送数据。在WebSocket API中，浏览器和服务器只需要">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2020-06-04T12:40:28.000Z">
-<meta property="article:modified_time" content="2023-10-07T11:37:47.080Z">
+<meta property="article:published_time" content="2023-08-17T09:00:00.000Z">
+<meta property="article:modified_time" content="2023-11-23T07:26:00.924Z">
 <meta property="article:author" content="hanquanding">
 <meta property="article:tag" content="golang">
 <meta property="article:tag" content="WebSocket">
 <meta name="twitter:card" content="summary">
   <!-- Canonical links -->
-  <link rel="canonical" href="https://hanquanding.github.io/2020/06/04/golang/websocket/index.html">
+  <link rel="canonical" href="https://hanquanding.github.io/2023/08/17/golang/go-gorilla/index.html">
   
     <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
   
@@ -217,14 +217,14 @@
   
 <main class="main" role="main">
   <div class="content">
-  <article id="post-golang/websocket" class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
+  <article id="post-golang/go-gorilla" class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
     
     <div class="article-header">
       
         
   
     <h1 class="article-title" itemprop="name">
-      Go语言使用WebSocket协议
+      Go语言使用 WebSocket 总结
     </h1>
   
 
@@ -232,8 +232,8 @@
       <div class="article-meta">
         <span class="article-date">
     <i class="icon icon-calendar-check"></i>
-	<a href="/2020/06/04/golang/websocket/" class="article-date">
-	  <time datetime="2020-06-04T12:40:28.000Z" itemprop="datePublished">2020-06-04</time>
+	<a href="/2023/08/17/golang/go-gorilla/" class="article-date">
+	  <time datetime="2023-08-17T09:00:00.000Z" itemprop="datePublished">2023-08-17</time>
 	</a>
 </span>
         
@@ -258,14 +258,38 @@
 	</span>
 
 
-        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2020/06/04/golang/websocket/#comments" class="article-comment-link">评论</a></span>
+        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2023/08/17/golang/go-gorilla/#comments" class="article-comment-link">评论</a></span>
         
       </div>
     </div>
     <div class="article-entry marked-body" itemprop="articleBody">
       
-        <h4 id="WebSocket协议原理"><a href="#WebSocket协议原理" class="headerlink" title="WebSocket协议原理"></a>WebSocket协议原理</h4><p>在WebSocket中，客户端（浏览器）和服务器只需要完成一次握手，在二者之间就能创建持久性的连接（长连接），而后进行双向的数据传输。<br>WebSocket能更好的节省服务器资源和带宽，并且能够更实时的进行通信。一旦建立WebSocket连接，无论是服务器还是客户端，任意一方都可以直接向对方发送数据。</p>
-<p>客户端为了和服务端建立一个WebSocket连接，首先要向服务器发起一个HTTP请求，这个请求和普通的请求不一样；会包含一些附加头信息，比如：<code>Upgrade：WebSocket</code>，服务器会解析这些附加头信息。<br>WebSocket协议为了兼容现有浏览器，所以在握手阶段使用了HTTP协议；WebSocket是类似TCP长连接的通信模式；WebSocket协议建立在TCP协议之上</p>
+        <h4 id="WebSocket是什么鬼"><a href="#WebSocket是什么鬼" class="headerlink" title="WebSocket是什么鬼?"></a>WebSocket是什么鬼?</h4><p>1.「<code>WebSocket</code>」是一种在<code>TCP连接</code>上进行<code>全双工</code>通信的协议。WebSocket 通信协议于2011年被IETF定为标准RFC 6455，并由RFC7936补充规范。WebSocket API也被W3C定为标准;</p>
+<p>2.<code>WebSocket</code>使得客户端和服务器之间的数据交换变得更加简单，允许服务端主动向客户端推送数据。在WebSocket API中，浏览器和服务器只需要完成一次握手，两者之间就直接可以创建<code>持久性</code>的连接（长连接），并进行双向数据传输（全双工）;</p>
+<p>3.<code>WebSocket</code>能更好的节省服务器资源和带宽，并且能够更实时的进行通信。一旦建立WebSocket连接，无论是服务器还是客户端，任意一方都可以直接向对方发送数据; </p>
+<p>4.客户端为了和服务端建立一个<code>WebSocket</code>连接，首先要向服务器发起一个<code>HTTP请求</code>，这个请求和普通的请求不一样；会包含一些附加头信息，比如：<code>Upgrade：WebSocket</code>，服务器会解析这些附加头信息;</p>
+<p>5.<code>WebSocket协议</code>为了兼容现有浏览器，所以在握手阶段使用了HTTP协议；<code>WebSocket</code>是类似TCP长连接的通信模式；WebSocket协议建立在TCP协议之上;</p>
+<h4 id="为什么需要-WebSocket？"><a href="#为什么需要-WebSocket？" class="headerlink" title="为什么需要 WebSocket？"></a>为什么需要 WebSocket？</h4><p>因为<code>HTTP协议</code>是短连接，客户端发起请求，服务端响应请求整个通信就结束了；<code>HTTP协议</code>有一个缺陷：通信只能由客户端发起；客户端要获取服务端的实时状态只能使用类似<code>服务轮询</code>请求的方式去实现；轮询的方式效率非常低、消耗服务器资源还要不停地连接和断开连接的过程；</p>
+<p>WebSocket的有点有：</p>
+<ul>
+<li>1.建立在<code>TCP协议</code>之上，服务器端的实现比较容易；</li>
+<li>2.与<code>HTTP协议</code>有着良好的兼容性；默认端口也是<code>80</code>和<code>443</code>，并且握手阶段采用<code>HTTP协议</code>；</li>
+<li>3.数据格式比较轻量，性能开销小，通信高效；</li>
+<li>4.可以发送文本，也可以发送二进制数据；</li>
+<li>5.没有同源限制，客户端可以与任意服务器通信(双工通信)；</li>
+<li>6.协议标识符是<code>ws</code>（如果加密，则为<code>wss</code>），服务器网址就是 URL;</li>
+</ul>
+<h4 id="Go语言使用-WebSocket"><a href="#Go语言使用-WebSocket" class="headerlink" title="Go语言使用 WebSocket"></a>Go语言使用 WebSocket</h4><p>专门做了一下调研；目前Golang的生态中，使用<code>WebSocket</code>的开源包比较多的是<code>https://github.com/gorilla/websocket</code></p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">go</span> get -v  github.com/gorilla/websocket</span><br><span class="line">或者</span><br><span class="line"><span class="keyword">go</span> install github.com/gorilla/websocket@latest</span><br></pre></td></tr></table></figure>
+
+<p>下面使用Go语言分别实现一个「客户端」和一个websocket的「服务端」程序；服务端程序监听服务器端口；客户端通过<code>HTTP协议</code>连接到服务端；   </p>
+<p>服务端实现：<code>websocket/server.go</code></p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">    <span class="string">&quot;github.com/gorilla/websocket&quot;</span></span><br><span class="line">    <span class="string">&quot;log&quot;</span></span><br><span class="line">    <span class="string">&quot;net/http&quot;</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> (</span><br><span class="line">    addr     = <span class="string">&quot;127.0.0.1:8888&quot;</span></span><br><span class="line">    upgrader = websocket.Upgrader&#123;</span><br><span class="line">        ReadBufferSize:  <span class="number">1024</span>,</span><br><span class="line">        WriteBufferSize: <span class="number">1024</span>,</span><br><span class="line">    &#125;</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">    http.HandleFunc(<span class="string">&quot;/hello&quot;</span>, serveWsHandler)</span><br><span class="line">    log.Fatal(http.ListenAndServe(addr, <span class="literal">nil</span>))</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">serveWsHandler</span><span class="params">(w http.ResponseWriter, r *http.Request)</span></span> &#123;</span><br><span class="line">    ws, err := upgrader.Upgrade(w, r, <span class="literal">nil</span>)</span><br><span class="line">    <span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">        log.Println(<span class="string">&quot;upgrade err:&quot;</span>, err)</span><br><span class="line">        <span class="keyword">return</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">defer</span> ws.Close()</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">for</span> &#123;</span><br><span class="line">        mt, message, err := ws.ReadMessage()</span><br><span class="line">        <span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">            log.Println(<span class="string">&quot;read message err:&quot;</span>, err)</span><br><span class="line">            <span class="keyword">break</span></span><br><span class="line">        &#125;</span><br><span class="line">        log.Println(<span class="string">&quot;received:&quot;</span>, <span class="keyword">string</span>(message))</span><br><span class="line">        <span class="keyword">if</span> err := ws.WriteMessage(mt, message); err != <span class="literal">nil</span> &#123;</span><br><span class="line">            log.Println(<span class="string">&quot;write message err:&quot;</span>, err)</span><br><span class="line">            <span class="keyword">break</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>客户端实现：<code>websocket/client.go</code></p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">    <span class="string">&quot;github.com/gorilla/websocket&quot;</span></span><br><span class="line">    <span class="string">&quot;log&quot;</span></span><br><span class="line">    <span class="string">&quot;net/url&quot;</span></span><br><span class="line">    <span class="string">&quot;os&quot;</span></span><br><span class="line">    <span class="string">&quot;os/signal&quot;</span></span><br><span class="line">    <span class="string">&quot;time&quot;</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> host = <span class="string">&quot;127.0.0.1:8888&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">    done := <span class="built_in">make</span>(<span class="keyword">chan</span> <span class="keyword">struct</span>&#123;&#125;)</span><br><span class="line">    interrupt := <span class="built_in">make</span>(<span class="keyword">chan</span> os.Signal)</span><br><span class="line">    </span><br><span class="line">    signal.Notify(interrupt, os.Interrupt)</span><br><span class="line">    </span><br><span class="line">    socketURL := url.URL&#123;Scheme: <span class="string">&quot;ws&quot;</span>, Host: host, Path: <span class="string">&quot;/hello&quot;</span>&#125;</span><br><span class="line">    log.Println(<span class="string">&quot;connecting to &quot;</span>, socketURL.String())</span><br><span class="line">    conn, _, err := websocket.DefaultDialer.Dial(socketURL.String(), <span class="literal">nil</span>)</span><br><span class="line">    <span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">        log.Println(<span class="string">&quot;conn to server err:&quot;</span>, err)</span><br><span class="line">        <span class="keyword">return</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">defer</span> conn.Close()</span><br><span class="line">    <span class="keyword">go</span> receiveHandler(conn, done)</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">for</span> &#123;</span><br><span class="line">        <span class="keyword">select</span> &#123;</span><br><span class="line">        <span class="keyword">case</span> &lt;-time.After(time.Duration(<span class="number">1</span>) * time.Millisecond * <span class="number">1000</span>):</span><br><span class="line">            err := conn.WriteMessage(websocket.TextMessage, []<span class="keyword">byte</span>(<span class="string">&quot;Hello WebSocket!&quot;</span>))</span><br><span class="line">            <span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">                <span class="keyword">return</span></span><br><span class="line">            &#125;</span><br><span class="line">        <span class="keyword">case</span> &lt;-interrupt: <span class="comment">// Ctrl + C SIGINT</span></span><br><span class="line">            log.Println(<span class="string">&quot;received SIGINT interrupt signal&quot;</span>)</span><br><span class="line">            err := conn.WriteMessage(websocket.CloseMessage, websocket.FormatCloseMessage(websocket.CloseNormalClosure, <span class="string">&quot;&quot;</span>))</span><br><span class="line">            <span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">                log.Println(<span class="string">&quot;closing websocket err:&quot;</span>, err)</span><br><span class="line">                <span class="keyword">return</span></span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">select</span> &#123;</span><br><span class="line">            <span class="keyword">case</span> &lt;-done:</span><br><span class="line">                log.Println(<span class="string">&quot;received channel closed! exiting....&quot;</span>)</span><br><span class="line">            <span class="keyword">case</span> &lt;-time.After(time.Duration(<span class="number">1</span>) * time.Second):</span><br><span class="line">                log.Println(<span class="string">&quot;timeout in closing receiving channel. exiting....&quot;</span>)</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">return</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">receiveHandler</span><span class="params">(conn *websocket.Conn, done <span class="keyword">chan</span> <span class="keyword">struct</span>&#123;&#125;)</span></span> &#123;</span><br><span class="line">    <span class="keyword">defer</span> <span class="built_in">close</span>(done)</span><br><span class="line">    <span class="keyword">for</span> &#123;</span><br><span class="line">        _, msg, err := conn.ReadMessage()</span><br><span class="line">        <span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">            log.Println(<span class="string">&quot;read message err:&quot;</span>, err)</span><br><span class="line">            <span class="keyword">return</span></span><br><span class="line">        &#125;</span><br><span class="line">        log.Println(<span class="string">&quot;received:&quot;</span>, <span class="keyword">string</span>(msg))</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
 
       
     </div>
@@ -275,7 +299,7 @@
 <!--    -->
 <!--    <li class="post-copyright-link hidden-xs">-->
 <!--      <strong>本文链接：</strong>-->
-<!--      <a href="https://hanquanding.github.io/2020/06/04/golang/websocket/" title="Go语言使用WebSocket协议" target="_blank" rel="external">https://hanquanding.github.io/2020/06/04/golang/websocket/</a>-->
+<!--      <a href="https://hanquanding.github.io/2023/08/17/golang/go-gorilla/" title="Go语言使用 WebSocket 总结" target="_blank" rel="external">https://hanquanding.github.io/2023/08/17/golang/go-gorilla/</a>-->
 <!--    </li>-->
 <!--    -->
 <!--    <li class="post-copyright-license">-->
@@ -323,13 +347,9 @@
   
   <ul class="pager pull-left">
     
-    <li class="prev">
-      <a href="/2020/06/04/golang/go-leakage/" title="Go语言的协程泄漏"><i class="icon icon-angle-left" aria-hidden="true"></i><span>&nbsp;&nbsp;上一篇</span></a>
-    </li>
-    
     
     <li class="next">
-      <a href="/2020/06/03/golang/go-goland-setting/" title="GoLand文件注释模板配置 IDE"><span>下一篇&nbsp;&nbsp;</span><i class="icon icon-angle-right" aria-hidden="true"></i></a>
+      <a href="/2023/08/15/golang/go-timeout/" title="Go语言两种（超时退出）程序的对比"><span>下一篇&nbsp;&nbsp;</span><i class="icon icon-angle-right" aria-hidden="true"></i></a>
     </li>
     
     
