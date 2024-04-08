@@ -17,21 +17,22 @@
   <meta http-equiv="window-target" content="_top" />
   
   
-  <title>Docker安装MySQL8.0 | @@</title>
-  <meta name="description" content="Docker安装MySQL8.0拉取最新版mysql镜像docker pull mysql 查看镜像docker images -a 运行容器docker run -p 3306:3306 --name mysql -e MYSQL_ROOT_PASSWORD&#x3D;123456 -d mysql:latest 123–name： 容器名，此处命名为mysql-e：    配置信息，此处配置mysql的">
+  <title>Kafka（三）性能优化参数配置 | @@</title>
+  <meta name="description" content="Kafka（三）性能优化参数配置1.1 Kafka副本分配策略replicationKafka 采用分区机制对数据进行管理和存储，每个 topic 可以有多个分区，每个分区可以有多个副本（replication）应根据业务需求合理配置副本，一般建议设置至少2个副本以保证高可用性 1.2 Kafka数据备份与恢复Kafka 采用基于日志文件的存储方式，每个 Broker 节点上都有副本数据的本地备份">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Docker安装MySQL8.0">
-<meta property="og:url" content="https://hanquanding.github.io/2020/05/24/docker/docker-install-mysql/index.html">
+<meta property="og:title" content="Kafka（三）性能优化参数配置">
+<meta property="og:url" content="https://hanquanding.github.io/2023/06/20/kafka/kafka3/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="Docker安装MySQL8.0拉取最新版mysql镜像docker pull mysql 查看镜像docker images -a 运行容器docker run -p 3306:3306 --name mysql -e MYSQL_ROOT_PASSWORD&#x3D;123456 -d mysql:latest 123–name： 容器名，此处命名为mysql-e：    配置信息，此处配置mysql的">
+<meta property="og:description" content="Kafka（三）性能优化参数配置1.1 Kafka副本分配策略replicationKafka 采用分区机制对数据进行管理和存储，每个 topic 可以有多个分区，每个分区可以有多个副本（replication）应根据业务需求合理配置副本，一般建议设置至少2个副本以保证高可用性 1.2 Kafka数据备份与恢复Kafka 采用基于日志文件的存储方式，每个 Broker 节点上都有副本数据的本地备份">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2020-05-24T06:15:24.000Z">
-<meta property="article:modified_time" content="2021-08-31T08:34:15.000Z">
+<meta property="article:published_time" content="2023-06-20T12:40:10.000Z">
+<meta property="article:modified_time" content="2024-04-08T13:02:51.391Z">
 <meta property="article:author" content="hanquanding">
-<meta property="article:tag" content="docker">
+<meta property="article:tag" content="golang">
+<meta property="article:tag" content="kafka">
 <meta name="twitter:card" content="summary">
   <!-- Canonical links -->
-  <link rel="canonical" href="https://hanquanding.github.io/2020/05/24/docker/docker-install-mysql/index.html">
+  <link rel="canonical" href="https://hanquanding.github.io/2023/06/20/kafka/kafka3/index.html">
   
     <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
   
@@ -216,14 +217,14 @@
   
 <main class="main" role="main">
   <div class="content">
-  <article id="post-docker/docker-install-mysql" class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
+  <article id="post-kafka/kafka3" class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
     
     <div class="article-header">
       
         
   
     <h1 class="article-title" itemprop="name">
-      Docker安装MySQL8.0
+      Kafka（三）性能优化参数配置
     </h1>
   
 
@@ -231,20 +232,20 @@
       <div class="article-meta">
         <span class="article-date">
     <i class="icon icon-calendar-check"></i>
-	<a href="/2020/05/24/docker/docker-install-mysql/" class="article-date">
-	  <time datetime="2020-05-24T06:15:24.000Z" itemprop="datePublished">2020-05-24</time>
+	<a href="/2023/06/20/kafka/kafka3/" class="article-date">
+	  <time datetime="2023-06-20T12:40:10.000Z" itemprop="datePublished">2023-06-20</time>
 	</a>
 </span>
         
   <span class="article-category">
     <i class="icon icon-folder"></i>
-    <a class="article-category-link" href="/categories/Docker/">Docker</a>
+    <a class="article-category-link" href="/categories/Kafka/">Kafka</a>
   </span>
 
         
   <span class="article-tag">
     <i class="icon icon-tags"></i>
-	<a class="article-tag-link-link" href="/tags/docker/" rel="tag">docker</a>
+	<a class="article-tag-link-link" href="/tags/golang/" rel="tag">golang</a>, <a class="article-tag-link-link" href="/tags/kafka/" rel="tag">kafka</a>
   </span>
 
 
@@ -257,43 +258,125 @@
 	</span>
 
 
-        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2020/05/24/docker/docker-install-mysql/#comments" class="article-comment-link">评论</a></span>
+        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2023/06/20/kafka/kafka3/#comments" class="article-comment-link">评论</a></span>
         
       </div>
     </div>
     <div class="article-entry marked-body" itemprop="articleBody">
       
-        <h5 id="Docker安装MySQL8-0"><a href="#Docker安装MySQL8-0" class="headerlink" title="Docker安装MySQL8.0"></a>Docker安装MySQL8.0</h5><p>拉取最新版mysql镜像<br><code>docker pull mysql</code></p>
-<p>查看镜像<br><code>docker images -a</code></p>
-<p>运行容器<br><code>docker run -p 3306:3306 --name mysql -e MYSQL_ROOT_PASSWORD=123456 -d mysql:latest</code></p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">–name： 容器名，此处命名为mysql</span><br><span class="line">-e：    配置信息，此处配置mysql的root用户的登录密码</span><br><span class="line">-p：    端口映射，此处映射 主机3306端口 到 容器的3306端口</span><br></pre></td></tr></table></figure>
+        <h4 id="Kafka（三）性能优化参数配置"><a href="#Kafka（三）性能优化参数配置" class="headerlink" title="Kafka（三）性能优化参数配置"></a>Kafka（三）性能优化参数配置</h4><h5 id="1-1-Kafka副本分配策略"><a href="#1-1-Kafka副本分配策略" class="headerlink" title="1.1 Kafka副本分配策略"></a>1.1 Kafka副本分配策略</h5><p>replication<br>Kafka 采用分区机制对数据进行管理和存储，每个 topic 可以有多个分区，每个分区可以有多个副本（replication）<br>应根据业务需求合理配置副本，一般建议设置至少2个副本以保证高可用性</p>
+<h5 id="1-2-Kafka数据备份与恢复"><a href="#1-2-Kafka数据备份与恢复" class="headerlink" title="1.2 Kafka数据备份与恢复"></a>1.2 Kafka数据备份与恢复</h5><p>Kafka 采用基于日志文件的存储方式，每个 Broker 节点上都有副本数据的本地备份<br>在数据备份方面，可以通过配置 Kafka 的数据保留策略和数据分区调整策略来保证数据的持久性和安全性；<br>在数据恢复方面，可以通过查找备份数据并进行相应的分区副本替换来恢复数据</p>
+<h5 id="1-3-参数配置优化"><a href="#1-3-参数配置优化" class="headerlink" title="1.3 参数配置优化"></a>1.3 参数配置优化</h5><h5 id="服务端："><a href="#服务端：" class="headerlink" title="服务端："></a>服务端：</h5><table>
+<thead>
+<tr>
+<th align="left">参数名</th>
+<th align="left">默认参数值</th>
+<th align="left">位置</th>
+<th align="left">优化场景</th>
+<th align="left">说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">num.network.threads</td>
+<td align="left">3</td>
+<td align="left">服务端</td>
+<td align="left">低延迟</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">num.io.threads</td>
+<td align="left">8</td>
+<td align="left">服务端</td>
+<td align="left">低延迟</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">socket.send.buffer.bytes</td>
+<td align="left">102400(100K)</td>
+<td align="left">服务端</td>
+<td align="left">高吞吐</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">socket.receive.buffer.bytes</td>
+<td align="left">65536(64K)</td>
+<td align="left">服务端</td>
+<td align="left">高吞吐</td>
+<td align="left"></td>
+</tr>
+</tbody></table>
+<h5 id="生产端："><a href="#生产端：" class="headerlink" title="生产端："></a>生产端：</h5><table>
+<thead>
+<tr>
+<th align="left">参数名</th>
+<th align="left">默认参数值</th>
+<th align="left">位置</th>
+<th align="left">优化场景</th>
+<th align="left">说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">max.in.flight.requests.per.connection</td>
+<td align="left">5</td>
+<td align="left">生产端</td>
+<td align="left">幂等</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">buffer.memory</td>
+<td align="left">33554432（32M）</td>
+<td align="left">生产端</td>
+<td align="left">高吞吐</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">batch.size</td>
+<td align="left">16384(16K)</td>
+<td align="left">生产端</td>
+<td align="left">提高性能</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">linger.ms</td>
+<td align="left">0</td>
+<td align="left">生产端</td>
+<td align="left">提高性能</td>
+<td align="left"></td>
+</tr>
+</tbody></table>
+<h5 id="消费端："><a href="#消费端：" class="headerlink" title="消费端："></a>消费端：</h5><table>
+<thead>
+<tr>
+<th align="left">参数名</th>
+<th align="left">默认参数值</th>
+<th align="left">位置</th>
+<th align="left">优化场景</th>
+<th align="left">说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">fetch.min.bytes</td>
+<td align="left">1</td>
+<td align="left">消费端</td>
+<td align="left">提高性能</td>
+<td align="left">网络交互次数</td>
+</tr>
+<tr>
+<td align="left">max.poll.records</td>
+<td align="left">500</td>
+<td align="left">消费端</td>
+<td align="left">批量处理</td>
+<td align="left">控制批量获取消息数量</td>
+</tr>
+<tr>
+<td align="left">fetch.max.bytes</td>
+<td align="left">57671680 (55M)</td>
+<td align="left">消费端</td>
+<td align="left">批量处理</td>
+<td align="left">控制批量获取消息字节大小</td>
+</tr>
+</tbody></table>
 
-
-<p>如果要建立目录映射</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">docker run -p 3306:3306 --name mysql \</span><br><span class="line">-v /usr/local/docker/mysql/conf:/etc/mysql \</span><br><span class="line">-v /usr/local/docker/mysql/logs:/var/log/mysql \</span><br><span class="line">-v /usr/local/docker/mysql/data:/var/lib/mysql \</span><br><span class="line">-e MYSQL_ROOT_PASSWORD=123456 \</span><br><span class="line">-d mysql:latest</span><br><span class="line">-v：主机和容器的目录映射关系，&quot;:&quot;前为主机目录，之后为容器目录</span><br></pre></td></tr></table></figure>
-
-<p>检查容器是否正确运行<br><code>docker container ls   |  docker ps -a</code></p>
-<p>进入容器</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">docker exec -it mysql bash</span><br><span class="line">mysql -uroot -p123456</span><br></pre></td></tr></table></figure>
-
-
-<p>宿主机链接容器的mysql（远程连接mysql）<br>我们在创建容器的时候已经将容器的3306端口和主机的3306端口映射到一起，所以我们应该访问：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">host: 127.0.0.1</span><br><span class="line">port: 3306</span><br><span class="line">user: root</span><br><span class="line">password: 123456</span><br></pre></td></tr></table></figure>
-
-<p>如果你的容器运行正常，但是无法访问到MySQL，一般有以下几个可能的原因：</p>
-<p>caching_sha2_password问题<br>为了提供更安全的密码加密MySQL8.0的首选默认认证插件是，caching_sha2_password而不是mysql_native_password</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; use mysql;</span><br><span class="line">mysql&gt; select host, user, plugin from user;</span><br><span class="line">+-----------+------------------+-----------------------+</span><br><span class="line">| host      | user             | plugin                |</span><br><span class="line">+-----------+------------------+-----------------------+</span><br><span class="line">| %         | root             | mysql_native_password |</span><br><span class="line">| localhost | mysql.infoschema | caching_sha2_password |</span><br><span class="line">| localhost | mysql.session    | caching_sha2_password |</span><br><span class="line">| localhost | mysql.sys        | caching_sha2_password |</span><br><span class="line">| localhost | root             | mysql_native_password |</span><br><span class="line">+-----------+------------------+-----------------------+</span><br><span class="line"></span><br><span class="line">ALTER USER &#x27;root&#x27;@&#x27;%&#x27; IDENTIFIED WITH mysql_native_password BY &#x27;123456&#x27;;</span><br><span class="line">ALTER USER &#x27;root&#x27;@&#x27;localhost&#x27; IDENTIFIED WITH mysql_native_password BY &#x27;123456&#x27;;</span><br><span class="line">flush privileges;</span><br></pre></td></tr></table></figure>
-<p>或者</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">docker exec -it mysql bash</span><br><span class="line">mysql -uroot -p123456</span><br><span class="line"></span><br><span class="line">配置 mysql.cnf 配置默认身份验证插件</span><br><span class="line">/etc/mysql/	</span><br><span class="line">[mysqld]</span><br><span class="line">default_authentication_plugin = mysql_native_password</span><br></pre></td></tr></table></figure>
-
-
-<p>防火墙阻拦</p>
-<p>开放端口：<br><code>systemctl status firewalld</code><br><code>firewall-cmd  --zone=public --add-port=3306/tcp -permanent</code><br><code>firewall-cmd  --reload</code></p>
-<p>关闭防火墙：<br><code>systemctl stop firewalld</code></p>
-<p>需要进入docker本地客户端设置远程访问账号</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">docker exec -it mysql bash</span><br><span class="line">mysql -uroot -p123456</span><br><span class="line"></span><br><span class="line">grant all privileges on *.* to root@&#x27;%&#x27; identified by &quot;password&quot;;</span><br></pre></td></tr></table></figure>
-<p>mysql使用mysql数据库中的user表来管理权限，修改user表就可以修改权限（只有root账号可以修改）</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">use mysql;</span><br><span class="line"></span><br><span class="line">select host, user, plugin from user;</span><br><span class="line">+-----------+------------------+-----------------------+</span><br><span class="line">| host      | user             | plugin                |</span><br><span class="line">+-----------+------------------+-----------------------+</span><br><span class="line">| %         | root             | mysql_native_password |</span><br><span class="line">| localhost | mysql.infoschema | caching_sha2_password |</span><br><span class="line">| localhost | mysql.session    | caching_sha2_password |</span><br><span class="line">| localhost | mysql.sys        | caching_sha2_password |</span><br><span class="line">| localhost | root             | mysql_native_password |</span><br><span class="line">+-----------+------------------+-----------------------+</span><br><span class="line"></span><br><span class="line">grant all privileges  on *.* to root@&#x27;%&#x27; identified by &quot;password&quot;;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">flush privileges;</span><br></pre></td></tr></table></figure>
       
     </div>
     <div class="article-footer">
@@ -302,7 +385,7 @@
 <!--    -->
 <!--    <li class="post-copyright-link hidden-xs">-->
 <!--      <strong>本文链接：</strong>-->
-<!--      <a href="https://hanquanding.github.io/2020/05/24/docker/docker-install-mysql/" title="Docker安装MySQL8.0" target="_blank" rel="external">https://hanquanding.github.io/2020/05/24/docker/docker-install-mysql/</a>-->
+<!--      <a href="https://hanquanding.github.io/2023/06/20/kafka/kafka3/" title="Kafka（三）性能优化参数配置" target="_blank" rel="external">https://hanquanding.github.io/2023/06/20/kafka/kafka3/</a>-->
 <!--    </li>-->
 <!--    -->
 <!--    <li class="post-copyright-license">-->
@@ -351,12 +434,12 @@
   <ul class="pager pull-left">
     
     <li class="prev">
-      <a href="/2020/05/24/docker/docker-power/" title="Ubuntu系统docker解决sudo权限问题"><i class="icon icon-angle-left" aria-hidden="true"></i><span>&nbsp;&nbsp;上一篇</span></a>
+      <a href="/2023/08/15/golang/go-gosimplejson/" title="Go语言未知结构的json解析包go-simplejson"><i class="icon icon-angle-left" aria-hidden="true"></i><span>&nbsp;&nbsp;上一篇</span></a>
     </li>
     
     
     <li class="next">
-      <a href="/2020/05/23/git/git-clear/" title="清除项目Git版本控制信息"><span>下一篇&nbsp;&nbsp;</span><i class="icon icon-angle-right" aria-hidden="true"></i></a>
+      <a href="/2023/06/20/kafka/kafka2/" title="Kafka（二）常用脚本命令整理"><span>下一篇&nbsp;&nbsp;</span><i class="icon icon-angle-right" aria-hidden="true"></i></a>
     </li>
     
     
