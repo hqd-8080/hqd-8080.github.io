@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html lang=zh>
+<head>
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="Cache-Control" content="no-transform" />
+  <meta http-equiv="Cache-Control" content="no-siteapp" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="format-detection" content="telephone=no,email=no,adress=no">
+  <!-- Color theme for statusbar -->
+  <meta name="theme-color" content="#000000" />
+  <!-- 强制页面在当前窗口以独立页面显示,防止别人在框架里调用页面 -->
+  <meta http-equiv="window-target" content="_top" />
+  
+  
+  <title>Kafka（一）学习笔记 | @@</title>
+  <meta name="description" content="Kafka（一）学习笔记1.1 Go语言操作KafkaKafka是一种高吞吐量的分布式发布订阅消息MQ系统，本文介绍了如何使用kafka-go这个库实现Go语言操作kafkasegmentio&#x2F;kafka-go 是纯Go实现，提供了与kafka交互的低级别和高级别两套API，同时也支持Context并发控制 1.2 Kafka开发环境搭建这里使用docker-compose快速搭建一套单节点zoo">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Kafka（一）学习笔记">
+<meta property="og:url" content="https://hanquanding.github.io/2023/06/19/kafka/kafka1/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="Kafka（一）学习笔记1.1 Go语言操作KafkaKafka是一种高吞吐量的分布式发布订阅消息MQ系统，本文介绍了如何使用kafka-go这个库实现Go语言操作kafkasegmentio&#x2F;kafka-go 是纯Go实现，提供了与kafka交互的低级别和高级别两套API，同时也支持Context并发控制 1.2 Kafka开发环境搭建这里使用docker-compose快速搭建一套单节点zoo">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2023-06-19T11:10:10.000Z">
+<meta property="article:modified_time" content="2024-04-02T06:06:59.777Z">
+<meta property="article:author" content="hanquanding">
+<meta property="article:tag" content="golang">
+<meta property="article:tag" content="kafka">
+<meta name="twitter:card" content="summary">
+  <!-- Canonical links -->
+  <link rel="canonical" href="https://hanquanding.github.io/2023/06/19/kafka/kafka1/index.html">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png" type="image/x-icon">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+  
+  
+    <link href="//cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.3.5/dist/jquery.fancybox.min.css" rel="stylesheet">
+  
+  
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body class="main-center" itemscope itemtype="http://schema.org/WebPage">
+  <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+  <div class="slimContent">
+    <div class="navbar-header">
+      
+      
+      <div class="profile-block text-center">
+        <a id="avatar" href="/">
+          <img class="img-circle" src="/images/avatar.jpeg" width="200" height="200">
+        </a>
+        <h2 id="name" class="hidden-xs hidden-sm">🌴🌴🥥</h2>
+        <h3 id="title" class="hidden-xs hidden-sm hidden-md">Golang</h3>
+        <small id="location" class="text-muted hidden-xs hidden-sm"><i class="icon icon-map-marker"></i> Shanghai, China</small>
+      </div>
+      
+      <div class="search" id="search-form-wrap">
+
+    <form class="search-form sidebar-form">
+        <div class="input-group">
+            <input type="text" class="search-form-input form-control" placeholder="搜索" />
+            <span class="input-group-btn">
+                <button type="submit" class="search-form-submit btn btn-flat" onclick="return false;"><i class="icon icon-search"></i></button>
+            </span>
+        </div>
+    </form>
+    <div class="ins-search">
+  <div class="ins-search-mask"></div>
+  <div class="ins-search-container">
+    <div class="ins-input-wrapper">
+      <input type="text" class="ins-search-input" placeholder="想要查找什么..." x-webkit-speech />
+      <button type="button" class="close ins-close ins-selectable" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+    </div>
+    <div class="ins-section-wrapper">
+      <div class="ins-section-container"></div>
+    </div>
+  </div>
+</div>
+
+
+</div>
+      <button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target="#main-navbar" aria-controls="main-navbar" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+    </div>
+    <nav id="main-navbar" class="collapse navbar-collapse" itemscope itemtype="http://schema.org/SiteNavigationElement" role="navigation">
+      <ul class="nav navbar-nav main-nav menu-highlight">
+        
+        
+        <li class="menu-item menu-item-home">
+          <a href="/.">
+            
+            <i class="icon icon-home-fill"></i>
+            
+            <span class="menu-title">首页</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives">
+            
+            <i class="icon icon-archives-fill"></i>
+            
+            <span class="menu-title">归档</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories">
+            
+            <i class="icon icon-folder"></i>
+            
+            <span class="menu-title">分类</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags">
+            
+            <i class="icon icon-tags"></i>
+            
+            <span class="menu-title">标签</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about">
+            
+            <i class="icon icon-cup-fill"></i>
+            
+            <span class="menu-title">关于</span>
+          </a>
+        </li>
+        
+      </ul>
+      
+	
+    <ul class="social-links">
+    	
+        <li><a href="https://github.com/hanquanding" target="_blank" title="Github" data-toggle=tooltip data-placement=top><i class="icon icon-github"></i></a></li>
+        
+        <li><a href="/atom.xml" target="_blank" title="Rss" data-toggle=tooltip data-placement=top><i class="icon icon-rss"></i></a></li>
+        
+    </ul>
+
+    </nav>
+  </div>
+</header>
+
+  
+    <aside class="sidebar" itemscope itemtype="http://schema.org/WPSideBar">
+  <div class="slimContent">
+    
+      <!--<div class="widget">-->
+<!--    <h3 class="widget-title">公告</h3>-->
+<!--    <div class="widget-body">-->
+<!--        <div id="board">-->
+<!--            <div class="content">-->
+<!--                -->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--</div>-->
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">分类</h3>
+    <div class="widget-body">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Docker/">Docker</a><span class="category-list-count">13</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Git/">Git</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Go%E8%AF%AD%E8%A8%80/">Go语言</a><span class="category-list-count">31</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Kafka/">Kafka</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Kubernetes/">Kubernetes</a><span class="category-list-count">10</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a><span class="category-list-count">6</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/MySQL/">MySQL</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Nginx/">Nginx</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Redis/">Redis</a><span class="category-list-count">7</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/gRPC/">gRPC</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/go-zero/">go-zero</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%8C%BA%E5%9D%97%E9%93%BE/">区块链</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%9E%B6%E6%9E%84/">微服务架构</a><span class="category-list-count">2</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      <!---->
+<!--  <div class="widget">-->
+<!--    <h3 class="widget-title">标签</h3>-->
+<!--    <div class="widget-body">-->
+<!--      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Blockchain/" rel="tag">Blockchain</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Ethereum/" rel="tag">Ethereum</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MySQL/" rel="tag">MySQL</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Nginx/" rel="tag">Nginx</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Solidity/" rel="tag">Solidity</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/WebSocket/" rel="tag">WebSocket</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/docker/" rel="tag">docker</a><span class="tag-list-count">13</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/gRPC/" rel="tag">gRPC</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/" rel="tag">git</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/go-zero/" rel="tag">go-zero</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/golang/" rel="tag">golang</a><span class="tag-list-count">38</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/gorm/" rel="tag">gorm</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/grafana/" rel="tag">grafana</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hardhat/" rel="tag">hardhat</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/k8s/" rel="tag">k8s</a><span class="tag-list-count">10</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/kafka/" rel="tag">kafka</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/kubernetes/" rel="tag">kubernetes</a><span class="tag-list-count">10</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux/" rel="tag">linux</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/microservice/" rel="tag">microservice</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/prometheus/" rel="tag">prometheus</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/redis/" rel="tag">redis</a><span class="tag-list-count">8</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8C%BA%E5%9D%97%E9%93%BE/" rel="tag">区块链</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%BE%AE%E6%9C%8D%E5%8A%A1/" rel="tag">微服务</a><span class="tag-list-count">2</span></li></ul>-->
+<!--    </div>-->
+<!--  </div>-->
+<!---->
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">标签云</h3>
+    <div class="widget-body tagcloud">
+      <a href="/tags/Blockchain/" style="font-size: 13.29px;">Blockchain</a> <a href="/tags/Ethereum/" style="font-size: 13.14px;">Ethereum</a> <a href="/tags/MySQL/" style="font-size: 13.14px;">MySQL</a> <a href="/tags/Nginx/" style="font-size: 13px;">Nginx</a> <a href="/tags/Solidity/" style="font-size: 13.14px;">Solidity</a> <a href="/tags/WebSocket/" style="font-size: 13.14px;">WebSocket</a> <a href="/tags/docker/" style="font-size: 13.86px;">docker</a> <a href="/tags/gRPC/" style="font-size: 13.14px;">gRPC</a> <a href="/tags/git/" style="font-size: 13.29px;">git</a> <a href="/tags/go-zero/" style="font-size: 13.29px;">go-zero</a> <a href="/tags/golang/" style="font-size: 14px;">golang</a> <a href="/tags/gorm/" style="font-size: 13px;">gorm</a> <a href="/tags/grafana/" style="font-size: 13px;">grafana</a> <a href="/tags/hardhat/" style="font-size: 13px;">hardhat</a> <a href="/tags/k8s/" style="font-size: 13.71px;">k8s</a> <a href="/tags/kafka/" style="font-size: 13.14px;">kafka</a> <a href="/tags/kubernetes/" style="font-size: 13.71px;">kubernetes</a> <a href="/tags/linux/" style="font-size: 13.43px;">linux</a> <a href="/tags/microservice/" style="font-size: 13.14px;">microservice</a> <a href="/tags/prometheus/" style="font-size: 13px;">prometheus</a> <a href="/tags/redis/" style="font-size: 13.57px;">redis</a> <a href="/tags/%E5%8C%BA%E5%9D%97%E9%93%BE/" style="font-size: 13.29px;">区块链</a> <a href="/tags/%E5%BE%AE%E6%9C%8D%E5%8A%A1/" style="font-size: 13.14px;">微服务</a>
+    </div>
+  </div>
+
+    
+  </div>
+</aside>
+
+  
+  
+<main class="main" role="main">
+  <div class="content">
+  <article id="post-kafka/kafka1" class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
+    
+    <div class="article-header">
+      
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Kafka（一）学习笔记
+    </h1>
+  
+
+      
+      <div class="article-meta">
+        <span class="article-date">
+    <i class="icon icon-calendar-check"></i>
+	<a href="/2023/06/19/kafka/kafka1/" class="article-date">
+	  <time datetime="2023-06-19T11:10:10.000Z" itemprop="datePublished">2023-06-19</time>
+	</a>
+</span>
+        
+  <span class="article-category">
+    <i class="icon icon-folder"></i>
+    <a class="article-category-link" href="/categories/Kafka/">Kafka</a>
+  </span>
+
+        
+  <span class="article-tag">
+    <i class="icon icon-tags"></i>
+	<a class="article-tag-link-link" href="/tags/golang/" rel="tag">golang</a>, <a class="article-tag-link-link" href="/tags/kafka/" rel="tag">kafka</a>
+  </span>
+
+
+        
+	<span class="article-read hidden-xs">
+	    <i class="icon icon-eye-fill" aria-hidden="true"></i>
+	    <span id="busuanzi_container_page_pv">
+			<span id="busuanzi_value_page_pv">0</span>
+		</span>
+	</span>
+
+
+        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2023/06/19/kafka/kafka1/#comments" class="article-comment-link">评论</a></span>
+        
+      </div>
+    </div>
+    <div class="article-entry marked-body" itemprop="articleBody">
+      
+        <h4 id="Kafka（一）学习笔记"><a href="#Kafka（一）学习笔记" class="headerlink" title="Kafka（一）学习笔记"></a>Kafka（一）学习笔记</h4><h5 id="1-1-Go语言操作Kafka"><a href="#1-1-Go语言操作Kafka" class="headerlink" title="1.1 Go语言操作Kafka"></a>1.1 Go语言操作Kafka</h5><p>Kafka是一种高吞吐量的分布式发布订阅消息MQ系统，本文介绍了如何使用kafka-go这个库实现Go语言操作kafka<br>segmentio/kafka-go 是纯Go实现，提供了与kafka交互的低级别和高级别两套API，同时也支持Context并发控制</p>
+<h5 id="1-2-Kafka开发环境搭建"><a href="#1-2-Kafka开发环境搭建" class="headerlink" title="1.2 Kafka开发环境搭建"></a>1.2 Kafka开发环境搭建</h5><p>这里使用docker-compose快速搭建一套单节点zookeeper和单节点kafka本地发环境</p>
+<p><code>deployment/docker-compose.yml</code></p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">version:</span> <span class="string">&#x27;3&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="attr">services:</span></span><br><span class="line">  <span class="attr">zookeeper:</span></span><br><span class="line">    <span class="attr">container_name:</span> <span class="string">zookeeper</span></span><br><span class="line">    <span class="attr">hostname:</span> <span class="string">zookeeper</span></span><br><span class="line">    <span class="attr">image:</span> <span class="string">bitnami/zookeeper:latest</span></span><br><span class="line">    <span class="attr">ports:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="number">2181</span><span class="string">:2181</span></span><br><span class="line">    <span class="attr">environment:</span></span><br><span class="line">      <span class="attr">ALLOW_ANONYMOUS_LOGIN:</span> <span class="literal">yes</span></span><br><span class="line">  <span class="attr">kafka:</span></span><br><span class="line">    <span class="attr">container_name:</span> <span class="string">kafka</span></span><br><span class="line">    <span class="attr">image:</span> <span class="string">bitnami/kafka:3.6.1</span></span><br><span class="line">    <span class="comment"># 失败重启容器3次</span></span><br><span class="line">    <span class="attr">restart:</span> <span class="string">on-failure:3</span></span><br><span class="line">    <span class="attr">links:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">zookeeper</span></span><br><span class="line">    <span class="attr">ports:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="number">9092</span><span class="string">:9092</span></span><br><span class="line">      <span class="bullet">-</span> <span class="number">9093</span><span class="string">:9093</span></span><br><span class="line">    <span class="attr">environment:</span></span><br><span class="line">      <span class="attr">KAFKA_CFG_BROKER_ID:</span> <span class="number">1</span></span><br><span class="line">      <span class="attr">KAFKA_CFG_DELETE_TOPIC_ENABLE:</span> <span class="string">&#x27;true&#x27;</span></span><br><span class="line">      <span class="attr">KAFKA_CFG_ADVERTISED_HOST_NAME:</span> <span class="string">&#x27;localhost&#x27;</span></span><br><span class="line">      <span class="attr">KAFKA_CFG_ADVERTISED_PORT:</span> <span class="string">&#x27;9092&#x27;</span></span><br><span class="line">      <span class="attr">KAFKA_CFG_ZOOKEEPER_CONNECT:</span> <span class="string">zookeeper:2181</span></span><br><span class="line">      <span class="attr">KAFKA_CFG_AUTO_CREATE_TOPICS_ENABLE:</span> <span class="string">&#x27;true&#x27;</span></span><br><span class="line">      <span class="attr">KAFKA_CFG_MESSAGE_MAX_BYTES:</span> <span class="string">&#x27;200000000&#x27;</span></span><br><span class="line">      <span class="attr">KAFKA_CFG_LISTENERS:</span> <span class="string">&#x27;PLAINTEXT://:9092,SASL_PLAINTEXT://:9093&#x27;</span></span><br><span class="line">      <span class="attr">KAFKA_CFG_ADVERTISED_LISTENERS:</span> <span class="string">&#x27;PLAINTEXT://localhost:9092,SASL_PLAINTEXT://localhost:9093&#x27;</span></span><br><span class="line">      <span class="attr">KAFKA_CFG_SASL_ENABLED_MECHANISMS:</span> <span class="string">&#x27;PLAIN,SCRAM-SHA-256,SCRAM-SHA-512&#x27;</span></span><br><span class="line">      <span class="attr">KAFKA_CFG_AUTHORIZER_CLASS_NAME:</span> <span class="string">&#x27;kafka.security.authorizer.AclAuthorizer&#x27;</span></span><br><span class="line">      <span class="attr">KAFKA_CFG_ALLOW_EVERYONE_IF_NO_ACL_FOUND:</span> <span class="string">&#x27;true&#x27;</span></span><br><span class="line">      <span class="attr">KAFKA_OPTS:</span> <span class="string">&quot;-Djava.security.auth.login.config=/opt/bitnami/kafka/config/kafka_jaas.conf&quot;</span></span><br><span class="line">      <span class="attr">ALLOW_PLAINTEXT_LISTENER:</span> <span class="literal">yes</span></span><br><span class="line">    <span class="attr">entrypoint:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">&quot;/bin/bash&quot;</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">&quot;-c&quot;</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">echo</span> <span class="string">-e</span> <span class="string">&#x27;KafkaServer &#123;\norg.apache.kafka.common.security.scram.ScramLoginModule required\n username=&quot;adminscram&quot;\n password=&quot;admin-secret&quot;;\n org.apache.kafka.common.security.plain.PlainLoginModule required\n username=&quot;adminplain&quot;\n password=&quot;admin-secret&quot;\n user_adminplain=&quot;admin-secret&quot;;\n  &#125;;&#x27;</span> <span class="string">&gt;</span> <span class="string">/opt/bitnami/kafka/config/kafka_jaas.conf;</span> <span class="string">/opt/bitnami/kafka/bin/kafka-configs.sh</span> <span class="string">--zookeeper</span> <span class="string">zookeeper:2181</span> <span class="string">--alter</span> <span class="string">--add-config</span> <span class="string">&quot;SCRAM-SHA-256=[password=admin-secret-256],SCRAM-SHA-512=[password=admin-secret-512]&quot;</span> <span class="string">--entity-type</span> <span class="string">users</span> <span class="string">--entity-name</span> <span class="string">adminscram;</span> <span class="string">exec</span> <span class="string">/entrypoint.sh</span> <span class="string">/run.sh</span></span><br></pre></td></tr></table></figure>
+
+
+<h5 id="1-3-启动Kafka开发环境容器"><a href="#1-3-启动Kafka开发环境容器" class="headerlink" title="1.3 启动Kafka开发环境容器"></a>1.3 启动Kafka开发环境容器</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker-compose up -d</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">docker ps</span><br><span class="line"></span><br><span class="line">c2d4264c208b   bitnami/kafka:3.6.1        &quot;/bin/bash -c &#x27;echo …&quot;   About an hour ago   Up 2 minutes   0.0.0.0:9092-9093-&gt;9092-9093/tcp                       kafka</span><br><span class="line">f29188f9b4ac   bitnami/zookeeper:latest   &quot;/opt/bitnami/script…&quot;   About an hour ago   Up 2 minutes   2888/tcp, 3888/tcp, 0.0.0.0:2181-&gt;2181/tcp, 8080/tcp   zookeeper</span><br></pre></td></tr></table></figure>
+
+
+<h5 id="1-4-安装kafka-go"><a href="#1-4-安装kafka-go" class="headerlink" title="1.4 安装kafka-go"></a>1.4 安装kafka-go</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">go get -u -v github.com/segmentio/kafka-go</span><br></pre></td></tr></table></figure>
+
+
+<h5 id="2-1-安装kafka生产端"><a href="#2-1-安装kafka生产端" class="headerlink" title="2.1 安装kafka生产端"></a>2.1 安装kafka生产端</h5><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 生产者</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">writeKafka</span><span class="params">(ctx context.Context)</span></span> &#123;</span><br><span class="line">    writer := &amp;kafka.Writer&#123;</span><br><span class="line">        Addr:                   kafka.TCP(<span class="string">&quot;localhost:9092&quot;</span>),</span><br><span class="line">        Topic:                  topic,</span><br><span class="line">        Balancer:               &amp;kafka.Hash&#123;&#125;,</span><br><span class="line">        WriteTimeout:           time.Second * <span class="number">1</span>,</span><br><span class="line">        RequiredAcks:           kafka.RequireNone,</span><br><span class="line">        AllowAutoTopicCreation: <span class="literal">true</span>, <span class="comment">// 自动创建topic</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">defer</span> writer.Close()</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 5次写入重试机会</span></span><br><span class="line">    <span class="keyword">for</span> i := <span class="number">1</span>; i &lt;= <span class="number">5</span>; i++ &#123;</span><br><span class="line">        <span class="keyword">if</span> err := writer.WriteMessages(ctx,</span><br><span class="line">            kafka.Message&#123;Key: []<span class="keyword">byte</span>(<span class="string">&quot;Key-A&quot;</span>), Value: []<span class="keyword">byte</span>(<span class="string">&quot;this&quot;</span>)&#125;,</span><br><span class="line">            kafka.Message&#123;Key: []<span class="keyword">byte</span>(<span class="string">&quot;Key-B&quot;</span>), Value: []<span class="keyword">byte</span>(<span class="string">&quot;is&quot;</span>)&#125;,</span><br><span class="line">            kafka.Message&#123;Key: []<span class="keyword">byte</span>(<span class="string">&quot;Key-C&quot;</span>), Value: []<span class="keyword">byte</span>(<span class="string">&quot;a&quot;</span>)&#125;,</span><br><span class="line">            kafka.Message&#123;Key: []<span class="keyword">byte</span>(<span class="string">&quot;Key-D&quot;</span>), Value: []<span class="keyword">byte</span>(<span class="string">&quot;test&quot;</span>)&#125;,</span><br><span class="line">        ); err != <span class="literal">nil</span> &#123;</span><br><span class="line">            <span class="keyword">if</span> err == kafka.LeaderNotAvailable &#123;</span><br><span class="line">                time.Sleep(time.Millisecond * <span class="number">500</span>)</span><br><span class="line">                <span class="keyword">continue</span></span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                fmt.Printf(<span class="string">&quot;failed to write message:%v\n&quot;</span>, err)</span><br><span class="line">            &#125;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            fmt.Printf(<span class="string">&quot;kafka write message success:%d\n&quot;</span>, i)</span><br><span class="line">            <span class="keyword">break</span> <span class="comment">// 写入成功退出循环</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h5 id="2-2-安装kafka消费端"><a href="#2-2-安装kafka消费端" class="headerlink" title="2.2 安装kafka消费端"></a>2.2 安装kafka消费端</h5><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 消费者</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">readKafka</span><span class="params">(ctx context.Context)</span></span> &#123;</span><br><span class="line">    reader = kafka.NewReader(kafka.ReaderConfig&#123;</span><br><span class="line">        Brokers:        []<span class="keyword">string</span>&#123;<span class="string">&quot;localhost:9092&quot;</span>&#125;,</span><br><span class="line">        Topic:          topic,</span><br><span class="line">        CommitInterval: time.Second * <span class="number">1</span>,</span><br><span class="line">        GroupID:        <span class="string">&quot;consumer-group-id&quot;</span>,</span><br><span class="line">        StartOffset:    kafka.FirstOffset,</span><br><span class="line">    &#125;)</span><br><span class="line">    <span class="keyword">defer</span> reader.Close()</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">for</span> &#123;</span><br><span class="line">        <span class="keyword">if</span> message, err := reader.ReadMessage(ctx); err != <span class="literal">nil</span> &#123;</span><br><span class="line">            fmt.Printf(<span class="string">&quot;failed to read message:%v\n&quot;</span>, err)</span><br><span class="line">            <span class="keyword">break</span></span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            fmt.Printf(<span class="string">&quot;message at topic:%s,partition:%d,offset:%d,key:%s,value:%s\n&quot;</span>,</span><br><span class="line">                message.Topic, message.Partition, message.Offset, <span class="keyword">string</span>(message.Key), <span class="keyword">string</span>(message.Value))</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+<h5 id="2-3-退出信号监听，用于消费端正确退出"><a href="#2-3-退出信号监听，用于消费端正确退出" class="headerlink" title="2.3 退出信号监听，用于消费端正确退出"></a>2.3 退出信号监听，用于消费端正确退出</h5><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">listenSignal</span><span class="params">()</span></span> &#123;</span><br><span class="line">    quit := <span class="built_in">make</span>(<span class="keyword">chan</span> os.Signal, <span class="number">1</span>)</span><br><span class="line">    signal.Notify(quit, syscall.SIGINT, syscall.SIGTERM)</span><br><span class="line">    sig := &lt;-quit <span class="comment">// 收到退出信号</span></span><br><span class="line">    fmt.Printf(<span class="string">&quot;recv:%s\n&quot;</span>, sig.String())</span><br><span class="line">    <span class="keyword">if</span> reader != <span class="literal">nil</span> &#123;</span><br><span class="line">        reader.Close()</span><br><span class="line">    &#125;</span><br><span class="line">    os.Exit(<span class="number">0</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h5 id="2-4-main函数调用"><a href="#2-4-main函数调用" class="headerlink" title="2.4 main函数调用"></a>2.4 main函数调用</h5><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">    ctx := context.Background()</span><br><span class="line">    writeKafka(ctx)</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">go</span> listenSignal()</span><br><span class="line">    readKafka(ctx)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">kafka write message success:1</span><br><span class="line">message at topic:test-topic,partition:0,offset:32,key:Key-A,value:this</span><br><span class="line">message at topic:test-topic,partition:0,offset:33,key:Key-B,value:is</span><br><span class="line">message at topic:test-topic,partition:0,offset:34,key:Key-C,value:a</span><br><span class="line">message at topic:test-topic,partition:0,offset:35,key:Key-D,value:test</span><br><span class="line">^Crecv:interrupt</span><br></pre></td></tr></table></figure>
+
+<h5 id="2-5-最后附上全部代码"><a href="#2-5-最后附上全部代码" class="headerlink" title="2.5 最后附上全部代码"></a>2.5 最后附上全部代码</h5><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// @package    : main</span></span><br><span class="line"><span class="comment">// @file       : kafka.go</span></span><br><span class="line"><span class="comment">// @author     : hqd8080</span></span><br><span class="line"><span class="comment">// @contact    : hanquanding@163.com</span></span><br><span class="line"><span class="comment">// @time       : 2023/6/19</span></span><br><span class="line"><span class="comment">// @description: golang使用kafka</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">    <span class="string">&quot;context&quot;</span></span><br><span class="line">    <span class="string">&quot;fmt&quot;</span></span><br><span class="line">    <span class="string">&quot;github.com/segmentio/kafka-go&quot;</span></span><br><span class="line">    <span class="string">&quot;os&quot;</span></span><br><span class="line">    <span class="string">&quot;os/signal&quot;</span></span><br><span class="line">    <span class="string">&quot;syscall&quot;</span></span><br><span class="line">    <span class="string">&quot;time&quot;</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> topic = <span class="string">&quot;test-topic&quot;</span></span><br><span class="line"><span class="keyword">var</span> reader *kafka.Reader</span><br><span class="line"></span><br><span class="line"><span class="comment">// 生产者</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">writeKafka</span><span class="params">(ctx context.Context)</span></span> &#123;</span><br><span class="line">    writer := &amp;kafka.Writer&#123;</span><br><span class="line">        Addr:                   kafka.TCP(<span class="string">&quot;localhost:9092&quot;</span>),</span><br><span class="line">        Topic:                  topic,</span><br><span class="line">        Balancer:               &amp;kafka.Hash&#123;&#125;,</span><br><span class="line">        WriteTimeout:           time.Second * <span class="number">1</span>,</span><br><span class="line">        RequiredAcks:           kafka.RequireNone,</span><br><span class="line">        AllowAutoTopicCreation: <span class="literal">true</span>, <span class="comment">// 自动创建topic</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">defer</span> writer.Close()</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 5次写入重试机会</span></span><br><span class="line">    <span class="keyword">for</span> i := <span class="number">1</span>; i &lt;= <span class="number">5</span>; i++ &#123;</span><br><span class="line">        <span class="keyword">if</span> err := writer.WriteMessages(ctx,</span><br><span class="line">            kafka.Message&#123;Key: []<span class="keyword">byte</span>(<span class="string">&quot;Key-A&quot;</span>), Value: []<span class="keyword">byte</span>(<span class="string">&quot;this&quot;</span>)&#125;,</span><br><span class="line">            kafka.Message&#123;Key: []<span class="keyword">byte</span>(<span class="string">&quot;Key-B&quot;</span>), Value: []<span class="keyword">byte</span>(<span class="string">&quot;is&quot;</span>)&#125;,</span><br><span class="line">            kafka.Message&#123;Key: []<span class="keyword">byte</span>(<span class="string">&quot;Key-C&quot;</span>), Value: []<span class="keyword">byte</span>(<span class="string">&quot;a&quot;</span>)&#125;,</span><br><span class="line">            kafka.Message&#123;Key: []<span class="keyword">byte</span>(<span class="string">&quot;Key-D&quot;</span>), Value: []<span class="keyword">byte</span>(<span class="string">&quot;test&quot;</span>)&#125;,</span><br><span class="line">        ); err != <span class="literal">nil</span> &#123;</span><br><span class="line">            <span class="keyword">if</span> err == kafka.LeaderNotAvailable &#123;</span><br><span class="line">                time.Sleep(time.Millisecond * <span class="number">500</span>)</span><br><span class="line">                <span class="keyword">continue</span></span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                fmt.Printf(<span class="string">&quot;failed to write message:%v\n&quot;</span>, err)</span><br><span class="line">            &#125;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            fmt.Printf(<span class="string">&quot;kafka write message success:%d\n&quot;</span>, i)</span><br><span class="line">            <span class="keyword">break</span> <span class="comment">// 写入成功退出循环</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 消费者</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">readKafka</span><span class="params">(ctx context.Context)</span></span> &#123;</span><br><span class="line">    reader = kafka.NewReader(kafka.ReaderConfig&#123;</span><br><span class="line">        Brokers:        []<span class="keyword">string</span>&#123;<span class="string">&quot;localhost:9092&quot;</span>&#125;,</span><br><span class="line">        Topic:          topic,</span><br><span class="line">        CommitInterval: time.Second * <span class="number">1</span>,</span><br><span class="line">        GroupID:        <span class="string">&quot;consumer-group-id&quot;</span>,</span><br><span class="line">        StartOffset:    kafka.FirstOffset,</span><br><span class="line">    &#125;)</span><br><span class="line">    <span class="keyword">defer</span> reader.Close()</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">for</span> &#123;</span><br><span class="line">        <span class="keyword">if</span> message, err := reader.ReadMessage(ctx); err != <span class="literal">nil</span> &#123;</span><br><span class="line">            fmt.Printf(<span class="string">&quot;failed to read message:%v\n&quot;</span>, err)</span><br><span class="line">            <span class="keyword">break</span></span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            fmt.Printf(<span class="string">&quot;message at topic:%s,partition:%d,offset:%d,key:%s,value:%s\n&quot;</span>,</span><br><span class="line">                message.Topic, message.Partition, message.Offset, <span class="keyword">string</span>(message.Key), <span class="keyword">string</span>(message.Value))</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">listenSignal</span><span class="params">()</span></span> &#123;</span><br><span class="line">    quit := <span class="built_in">make</span>(<span class="keyword">chan</span> os.Signal, <span class="number">1</span>)</span><br><span class="line">    signal.Notify(quit, syscall.SIGINT, syscall.SIGTERM)</span><br><span class="line">    sig := &lt;-quit <span class="comment">// 收到退出信号</span></span><br><span class="line">    fmt.Printf(<span class="string">&quot;recv:%s\n&quot;</span>, sig.String())</span><br><span class="line">    <span class="keyword">if</span> reader != <span class="literal">nil</span> &#123;</span><br><span class="line">        reader.Close()</span><br><span class="line">    &#125;</span><br><span class="line">    os.Exit(<span class="number">0</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">    ctx := context.Background()</span><br><span class="line">    writeKafka(ctx)</span><br><span class="line">	</span><br><span class="line">    <span class="keyword">go</span> listenSignal()</span><br><span class="line">    readKafka(ctx)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    <div class="article-footer">
+      <!--<blockquote class="mt-2x">-->
+<!--  <ul class="post-copyright list-unstyled">-->
+<!--    -->
+<!--    <li class="post-copyright-link hidden-xs">-->
+<!--      <strong>本文链接：</strong>-->
+<!--      <a href="https://hanquanding.github.io/2023/06/19/kafka/kafka1/" title="Kafka（一）学习笔记" target="_blank" rel="external">https://hanquanding.github.io/2023/06/19/kafka/kafka1/</a>-->
+<!--    </li>-->
+<!--    -->
+<!--    <li class="post-copyright-license">-->
+<!--      <strong>版权声明： </strong> 本博客所有文章除特别声明外，均采用 <a href="http://creativecommons.org/licenses/by/4.0/deed.zh" target="_blank" rel="external">CC BY 4.0 CN协议</a> 许可协议。转载请注明出处！-->
+<!--    </li>-->
+<!--  </ul>-->
+<!--</blockquote>-->
+
+
+<div class="panel panel-default panel-badger">
+  <div class="panel-body">
+    <figure class="media">
+      <div class="media-left">
+        <a href="https://github.com/hanquanding" target="_blank" class="img-burn thumb-sm visible-lg">
+          <img src="/images/avatar.jpeg" class="img-rounded w-full" alt="">
+        </a>
+      </div>
+      <div class="media-body">
+        <h3 class="media-heading"><a href="https://github.com/hanquanding" target="_blank"><span class="text-dark">🌴🌴🥥</span><small class="ml-1x">Golang</small></a></h3>
+        <div>行是知之始，知是行之成.</div>
+      </div>
+    </figure>
+  </div>
+</div>
+
+
+    </div>
+  </article>
+  
+    
+  <section id="comments">
+  	
+            <div class="comments" id="comments">
+                <div id="giscus-container"></div>
+            </div>
+    
+  </section>
+
+
+  
+</div>
+
+  <nav class="bar bar-footer clearfix" data-stick-bottom>
+  <div class="bar-inner">
+  
+  <ul class="pager pull-left">
+    
+    <li class="prev">
+      <a href="/2023/06/20/kafka/kafka2/" title="Kafka（二）常用脚本命令整理"><i class="icon icon-angle-left" aria-hidden="true"></i><span>&nbsp;&nbsp;上一篇</span></a>
+    </li>
+    
+    
+    <li class="next">
+      <a href="/2023/06/03/blockchain/Hardhat/" title="Hardhat环境搭建、创建、运行、测试"><span>下一篇&nbsp;&nbsp;</span><i class="icon icon-angle-right" aria-hidden="true"></i></a>
+    </li>
+    
+    
+  </ul>
+  
+  
+  
+  <div class="bar-right">
+    
+    <div class="share-component" data-sites="weibo,qq,wechat" data-mobile-sites="weibo,qq,qzone"></div>
+    
+  </div>
+  </div>
+</nav>
+  
+
+
+</main>
+
+  <footer class="footer" itemscope itemtype="http://schema.org/WPFooter">
+	
+	
+    <ul class="social-links">
+    	
+        <li><a href="https://github.com/hanquanding" target="_blank" title="Github" data-toggle=tooltip data-placement=top><i class="icon icon-github"></i></a></li>
+        
+        <li><a href="/atom.xml" target="_blank" title="Rss" data-toggle=tooltip data-placement=top><i class="icon icon-rss"></i></a></li>
+        
+    </ul>
+
+    <div class="copyright">
+    	
+        <div class="publishby">
+            <a href="https://github.com/hanquanding" target="_blank"> hanquanding </a>All Rights Reserved <a href="https://github.com/cofess/hexo-theme-pure" target="_blank"></a>
+        </div>
+    </div>
+</footer>
+  <script src="//cdn.jsdelivr.net/npm/jquery@1.12.4/dist/jquery.min.js"></script>
+<script>
+window.jQuery || document.write('<script src="js/jquery.min.js"><\/script>')
+</script>
+
+<script src="/js/plugin.min.js"></script>
+
+
+<script src="/js/application.js"></script>
+
+
+    <script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: '文章',
+            PAGES: '页面',
+            CATEGORIES: '分类',
+            TAGS: '标签',
+            UNTITLED: '(未命名)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+
+<script src="/js/insight.js"></script>
+
+
+
+
+
+
+   
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+
+   
+    
+<script type="text/javascript">
+    (function() {
+        var giscus = document.createElement('script');
+        giscus.type = 'text/javascript';
+        giscus.async = true;
+        giscus.setAttribute('data-repo', 'hanquanding/giscus_discussions');
+        giscus.setAttribute('data-repo-id', 'R_kgDOJ1fP4Q');
+        giscus.setAttribute('data-category', 'Announcements');
+        giscus.setAttribute('data-category-id', 'DIC_kwDOJ1fP4c4CXjPf');
+        giscus.setAttribute('data-mapping', 'pathname');
+        giscus.setAttribute('data-strict', '1');
+        giscus.setAttribute('data-reactions-enabled', '1');
+        giscus.setAttribute('data-emit-metadata', '1');
+        giscus.setAttribute('data-input-position', 'bottom');
+        giscus.setAttribute('data-theme', 'light');
+        giscus.setAttribute('data-lang', 'zh-CN');
+        giscus.setAttribute('data-loading', 'lazy');
+        giscus.setAttribute('crossorigin', 'anonymous');
+        giscus.setAttribute('src', 'https://giscus.app/client.js');
+        document.getElementById('giscus-container').appendChild(giscus);
+    })();
+</script>
+
+
+
+
+  <script src="//cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.3.5/dist/jquery.fancybox.min.js"></script>
+  <script>
+  //利用 FancyBox 实现点击图片放大
+  $(document).ready(function() {
+    $('article img').not('[hidden]').not('.panel-body img').each(function() {
+      var $image = $(this);
+      var imageCaption = $image.attr('alt');
+      var $imageWrapLink = $image.parent('a');
+      if ($imageWrapLink.length < 1) {
+        var src = this.getAttribute('src');
+        var idx = src.lastIndexOf('?');
+        if (idx != -1) {
+          src = src.substring(0, idx);
+        }
+        $imageWrapLink = $image.wrap('<a href="' + src + '"></a>').parent('a');
+      }
+      $imageWrapLink.attr('data-fancybox', 'images');
+      if (imageCaption) {
+        $imageWrapLink.attr('data-caption', imageCaption);
+      }
+    });
+    $().fancybox({
+      selector: '[data-fancybox="images"]',
+      hash: false,
+      loop: false,
+    });
+  });
+  </script>
+
+
+
+
+
+</body>
+</html>
