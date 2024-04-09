@@ -17,21 +17,22 @@
   <meta http-equiv="window-target" content="_top" />
   
   
-  <title>Linux系统SSH隧道与端口转发及内网穿透 | @@</title>
-  <meta name="description" content="Linux系统SSH隧道与端口转发及内网穿透#&#x2F;usr&#x2F;bin&#x2F;sshpass -p dbuser &#x2F;usr&#x2F;bin&#x2F;ssh -N -f -L 3307:10.141.96.240:3306 root@121.41.118.64 -o ExitOnForwardFailure&#x3D;yes 说明：需要安装sshpass 3307:10.141.96.240:3306   &#x2F;&#x2F; 从10.141.96.24">
+  <title>Kafka（四）容器化集群搭建 | @@</title>
+  <meta name="description" content="Kafka（四）容器化集群搭建docker-compose-cluster.yml文件1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950515253545556575859606162636465666768697071727374757677787980818283">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Linux系统SSH隧道与端口转发及内网穿透">
-<meta property="og:url" content="https://hanquanding.github.io/2021/11/30/linux/linux-ssh/index.html">
+<meta property="og:title" content="Kafka（四）容器化集群搭建">
+<meta property="og:url" content="https://hanquanding.github.io/2023/06/21/kafka/kafka4/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="Linux系统SSH隧道与端口转发及内网穿透#&#x2F;usr&#x2F;bin&#x2F;sshpass -p dbuser &#x2F;usr&#x2F;bin&#x2F;ssh -N -f -L 3307:10.141.96.240:3306 root@121.41.118.64 -o ExitOnForwardFailure&#x3D;yes 说明：需要安装sshpass 3307:10.141.96.240:3306   &#x2F;&#x2F; 从10.141.96.24">
+<meta property="og:description" content="Kafka（四）容器化集群搭建docker-compose-cluster.yml文件1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950515253545556575859606162636465666768697071727374757677787980818283">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2021-11-30T07:30:28.000Z">
-<meta property="article:modified_time" content="2022-04-02T02:57:24.000Z">
+<meta property="article:published_time" content="2023-06-21T14:12:08.000Z">
+<meta property="article:modified_time" content="2024-04-09T10:36:26.415Z">
 <meta property="article:author" content="hanquanding">
-<meta property="article:tag" content="linux">
+<meta property="article:tag" content="golang">
+<meta property="article:tag" content="kafka">
 <meta name="twitter:card" content="summary">
   <!-- Canonical links -->
-  <link rel="canonical" href="https://hanquanding.github.io/2021/11/30/linux/linux-ssh/index.html">
+  <link rel="canonical" href="https://hanquanding.github.io/2023/06/21/kafka/kafka4/index.html">
   
     <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
   
@@ -216,14 +217,14 @@
   
 <main class="main" role="main">
   <div class="content">
-  <article id="post-linux/linux-ssh" class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
+  <article id="post-kafka/kafka4" class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
     
     <div class="article-header">
       
         
   
     <h1 class="article-title" itemprop="name">
-      Linux系统SSH隧道与端口转发及内网穿透
+      Kafka（四）容器化集群搭建
     </h1>
   
 
@@ -231,20 +232,20 @@
       <div class="article-meta">
         <span class="article-date">
     <i class="icon icon-calendar-check"></i>
-	<a href="/2021/11/30/linux/linux-ssh/" class="article-date">
-	  <time datetime="2021-11-30T07:30:28.000Z" itemprop="datePublished">2021-11-30</time>
+	<a href="/2023/06/21/kafka/kafka4/" class="article-date">
+	  <time datetime="2023-06-21T14:12:08.000Z" itemprop="datePublished">2023-06-21</time>
 	</a>
 </span>
         
   <span class="article-category">
     <i class="icon icon-folder"></i>
-    <a class="article-category-link" href="/categories/Linux/">Linux</a>
+    <a class="article-category-link" href="/categories/Kafka/">Kafka</a>
   </span>
 
         
   <span class="article-tag">
     <i class="icon icon-tags"></i>
-	<a class="article-tag-link-link" href="/tags/linux/" rel="tag">linux</a>
+	<a class="article-tag-link-link" href="/tags/golang/" rel="tag">golang</a>, <a class="article-tag-link-link" href="/tags/kafka/" rel="tag">kafka</a>
   </span>
 
 
@@ -257,25 +258,19 @@
 	</span>
 
 
-        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2021/11/30/linux/linux-ssh/#comments" class="article-comment-link">评论</a></span>
+        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2023/06/21/kafka/kafka4/#comments" class="article-comment-link">评论</a></span>
         
       </div>
     </div>
     <div class="article-entry marked-body" itemprop="articleBody">
       
-        <h4 id="Linux系统SSH隧道与端口转发及内网穿透"><a href="#Linux系统SSH隧道与端口转发及内网穿透" class="headerlink" title="Linux系统SSH隧道与端口转发及内网穿透"></a>Linux系统SSH隧道与端口转发及内网穿透</h4><p><code>#/usr/bin/sshpass -p dbuser /usr/bin/ssh -N -f -L 3307:10.141.96.240:3306 root@121.41.118.64 -o ExitOnForwardFailure=yes</code></p>
-<h5 id="说明：需要安装sshpass"><a href="#说明：需要安装sshpass" class="headerlink" title="说明：需要安装sshpass"></a>说明：需要安装sshpass</h5><ul>
-<li><code>3307:10.141.96.240:3306</code>   // 从10.141.96.240服务器上的3306数据库转发到3307端口</li>
-<li><code>root@121.41.118.64</code>        // 我本地能直接访问的服务器用户名和服务器ip地址</li>
-<li><code>dbuser</code> //数据库用户名</li>
-</ul>
-<p>然后就能在本地愉快的玩远程不能直接链接的数据库了</p>
-<p><code>mysql -h127.0.0.1 -udbuser -pdbpass -P3307</code></p>
-<h5 id="举个例子"><a href="#举个例子" class="headerlink" title="举个例子"></a>举个例子</h5><p>比如，我们有1台web服务器（内网ip: 192.168.1.101,外网ip:123.123.123.123），1台db服务器（内网ip: 192.168.1.102, 无外网ip)<br>这时，我想从我本地连接到数据库</p>
-<p><code>ssh -N -f -L 3307:192.168.1.102:3306 123.123.123.123</code><br><code>mysql -uuser -ppasswd -h127.0.0.1 -P3307</code></p>
-<p>就可以连接到数据库了</p>
-<p>在需要保持连接的情况下，多次重复建立隧道会出现警告，但是不会退出当前进程，结果就会出现多个ssh进程，加上下面这个参数后，会在创建失败后将当前进程自动退出，<br>适合在crontab中让ssh保持与服务端的连接</p>
-<p><code>-o ExitOnForwardFailure=yes</code></p>
+        <h4 id="Kafka（四）容器化集群搭建"><a href="#Kafka（四）容器化集群搭建" class="headerlink" title="Kafka（四）容器化集群搭建"></a>Kafka（四）容器化集群搭建</h4><h5 id="docker-compose-cluster-yml文件"><a href="#docker-compose-cluster-yml文件" class="headerlink" title="docker-compose-cluster.yml文件"></a>docker-compose-cluster.yml文件</h5><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">version:</span> <span class="string">&#x27;2.1&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="attr">services:</span></span><br><span class="line">  <span class="attr">zoo1:</span></span><br><span class="line">    <span class="attr">image:</span> <span class="string">confluentinc/cp-zookeeper:7.3.2</span></span><br><span class="line">    <span class="attr">hostname:</span> <span class="string">zoo1</span></span><br><span class="line">    <span class="attr">container_name:</span> <span class="string">zoo1</span></span><br><span class="line">    <span class="attr">ports:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">&quot;2181:2181&quot;</span></span><br><span class="line">    <span class="attr">environment:</span></span><br><span class="line">      <span class="attr">ZOOKEEPER_CLIENT_PORT:</span> <span class="number">2181</span></span><br><span class="line">      <span class="attr">ZOOKEEPER_SERVER_ID:</span> <span class="number">1</span></span><br><span class="line">      <span class="attr">ZOOKEEPER_SERVERS:</span> <span class="string">zoo1:2888:3888;zoo2:2888:3888;zoo3:2888:3888</span></span><br><span class="line"></span><br><span class="line">  <span class="attr">zoo2:</span></span><br><span class="line">    <span class="attr">image:</span> <span class="string">confluentinc/cp-zookeeper:7.3.2</span></span><br><span class="line">    <span class="attr">hostname:</span> <span class="string">zoo2</span></span><br><span class="line">    <span class="attr">container_name:</span> <span class="string">zoo2</span></span><br><span class="line">    <span class="attr">ports:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">&quot;2182:2182&quot;</span></span><br><span class="line">    <span class="attr">environment:</span></span><br><span class="line">      <span class="attr">ZOOKEEPER_CLIENT_PORT:</span> <span class="number">2182</span></span><br><span class="line">      <span class="attr">ZOOKEEPER_SERVER_ID:</span> <span class="number">2</span></span><br><span class="line">      <span class="attr">ZOOKEEPER_SERVERS:</span> <span class="string">zoo1:2888:3888;zoo2:2888:3888;zoo3:2888:3888</span></span><br><span class="line"></span><br><span class="line">  <span class="attr">zoo3:</span></span><br><span class="line">    <span class="attr">image:</span> <span class="string">confluentinc/cp-zookeeper:7.3.2</span></span><br><span class="line">    <span class="attr">hostname:</span> <span class="string">zoo3</span></span><br><span class="line">    <span class="attr">container_name:</span> <span class="string">zoo3</span></span><br><span class="line">    <span class="attr">ports:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">&quot;2183:2183&quot;</span></span><br><span class="line">    <span class="attr">environment:</span></span><br><span class="line">      <span class="attr">ZOOKEEPER_CLIENT_PORT:</span> <span class="number">2183</span></span><br><span class="line">      <span class="attr">ZOOKEEPER_SERVER_ID:</span> <span class="number">3</span></span><br><span class="line">      <span class="attr">ZOOKEEPER_SERVERS:</span> <span class="string">zoo1:2888:3888;zoo2:2888:3888;zoo3:2888:3888</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">  <span class="attr">kafka1:</span></span><br><span class="line">    <span class="attr">image:</span> <span class="string">confluentinc/cp-kafka:7.3.2</span></span><br><span class="line">    <span class="attr">hostname:</span> <span class="string">kafka1</span></span><br><span class="line">    <span class="attr">container_name:</span> <span class="string">kafka1</span></span><br><span class="line">    <span class="attr">ports:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">&quot;9092:9092&quot;</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">&quot;29092:29092&quot;</span></span><br><span class="line">    <span class="attr">environment:</span></span><br><span class="line">      <span class="attr">KAFKA_ADVERTISED_LISTENERS:</span> <span class="string">INTERNAL://kafka1:19092,EXTERNAL://$&#123;DOCKER_HOST_IP:-127.0.0.1&#125;:9092,DOCKER://host.docker.internal:29092</span></span><br><span class="line">      <span class="attr">KAFKA_LISTENER_SECURITY_PROTOCOL_MAP:</span> <span class="string">INTERNAL:PLAINTEXT,EXTERNAL:PLAINTEXT,DOCKER:PLAINTEXT</span></span><br><span class="line">      <span class="attr">KAFKA_INTER_BROKER_LISTENER_NAME:</span> <span class="string">INTERNAL</span></span><br><span class="line">      <span class="attr">KAFKA_ZOOKEEPER_CONNECT:</span> <span class="string">&quot;zoo1:2181,zoo2:2182,zoo3:2183&quot;</span></span><br><span class="line">      <span class="attr">KAFKA_BROKER_ID:</span> <span class="number">1</span></span><br><span class="line">      <span class="attr">KAFKA_LOG4J_LOGGERS:</span> <span class="string">&quot;kafka.controller=INFO,kafka.producer.async.DefaultEventHandler=INFO,state.change.logger=INFO&quot;</span></span><br><span class="line">      <span class="attr">KAFKA_AUTHORIZER_CLASS_NAME:</span> <span class="string">kafka.security.authorizer.AclAuthorizer</span></span><br><span class="line">      <span class="attr">KAFKA_ALLOW_EVERYONE_IF_NO_ACL_FOUND:</span> <span class="string">&quot;true&quot;</span></span><br><span class="line">    <span class="attr">depends_on:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">zoo1</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">zoo2</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">zoo3</span></span><br><span class="line"></span><br><span class="line">  <span class="attr">kafka2:</span></span><br><span class="line">    <span class="attr">image:</span> <span class="string">confluentinc/cp-kafka:7.3.2</span></span><br><span class="line">    <span class="attr">hostname:</span> <span class="string">kafka2</span></span><br><span class="line">    <span class="attr">container_name:</span> <span class="string">kafka2</span></span><br><span class="line">    <span class="attr">ports:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">&quot;9093:9093&quot;</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">&quot;29093:29093&quot;</span></span><br><span class="line">    <span class="attr">environment:</span></span><br><span class="line">      <span class="attr">KAFKA_ADVERTISED_LISTENERS:</span> <span class="string">INTERNAL://kafka2:19093,EXTERNAL://$&#123;DOCKER_HOST_IP:-127.0.0.1&#125;:9093,DOCKER://host.docker.internal:29093</span></span><br><span class="line">      <span class="attr">KAFKA_LISTENER_SECURITY_PROTOCOL_MAP:</span> <span class="string">INTERNAL:PLAINTEXT,EXTERNAL:PLAINTEXT,DOCKER:PLAINTEXT</span></span><br><span class="line">      <span class="attr">KAFKA_INTER_BROKER_LISTENER_NAME:</span> <span class="string">INTERNAL</span></span><br><span class="line">      <span class="attr">KAFKA_ZOOKEEPER_CONNECT:</span> <span class="string">&quot;zoo1:2181,zoo2:2182,zoo3:2183&quot;</span></span><br><span class="line">      <span class="attr">KAFKA_BROKER_ID:</span> <span class="number">2</span></span><br><span class="line">      <span class="attr">KAFKA_LOG4J_LOGGERS:</span> <span class="string">&quot;kafka.controller=INFO,kafka.producer.async.DefaultEventHandler=INFO,state.change.logger=INFO&quot;</span></span><br><span class="line">      <span class="attr">KAFKA_AUTHORIZER_CLASS_NAME:</span> <span class="string">kafka.security.authorizer.AclAuthorizer</span></span><br><span class="line">      <span class="attr">KAFKA_ALLOW_EVERYONE_IF_NO_ACL_FOUND:</span> <span class="string">&quot;true&quot;</span></span><br><span class="line">    <span class="attr">depends_on:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">zoo1</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">zoo2</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">zoo3</span></span><br><span class="line"></span><br><span class="line">  <span class="attr">kafka3:</span></span><br><span class="line">    <span class="attr">image:</span> <span class="string">confluentinc/cp-kafka:7.3.2</span></span><br><span class="line">    <span class="attr">hostname:</span> <span class="string">kafka3</span></span><br><span class="line">    <span class="attr">container_name:</span> <span class="string">kafka3</span></span><br><span class="line">    <span class="attr">ports:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">&quot;9094:9094&quot;</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">&quot;29094:29094&quot;</span></span><br><span class="line">    <span class="attr">environment:</span></span><br><span class="line">      <span class="attr">KAFKA_ADVERTISED_LISTENERS:</span> <span class="string">INTERNAL://kafka3:19094,EXTERNAL://$&#123;DOCKER_HOST_IP:-127.0.0.1&#125;:9094,DOCKER://host.docker.internal:29094</span></span><br><span class="line">      <span class="attr">KAFKA_LISTENER_SECURITY_PROTOCOL_MAP:</span> <span class="string">INTERNAL:PLAINTEXT,EXTERNAL:PLAINTEXT,DOCKER:PLAINTEXT</span></span><br><span class="line">      <span class="attr">KAFKA_INTER_BROKER_LISTENER_NAME:</span> <span class="string">INTERNAL</span></span><br><span class="line">      <span class="attr">KAFKA_ZOOKEEPER_CONNECT:</span> <span class="string">&quot;zoo1:2181,zoo2:2182,zoo3:2183&quot;</span></span><br><span class="line">      <span class="attr">KAFKA_BROKER_ID:</span> <span class="number">3</span></span><br><span class="line">      <span class="attr">KAFKA_LOG4J_LOGGERS:</span> <span class="string">&quot;kafka.controller=INFO,kafka.producer.async.DefaultEventHandler=INFO,state.change.logger=INFO&quot;</span></span><br><span class="line">      <span class="attr">KAFKA_AUTHORIZER_CLASS_NAME:</span> <span class="string">kafka.security.authorizer.AclAuthorizer</span></span><br><span class="line">      <span class="attr">KAFKA_ALLOW_EVERYONE_IF_NO_ACL_FOUND:</span> <span class="string">&quot;true&quot;</span></span><br><span class="line">    <span class="attr">depends_on:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">zoo1</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">zoo2</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">zoo3</span></span><br></pre></td></tr></table></figure>
+
+
+<h5 id="启动服务"><a href="#启动服务" class="headerlink" title="启动服务"></a>启动服务</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker-compose -f docker-compose-cluster.yml up -d</span><br></pre></td></tr></table></figure>
+
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">✘ hqd@hqddeMBP  ~/develop/gowork/kafkamq/deployment  docker-compose -f docker-compose-cluster.yml ps</span><br><span class="line">NAME                COMMAND                  SERVICE             STATUS              PORTS</span><br><span class="line">kafka1              &quot;/etc/confluent/dock…&quot;   kafka1              running             0.0.0.0:9092-&gt;9092/tcp, 0.0.0.0:29092-&gt;29092/tcp</span><br><span class="line">kafka2              &quot;/etc/confluent/dock…&quot;   kafka2              running             0.0.0.0:9093-&gt;9093/tcp, 9092/tcp, 0.0.0.0:29093-&gt;29093/tcp</span><br><span class="line">kafka3              &quot;/etc/confluent/dock…&quot;   kafka3              running             0.0.0.0:9094-&gt;9094/tcp, 9092/tcp, 0.0.0.0:29094-&gt;29094/tcp</span><br><span class="line">zoo1                &quot;/etc/confluent/dock…&quot;   zoo1                running             2888/tcp, 0.0.0.0:2181-&gt;2181/tcp, 3888/tcp</span><br><span class="line">zoo2                &quot;/etc/confluent/dock…&quot;   zoo2                running             2181/tcp, 2888/tcp, 3888/tcp, 0.0.0.0:2182-&gt;2182/tcp</span><br><span class="line">zoo3                &quot;/etc/confluent/dock…&quot;   zoo3                running             2181/tcp, 2888/tcp, 3888/tcp, 0.0.0.0:2183-&gt;2183/tcp</span><br></pre></td></tr></table></figure>
 
       
     </div>
@@ -285,7 +280,7 @@
 <!--    -->
 <!--    <li class="post-copyright-link hidden-xs">-->
 <!--      <strong>本文链接：</strong>-->
-<!--      <a href="https://hanquanding.github.io/2021/11/30/linux/linux-ssh/" title="Linux系统SSH隧道与端口转发及内网穿透" target="_blank" rel="external">https://hanquanding.github.io/2021/11/30/linux/linux-ssh/</a>-->
+<!--      <a href="https://hanquanding.github.io/2023/06/21/kafka/kafka4/" title="Kafka（四）容器化集群搭建" target="_blank" rel="external">https://hanquanding.github.io/2023/06/21/kafka/kafka4/</a>-->
 <!--    </li>-->
 <!--    -->
 <!--    <li class="post-copyright-license">-->
@@ -334,12 +329,12 @@
   <ul class="pager pull-left">
     
     <li class="prev">
-      <a href="/2022/02/17/nginx/nginx-ssl/" title="Nginx配置HTTPS详细教程"><i class="icon icon-angle-left" aria-hidden="true"></i><span>&nbsp;&nbsp;上一篇</span></a>
+      <a href="/2023/08/15/golang/go-gosimplejson/" title="Go语言未知结构的json解析包go-simplejson"><i class="icon icon-angle-left" aria-hidden="true"></i><span>&nbsp;&nbsp;上一篇</span></a>
     </li>
     
     
     <li class="next">
-      <a href="/2021/11/29/grpc/grpc-demo/" title="gRPC使用实例（二）"><span>下一篇&nbsp;&nbsp;</span><i class="icon icon-angle-right" aria-hidden="true"></i></a>
+      <a href="/2023/06/20/kafka/kafka3/" title="Kafka（三）性能优化参数配置"><span>下一篇&nbsp;&nbsp;</span><i class="icon icon-angle-right" aria-hidden="true"></i></a>
     </li>
     
     
