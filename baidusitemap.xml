@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>https://hanquanding.github.io/2024/04/25/golang/go-goroutine-limit/</loc>
+    <lastmod>2024-04-25</lastmod>
+  </url>
+  <url>
     <loc>https://hanquanding.github.io/2023/06/21/kafka/kafka4/</loc>
     <lastmod>2024-04-09</lastmod>
   </url>
