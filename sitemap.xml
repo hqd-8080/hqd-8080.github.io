@@ -718,14 +718,14 @@
   </url>
   
   <url>
-    <loc>https://hanquanding.github.io/tags/gRPC/</loc>
+    <loc>https://hanquanding.github.io/tags/golang/</loc>
     <lastmod>2024-05-05</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
-    <loc>https://hanquanding.github.io/tags/golang/</loc>
+    <loc>https://hanquanding.github.io/tags/go-zero/</loc>
     <lastmod>2024-05-05</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
@@ -746,7 +746,7 @@
   </url>
   
   <url>
-    <loc>https://hanquanding.github.io/tags/go-zero/</loc>
+    <loc>https://hanquanding.github.io/tags/gRPC/</loc>
     <lastmod>2024-05-05</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
@@ -774,14 +774,14 @@
   </url>
   
   <url>
-    <loc>https://hanquanding.github.io/tags/grafana/</loc>
+    <loc>https://hanquanding.github.io/tags/prometheus/</loc>
     <lastmod>2024-05-05</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
-    <loc>https://hanquanding.github.io/tags/prometheus/</loc>
+    <loc>https://hanquanding.github.io/tags/grafana/</loc>
     <lastmod>2024-05-05</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
@@ -846,7 +846,7 @@
   </url>
   
   <url>
-    <loc>https://hanquanding.github.io/categories/gRPC/</loc>
+    <loc>https://hanquanding.github.io/categories/go-zero/</loc>
     <lastmod>2024-05-05</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
@@ -860,7 +860,7 @@
   </url>
   
   <url>
-    <loc>https://hanquanding.github.io/categories/go-zero/</loc>
+    <loc>https://hanquanding.github.io/categories/gRPC/</loc>
     <lastmod>2024-05-05</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
@@ -895,14 +895,14 @@
   </url>
   
   <url>
-    <loc>https://hanquanding.github.io/categories/Redis/</loc>
+    <loc>https://hanquanding.github.io/categories/Nginx/</loc>
     <lastmod>2024-05-05</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
-    <loc>https://hanquanding.github.io/categories/Nginx/</loc>
+    <loc>https://hanquanding.github.io/categories/Redis/</loc>
     <lastmod>2024-05-05</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
