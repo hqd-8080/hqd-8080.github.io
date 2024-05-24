@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html lang=zh>
+<head>
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="Cache-Control" content="no-transform" />
+  <meta http-equiv="Cache-Control" content="no-siteapp" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="format-detection" content="telephone=no,email=no,adress=no">
+  <!-- Color theme for statusbar -->
+  <meta name="theme-color" content="#000000" />
+  <!-- 强制页面在当前窗口以独立页面显示,防止别人在框架里调用页面 -->
+  <meta http-equiv="window-target" content="_top" />
+  
+  
+  <title>以太坊（一）私有链搭建 | @@</title>
+  <meta name="description" content="智能合约：就是运行在以太坊这个”全球计算机”上的【进程】”，之所以有上述比喻，是因为以太坊网络的节点遍布全球，在这样的网络中运行计算就相当于在”【一台全球计算机】”中运行计算； 智能：智能合约是可以【自动运行的】 合约：以太坊的合约代码多会涉及一些【资产转移】，而现实世界中签订合同也多是伴随着【资产转移】，因此把这样的代码叫合约； 下面介绍利用【Geth】客户端搭建属于自己的区块链开发环境，通常被">
+<meta property="og:type" content="article">
+<meta property="og:title" content="以太坊（一）私有链搭建">
+<meta property="og:url" content="https://hanquanding.github.io/2021/03/28/blockchain/blockchain-eth-geth/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="智能合约：就是运行在以太坊这个”全球计算机”上的【进程】”，之所以有上述比喻，是因为以太坊网络的节点遍布全球，在这样的网络中运行计算就相当于在”【一台全球计算机】”中运行计算； 智能：智能合约是可以【自动运行的】 合约：以太坊的合约代码多会涉及一些【资产转移】，而现实世界中签订合同也多是伴随着【资产转移】，因此把这样的代码叫合约； 下面介绍利用【Geth】客户端搭建属于自己的区块链开发环境，通常被">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2021-03-28T11:10:10.000Z">
+<meta property="article:modified_time" content="2024-05-24T08:42:39.316Z">
+<meta property="article:author" content="hanquanding">
+<meta property="article:tag" content="区块链">
+<meta property="article:tag" content="Blockchain">
+<meta property="article:tag" content="Solidity">
+<meta property="article:tag" content="Ethereum">
+<meta name="twitter:card" content="summary">
+  <!-- Canonical links -->
+  <link rel="canonical" href="https://hanquanding.github.io/2021/03/28/blockchain/blockchain-eth-geth/index.html">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png" type="image/x-icon">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+  
+  
+    <link href="//cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.3.5/dist/jquery.fancybox.min.css" rel="stylesheet">
+  
+  
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body class="main-center" itemscope itemtype="http://schema.org/WebPage">
+  <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+  <div class="slimContent">
+    <div class="navbar-header">
+      
+      
+      <div class="profile-block text-center">
+        <a id="avatar" href="/">
+          <img class="img-circle" src="/images/avatar.jpeg" width="200" height="200">
+        </a>
+        <h2 id="name" class="hidden-xs hidden-sm">🌴🌴🥥</h2>
+        <h3 id="title" class="hidden-xs hidden-sm hidden-md">Golang</h3>
+        <small id="location" class="text-muted hidden-xs hidden-sm"><i class="icon icon-map-marker"></i> Shanghai, China</small>
+      </div>
+      
+      <div class="search" id="search-form-wrap">
+
+    <form class="search-form sidebar-form">
+        <div class="input-group">
+            <input type="text" class="search-form-input form-control" placeholder="搜索" />
+            <span class="input-group-btn">
+                <button type="submit" class="search-form-submit btn btn-flat" onclick="return false;"><i class="icon icon-search"></i></button>
+            </span>
+        </div>
+    </form>
+    <div class="ins-search">
+  <div class="ins-search-mask"></div>
+  <div class="ins-search-container">
+    <div class="ins-input-wrapper">
+      <input type="text" class="ins-search-input" placeholder="想要查找什么..." x-webkit-speech />
+      <button type="button" class="close ins-close ins-selectable" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+    </div>
+    <div class="ins-section-wrapper">
+      <div class="ins-section-container"></div>
+    </div>
+  </div>
+</div>
+
+
+</div>
+      <button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target="#main-navbar" aria-controls="main-navbar" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+    </div>
+    <nav id="main-navbar" class="collapse navbar-collapse" itemscope itemtype="http://schema.org/SiteNavigationElement" role="navigation">
+      <ul class="nav navbar-nav main-nav menu-highlight">
+        
+        
+        <li class="menu-item menu-item-home">
+          <a href="/.">
+            
+            <i class="icon icon-home-fill"></i>
+            
+            <span class="menu-title">首页</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives">
+            
+            <i class="icon icon-archives-fill"></i>
+            
+            <span class="menu-title">归档</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories">
+            
+            <i class="icon icon-folder"></i>
+            
+            <span class="menu-title">分类</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags">
+            
+            <i class="icon icon-tags"></i>
+            
+            <span class="menu-title">标签</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about">
+            
+            <i class="icon icon-cup-fill"></i>
+            
+            <span class="menu-title">关于</span>
+          </a>
+        </li>
+        
+      </ul>
+      
+	
+    <ul class="social-links">
+    	
+        <li><a href="https://github.com/hanquanding" target="_blank" title="Github" data-toggle=tooltip data-placement=top><i class="icon icon-github"></i></a></li>
+        
+        <li><a href="/atom.xml" target="_blank" title="Rss" data-toggle=tooltip data-placement=top><i class="icon icon-rss"></i></a></li>
+        
+    </ul>
+
+    </nav>
+  </div>
+</header>
+
+  
+    <aside class="sidebar" itemscope itemtype="http://schema.org/WPSideBar">
+  <div class="slimContent">
+    
+      <!--<div class="widget">-->
+<!--    <h3 class="widget-title">公告</h3>-->
+<!--    <div class="widget-body">-->
+<!--        <div id="board">-->
+<!--            <div class="content">-->
+<!--                -->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--</div>-->
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">分类</h3>
+    <div class="widget-body">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Docker/">Docker</a><span class="category-list-count">13</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Git/">Git</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Go%E8%AF%AD%E8%A8%80/">Go语言</a><span class="category-list-count">34</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Kafka/">Kafka</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Kubernetes/">Kubernetes</a><span class="category-list-count">10</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a><span class="category-list-count">6</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/MySQL/">MySQL</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Nginx/">Nginx</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Redis/">Redis</a><span class="category-list-count">7</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/gRPC/">gRPC</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/go-zero/">go-zero</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%8C%BA%E5%9D%97%E9%93%BE/">区块链</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%9E%B6%E6%9E%84/">微服务架构</a><span class="category-list-count">2</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      <!---->
+<!--  <div class="widget">-->
+<!--    <h3 class="widget-title">标签</h3>-->
+<!--    <div class="widget-body">-->
+<!--      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Blockchain/" rel="tag">Blockchain</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Ethereum/" rel="tag">Ethereum</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MySQL/" rel="tag">MySQL</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Nginx/" rel="tag">Nginx</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Solidity/" rel="tag">Solidity</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/WebSocket/" rel="tag">WebSocket</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/docker/" rel="tag">docker</a><span class="tag-list-count">13</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/gRPC/" rel="tag">gRPC</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/" rel="tag">git</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/go-zero/" rel="tag">go-zero</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/golang/" rel="tag">golang</a><span class="tag-list-count">43</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/gorm/" rel="tag">gorm</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/grafana/" rel="tag">grafana</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hardhat/" rel="tag">hardhat</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/k8s/" rel="tag">k8s</a><span class="tag-list-count">10</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/kafka/" rel="tag">kafka</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/kubernetes/" rel="tag">kubernetes</a><span class="tag-list-count">10</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux/" rel="tag">linux</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/microservice/" rel="tag">microservice</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/prometheus/" rel="tag">prometheus</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/redis/" rel="tag">redis</a><span class="tag-list-count">8</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8C%BA%E5%9D%97%E9%93%BE/" rel="tag">区块链</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%BE%AE%E6%9C%8D%E5%8A%A1/" rel="tag">微服务</a><span class="tag-list-count">2</span></li></ul>-->
+<!--    </div>-->
+<!--  </div>-->
+<!---->
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">标签云</h3>
+    <div class="widget-body tagcloud">
+      <a href="/tags/Blockchain/" style="font-size: 13.38px;">Blockchain</a> <a href="/tags/Ethereum/" style="font-size: 13.25px;">Ethereum</a> <a href="/tags/MySQL/" style="font-size: 13.13px;">MySQL</a> <a href="/tags/Nginx/" style="font-size: 13px;">Nginx</a> <a href="/tags/Solidity/" style="font-size: 13.38px;">Solidity</a> <a href="/tags/WebSocket/" style="font-size: 13.13px;">WebSocket</a> <a href="/tags/docker/" style="font-size: 13.88px;">docker</a> <a href="/tags/gRPC/" style="font-size: 13.13px;">gRPC</a> <a href="/tags/git/" style="font-size: 13.25px;">git</a> <a href="/tags/go-zero/" style="font-size: 13.25px;">go-zero</a> <a href="/tags/golang/" style="font-size: 14px;">golang</a> <a href="/tags/gorm/" style="font-size: 13px;">gorm</a> <a href="/tags/grafana/" style="font-size: 13px;">grafana</a> <a href="/tags/hardhat/" style="font-size: 13px;">hardhat</a> <a href="/tags/k8s/" style="font-size: 13.75px;">k8s</a> <a href="/tags/kafka/" style="font-size: 13.38px;">kafka</a> <a href="/tags/kubernetes/" style="font-size: 13.75px;">kubernetes</a> <a href="/tags/linux/" style="font-size: 13.5px;">linux</a> <a href="/tags/microservice/" style="font-size: 13.13px;">microservice</a> <a href="/tags/prometheus/" style="font-size: 13px;">prometheus</a> <a href="/tags/redis/" style="font-size: 13.63px;">redis</a> <a href="/tags/%E5%8C%BA%E5%9D%97%E9%93%BE/" style="font-size: 13.38px;">区块链</a> <a href="/tags/%E5%BE%AE%E6%9C%8D%E5%8A%A1/" style="font-size: 13.13px;">微服务</a>
+    </div>
+  </div>
+
+    
+  </div>
+</aside>
+
+  
+  
+<main class="main" role="main">
+  <div class="content">
+  <article id="post-blockchain/blockchain-eth-geth" class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
+    
+    <div class="article-header">
+      
+        
+  
+    <h1 class="article-title" itemprop="name">
+      以太坊（一）私有链搭建
+    </h1>
+  
+
+      
+      <div class="article-meta">
+        <span class="article-date">
+    <i class="icon icon-calendar-check"></i>
+	<a href="/2021/03/28/blockchain/blockchain-eth-geth/" class="article-date">
+	  <time datetime="2021-03-28T11:10:10.000Z" itemprop="datePublished">2021-03-28</time>
+	</a>
+</span>
+        
+  <span class="article-category">
+    <i class="icon icon-folder"></i>
+    <a class="article-category-link" href="/categories/%E5%8C%BA%E5%9D%97%E9%93%BE/">区块链</a>
+  </span>
+
+        
+  <span class="article-tag">
+    <i class="icon icon-tags"></i>
+	<a class="article-tag-link-link" href="/tags/Blockchain/" rel="tag">Blockchain</a>, <a class="article-tag-link-link" href="/tags/Ethereum/" rel="tag">Ethereum</a>, <a class="article-tag-link-link" href="/tags/Solidity/" rel="tag">Solidity</a>, <a class="article-tag-link-link" href="/tags/%E5%8C%BA%E5%9D%97%E9%93%BE/" rel="tag">区块链</a>
+  </span>
+
+
+        
+	<span class="article-read hidden-xs">
+	    <i class="icon icon-eye-fill" aria-hidden="true"></i>
+	    <span id="busuanzi_container_page_pv">
+			<span id="busuanzi_value_page_pv">0</span>
+		</span>
+	</span>
+
+
+        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2021/03/28/blockchain/blockchain-eth-geth/#comments" class="article-comment-link">评论</a></span>
+        
+      </div>
+    </div>
+    <div class="article-entry marked-body" itemprop="articleBody">
+      
+        <p>智能合约：就是运行在以太坊这个”全球计算机”上的【进程】”，之所以有上述比喻，是因为以太坊网络的节点遍布全球，在这样的网络中运行计算就相当于在”【一台全球计算机】”中运行计算；</p>
+<p>智能：智能合约是可以【自动运行的】</p>
+<p>合约：以太坊的合约代码多会涉及一些【资产转移】，而现实世界中签订合同也多是伴随着【资产转移】，因此把这样的代码叫合约；</p>
+<p>下面介绍利用【Geth】客户端搭建属于自己的区块链开发环境，通常被称为私有链；</p>
+<h4 id="1-macOS安装以太坊客户端Geth"><a href="#1-macOS安装以太坊客户端Geth" class="headerlink" title="1 macOS安装以太坊客户端Geth"></a>1 macOS安装以太坊客户端Geth</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 安装最稳定版本</span></span><br><span class="line">brew tap ethereum/ethereum</span><br><span class="line">brew install ethereum</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 安装开发版</span></span><br><span class="line">brew install ethereum --devel</span><br></pre></td></tr></table></figure>
+
+<h4 id="2-查看Geth安装版本"><a href="#2-查看Geth安装版本" class="headerlink" title="2 查看Geth安装版本"></a>2 查看Geth安装版本</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 本机安装的Geth版本是：v1.11.6</span></span><br><span class="line">geth version </span><br><span class="line"></span><br><span class="line">Geth</span><br><span class="line">Version: 1.11.6-stable</span><br><span class="line">Git Commit: ea9e62ca3db5c33aa7438ebf39c189afd53c6bf8</span><br><span class="line">Git Commit Date: 20230420</span><br><span class="line">Architecture: amd64</span><br><span class="line">Go Version: go1.20.3</span><br><span class="line">Operating System: darwin</span><br></pre></td></tr></table></figure>
+
+<h4 id="3-创建创世区块配置文件"><a href="#3-创建创世区块配置文件" class="headerlink" title="3 创建创世区块配置文件"></a>3 创建创世区块配置文件</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">genesis.json</span><br></pre></td></tr></table></figure>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="attr">&quot;config&quot;</span>: &#123;</span><br><span class="line">    <span class="attr">&quot;chainId&quot;</span>: <span class="number">88888</span>,</span><br><span class="line">    <span class="attr">&quot;homesteadBlock&quot;</span>: <span class="number">0</span>,</span><br><span class="line">    <span class="attr">&quot;eip150Block&quot;</span>: <span class="number">0</span>,</span><br><span class="line">    <span class="attr">&quot;eip155Block&quot;</span>: <span class="number">0</span>,</span><br><span class="line">    <span class="attr">&quot;eip158Block&quot;</span>: <span class="number">0</span></span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="attr">&quot;alloc&quot;</span>      : &#123;&#125;,</span><br><span class="line">  <span class="attr">&quot;coinbase&quot;</span>   : <span class="string">&quot;0x0000000000000000000000000000000000000000&quot;</span>,</span><br><span class="line">  <span class="attr">&quot;difficulty&quot;</span> : <span class="string">&quot;0x2&quot;</span>,</span><br><span class="line">  <span class="attr">&quot;extraData&quot;</span>  : <span class="string">&quot;&quot;</span>,</span><br><span class="line">  <span class="attr">&quot;gasLimit&quot;</span>   : <span class="string">&quot;0xffffffff&quot;</span>,</span><br><span class="line">  <span class="attr">&quot;nonce&quot;</span>      : <span class="string">&quot;0x0000000000000042&quot;</span>,</span><br><span class="line">  <span class="attr">&quot;mixhash&quot;</span>    : <span class="string">&quot;0x0000000000000000000000000000000000000000000000000000000000000000&quot;</span>,</span><br><span class="line">  <span class="attr">&quot;parentHash&quot;</span> : <span class="string">&quot;0x0000000000000000000000000000000000000000000000000000000000000000&quot;</span>,</span><br><span class="line">  <span class="attr">&quot;timestamp&quot;</span>  : <span class="string">&quot;0x00&quot;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="4-配置文件参数说明"><a href="#4-配置文件参数说明" class="headerlink" title="4 配置文件参数说明"></a>4 配置文件参数说明</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">coinbase：   旷工的账号，可任意填写 0x0000000000000000000000000000000000000000</span><br><span class="line">difficulty： 设置当前区块的难度，开发环境建议设置较小的难度值 0x2</span><br><span class="line">extraData：  附加信息，可任意填写 &quot;&quot;</span><br><span class="line">gasLimit：   设置Gas消耗总量的限制，限制区块链能包含的交易信息总和，开发环境建议设置最大值 0xffffffff</span><br><span class="line">nonce：      64位的随机数，用于挖矿 0x0000000000000042</span><br><span class="line">mixhash：    由上个区块一部分生成的哈希值，与 nonce 配合用于挖坑 0x0000000000000000000000000000000000000000000000000000000000000000</span><br><span class="line">parentHash： 上个区块的哈希值，因为是创世区块，这个值填0 0x0000000000000000000000000000000000000000000000000000000000000000</span><br><span class="line">timestamp：  创世区块的时间戳 0x00</span><br></pre></td></tr></table></figure>
+
+<h4 id="5-使用配置初始化区块链"><a href="#5-使用配置初始化区块链" class="headerlink" title="5 使用配置初始化区块链"></a>5 使用配置初始化区块链</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">cd private-chain</span><br><span class="line"></span><br><span class="line">tree -L 1 ./</span><br><span class="line">├── genesis.json</span><br><span class="line">├── geth.log</span><br><span class="line">├── node_data</span><br><span class="line">└── geth_run.sh</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 初始化区块链</span></span><br><span class="line">geth --datadir ./node_data init genesis.json</span><br></pre></td></tr></table></figure>
+
+<h4 id="6-启动私有节点"><a href="#6-启动私有节点" class="headerlink" title="6 启动私有节点"></a>6 启动私有节点</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">!/bin/bash</span></span><br><span class="line">geth --datadir  ./node_data \</span><br><span class="line">--networkid 88888 \</span><br><span class="line">--http --http.addr 0.0.0.0 \</span><br><span class="line">--http.vhosts &quot;*&quot; \</span><br><span class="line">--http.api &quot;db,net,eth,web3,personal,debug&quot; \</span><br><span class="line">--http.corsdomain &quot;*&quot; \</span><br><span class="line">--rpc.enabledeprecatedpersonal \</span><br><span class="line">--snapshot --allow-insecure-unlock console 2&gt;&gt; geth.log</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">./geth_run.sh</span><br><span class="line"></span><br><span class="line">Welcome to the Geth JavaScript console!</span><br><span class="line"></span><br><span class="line">instance: Geth/v1.11.6-stable-ea9e62ca/darwin-amd64/go1.20.3</span><br><span class="line">at block: 0 (Thu Jan 01 1970 08:00:00 GMT+0800 (CST))</span><br><span class="line"> datadir: /blockchain/private-chain/node_data</span><br><span class="line"> modules: admin:1.0 debug:1.0 engine:1.0 eth:1.0 ethash:1.0 miner:1.0 net:1.0 rpc:1.0 txpool:1.0 web3:1.0</span><br><span class="line"></span><br><span class="line">To exit, press ctrl-d or type exit</span><br><span class="line"><span class="meta">&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="7-Geth的JavaScript常用操作"><a href="#7-Geth的JavaScript常用操作" class="headerlink" title="7 Geth的JavaScript常用操作"></a>7 Geth的JavaScript常用操作</h4><h5 id="7-1-创建账号"><a href="#7-1-创建账号" class="headerlink" title="7.1 创建账号"></a>7.1 创建账号</h5><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"># 查看所有账号列表</span><br><span class="line">&gt; eth.accounts </span><br><span class="line"></span><br><span class="line"># 创建一个账户</span><br><span class="line">&gt; personal.newAccount()</span><br><span class="line"></span><br><span class="line"><span class="attr">Passphrase</span>:</span><br><span class="line">Repeat passphrase:</span><br><span class="line"><span class="string">&quot;0xed563e9defde5e2a9b5ae2ae6f167c4b7672b32f&quot;</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">遇到的问题：</span><br><span class="line"><span class="attr">ReferenceError</span>: personal is not defined</span><br><span class="line">	at &lt;<span class="built_in">eval</span>&gt;:<span class="number">1</span>:<span class="number">1</span>(<span class="number">0</span>)</span><br><span class="line"></span><br><span class="line">启动节点的时候加启动参数：--rpc.enabledeprecatedpersonal 	</span><br></pre></td></tr></table></figure>
+
+<h5 id="7-2-查看账号余额"><a href="#7-2-查看账号余额" class="headerlink" title="7.2 查看账号余额"></a>7.2 查看账号余额</h5><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"># 查看账号余额</span><br><span class="line">&gt; eth.getBalance(<span class="string">&quot;0xed563e9defde5e2a9b5ae2ae6f167c4b7672b32f&quot;</span>)</span><br><span class="line"><span class="number">0</span></span><br><span class="line">&gt; eth.getBalance(eth.accounts[<span class="number">0</span>])</span><br><span class="line"><span class="number">0</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h5 id="7-3-启动和停止挖矿"><a href="#7-3-启动和停止挖矿" class="headerlink" title="7.3 启动和停止挖矿"></a>7.3 启动和停止挖矿</h5><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">&gt; miner.setEtherbase(eth.accounts[<span class="number">0</span>])</span><br><span class="line"><span class="literal">true</span></span><br><span class="line"></span><br><span class="line"># 启动挖矿</span><br><span class="line">&gt; miner.start(<span class="number">1</span>)</span><br><span class="line"># 停止挖矿</span><br><span class="line">&gt; miner.stop()</span><br><span class="line"></span><br><span class="line"># 查看挖到的以太币，单位转换成ETH</span><br><span class="line">&gt; web3.fromWei(eth.getBalance(eth.accounts[<span class="number">0</span>]),<span class="string">&#x27;ether&#x27;</span>)</span><br><span class="line"><span class="number">45000000000000000000</span></span><br><span class="line"></span><br><span class="line"># ETH转Wei</span><br><span class="line">&gt; web3.toWei(<span class="number">5</span>,<span class="string">&#x27;ether&#x27;</span>)</span><br><span class="line"><span class="string">&quot;5000000000000000000&quot;</span></span><br></pre></td></tr></table></figure>
+
+<h5 id="7-4-发送交易"><a href="#7-4-发送交易" class="headerlink" title="7.4 发送交易"></a>7.4 发送交易</h5><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"># 创建一个新账户，用于测试交易</span><br><span class="line">&gt; personal.newAccount()</span><br><span class="line"><span class="attr">Passphrase</span>:</span><br><span class="line">Repeat passphrase:</span><br><span class="line"><span class="string">&quot;0xcd4fb34be454508f4183286673f9137caa6429a8&quot;</span></span><br><span class="line"></span><br><span class="line"># 解锁账户，如果被锁住的话</span><br><span class="line">&gt; personal.unlockAccount(<span class="string">&quot;0xcd4fb34be454508f4183286673f9137caa6429a8&quot;</span>)</span><br><span class="line">Unlock account <span class="number">0xcd4fb34be454508f4183286673f9137caa6429a8</span></span><br><span class="line"><span class="attr">Passphrase</span>:</span><br><span class="line"><span class="literal">true</span></span><br><span class="line"></span><br><span class="line"># 发送交易</span><br><span class="line">&gt; eth.sendTransaction(&#123;<span class="attr">from</span>:eth.accounts[<span class="number">0</span>],<span class="attr">to</span>:<span class="string">&quot;0xcd4fb34be454508f4183286673f9137caa6429a8&quot;</span>,<span class="attr">value</span>:<span class="number">5000000000000000000</span>&#125;)</span><br><span class="line"><span class="string">&quot;0x59721b01c3508d160f4ab7939d656a9cac3f019d1e59822d3316a3a570c36ce5&quot;</span></span><br><span class="line"></span><br><span class="line"># 查看交易状态</span><br><span class="line">&gt; txpool.status</span><br><span class="line">&#123;</span><br><span class="line">    <span class="attr">pending</span>: <span class="number">1</span>,</span><br><span class="line">    <span class="attr">queued</span>: <span class="number">0</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"># 要使交易被处理必须要挖矿</span><br><span class="line">&gt; miner.setEtherbase(eth.accounts[<span class="number">0</span>])</span><br><span class="line"><span class="literal">true</span></span><br><span class="line">&gt; miner.start(<span class="number">1</span>);admin.sleepBlocks(<span class="number">1</span>);miner.stop();</span><br><span class="line"><span class="literal">null</span></span><br><span class="line"></span><br><span class="line"># 再次查看交易状态</span><br><span class="line">&gt; txpool.status</span><br><span class="line">&#123;</span><br><span class="line">  <span class="attr">pending</span>: <span class="number">0</span>,</span><br><span class="line">  <span class="attr">queued</span>: <span class="number">0</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h5 id="7-5-查看区块和交易"><a href="#7-5-查看区块和交易" class="headerlink" title="7.5 查看区块和交易"></a>7.5 查看区块和交易</h5><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line"># 查看当前区块总数</span><br><span class="line">&gt; eth.blockNumber</span><br><span class="line"><span class="number">11</span></span><br><span class="line"></span><br><span class="line"># 通过区块的高度查看区块信息</span><br><span class="line">&gt; eth.getBlock(<span class="number">10</span>)</span><br><span class="line">&#123;</span><br><span class="line">  <span class="attr">difficulty</span>: <span class="number">131072</span>,</span><br><span class="line">  <span class="attr">extraData</span>: <span class="string">&quot;0xd983010b06846765746888676f312e32302e338664617277696e&quot;</span>,</span><br><span class="line">  <span class="attr">gasLimit</span>: <span class="number">4253208113</span>,</span><br><span class="line">  <span class="attr">gasUsed</span>: <span class="number">21000</span>,</span><br><span class="line">  <span class="attr">hash</span>: <span class="string">&quot;0xffa6fbb05108a418ef1338e9aa302b2a35098ebe182a6dcdf602d41d5dcbdc0e&quot;</span>,</span><br><span class="line">  <span class="attr">logsBloom</span>: <span class="string">&quot;0x00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000&quot;</span>,</span><br><span class="line">  <span class="attr">miner</span>: <span class="string">&quot;0x075e399630896d443f1d61ca5398209497dbbde3&quot;</span>,</span><br><span class="line">  <span class="attr">mixHash</span>: <span class="string">&quot;0xb50716b2cee9dfde25055337c9796bc0364861cb609a5aa2909ff26855cc19ff&quot;</span>,</span><br><span class="line">  <span class="attr">nonce</span>: <span class="string">&quot;0x34282181d0cff31d&quot;</span>,</span><br><span class="line">  <span class="attr">number</span>: <span class="number">10</span>,</span><br><span class="line">  <span class="attr">parentHash</span>: <span class="string">&quot;0x73a0168d3f1f0c4ed77ae9d95747657fefe795500bce33041c919e70a2bdc931&quot;</span>,</span><br><span class="line">  <span class="attr">receiptsRoot</span>: <span class="string">&quot;0xf1a563d34902071f84087715cf7f863d133438bfe2e7bc2045c3214bf9a87fe0&quot;</span>,</span><br><span class="line">  <span class="attr">sha3Uncles</span>: <span class="string">&quot;0x1dcc4de8dec75d7aab85b567b6ccd41ad312451b948a7413f0a142fd40d49347&quot;</span>,</span><br><span class="line">  <span class="attr">size</span>: <span class="number">652</span>,</span><br><span class="line">  <span class="attr">stateRoot</span>: <span class="string">&quot;0x2f236845deccf8a3abf063fa849dc609c65e3334fc6cc3d9df27624a73a570c1&quot;</span>,</span><br><span class="line">  <span class="attr">timestamp</span>: <span class="number">1716535481</span>,</span><br><span class="line">  <span class="attr">totalDifficulty</span>: <span class="number">1313026</span>,</span><br><span class="line">  <span class="attr">transactions</span>: [<span class="string">&quot;0x59721b01c3508d160f4ab7939d656a9cac3f019d1e59822d3316a3a570c36ce5&quot;</span>],</span><br><span class="line">  <span class="attr">transactionsRoot</span>: <span class="string">&quot;0xf53d90595d6595d9463ef610426e7a71249f9705a52ff349007499ff04fb59be&quot;</span>,</span><br><span class="line">  <span class="attr">uncles</span>: []</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"># 根据交易哈希查看交易信息</span><br><span class="line">&gt; eth.getTransaction(<span class="string">&quot;0x4c53664dbb0b14147525b59192ab80abdd01bb335e2638bcee1111b61e19f1ff&quot;</span>)</span><br><span class="line">&#123;</span><br><span class="line">  <span class="attr">blockHash</span>: <span class="string">&quot;0xa88ec11a52573a8c9ca01df8ed14be0c7ad3e4503c10258841b8d01893f0fdce&quot;</span>,</span><br><span class="line">  <span class="attr">blockNumber</span>: <span class="number">11</span>,</span><br><span class="line">  <span class="attr">chainId</span>: <span class="string">&quot;0x3039&quot;</span>,</span><br><span class="line">  <span class="attr">from</span>: <span class="string">&quot;0x075e399630896d443f1d61ca5398209497dbbde3&quot;</span>,</span><br><span class="line">  <span class="attr">gas</span>: <span class="number">21000</span>,</span><br><span class="line">  <span class="attr">gasPrice</span>: <span class="number">1000000000</span>,</span><br><span class="line">  <span class="attr">hash</span>: <span class="string">&quot;0x4c53664dbb0b14147525b59192ab80abdd01bb335e2638bcee1111b61e19f1ff&quot;</span>,</span><br><span class="line">  <span class="attr">input</span>: <span class="string">&quot;0x&quot;</span>,</span><br><span class="line">  <span class="attr">nonce</span>: <span class="number">1</span>,</span><br><span class="line">  <span class="attr">r</span>: <span class="string">&quot;0x2239d302c2ba666b292f675db5683ed74a07ae1200bb80d07674cc2939e17c9c&quot;</span>,</span><br><span class="line">  <span class="attr">s</span>: <span class="string">&quot;0x3452e2c214128d6f2d4bba0041b720ccd3cdee3e330dc277cc101e7341f5c0ad&quot;</span>,</span><br><span class="line">  <span class="attr">to</span>: <span class="string">&quot;0xcd4fb34be454508f4183286673f9137caa6429a8&quot;</span>,</span><br><span class="line">  <span class="attr">transactionIndex</span>: <span class="number">0</span>,</span><br><span class="line">  <span class="attr">type</span>: <span class="string">&quot;0x0&quot;</span>,</span><br><span class="line">  <span class="attr">v</span>: <span class="string">&quot;0x6095&quot;</span>,</span><br><span class="line">  <span class="attr">value</span>: <span class="number">5000000000000000000</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    <div class="article-footer">
+      <!--<blockquote class="mt-2x">-->
+<!--  <ul class="post-copyright list-unstyled">-->
+<!--    -->
+<!--    <li class="post-copyright-link hidden-xs">-->
+<!--      <strong>本文链接：</strong>-->
+<!--      <a href="https://hanquanding.github.io/2021/03/28/blockchain/blockchain-eth-geth/" title="以太坊（一）私有链搭建" target="_blank" rel="external">https://hanquanding.github.io/2021/03/28/blockchain/blockchain-eth-geth/</a>-->
+<!--    </li>-->
+<!--    -->
+<!--    <li class="post-copyright-license">-->
+<!--      <strong>版权声明： </strong> 本博客所有文章除特别声明外，均采用 <a href="http://creativecommons.org/licenses/by/4.0/deed.zh" target="_blank" rel="external">CC BY 4.0 CN协议</a> 许可协议。转载请注明出处！-->
+<!--    </li>-->
+<!--  </ul>-->
+<!--</blockquote>-->
+
+
+<div class="panel panel-default panel-badger">
+  <div class="panel-body">
+    <figure class="media">
+      <div class="media-left">
+        <a href="https://github.com/hanquanding" target="_blank" class="img-burn thumb-sm visible-lg">
+          <img src="/images/avatar.jpeg" class="img-rounded w-full" alt="">
+        </a>
+      </div>
+      <div class="media-body">
+        <h3 class="media-heading"><a href="https://github.com/hanquanding" target="_blank"><span class="text-dark">🌴🌴🥥</span><small class="ml-1x">Golang</small></a></h3>
+        <div>行是知之始，知是行之成.</div>
+      </div>
+    </figure>
+  </div>
+</div>
+
+
+    </div>
+  </article>
+  
+    
+  <section id="comments">
+  	
+            <div class="comments" id="comments">
+                <div id="giscus-container"></div>
+            </div>
+    
+  </section>
+
+
+  
+</div>
+
+  <nav class="bar bar-footer clearfix" data-stick-bottom>
+  <div class="bar-inner">
+  
+  <ul class="pager pull-left">
+    
+    <li class="prev">
+      <a href="/2021/03/29/go-zero/gozero002/" title="go-zero（二）代码生成工具goctl的使用"><i class="icon icon-angle-left" aria-hidden="true"></i><span>&nbsp;&nbsp;上一篇</span></a>
+    </li>
+    
+    
+    <li class="next">
+      <a href="/2021/03/28/MySQL/mysql-only-full-group-by/" title="MySQL5.7版本sql_mode=only_full_group_by问题解决"><span>下一篇&nbsp;&nbsp;</span><i class="icon icon-angle-right" aria-hidden="true"></i></a>
+    </li>
+    
+    
+  </ul>
+  
+  
+  
+  <div class="bar-right">
+    
+    <div class="share-component" data-sites="weibo,qq,wechat" data-mobile-sites="weibo,qq,qzone"></div>
+    
+  </div>
+  </div>
+</nav>
+  
+
+
+</main>
+
+  <footer class="footer" itemscope itemtype="http://schema.org/WPFooter">
+	
+	
+    <ul class="social-links">
+    	
+        <li><a href="https://github.com/hanquanding" target="_blank" title="Github" data-toggle=tooltip data-placement=top><i class="icon icon-github"></i></a></li>
+        
+        <li><a href="/atom.xml" target="_blank" title="Rss" data-toggle=tooltip data-placement=top><i class="icon icon-rss"></i></a></li>
+        
+    </ul>
+
+    <div class="copyright">
+    	
+        <div class="publishby">
+            <a href="https://github.com/hanquanding" target="_blank"> hanquanding </a>All Rights Reserved <a href="https://github.com/cofess/hexo-theme-pure" target="_blank"></a>
+        </div>
+    </div>
+</footer>
+  <script src="//cdn.jsdelivr.net/npm/jquery@1.12.4/dist/jquery.min.js"></script>
+<script>
+window.jQuery || document.write('<script src="js/jquery.min.js"><\/script>')
+</script>
+
+<script src="/js/plugin.min.js"></script>
+
+
+<script src="/js/application.js"></script>
+
+
+    <script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: '文章',
+            PAGES: '页面',
+            CATEGORIES: '分类',
+            TAGS: '标签',
+            UNTITLED: '(未命名)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+
+<script src="/js/insight.js"></script>
+
+
+
+
+
+
+   
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+
+   
+    
+<script type="text/javascript">
+    (function() {
+        var giscus = document.createElement('script');
+        giscus.type = 'text/javascript';
+        giscus.async = true;
+        giscus.setAttribute('data-repo', 'hanquanding/giscus_discussions');
+        giscus.setAttribute('data-repo-id', 'R_kgDOJ1fP4Q');
+        giscus.setAttribute('data-category', 'Announcements');
+        giscus.setAttribute('data-category-id', 'DIC_kwDOJ1fP4c4CXjPf');
+        giscus.setAttribute('data-mapping', 'pathname');
+        giscus.setAttribute('data-strict', '1');
+        giscus.setAttribute('data-reactions-enabled', '1');
+        giscus.setAttribute('data-emit-metadata', '1');
+        giscus.setAttribute('data-input-position', 'bottom');
+        giscus.setAttribute('data-theme', 'light');
+        giscus.setAttribute('data-lang', 'zh-CN');
+        giscus.setAttribute('data-loading', 'lazy');
+        giscus.setAttribute('crossorigin', 'anonymous');
+        giscus.setAttribute('src', 'https://giscus.app/client.js');
+        document.getElementById('giscus-container').appendChild(giscus);
+    })();
+</script>
+
+
+
+
+  <script src="//cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.3.5/dist/jquery.fancybox.min.js"></script>
+  <script>
+  //利用 FancyBox 实现点击图片放大
+  $(document).ready(function() {
+    $('article img').not('[hidden]').not('.panel-body img').each(function() {
+      var $image = $(this);
+      var imageCaption = $image.attr('alt');
+      var $imageWrapLink = $image.parent('a');
+      if ($imageWrapLink.length < 1) {
+        var src = this.getAttribute('src');
+        var idx = src.lastIndexOf('?');
+        if (idx != -1) {
+          src = src.substring(0, idx);
+        }
+        $imageWrapLink = $image.wrap('<a href="' + src + '"></a>').parent('a');
+      }
+      $imageWrapLink.attr('data-fancybox', 'images');
+      if (imageCaption) {
+        $imageWrapLink.attr('data-caption', imageCaption);
+      }
+    });
+    $().fancybox({
+      selector: '[data-fancybox="images"]',
+      hash: false,
+      loop: false,
+    });
+  });
+  </script>
+
+
+
+
+
+</body>
+</html>
