@@ -1,15 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://hanquanding.github.io/2021/03/29/blockchain/blockchain-eth-node/</loc>
-    <lastmod>2024-05-24</lastmod>
+    <loc>https://hanquanding.github.io/2021/03/29/blockchain/blockchain-eth-erc/</loc>
+    <lastmod>2024-05-26</lastmod>
+  </url>
+  <url>
+    <loc>https://hanquanding.github.io/2021/04/01/blockchain/soliidity-erc-721/</loc>
+    <lastmod>2024-05-26</lastmod>
   </url>
   <url>
     <loc>https://hanquanding.github.io/2021/03/28/blockchain/blockchain-eth-geth/</loc>
-    <lastmod>2024-05-24</lastmod>
+    <lastmod>2024-05-26</lastmod>
   </url>
   <url>
-    <loc>https://hanquanding.github.io/2021/03/29/blockchain/blockchain-eth-erc/</loc>
+    <loc>https://hanquanding.github.io/2021/04/01/blockchain/soliidity-erc-20/</loc>
+    <lastmod>2024-05-26</lastmod>
+  </url>
+  <url>
+    <loc>https://hanquanding.github.io/2021/03/29/blockchain/blockchain-eth-node/</loc>
     <lastmod>2024-05-24</lastmod>
   </url>
   <url>
@@ -241,7 +249,7 @@
     <lastmod>2023-08-29</lastmod>
   </url>
   <url>
-    <loc>https://hanquanding.github.io/2023/06/03/blockchain/Hardhat/</loc>
+    <loc>https://hanquanding.github.io/2023/06/03/blockchain/hardhat/</loc>
     <lastmod>2023-08-28</lastmod>
   </url>
   <url>
