@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>https://hanquanding.github.io/2021/05/01/blockchain/solidity-erc-1155/</loc>
+    <lastmod>2024-05-28</lastmod>
+  </url>
+  <url>
     <loc>https://hanquanding.github.io/2021/04/01/blockchain/solidity-erc-721/</loc>
     <lastmod>2024-05-28</lastmod>
   </url>
