@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang=zh>
+<head>
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="Cache-Control" content="no-transform" />
+  <meta http-equiv="Cache-Control" content="no-siteapp" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="format-detection" content="telephone=no,email=no,adress=no">
+  <!-- Color theme for statusbar -->
+  <meta name="theme-color" content="#000000" />
+  <!-- 强制页面在当前窗口以独立页面显示,防止别人在框架里调用页面 -->
+  <meta http-equiv="window-target" content="_top" />
+  
+  
+  <title>Solidity（七）多签钱包合约程序wallet | @@</title>
+  <meta name="description" content="单签钱包：只由一个私钥或者助记词来管理、由一个人管理钱包私钥的方式；执行持有对应的私钥就能控制该钱包中的资金；包括收款、转账、提现等交易操作； 单签钱包的优点是方便管理；单签钱包的缺点是一旦私钥被盗，将面临资金全部丢失的风险； 1 简单的单签钱包合约123456789101112131415161718192021222324252627282930313233343536373839404142">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Solidity（七）多签钱包合约程序wallet">
+<meta property="og:url" content="https://hanquanding.github.io/2021/05/01/blockchain/solidity-erc-wallet/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="单签钱包：只由一个私钥或者助记词来管理、由一个人管理钱包私钥的方式；执行持有对应的私钥就能控制该钱包中的资金；包括收款、转账、提现等交易操作； 单签钱包的优点是方便管理；单签钱包的缺点是一旦私钥被盗，将面临资金全部丢失的风险； 1 简单的单签钱包合约123456789101112131415161718192021222324252627282930313233343536373839404142">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2021-05-01T04:50:26.000Z">
+<meta property="article:modified_time" content="2024-05-30T07:38:42.378Z">
+<meta property="article:author" content="hanquanding">
+<meta property="article:tag" content="区块链">
+<meta property="article:tag" content="Blockchain">
+<meta property="article:tag" content="Ethereum">
+<meta property="article:tag" content="Solidity">
+<meta name="twitter:card" content="summary">
+  <!-- Canonical links -->
+  <link rel="canonical" href="https://hanquanding.github.io/2021/05/01/blockchain/solidity-erc-wallet/index.html">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png" type="image/x-icon">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+  
+  
+    <link href="//cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.3.5/dist/jquery.fancybox.min.css" rel="stylesheet">
+  
+  
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body class="main-center" itemscope itemtype="http://schema.org/WebPage">
+  <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+  <div class="slimContent">
+    <div class="navbar-header">
+      
+      
+      <div class="profile-block text-center">
+        <a id="avatar" href="/">
+          <img class="img-circle" src="/images/avatar.jpeg" width="200" height="200">
+        </a>
+        <h2 id="name" class="hidden-xs hidden-sm">🌴🌴🥥</h2>
+        <h3 id="title" class="hidden-xs hidden-sm hidden-md">Golang</h3>
+        <small id="location" class="text-muted hidden-xs hidden-sm"><i class="icon icon-map-marker"></i> Shanghai, China</small>
+      </div>
+      
+      <div class="search" id="search-form-wrap">
+
+    <form class="search-form sidebar-form">
+        <div class="input-group">
+            <input type="text" class="search-form-input form-control" placeholder="搜索" />
+            <span class="input-group-btn">
+                <button type="submit" class="search-form-submit btn btn-flat" onclick="return false;"><i class="icon icon-search"></i></button>
+            </span>
+        </div>
+    </form>
+    <div class="ins-search">
+  <div class="ins-search-mask"></div>
+  <div class="ins-search-container">
+    <div class="ins-input-wrapper">
+      <input type="text" class="ins-search-input" placeholder="想要查找什么..." x-webkit-speech />
+      <button type="button" class="close ins-close ins-selectable" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+    </div>
+    <div class="ins-section-wrapper">
+      <div class="ins-section-container"></div>
+    </div>
+  </div>
+</div>
+
+
+</div>
+      <button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target="#main-navbar" aria-controls="main-navbar" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+    </div>
+    <nav id="main-navbar" class="collapse navbar-collapse" itemscope itemtype="http://schema.org/SiteNavigationElement" role="navigation">
+      <ul class="nav navbar-nav main-nav menu-highlight">
+        
+        
+        <li class="menu-item menu-item-home">
+          <a href="/.">
+            
+            <i class="icon icon-home-fill"></i>
+            
+            <span class="menu-title">首页</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives">
+            
+            <i class="icon icon-archives-fill"></i>
+            
+            <span class="menu-title">归档</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories">
+            
+            <i class="icon icon-folder"></i>
+            
+            <span class="menu-title">分类</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags">
+            
+            <i class="icon icon-tags"></i>
+            
+            <span class="menu-title">标签</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about">
+            
+            <i class="icon icon-cup-fill"></i>
+            
+            <span class="menu-title">关于</span>
+          </a>
+        </li>
+        
+      </ul>
+      
+	
+    <ul class="social-links">
+    	
+        <li><a href="https://github.com/hanquanding" target="_blank" title="Github" data-toggle=tooltip data-placement=top><i class="icon icon-github"></i></a></li>
+        
+        <li><a href="/atom.xml" target="_blank" title="Rss" data-toggle=tooltip data-placement=top><i class="icon icon-rss"></i></a></li>
+        
+    </ul>
+
+    </nav>
+  </div>
+</header>
+
+  
+    <aside class="sidebar" itemscope itemtype="http://schema.org/WPSideBar">
+  <div class="slimContent">
+    
+      <!--<div class="widget">-->
+<!--    <h3 class="widget-title">公告</h3>-->
+<!--    <div class="widget-body">-->
+<!--        <div id="board">-->
+<!--            <div class="content">-->
+<!--                -->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--</div>-->
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">分类</h3>
+    <div class="widget-body">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Docker/">Docker</a><span class="category-list-count">13</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Git/">Git</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Go%E8%AF%AD%E8%A8%80/">Go语言</a><span class="category-list-count">34</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Kafka/">Kafka</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Kubernetes/">Kubernetes</a><span class="category-list-count">10</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a><span class="category-list-count">6</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/MySQL/">MySQL</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Nginx/">Nginx</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Redis/">Redis</a><span class="category-list-count">7</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/gRPC/">gRPC</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/go-zero/">go-zero</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%8C%BA%E5%9D%97%E9%93%BE/">区块链</a><span class="category-list-count">8</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%9E%B6%E6%9E%84/">微服务架构</a><span class="category-list-count">2</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      <!---->
+<!--  <div class="widget">-->
+<!--    <h3 class="widget-title">标签</h3>-->
+<!--    <div class="widget-body">-->
+<!--      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Blockchain/" rel="tag">Blockchain</a><span class="tag-list-count">8</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Ethereum/" rel="tag">Ethereum</a><span class="tag-list-count">7</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MySQL/" rel="tag">MySQL</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Nginx/" rel="tag">Nginx</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Solidity/" rel="tag">Solidity</a><span class="tag-list-count">8</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/WebSocket/" rel="tag">WebSocket</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/docker/" rel="tag">docker</a><span class="tag-list-count">13</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/gRPC/" rel="tag">gRPC</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/" rel="tag">git</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/go-zero/" rel="tag">go-zero</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/golang/" rel="tag">golang</a><span class="tag-list-count">43</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/gorm/" rel="tag">gorm</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/grafana/" rel="tag">grafana</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hardhat/" rel="tag">hardhat</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/k8s/" rel="tag">k8s</a><span class="tag-list-count">10</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/kafka/" rel="tag">kafka</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/kubernetes/" rel="tag">kubernetes</a><span class="tag-list-count">10</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux/" rel="tag">linux</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/microservice/" rel="tag">microservice</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/prometheus/" rel="tag">prometheus</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/redis/" rel="tag">redis</a><span class="tag-list-count">8</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8C%BA%E5%9D%97%E9%93%BE/" rel="tag">区块链</a><span class="tag-list-count">8</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%BE%AE%E6%9C%8D%E5%8A%A1/" rel="tag">微服务</a><span class="tag-list-count">2</span></li></ul>-->
+<!--    </div>-->
+<!--  </div>-->
+<!---->
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">标签云</h3>
+    <div class="widget-body tagcloud">
+      <a href="/tags/Blockchain/" style="font-size: 13.67px;">Blockchain</a> <a href="/tags/Ethereum/" style="font-size: 13.56px;">Ethereum</a> <a href="/tags/MySQL/" style="font-size: 13.11px;">MySQL</a> <a href="/tags/Nginx/" style="font-size: 13px;">Nginx</a> <a href="/tags/Solidity/" style="font-size: 13.67px;">Solidity</a> <a href="/tags/WebSocket/" style="font-size: 13.11px;">WebSocket</a> <a href="/tags/docker/" style="font-size: 13.89px;">docker</a> <a href="/tags/gRPC/" style="font-size: 13.11px;">gRPC</a> <a href="/tags/git/" style="font-size: 13.22px;">git</a> <a href="/tags/go-zero/" style="font-size: 13.22px;">go-zero</a> <a href="/tags/golang/" style="font-size: 14px;">golang</a> <a href="/tags/gorm/" style="font-size: 13px;">gorm</a> <a href="/tags/grafana/" style="font-size: 13px;">grafana</a> <a href="/tags/hardhat/" style="font-size: 13px;">hardhat</a> <a href="/tags/k8s/" style="font-size: 13.78px;">k8s</a> <a href="/tags/kafka/" style="font-size: 13.33px;">kafka</a> <a href="/tags/kubernetes/" style="font-size: 13.78px;">kubernetes</a> <a href="/tags/linux/" style="font-size: 13.44px;">linux</a> <a href="/tags/microservice/" style="font-size: 13.11px;">microservice</a> <a href="/tags/prometheus/" style="font-size: 13px;">prometheus</a> <a href="/tags/redis/" style="font-size: 13.67px;">redis</a> <a href="/tags/%E5%8C%BA%E5%9D%97%E9%93%BE/" style="font-size: 13.67px;">区块链</a> <a href="/tags/%E5%BE%AE%E6%9C%8D%E5%8A%A1/" style="font-size: 13.11px;">微服务</a>
+    </div>
+  </div>
+
+    
+  </div>
+</aside>
+
+  
+  
+<main class="main" role="main">
+  <div class="content">
+  <article id="post-blockchain/solidity-erc-wallet" class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
+    
+    <div class="article-header">
+      
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Solidity（七）多签钱包合约程序wallet
+    </h1>
+  
+
+      
+      <div class="article-meta">
+        <span class="article-date">
+    <i class="icon icon-calendar-check"></i>
+	<a href="/2021/05/01/blockchain/solidity-erc-wallet/" class="article-date">
+	  <time datetime="2021-05-01T04:50:26.000Z" itemprop="datePublished">2021-05-01</time>
+	</a>
+</span>
+        
+  <span class="article-category">
+    <i class="icon icon-folder"></i>
+    <a class="article-category-link" href="/categories/%E5%8C%BA%E5%9D%97%E9%93%BE/">区块链</a>
+  </span>
+
+        
+  <span class="article-tag">
+    <i class="icon icon-tags"></i>
+	<a class="article-tag-link-link" href="/tags/Blockchain/" rel="tag">Blockchain</a>, <a class="article-tag-link-link" href="/tags/Ethereum/" rel="tag">Ethereum</a>, <a class="article-tag-link-link" href="/tags/Solidity/" rel="tag">Solidity</a>, <a class="article-tag-link-link" href="/tags/%E5%8C%BA%E5%9D%97%E9%93%BE/" rel="tag">区块链</a>
+  </span>
+
+
+        
+	<span class="article-read hidden-xs">
+	    <i class="icon icon-eye-fill" aria-hidden="true"></i>
+	    <span id="busuanzi_container_page_pv">
+			<span id="busuanzi_value_page_pv">0</span>
+		</span>
+	</span>
+
+
+        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2021/05/01/blockchain/solidity-erc-wallet/#comments" class="article-comment-link">评论</a></span>
+        
+      </div>
+    </div>
+    <div class="article-entry marked-body" itemprop="articleBody">
+      
+        <p>单签钱包：只由一个私钥或者助记词来管理、由一个人管理钱包私钥的方式；执行持有对应的私钥就能控制该钱包中的资金；包括收款、转账、提现等交易操作；</p>
+<p>单签钱包的优点是方便管理；单签钱包的缺点是一旦私钥被盗，将面临资金全部丢失的风险；</p>
+<h4 id="1-简单的单签钱包合约"><a href="#1-简单的单签钱包合约" class="headerlink" title="1 简单的单签钱包合约"></a>1 简单的单签钱包合约</h4><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// author：hqd8080</span></span><br><span class="line"><span class="comment">// contracts/EtherWallet.sol</span></span><br><span class="line"><span class="comment">// SPDX-License-Identifier: MIT</span></span><br><span class="line">pragma solidity &gt;=<span class="number">0.8</span><span class="number">.2</span> &lt;<span class="number">0.9</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">* 简单的单签钱包实例</span></span><br><span class="line"><span class="comment">**/</span></span><br><span class="line">contract EtherWallet &#123;</span><br><span class="line">    <span class="comment">//合约的所有者</span></span><br><span class="line">    address payable public owner;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//定义转账事件</span></span><br><span class="line">    event TransferEvent(address <span class="keyword">from</span>, address to, uint256 amount);</span><br><span class="line"></span><br><span class="line">    <span class="comment">//构造函数</span></span><br><span class="line">    <span class="function"><span class="title">constructor</span>(<span class="params"></span>)</span> &#123;</span><br><span class="line">        owner = payable(msg.sender);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//收款时合约会自动调用的函数</span></span><br><span class="line">    receive() external payable &#123; &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//函数修改器</span></span><br><span class="line">    modifier <span class="function"><span class="title">onlyOwner</span>(<span class="params"></span>)</span> &#123;</span><br><span class="line">        <span class="built_in">require</span>(msg.sender == owner, <span class="string">&quot;wallet: caller is not owner&quot;</span>);</span><br><span class="line">        _;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//提现函数，限制只有合约的所有者才能体现</span></span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">withdraw</span>(<span class="params">uint256 amount</span>) <span class="title">external</span> <span class="title">onlyOwner</span></span>&#123;</span><br><span class="line">        payable (msg.sender).transfer(amount);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//转账函数，限制只有合约的所有者才能转账</span></span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">transfer</span>(<span class="params">address payable to, uint256 amount</span>) <span class="title">public</span> <span class="title">onlyOwner</span> </span>&#123;</span><br><span class="line">        <span class="built_in">require</span>(owner.balance &gt;= amount, <span class="string">&quot;wallet: balance not enough&quot;</span>);</span><br><span class="line">        <span class="comment">// 使用 call 函数实现转账</span></span><br><span class="line">        (bool succeed, ) = to.call&#123;<span class="attr">value</span>: amount&#125;(<span class="string">&quot;&quot;</span>);</span><br><span class="line">        <span class="built_in">require</span>(succeed, <span class="string">&quot;wallet: transfer failed&quot;</span>);</span><br><span class="line">        emit TransferEvent(owner, to, amount);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//获取账户余额</span></span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">getBalance</span>(<span class="params"></span>) <span class="title">external</span> <span class="title">view</span> <span class="title">returns</span> (<span class="params">uint256</span>) </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> address(<span class="built_in">this</span>).balance;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="2-多签钱包合约"><a href="#2-多签钱包合约" class="headerlink" title="2 多签钱包合约"></a>2 多签钱包合约</h4><p>所谓多签钱包，是指设定多个人共同来管理一个地址；必须满足一定数量的管理者签名同意之后才能动用地址账户内的资金；大大降低了资产被盗取的风险；</p>
+<p>多签钱包的最大特点是：需要有多个私钥所有者的授权才能执行钱包的交易操作；与单签钱包相比多签钱包在使用和操作上多了授权和撤销两个操作；因为多签钱包机制是由多个用户共同管理一份资产；</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// author：hqd8080</span></span><br><span class="line"><span class="comment">// contracts/MultiSignWallet.sol</span></span><br><span class="line"><span class="comment">// SPDX-License-Identifier: MIT</span></span><br><span class="line">pragma solidity &gt;=<span class="number">0.8</span><span class="number">.2</span> &lt;<span class="number">0.9</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">* 多签钱包合约</span></span><br><span class="line"><span class="comment">**/</span></span><br><span class="line">contract MultiSignWallet &#123;</span><br><span class="line">    <span class="comment">//存款事件，记录两个数据：存款方地址，存款金额</span></span><br><span class="line">    event Deposit(address indexed sender, uint256 amount);</span><br><span class="line">    <span class="comment">//提交交易申请</span></span><br><span class="line">    event Submit(uint256 indexed txId);</span><br><span class="line">    <span class="comment">//授权批准事件，记录两个数据：批准者账号，批准的交易序号</span></span><br><span class="line">    event Approve(address indexed owner, uint256 indexed txId);</span><br><span class="line">    <span class="comment">//撤销批准事件，记录两个数据：撤销者账号，撤销批准的交易序号</span></span><br><span class="line">    event Revoke(address indexed owner, uint256 txId);</span><br><span class="line">    <span class="comment">//执行的交易</span></span><br><span class="line">    event Execute(uint256 indexed txId);</span><br><span class="line"></span><br><span class="line">    <span class="comment">//存储所有的私钥持有人，类型为address，总的签名个数</span></span><br><span class="line">    address[] public owners;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//存储和判断某个地址是不是私钥持有人</span></span><br><span class="line">    mapping (<span class="function"><span class="params">address</span> =&gt;</span> bool) public isOwner;</span><br><span class="line">    <span class="comment">//执行签名的最少人数</span></span><br><span class="line">    uint public required; </span><br><span class="line"></span><br><span class="line">    struct Transaction &#123;</span><br><span class="line">        address to;     <span class="comment">//接收方地址</span></span><br><span class="line">        uint256 value;  <span class="comment">//交易金额</span></span><br><span class="line">        bytes data;     <span class="comment">//如果发送到的是合约地址，可以执行此合约代码</span></span><br><span class="line">        bool executed;  <span class="comment">// 该交易是否执行</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//存储提交的交易</span></span><br><span class="line">    Transaction[] public transactions;</span><br><span class="line">    <span class="comment">//用户判断持有人是否同意了某一笔交易</span></span><br><span class="line">    mapping (<span class="function"><span class="params">uint</span> =&gt;</span> mapping (<span class="function"><span class="params">address</span> =&gt;</span> bool)) public approved;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//构造函数,初始化私钥持有人和确认数量</span></span><br><span class="line">    <span class="title">constructor</span> (<span class="params">address[] memory _owners, uint256 _required</span>) &#123;</span><br><span class="line">        <span class="built_in">require</span>(_owners.length &gt; <span class="number">0</span>, <span class="string">&quot;wallet: owners is required&quot;</span>);</span><br><span class="line">        <span class="built_in">require</span>(_required &gt; <span class="number">0</span> &amp;&amp; _required &lt;= _owners.length, <span class="string">&quot;wallet: invalid require number of owners&quot;</span>);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> (uint256 i = <span class="number">0</span>; i &lt; _owners.length; i ++) &#123;</span><br><span class="line">            address _owner = _owners[i];</span><br><span class="line">            <span class="built_in">require</span>(_owner != address(<span class="number">0</span>), <span class="string">&quot;wallet: invalid owner&quot;</span>);</span><br><span class="line">            <span class="built_in">require</span>(!isOwner[_owner], <span class="string">&quot;wallet: owner had&quot;</span>);</span><br><span class="line"></span><br><span class="line">            isOwner[_owner] = <span class="literal">true</span>;</span><br><span class="line">            owners.push(_owner);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">//执行签名的最少人数</span></span><br><span class="line">        required = _required;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">     <span class="comment">//收款时合约会自动调用的函数</span></span><br><span class="line">    receive() external payable &#123;</span><br><span class="line">        <span class="comment">//记录存款地址和数量</span></span><br><span class="line">        emit Deposit(msg.sender, msg.value);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//函数修改器</span></span><br><span class="line">    modifier <span class="function"><span class="title">onlyOwner</span>(<span class="params"></span>)</span> &#123;</span><br><span class="line">        <span class="built_in">require</span>(isOwner[msg.sender], <span class="string">&quot;wallet: invalid is owner&quot;</span>);</span><br><span class="line">        _;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//判断是否存在txId</span></span><br><span class="line">    modifier <span class="function"><span class="title">isTxId</span>(<span class="params">uint _txId</span>)</span> &#123;</span><br><span class="line">        <span class="built_in">require</span>(_txId &lt; transactions.length, <span class="string">&quot;wallet: invalid txId&quot;</span>);</span><br><span class="line">        _;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//用于判断txId的地址是否已授权</span></span><br><span class="line">    modifier <span class="function"><span class="title">notApproved</span>(<span class="params">uint _txId</span>)</span> &#123;</span><br><span class="line">        <span class="built_in">require</span>(!approved[_txId][msg.sender], <span class="string">&quot;wallet: had approved&quot;</span>);</span><br><span class="line">        _;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//用于判断txId对应的交易是否已经执行</span></span><br><span class="line">    modifier <span class="function"><span class="title">notExecuted</span>(<span class="params">uint _txId</span>)</span> &#123;</span><br><span class="line">        <span class="built_in">require</span>(!transactions[_txId].executed, <span class="string">&quot;wallet: had executed&quot;</span>);</span><br><span class="line">        _;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//提交交易申请</span></span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">submitTransaction</span>(<span class="params">address _to, uint256 _value, bytes calldata _data</span>) <span class="title">external</span> <span class="title">onlyOwner</span> </span>&#123;</span><br><span class="line">        transactions.push(Transaction(&#123;<span class="attr">to</span>: _to, <span class="attr">value</span>: _value, <span class="attr">data</span>: _data, <span class="attr">executed</span>: <span class="literal">false</span>&#125;));</span><br><span class="line">        emit Submit(transactions.length - <span class="number">1</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//私钥持有人授权函数</span></span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">approve</span>(<span class="params">uint _txId</span>) <span class="title">external</span> <span class="title">onlyOwner</span> <span class="title">isTxId</span>(<span class="params">_txId</span>) <span class="title">notApproved</span>(<span class="params">_txId</span>) <span class="title">notExecuted</span>(<span class="params">_txId</span>) </span>&#123;</span><br><span class="line">        approved[_txId][msg.sender] = <span class="literal">true</span>;</span><br><span class="line">        emit Approve(msg.sender, _txId);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//授权人数</span></span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">getApproveCount</span>(<span class="params">uint _txId</span>) <span class="title">private</span> <span class="title">view</span> <span class="title">returns</span> (<span class="params">uint256</span>)</span>&#123;</span><br><span class="line">        uint256 count = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span> (uint256 i = <span class="number">0</span>; i &lt; owners.length; i ++) &#123;</span><br><span class="line">            address owner = owners[i];</span><br><span class="line">            <span class="keyword">if</span> (approved[_txId][owner]) &#123;</span><br><span class="line">                count ++;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> count;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//执行交易方法</span></span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">execute</span>(<span class="params">uint _txId</span>) <span class="title">external</span> <span class="title">isTxId</span>(<span class="params">_txId</span>) <span class="title">notExecuted</span>(<span class="params">_txId</span>) </span>&#123;</span><br><span class="line">        <span class="built_in">require</span>(getApproveCount(_txId) &gt;= required, <span class="string">&quot;wallet: approveCount &lt; required&quot;</span>);</span><br><span class="line"></span><br><span class="line">        Transaction storage transaction = transactions[_txId];</span><br><span class="line">        transaction.executed = <span class="literal">true</span>;</span><br><span class="line">        (bool successed,) = transaction.to.call&#123;<span class="attr">value</span>: transaction.value&#125;(transaction.data);</span><br><span class="line">        <span class="built_in">require</span>(successed, <span class="string">&quot;wallet: execute failed&quot;</span>);</span><br><span class="line">        emit Execute(_txId);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//撤销批准</span></span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">revoke</span>(<span class="params">uint _txId</span>) <span class="title">external</span> <span class="title">onlyOwner</span> <span class="title">isTxId</span>(<span class="params">_txId</span>) <span class="title">notExecuted</span>(<span class="params">_txId</span>) </span>&#123;</span><br><span class="line">        <span class="built_in">require</span>(approved[_txId][msg.sender], <span class="string">&quot;wallet: not approved&quot;</span>);</span><br><span class="line">        approved[_txId][msg.sender] = <span class="literal">false</span>;</span><br><span class="line">        emit Revoke(msg.sender, _txId);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+      
+    </div>
+    <div class="article-footer">
+      <!--<blockquote class="mt-2x">-->
+<!--  <ul class="post-copyright list-unstyled">-->
+<!--    -->
+<!--    <li class="post-copyright-link hidden-xs">-->
+<!--      <strong>本文链接：</strong>-->
+<!--      <a href="https://hanquanding.github.io/2021/05/01/blockchain/solidity-erc-wallet/" title="Solidity（七）多签钱包合约程序wallet" target="_blank" rel="external">https://hanquanding.github.io/2021/05/01/blockchain/solidity-erc-wallet/</a>-->
+<!--    </li>-->
+<!--    -->
+<!--    <li class="post-copyright-license">-->
+<!--      <strong>版权声明： </strong> 本博客所有文章除特别声明外，均采用 <a href="http://creativecommons.org/licenses/by/4.0/deed.zh" target="_blank" rel="external">CC BY 4.0 CN协议</a> 许可协议。转载请注明出处！-->
+<!--    </li>-->
+<!--  </ul>-->
+<!--</blockquote>-->
+
+
+<div class="panel panel-default panel-badger">
+  <div class="panel-body">
+    <figure class="media">
+      <div class="media-left">
+        <a href="https://github.com/hanquanding" target="_blank" class="img-burn thumb-sm visible-lg">
+          <img src="/images/avatar.jpeg" class="img-rounded w-full" alt="">
+        </a>
+      </div>
+      <div class="media-body">
+        <h3 class="media-heading"><a href="https://github.com/hanquanding" target="_blank"><span class="text-dark">🌴🌴🥥</span><small class="ml-1x">Golang</small></a></h3>
+        <div>行是知之始，知是行之成.</div>
+      </div>
+    </figure>
+  </div>
+</div>
+
+
+    </div>
+  </article>
+  
+    
+  <section id="comments">
+  	
+            <div class="comments" id="comments">
+                <div id="giscus-container"></div>
+            </div>
+    
+  </section>
+
+
+  
+</div>
+
+  <nav class="bar bar-footer clearfix" data-stick-bottom>
+  <div class="bar-inner">
+  
+  <ul class="pager pull-left">
+    
+    <li class="prev">
+      <a href="/2021/11/15/linux/linux-cp/" title="Linux使用cp命令直接覆盖不提示的方法"><i class="icon icon-angle-left" aria-hidden="true"></i><span>&nbsp;&nbsp;上一篇</span></a>
+    </li>
+    
+    
+    <li class="next">
+      <a href="/2021/05/01/blockchain/solidity-erc-1155/" title="Solidity（六）合约标准ERC-1155"><span>下一篇&nbsp;&nbsp;</span><i class="icon icon-angle-right" aria-hidden="true"></i></a>
+    </li>
+    
+    
+  </ul>
+  
+  
+  
+  <div class="bar-right">
+    
+    <div class="share-component" data-sites="weibo,qq,wechat" data-mobile-sites="weibo,qq,qzone"></div>
+    
+  </div>
+  </div>
+</nav>
+  
+
+
+</main>
+
+  <footer class="footer" itemscope itemtype="http://schema.org/WPFooter">
+	
+	
+    <ul class="social-links">
+    	
+        <li><a href="https://github.com/hanquanding" target="_blank" title="Github" data-toggle=tooltip data-placement=top><i class="icon icon-github"></i></a></li>
+        
+        <li><a href="/atom.xml" target="_blank" title="Rss" data-toggle=tooltip data-placement=top><i class="icon icon-rss"></i></a></li>
+        
+    </ul>
+
+    <div class="copyright">
+    	
+        <div class="publishby">
+            <a href="https://github.com/hanquanding" target="_blank"> hanquanding </a>All Rights Reserved <a href="https://github.com/cofess/hexo-theme-pure" target="_blank"></a>
+        </div>
+    </div>
+</footer>
+  <script src="//cdn.jsdelivr.net/npm/jquery@1.12.4/dist/jquery.min.js"></script>
+<script>
+window.jQuery || document.write('<script src="js/jquery.min.js"><\/script>')
+</script>
+
+<script src="/js/plugin.min.js"></script>
+
+
+<script src="/js/application.js"></script>
+
+
+    <script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: '文章',
+            PAGES: '页面',
+            CATEGORIES: '分类',
+            TAGS: '标签',
+            UNTITLED: '(未命名)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+
+<script src="/js/insight.js"></script>
+
+
+
+
+
+
+   
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+
+   
+    
+<script type="text/javascript">
+    (function() {
+        var giscus = document.createElement('script');
+        giscus.type = 'text/javascript';
+        giscus.async = true;
+        giscus.setAttribute('data-repo', 'hanquanding/giscus_discussions');
+        giscus.setAttribute('data-repo-id', 'R_kgDOJ1fP4Q');
+        giscus.setAttribute('data-category', 'Announcements');
+        giscus.setAttribute('data-category-id', 'DIC_kwDOJ1fP4c4CXjPf');
+        giscus.setAttribute('data-mapping', 'pathname');
+        giscus.setAttribute('data-strict', '1');
+        giscus.setAttribute('data-reactions-enabled', '1');
+        giscus.setAttribute('data-emit-metadata', '1');
+        giscus.setAttribute('data-input-position', 'bottom');
+        giscus.setAttribute('data-theme', 'light');
+        giscus.setAttribute('data-lang', 'zh-CN');
+        giscus.setAttribute('data-loading', 'lazy');
+        giscus.setAttribute('crossorigin', 'anonymous');
+        giscus.setAttribute('src', 'https://giscus.app/client.js');
+        document.getElementById('giscus-container').appendChild(giscus);
+    })();
+</script>
+
+
+
+
+  <script src="//cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.3.5/dist/jquery.fancybox.min.js"></script>
+  <script>
+  //利用 FancyBox 实现点击图片放大
+  $(document).ready(function() {
+    $('article img').not('[hidden]').not('.panel-body img').each(function() {
+      var $image = $(this);
+      var imageCaption = $image.attr('alt');
+      var $imageWrapLink = $image.parent('a');
+      if ($imageWrapLink.length < 1) {
+        var src = this.getAttribute('src');
+        var idx = src.lastIndexOf('?');
+        if (idx != -1) {
+          src = src.substring(0, idx);
+        }
+        $imageWrapLink = $image.wrap('<a href="' + src + '"></a>').parent('a');
+      }
+      $imageWrapLink.attr('data-fancybox', 'images');
+      if (imageCaption) {
+        $imageWrapLink.attr('data-caption', imageCaption);
+      }
+    });
+    $().fancybox({
+      selector: '[data-fancybox="images"]',
+      hash: false,
+      loop: false,
+    });
+  });
+  </script>
+
+
+
+
+
+</body>
+</html>
