@@ -1,8 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>https://hanquanding.github.io/2021/03/30/go-zero/gozero004/</loc>
+    <lastmod>2024-06-07</lastmod>
+  </url>
+  <url>
     <loc>https://hanquanding.github.io/2021/05/01/blockchain/solidity-erc-wallet/</loc>
-    <lastmod>2024-05-30</lastmod>
+    <lastmod>2024-06-03</lastmod>
   </url>
   <url>
     <loc>https://hanquanding.github.io/2021/05/01/blockchain/solidity-erc-1155/</loc>
