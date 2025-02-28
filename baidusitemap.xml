@@ -1,8 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>https://hqd8080.github.io/2024/10/06/kubernetes/k8s-install/</loc>
+    <lastmod>2025-02-28</lastmod>
+  </url>
+  <url>
+    <loc>https://hqd8080.github.io/2021/03/30/go-zero/gozero003/</loc>
+    <lastmod>2025-02-28</lastmod>
+  </url>
+  <url>
+    <loc>https://hqd8080.github.io/2021/03/29/go-zero/gozero002/</loc>
+    <lastmod>2025-02-28</lastmod>
+  </url>
+  <url>
     <loc>https://hqd8080.github.io/2021/03/30/go-zero/gozero004/</loc>
-    <lastmod>2024-06-07</lastmod>
+    <lastmod>2025-02-28</lastmod>
+  </url>
+  <url>
+    <loc>https://hqd8080.github.io/2021/03/28/go-zero/gozero001/</loc>
+    <lastmod>2025-02-28</lastmod>
   </url>
   <url>
     <loc>https://hqd8080.github.io/2021/05/01/blockchain/solidity-erc-wallet/</loc>
@@ -51,18 +67,6 @@
   <url>
     <loc>https://hqd8080.github.io/2023/06/21/kafka/kafka4/</loc>
     <lastmod>2024-04-09</lastmod>
-  </url>
-  <url>
-    <loc>https://hqd8080.github.io/2021/03/28/go-zero/gozero001/</loc>
-    <lastmod>2024-04-08</lastmod>
-  </url>
-  <url>
-    <loc>https://hqd8080.github.io/2021/03/29/go-zero/gozero002/</loc>
-    <lastmod>2024-04-08</lastmod>
-  </url>
-  <url>
-    <loc>https://hqd8080.github.io/2021/03/30/go-zero/gozero003/</loc>
-    <lastmod>2024-04-08</lastmod>
   </url>
   <url>
     <loc>https://hqd8080.github.io/2020/05/23/git/git-clear/</loc>
