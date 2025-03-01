@@ -18,15 +18,15 @@
   
   
   <title>go-zero（三）工具 goctl 生成 api、rpc 代码 | @@</title>
-  <meta name="description" content="go-zero工具 goctl 生成 API、RPC 代码go-zero常用代码生成脚本 12345# 生成 API 服务alias apigen&#x3D;&quot;goctl api go -api *.api -dir ..&#x2F; --style&#x3D;goZero&quot;# 生成 RPC 服务alias rpcgen&#x3D;&quot;goctl rpc protoc *.proto --go_out&#x3D;..&#x2F;">
+  <meta name="description" content="go-zero工具 goctl 生成 API、RPC 代码go-zero常用代码生成脚本 12345# 生成 API 服务goctl api go -api *.api -dir ..&#x2F; --style&#x3D;goZero# 生成 RPC 服务goctl rpc protoc *.proto --go_out&#x3D;..&#x2F; --go-grpc_out&#x3D;..&#x2F; --zrpc_out&#x3D;..&#x2F;  --style&#x3D;g">
 <meta property="og:type" content="article">
 <meta property="og:title" content="go-zero（三）工具 goctl 生成 api、rpc 代码">
 <meta property="og:url" content="https://hqd8080.github.io/2021/03/30/go-zero/gozero003/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="go-zero工具 goctl 生成 API、RPC 代码go-zero常用代码生成脚本 12345# 生成 API 服务alias apigen&#x3D;&quot;goctl api go -api *.api -dir ..&#x2F; --style&#x3D;goZero&quot;# 生成 RPC 服务alias rpcgen&#x3D;&quot;goctl rpc protoc *.proto --go_out&#x3D;..&#x2F;">
+<meta property="og:description" content="go-zero工具 goctl 生成 API、RPC 代码go-zero常用代码生成脚本 12345# 生成 API 服务goctl api go -api *.api -dir ..&#x2F; --style&#x3D;goZero# 生成 RPC 服务goctl rpc protoc *.proto --go_out&#x3D;..&#x2F; --go-grpc_out&#x3D;..&#x2F; --zrpc_out&#x3D;..&#x2F;  --style&#x3D;g">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2021-03-30T12:10:10.000Z">
-<meta property="article:modified_time" content="2025-02-28T14:08:36.128Z">
+<meta property="article:modified_time" content="2025-03-01T09:14:45.763Z">
 <meta property="article:author" content="hqd8080">
 <meta property="article:tag" content="golang">
 <meta property="article:tag" content="go-zero">
@@ -261,7 +261,7 @@
         <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2021/03/30/go-zero/gozero003/#comments" class="article-comment-link">评论</a></span>
         
 	
-		<span class="post-wordcount hidden-xs" itemprop="wordCount">字数统计: 78(字)</span>
+		<span class="post-wordcount hidden-xs" itemprop="wordCount">字数统计: 70(字)</span>
 	
 	
 
@@ -270,7 +270,7 @@
     <div class="article-entry marked-body" itemprop="articleBody">
       
         <h3 id="go-zero工具-goctl-生成-API、RPC-代码"><a href="#go-zero工具-goctl-生成-API、RPC-代码" class="headerlink" title="go-zero工具 goctl 生成 API、RPC 代码"></a>go-zero工具 goctl 生成 API、RPC 代码</h3><p>go-zero常用代码生成脚本</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"># 生成 API 服务</span><br><span class="line">alias apigen=&quot;goctl api go -api *.api -dir ../ --style=goZero&quot;</span><br><span class="line"></span><br><span class="line"># 生成 RPC 服务</span><br><span class="line">alias rpcgen=&quot;goctl rpc protoc *.proto --go_out=../ --go-grpc_out=../ --zrpc_out=../  --style=goZero&quot;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"># 生成 API 服务</span><br><span class="line">goctl api go -api *.api -dir ../ --style=goZero</span><br><span class="line"></span><br><span class="line"># 生成 RPC 服务</span><br><span class="line">goctl rpc protoc *.proto --go_out=../ --go-grpc_out=../ --zrpc_out=../  --style=goZero</span><br></pre></td></tr></table></figure>
 
 <p>生成单个proto文件代码</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">protoc -I./ --go_out = paths = source_relative:.--go -grpc_out = paths = source_relative:.common.proto</span><br></pre></td></tr></table></figure>
