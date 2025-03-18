@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html lang=zh>
+<head>
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="Cache-Control" content="no-transform" />
+  <meta http-equiv="Cache-Control" content="no-siteapp" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="format-detection" content="telephone=no,email=no,adress=no">
+  <!-- Color theme for statusbar -->
+  <meta name="theme-color" content="#000000" />
+  <!-- 强制页面在当前窗口以独立页面显示,防止别人在框架里调用页面 -->
+  <meta http-equiv="window-target" content="_top" />
+  
+  
+  <title>Go语言 singleflight 防缓存击穿 | @@</title>
+  <meta name="description" content="Go语言使用 singleflight 防缓存击穿123451、缓存击穿2、Go语言的 singleflight 介绍3、singleflight 实例4、singleflight 源码分析5、小结  1、缓存击穿缓存击穿是指在高并发的情况下，某个热点的key突然过期，导致大量的请求直接访问数据库，造成数据库的压力过大，甚至宕机的现象； 常见的解决缓存击穿方案： ① 设置热点数据永不过期：对于一些">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Go语言 singleflight 防缓存击穿">
+<meta property="og:url" content="https://hqd8080.github.io/2025/01/02/golang/go-singleflight/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="Go语言使用 singleflight 防缓存击穿123451、缓存击穿2、Go语言的 singleflight 介绍3、singleflight 实例4、singleflight 源码分析5、小结  1、缓存击穿缓存击穿是指在高并发的情况下，某个热点的key突然过期，导致大量的请求直接访问数据库，造成数据库的压力过大，甚至宕机的现象； 常见的解决缓存击穿方案： ① 设置热点数据永不过期：对于一些">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2025-01-02T12:11:22.000Z">
+<meta property="article:modified_time" content="2025-03-18T13:48:15.810Z">
+<meta property="article:author" content="hqd8080">
+<meta property="article:tag" content="golang">
+<meta name="twitter:card" content="summary">
+  <!-- Canonical links -->
+  <link rel="canonical" href="https://hqd8080.github.io/2025/01/02/golang/go-singleflight/index.html">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png" type="image/x-icon">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+  
+  
+    <link href="//cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.3.5/dist/jquery.fancybox.min.css" rel="stylesheet">
+  
+  
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body class="main-center" itemscope itemtype="http://schema.org/WebPage">
+  <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+  <div class="slimContent">
+    <div class="navbar-header">
+      
+      
+      <div class="profile-block text-center">
+        <a id="avatar" href="/">
+          <img class="img-circle" src="/images/avatar.jpeg" width="200" height="200">
+        </a>
+        <h2 id="name" class="hidden-xs hidden-sm">🌴🌴🥥</h2>
+        <h3 id="title" class="hidden-xs hidden-sm hidden-md">Gopher</h3>
+        <small id="location" class="text-muted hidden-xs hidden-sm"><i class="icon icon-map-marker"></i> Shanghai, China</small>
+      </div>
+      
+      <div class="search" id="search-form-wrap">
+
+    <form class="search-form sidebar-form">
+        <div class="input-group">
+            <input type="text" class="search-form-input form-control" placeholder="搜索" />
+            <span class="input-group-btn">
+                <button type="submit" class="search-form-submit btn btn-flat" onclick="return false;"><i class="icon icon-search"></i></button>
+            </span>
+        </div>
+    </form>
+    <div class="ins-search">
+  <div class="ins-search-mask"></div>
+  <div class="ins-search-container">
+    <div class="ins-input-wrapper">
+      <input type="text" class="ins-search-input" placeholder="想要查找什么..." x-webkit-speech />
+      <button type="button" class="close ins-close ins-selectable" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+    </div>
+    <div class="ins-section-wrapper">
+      <div class="ins-section-container"></div>
+    </div>
+  </div>
+</div>
+
+
+</div>
+      <button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target="#main-navbar" aria-controls="main-navbar" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+    </div>
+    <nav id="main-navbar" class="collapse navbar-collapse" itemscope itemtype="http://schema.org/SiteNavigationElement" role="navigation">
+      <ul class="nav navbar-nav main-nav menu-highlight">
+        
+        
+        <li class="menu-item menu-item-home">
+          <a href="/.">
+            
+            <i class="icon icon-home-fill"></i>
+            
+            <span class="menu-title">首页</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives">
+            
+            <i class="icon icon-archives-fill"></i>
+            
+            <span class="menu-title">归档</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories">
+            
+            <i class="icon icon-folder"></i>
+            
+            <span class="menu-title">分类</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags">
+            
+            <i class="icon icon-tags"></i>
+            
+            <span class="menu-title">标签</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about">
+            
+            <i class="icon icon-cup-fill"></i>
+            
+            <span class="menu-title">关于</span>
+          </a>
+        </li>
+        
+      </ul>
+      
+	
+    <ul class="social-links">
+    	
+        <li><a href="https://github.com/hqd8080" target="_blank" title="Github" data-toggle=tooltip data-placement=top><i class="icon icon-github"></i></a></li>
+        
+        <li><a href="/atom.xml" target="_blank" title="Rss" data-toggle=tooltip data-placement=top><i class="icon icon-rss"></i></a></li>
+        
+    </ul>
+
+    </nav>
+  </div>
+</header>
+
+  
+    <aside class="sidebar" itemscope itemtype="http://schema.org/WPSideBar">
+  <div class="slimContent">
+    
+      <!--<div class="widget">-->
+<!--    <h3 class="widget-title">公告</h3>-->
+<!--    <div class="widget-body">-->
+<!--        <div id="board">-->
+<!--            <div class="content">-->
+<!--                -->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--</div>-->
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">分类</h3>
+    <div class="widget-body">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Docker/">Docker</a><span class="category-list-count">14</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Git/">Git</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Go%E8%AF%AD%E8%A8%80/">Go语言</a><span class="category-list-count">35</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Kafka/">Kafka</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Kubernetes/">Kubernetes</a><span class="category-list-count">11</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a><span class="category-list-count">6</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/MySQL/">MySQL</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Nginx/">Nginx</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Redis/">Redis</a><span class="category-list-count">7</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/gRPC/">gRPC</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/goZero/">goZero</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%8C%BA%E5%9D%97%E9%93%BE/">区块链</a><span class="category-list-count">8</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%9E%B6%E6%9E%84/">微服务架构</a><span class="category-list-count">2</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      <!---->
+<!--  <div class="widget">-->
+<!--    <h3 class="widget-title">标签</h3>-->
+<!--    <div class="widget-body">-->
+<!--      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Blockchain/" rel="tag">Blockchain</a><span class="tag-list-count">8</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Ethereum/" rel="tag">Ethereum</a><span class="tag-list-count">7</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MySQL/" rel="tag">MySQL</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Nginx/" rel="tag">Nginx</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Solidity/" rel="tag">Solidity</a><span class="tag-list-count">8</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/WebSocket/" rel="tag">WebSocket</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/docker/" rel="tag">docker</a><span class="tag-list-count">14</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/gRPC/" rel="tag">gRPC</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/" rel="tag">git</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/go-zero/" rel="tag">go-zero</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/golang/" rel="tag">golang</a><span class="tag-list-count">45</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/gorm/" rel="tag">gorm</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/grafana/" rel="tag">grafana</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hardhat/" rel="tag">hardhat</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/k8s/" rel="tag">k8s</a><span class="tag-list-count">11</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/kafka/" rel="tag">kafka</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/kubernetes/" rel="tag">kubernetes</a><span class="tag-list-count">11</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux/" rel="tag">linux</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/microservice/" rel="tag">microservice</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/prometheus/" rel="tag">prometheus</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/redis/" rel="tag">redis</a><span class="tag-list-count">8</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8C%BA%E5%9D%97%E9%93%BE/" rel="tag">区块链</a><span class="tag-list-count">8</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%BE%AE%E6%9C%8D%E5%8A%A1/" rel="tag">微服务</a><span class="tag-list-count">2</span></li></ul>-->
+<!--    </div>-->
+<!--  </div>-->
+<!---->
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">标签云</h3>
+    <div class="widget-body tagcloud">
+      <a href="/tags/Blockchain/" style="font-size: 13.67px;">Blockchain</a> <a href="/tags/Ethereum/" style="font-size: 13.56px;">Ethereum</a> <a href="/tags/MySQL/" style="font-size: 13.11px;">MySQL</a> <a href="/tags/Nginx/" style="font-size: 13px;">Nginx</a> <a href="/tags/Solidity/" style="font-size: 13.67px;">Solidity</a> <a href="/tags/WebSocket/" style="font-size: 13.11px;">WebSocket</a> <a href="/tags/docker/" style="font-size: 13.89px;">docker</a> <a href="/tags/gRPC/" style="font-size: 13.11px;">gRPC</a> <a href="/tags/git/" style="font-size: 13.22px;">git</a> <a href="/tags/go-zero/" style="font-size: 13.33px;">go-zero</a> <a href="/tags/golang/" style="font-size: 14px;">golang</a> <a href="/tags/gorm/" style="font-size: 13px;">gorm</a> <a href="/tags/grafana/" style="font-size: 13px;">grafana</a> <a href="/tags/hardhat/" style="font-size: 13px;">hardhat</a> <a href="/tags/k8s/" style="font-size: 13.78px;">k8s</a> <a href="/tags/kafka/" style="font-size: 13.33px;">kafka</a> <a href="/tags/kubernetes/" style="font-size: 13.78px;">kubernetes</a> <a href="/tags/linux/" style="font-size: 13.44px;">linux</a> <a href="/tags/microservice/" style="font-size: 13.11px;">microservice</a> <a href="/tags/prometheus/" style="font-size: 13px;">prometheus</a> <a href="/tags/redis/" style="font-size: 13.67px;">redis</a> <a href="/tags/%E5%8C%BA%E5%9D%97%E9%93%BE/" style="font-size: 13.67px;">区块链</a> <a href="/tags/%E5%BE%AE%E6%9C%8D%E5%8A%A1/" style="font-size: 13.11px;">微服务</a>
+    </div>
+  </div>
+
+    
+  </div>
+</aside>
+
+  
+  
+<main class="main" role="main">
+  <div class="content">
+  <article id="post-golang/go-singleflight" class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
+    
+    <div class="article-header">
+      
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Go语言 singleflight 防缓存击穿
+    </h1>
+  
+
+      
+      <div class="article-meta">
+        <span class="article-date">
+    <i class="icon icon-calendar-check"></i>
+	<a href="/2025/01/02/golang/go-singleflight/" class="article-date">
+	  <time datetime="2025-01-02T12:11:22.000Z" itemprop="datePublished">2025-01-02</time>
+	</a>
+</span>
+        
+  <span class="article-category">
+    <i class="icon icon-folder"></i>
+    <a class="article-category-link" href="/categories/Go%E8%AF%AD%E8%A8%80/">Go语言</a>
+  </span>
+
+        
+  <span class="article-tag">
+    <i class="icon icon-tags"></i>
+	<a class="article-tag-link-link" href="/tags/golang/" rel="tag">golang</a>
+  </span>
+
+
+        
+	<span class="article-read hidden-xs">
+	    <i class="icon icon-eye-fill" aria-hidden="true"></i>
+	    <span id="busuanzi_container_page_pv">
+			<span id="busuanzi_value_page_pv">0</span>
+		</span>
+	</span>
+
+
+        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2025/01/02/golang/go-singleflight/#comments" class="article-comment-link">评论</a></span>
+        
+	
+		<span class="post-wordcount hidden-xs" itemprop="wordCount">字数统计: 1.6k(字)</span>
+	
+	
+
+      </div>
+    </div>
+    <div class="article-entry marked-body" itemprop="articleBody">
+      
+        <h4 id="Go语言使用-singleflight-防缓存击穿"><a href="#Go语言使用-singleflight-防缓存击穿" class="headerlink" title="Go语言使用 singleflight 防缓存击穿"></a>Go语言使用 singleflight 防缓存击穿</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">1、缓存击穿</span><br><span class="line">2、Go语言的 singleflight 介绍</span><br><span class="line">3、singleflight 实例</span><br><span class="line">4、singleflight 源码分析</span><br><span class="line">5、小结</span><br></pre></td></tr></table></figure>
+
+<h4 id="1、缓存击穿"><a href="#1、缓存击穿" class="headerlink" title="1、缓存击穿"></a>1、缓存击穿</h4><p><code>缓存击穿</code>是指在高并发的情况下，某个热点的<code>key</code>突然过期，导致大量的请求直接访问数据库，造成数据库的压力过大，甚至<code>宕机</code>的现象；</p>
+<p>常见的解决缓存击穿方案：</p>
+<p>① <strong>设置热点数据永不过期</strong>：对于一些确定的热点数据，可以将其设置为<code>永不过期</code>，这样就可以确保不会因为缓存失效而导致请求直接访问到数据库；</p>
+<p>② <strong>使用互斥锁</strong>：为了防止缓存失效时所有请求同时访问到数据库，可以采用<code>锁机制</code>确保仅有一个请求数据库并更新缓存，而其他请求则在缓存更新后再进行访问；</p>
+<p>③ <strong>监控狗程序</strong>：后台监控缓存的使用情况，当缓存即将过期时，异步更新缓存，延长过期时间；</p>
+<h4 id="2、Go语言的-singleflight-介绍"><a href="#2、Go语言的-singleflight-介绍" class="headerlink" title="2、Go语言的 singleflight 介绍"></a>2、Go语言的 singleflight 介绍</h4><p>通俗的来说就是 <code>singleflight</code> 将相同的并发请求合并成一个请求；进而减少对下层服务的并发请求压力；<br>通常用于解决防止 “缓存击穿” 的应用场景；</p>
+<p>在构建高性能的服务时，缓存是优化数据库压力和提高响应速度的关键技术；使用缓存也会带来一些问题，其中就包括<code>缓存击穿</code>，它不仅会导致数据库压力剧增，引起数据库性能的下降，严重时甚至会击垮数据库，导致数据库不可用；<br>在 Go 语言中，<code>golang.org/x/sync/singleflight</code> 包提供了一种机制，确保对于任何特定 key 的并发请求在同一时刻只执行一次；这个机制有效地防止了缓存击穿问题；<br>本文将深入探讨 Go 语言中 <code>singleflight</code> 包的使用；从缓存击穿问题的基础知识开始，进而详细介绍 <code>singleflight</code> 包的使用，展示如何利用它来避免缓存击穿；</p>
+<h4 id="3、singleflight-实例"><a href="#3、singleflight-实例" class="headerlink" title="3、singleflight 实例"></a>3、singleflight 实例</h4><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// @package    : singleflight</span></span><br><span class="line"><span class="comment">// @file       : singleflight_demo.go</span></span><br><span class="line"><span class="comment">// @author     : hqd8080</span></span><br><span class="line"><span class="comment">// @contact    : hanquanding@163.com</span></span><br><span class="line"><span class="comment">// @time       : 2025/01/02</span></span><br><span class="line"><span class="comment">// @description: singleflight</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">    <span class="string">&quot;context&quot;</span></span><br><span class="line">    <span class="string">&quot;fmt&quot;</span></span><br><span class="line">    <span class="string">&quot;golang.org/x/sync/singleflight&quot;</span></span><br><span class="line">    <span class="string">&quot;testing&quot;</span></span><br><span class="line">    <span class="string">&quot;time&quot;</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">TestSingleflightDemo</span><span class="params">(t *testing.T)</span></span> &#123;</span><br><span class="line">    <span class="keyword">var</span> group singleflight.Group</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 模拟 10 个并发的请求、只有一个请求能请求到 &quot;模拟耗时操作&quot;</span></span><br><span class="line">    <span class="keyword">for</span> i := <span class="number">0</span>; i &lt; <span class="number">10</span>; i++ &#123;</span><br><span class="line">        <span class="keyword">go</span> <span class="function"><span class="keyword">func</span><span class="params">(i <span class="keyword">int</span>)</span></span> &#123;</span><br><span class="line">            key := <span class="string">&quot;demo&quot;</span></span><br><span class="line">            item := i</span><br><span class="line">            val, err, _ := group.Do(key, <span class="function"><span class="keyword">func</span><span class="params">()</span> <span class="params">(<span class="keyword">interface</span>&#123;&#125;, error)</span></span> &#123;</span><br><span class="line">                <span class="comment">// 模拟耗时操作</span></span><br><span class="line">                time.Sleep(time.Second * <span class="number">2</span>)</span><br><span class="line">                <span class="keyword">return</span> fmt.Sprintf(<span class="string">&quot;resultl_%d&quot;</span>, item), <span class="literal">nil</span></span><br><span class="line">            &#125;)</span><br><span class="line">    </span><br><span class="line">            <span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">                fmt.Println(<span class="string">&quot;group do err:&quot;</span>, err)</span><br><span class="line">                <span class="keyword">return</span></span><br><span class="line">            &#125;</span><br><span class="line">            fmt.Println(<span class="string">&quot;value:&quot;</span>, val)</span><br><span class="line">        &#125;(i)</span><br><span class="line">    &#125;</span><br><span class="line">    time.Sleep(time.Second * <span class="number">5</span>)</span><br><span class="line">    fmt.Println(<span class="string">&quot;all task finished&quot;</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>结合 context 超时控制</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// @package    : singleflight</span></span><br><span class="line"><span class="comment">// @file       : singleflight_demo.go</span></span><br><span class="line"><span class="comment">// @author     : hqd8080</span></span><br><span class="line"><span class="comment">// @contact    : hanquanding@163.com</span></span><br><span class="line"><span class="comment">// @time       : 2025/01/02</span></span><br><span class="line"><span class="comment">// @description: singleflight</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">    <span class="string">&quot;context&quot;</span></span><br><span class="line">    <span class="string">&quot;fmt&quot;</span></span><br><span class="line">    <span class="string">&quot;golang.org/x/sync/singleflight&quot;</span></span><br><span class="line">    <span class="string">&quot;testing&quot;</span></span><br><span class="line">    <span class="string">&quot;time&quot;</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">TestSingleflightTimeout</span><span class="params">(t *testing.T)</span></span> &#123;</span><br><span class="line">    ctx, cancel := context.WithTimeout(context.Background(), time.Second*<span class="number">3</span>)</span><br><span class="line">    <span class="keyword">go</span> doTask(ctx)</span><br><span class="line">    </span><br><span class="line">    time.Sleep(time.Second * <span class="number">2</span>)</span><br><span class="line">    cancel() <span class="comment">// 2秒后超时</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">doTask</span><span class="params">(ctx context.Context)</span></span> &#123;</span><br><span class="line">    <span class="keyword">var</span> g singleflight.Group</span><br><span class="line">    key := <span class="string">&quot;demo&quot;</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 使用 DoChan 结合 select 做超时控制</span></span><br><span class="line">    result := g.DoChan(key, <span class="function"><span class="keyword">func</span><span class="params">()</span> <span class="params">(<span class="keyword">interface</span>&#123;&#125;, error)</span></span> &#123;</span><br><span class="line">        time.Sleep(time.Second * <span class="number">5</span>)</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;result&quot;</span>, <span class="literal">nil</span></span><br><span class="line">    &#125;)</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">select</span> &#123;</span><br><span class="line">    <span class="keyword">case</span> r := &lt;-result: </span><br><span class="line">        fmt.Println(<span class="string">&quot;result:&quot;</span>, r.Val)</span><br><span class="line">    <span class="keyword">case</span> &lt;-ctx.Done():</span><br><span class="line">        fmt.Println(<span class="string">&quot;done&quot;</span>)</span><br><span class="line">        <span class="keyword">return</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="4、singleflight-源码分析"><a href="#4、singleflight-源码分析" class="headerlink" title="4、singleflight 源码分析"></a>4、singleflight 源码分析</h4><p><code>golang.org/x/sync/singleflight</code> singleflight 的结构体：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> call <span class="keyword">struct</span> &#123;</span><br><span class="line">    wg sync.WaitGroup</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 这些字段在 WaitGroup 结束前写入一次；</span></span><br><span class="line">    <span class="comment">// 只有在 WaitGroup 结束后才会被读取；</span></span><br><span class="line">    val <span class="keyword">interface</span>&#123;&#125;</span><br><span class="line">    err error</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 这些字段在 WaitGroup 结束前使用 singleflight 互斥锁进行读写；</span></span><br><span class="line">    <span class="comment">// 在 WaitGroup 结束后读取但不写入；</span></span><br><span class="line">    dups  <span class="keyword">int</span></span><br><span class="line">    chans []<span class="keyword">chan</span>&lt;- Result</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">// Group 代表分成多个工作组，形成一个命名空间，在这个命名空间中，各工作单元可以重复执行；</span></span><br><span class="line"><span class="keyword">type</span> Group <span class="keyword">struct</span> &#123;</span><br><span class="line">    mu sync.Mutex       <span class="comment">// 互斥锁</span></span><br><span class="line">    m  <span class="keyword">map</span>[<span class="keyword">string</span>]*call <span class="comment">// 懒加载</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// Result 保存 Do 方法的结果，以便在通道上传递，做异步处理;</span></span><br><span class="line"><span class="keyword">type</span> Result <span class="keyword">struct</span> &#123;</span><br><span class="line">    Val    <span class="keyword">interface</span>&#123;&#125;</span><br><span class="line">    Err    error</span><br><span class="line">    Shared <span class="keyword">bool</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// Do 执行函数：对同一个 key 多次调用的时候，在第一次调用没有执行完的时候, 只会执行一次 fn，其他的调用会阻塞住等待这次调用返回， shared 表示 fn 的结果是否被共享；</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(g *Group)</span> <span class="title">Do</span><span class="params">(key <span class="keyword">string</span>, fn <span class="keyword">func</span>()</span> <span class="params">(<span class="keyword">interface</span>&#123;&#125;, error)</span>) <span class="params">(v <span class="keyword">interface</span>&#123;&#125;, err error, shared <span class="keyword">bool</span>)</span></span> &#123;</span><br><span class="line">    g.mu.Lock()</span><br><span class="line">    <span class="keyword">if</span> g.m == <span class="literal">nil</span> &#123;</span><br><span class="line">        g.m = <span class="built_in">make</span>(<span class="keyword">map</span>[<span class="keyword">string</span>]*call)</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> c, ok := g.m[key]; ok &#123;</span><br><span class="line">        c.dups++</span><br><span class="line">        g.mu.Unlock()</span><br><span class="line">        c.wg.Wait()</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">if</span> e, ok := c.err.(*panicError); ok &#123;</span><br><span class="line">            <span class="built_in">panic</span>(e)</span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> c.err == errGoexit &#123;</span><br><span class="line">            runtime.Goexit()</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> c.val, c.err, <span class="literal">true</span></span><br><span class="line">    &#125;</span><br><span class="line">    c := <span class="built_in">new</span>(call)</span><br><span class="line">    c.wg.Add(<span class="number">1</span>)</span><br><span class="line">    g.m[key] = c</span><br><span class="line">    g.mu.Unlock()</span><br><span class="line">    </span><br><span class="line">    g.doCall(c, key, fn)</span><br><span class="line">    <span class="keyword">return</span> c.val, c.err, c.dups &gt; <span class="number">0</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// DoChan DoChan 和 Do 类似，只是 DoChan 返回一个 channel，也就是同步与异步的区别；</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(g *Group)</span> <span class="title">DoChan</span><span class="params">(key <span class="keyword">string</span>, fn <span class="keyword">func</span>()</span> <span class="params">(<span class="keyword">interface</span>&#123;&#125;, error)</span>) &lt;-<span class="title">chan</span> <span class="title">Result</span></span> &#123;</span><br><span class="line">    ch := <span class="built_in">make</span>(<span class="keyword">chan</span> Result, <span class="number">1</span>)</span><br><span class="line">    g.mu.Lock()</span><br><span class="line">    <span class="keyword">if</span> g.m == <span class="literal">nil</span> &#123;</span><br><span class="line">        g.m = <span class="built_in">make</span>(<span class="keyword">map</span>[<span class="keyword">string</span>]*call)</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> c, ok := g.m[key]; ok &#123;</span><br><span class="line">        c.dups++</span><br><span class="line">        c.chans = <span class="built_in">append</span>(c.chans, ch)</span><br><span class="line">        g.mu.Unlock()</span><br><span class="line">        <span class="keyword">return</span> ch</span><br><span class="line">    &#125;</span><br><span class="line">    c := &amp;call&#123;chans: []<span class="keyword">chan</span>&lt;- Result&#123;ch&#125;&#125;</span><br><span class="line">    c.wg.Add(<span class="number">1</span>)</span><br><span class="line">    g.m[key] = c</span><br><span class="line">    g.mu.Unlock()</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">go</span> g.doCall(c, key, fn)</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> ch</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// Forget 用于通知 Group 删除某个 key 这样后面继续这个 key 的调用的时候就不会在阻塞等待了;</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(g *Group)</span> <span class="title">Forget</span><span class="params">(key <span class="keyword">string</span>)</span></span> &#123;</span><br><span class="line">    g.mu.Lock()</span><br><span class="line">    <span class="built_in">delete</span>(g.m, key)</span><br><span class="line">    g.mu.Unlock()</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+<h4 id="5、小结"><a href="#5、小结" class="headerlink" title="5、小结"></a>5、小结</h4><p>本文首先介绍了<code>缓存击穿</code>的概念、以及常见的缓存击穿解决方案、接着简单介绍<code>singleflight</code>包的实现原理；<br>再通过两个实例来展示<code>singleflight</code>包的使用方式；</p>
+<p>重点介绍了<code>singleflight</code> 的源码剖析，该包的主要作用是：用于防止重复的请求，它确保给定的 key，函数在同一时间内只执行一次，多个请求共享同一结果；<code>singleflight</code> 能实现这种效果，关键点在于</p>
+<p>1、<strong>将多个相同请求合并成一个请求，确保函数只执行一次</strong><code>singleflight</code> 为了解决这个问题，引入了互斥锁 <code>sync.Mutex</code> 和 <code>map</code>;<br>2、<strong>结果共享机制</strong><code>singleflight</code>通过阻塞式和非阻塞式两种方式，实现了结果的共享;</p>
+
+      
+    </div>
+    <div class="article-footer">
+      <!--<blockquote class="mt-2x">-->
+<!--  <ul class="post-copyright list-unstyled">-->
+<!--    -->
+<!--    <li class="post-copyright-link hidden-xs">-->
+<!--      <strong>本文链接：</strong>-->
+<!--      <a href="https://hqd8080.github.io/2025/01/02/golang/go-singleflight/" title="Go语言 singleflight 防缓存击穿" target="_blank" rel="external">https://hqd8080.github.io/2025/01/02/golang/go-singleflight/</a>-->
+<!--    </li>-->
+<!--    -->
+<!--    <li class="post-copyright-license">-->
+<!--      <strong>版权声明： </strong> 本博客所有文章除特别声明外，均采用 <a href="http://creativecommons.org/licenses/by/4.0/deed.zh" target="_blank" rel="external">CC BY 4.0 CN协议</a> 许可协议。转载请注明出处！-->
+<!--    </li>-->
+<!--  </ul>-->
+<!--</blockquote>-->
+
+
+<div class="panel panel-default panel-badger">
+  <div class="panel-body">
+    <figure class="media">
+      <div class="media-left">
+        <a href="https://github.com/hqd8080" target="_blank" class="img-burn thumb-sm visible-lg">
+          <img src="/images/avatar.jpeg" class="img-rounded w-full" alt="">
+        </a>
+      </div>
+      <div class="media-body">
+        <h3 class="media-heading"><a href="https://github.com/hqd8080" target="_blank"><span class="text-dark">🌴🌴🥥</span><small class="ml-1x">Gopher</small></a></h3>
+        <div>行是知之始，知是行之成.</div>
+      </div>
+    </figure>
+  </div>
+</div>
+
+
+    </div>
+  </article>
+  
+    
+  <section id="comments">
+  	
+            <div class="comments" id="comments">
+                <div id="giscus-container"></div>
+            </div>
+    
+  </section>
+
+
+  
+</div>
+
+  <nav class="bar bar-footer clearfix" data-stick-bottom>
+  <div class="bar-inner">
+  
+  <ul class="pager pull-left">
+    
+    
+    <li class="next">
+      <a href="/2025/01/01/docker/docker-file/" title="使用 Dockerfile 来制作你的 Go 项目镜像"><span>下一篇&nbsp;&nbsp;</span><i class="icon icon-angle-right" aria-hidden="true"></i></a>
+    </li>
+    
+    
+  </ul>
+  
+  
+  
+  <div class="bar-right">
+    
+    <div class="share-component" data-sites="weibo,qq,wechat" data-mobile-sites="weibo,qq,qzone"></div>
+    
+  </div>
+  </div>
+</nav>
+  
+
+
+</main>
+
+  <footer class="footer" itemscope itemtype="http://schema.org/WPFooter">
+	
+	
+    <ul class="social-links">
+    	
+        <li><a href="https://github.com/hqd8080" target="_blank" title="Github" data-toggle=tooltip data-placement=top><i class="icon icon-github"></i></a></li>
+        
+        <li><a href="/atom.xml" target="_blank" title="Rss" data-toggle=tooltip data-placement=top><i class="icon icon-rss"></i></a></li>
+        
+    </ul>
+
+    <div class="copyright">
+    	
+        <div class="publishby">
+            <a href="https://github.com/hqd8080" target="_blank"> hqd8080 </a>All Rights Reserved <a href="https://github.com/cofess/hexo-theme-pure" target="_blank"></a>
+        </div>
+    </div>
+</footer>
+  <script src="//cdn.jsdelivr.net/npm/jquery@1.12.4/dist/jquery.min.js"></script>
+<script>
+window.jQuery || document.write('<script src="js/jquery.min.js"><\/script>')
+</script>
+
+<script src="/js/plugin.min.js"></script>
+
+
+<script src="/js/application.js"></script>
+
+
+    <script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: '文章',
+            PAGES: '页面',
+            CATEGORIES: '分类',
+            TAGS: '标签',
+            UNTITLED: '(未命名)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+
+<script src="/js/insight.js"></script>
+
+
+
+
+
+
+   
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+
+   
+    
+<script type="text/javascript">
+    (function() {
+        var giscus = document.createElement('script');
+        giscus.type = 'text/javascript';
+        giscus.async = true;
+        giscus.setAttribute('data-repo', 'hqd8080/giscus_discussions');
+        giscus.setAttribute('data-repo-id', 'R_kgDOJ1fP4Q');
+        giscus.setAttribute('data-category', 'Announcements');
+        giscus.setAttribute('data-category-id', 'DIC_kwDOJ1fP4c4CXjPf');
+        giscus.setAttribute('data-mapping', 'pathname');
+        giscus.setAttribute('data-strict', '1');
+        giscus.setAttribute('data-reactions-enabled', '1');
+        giscus.setAttribute('data-emit-metadata', '1');
+        giscus.setAttribute('data-input-position', 'bottom');
+        giscus.setAttribute('data-theme', 'preferred_color_scheme');
+        giscus.setAttribute('data-lang', 'zh-CN');
+        giscus.setAttribute('data-loading', 'lazy');
+        giscus.setAttribute('crossorigin', 'anonymous');
+        giscus.setAttribute('src', 'https://giscus.app/client.js');
+        document.getElementById('giscus-container').appendChild(giscus);
+    })();
+</script>
+
+
+
+
+  <script src="//cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.3.5/dist/jquery.fancybox.min.js"></script>
+  <script>
+  //利用 FancyBox 实现点击图片放大
+  $(document).ready(function() {
+    $('article img').not('[hidden]').not('.panel-body img').each(function() {
+      var $image = $(this);
+      var imageCaption = $image.attr('alt');
+      var $imageWrapLink = $image.parent('a');
+      if ($imageWrapLink.length < 1) {
+        var src = this.getAttribute('src');
+        var idx = src.lastIndexOf('?');
+        if (idx != -1) {
+          src = src.substring(0, idx);
+        }
+        $imageWrapLink = $image.wrap('<a href="' + src + '"></a>').parent('a');
+      }
+      $imageWrapLink.attr('data-fancybox', 'images');
+      if (imageCaption) {
+        $imageWrapLink.attr('data-caption', imageCaption);
+      }
+    });
+    $().fancybox({
+      selector: '[data-fancybox="images"]',
+      hash: false,
+      loop: false,
+    });
+  });
+  </script>
+
+
+
+
+
+</body>
+</html>
