@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html lang=zh>
+<head>
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="Cache-Control" content="no-transform" />
+  <meta http-equiv="Cache-Control" content="no-siteapp" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="format-detection" content="telephone=no,email=no,adress=no">
+  <!-- Color theme for statusbar -->
+  <meta name="theme-color" content="#000000" />
+  <!-- 强制页面在当前窗口以独立页面显示,防止别人在框架里调用页面 -->
+  <meta http-equiv="window-target" content="_top" />
+  
+  
+  <title>SpringBoot（一）学习笔记 | @@</title>
+  <meta name="description" content="SpringBoot（一）学习笔记 SpringBoot 入门SpringBoot 的设计思想是：约定优于配置 SpringBoot 的优点：  1、遵循“约定优于配置”的原则，使用 SpringBoot 只需要很少的配置或使用默认的配置 2、使用 JavaConfig，避免使用 XML 的繁琐 3、提供 Starters（启动器），简化 Maven 配置，避免依赖冲突 4、提供内置 Servle">
+<meta property="og:type" content="article">
+<meta property="og:title" content="SpringBoot（一）学习笔记">
+<meta property="og:url" content="https://hqd8080.github.io/2020/01/02/springBoot/springBoot-study1/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="SpringBoot（一）学习笔记 SpringBoot 入门SpringBoot 的设计思想是：约定优于配置 SpringBoot 的优点：  1、遵循“约定优于配置”的原则，使用 SpringBoot 只需要很少的配置或使用默认的配置 2、使用 JavaConfig，避免使用 XML 的繁琐 3、提供 Starters（启动器），简化 Maven 配置，避免依赖冲突 4、提供内置 Servle">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2020-01-02T11:22:11.000Z">
+<meta property="article:modified_time" content="2025-04-13T04:06:45.332Z">
+<meta property="article:author" content="hqd8080">
+<meta property="article:tag" content="Java">
+<meta property="article:tag" content="SpringBoot">
+<meta name="twitter:card" content="summary">
+  <!-- Canonical links -->
+  <link rel="canonical" href="https://hqd8080.github.io/2020/01/02/springBoot/springBoot-study1/index.html">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png" type="image/x-icon">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+  
+  
+    <link href="//cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.3.5/dist/jquery.fancybox.min.css" rel="stylesheet">
+  
+  
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body class="main-center" itemscope itemtype="http://schema.org/WebPage">
+  <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+  <div class="slimContent">
+    <div class="navbar-header">
+      
+      
+      <div class="profile-block text-center">
+        <a id="avatar" href="/">
+          <img class="img-circle" src="/images/avatar.jpeg" width="200" height="200">
+        </a>
+        <h2 id="name" class="hidden-xs hidden-sm">🌴🌴🥥</h2>
+        <h3 id="title" class="hidden-xs hidden-sm hidden-md">Gopher</h3>
+        <small id="location" class="text-muted hidden-xs hidden-sm"><i class="icon icon-map-marker"></i> Shanghai, China</small>
+      </div>
+      
+      <div class="search" id="search-form-wrap">
+
+    <form class="search-form sidebar-form">
+        <div class="input-group">
+            <input type="text" class="search-form-input form-control" placeholder="搜索" />
+            <span class="input-group-btn">
+                <button type="submit" class="search-form-submit btn btn-flat" onclick="return false;"><i class="icon icon-search"></i></button>
+            </span>
+        </div>
+    </form>
+    <div class="ins-search">
+  <div class="ins-search-mask"></div>
+  <div class="ins-search-container">
+    <div class="ins-input-wrapper">
+      <input type="text" class="ins-search-input" placeholder="想要查找什么..." x-webkit-speech />
+      <button type="button" class="close ins-close ins-selectable" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+    </div>
+    <div class="ins-section-wrapper">
+      <div class="ins-section-container"></div>
+    </div>
+  </div>
+</div>
+
+
+</div>
+      <button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target="#main-navbar" aria-controls="main-navbar" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+    </div>
+    <nav id="main-navbar" class="collapse navbar-collapse" itemscope itemtype="http://schema.org/SiteNavigationElement" role="navigation">
+      <ul class="nav navbar-nav main-nav menu-highlight">
+        
+        
+        <li class="menu-item menu-item-home">
+          <a href="/.">
+            
+            <i class="icon icon-home-fill"></i>
+            
+            <span class="menu-title">首页</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives">
+            
+            <i class="icon icon-archives-fill"></i>
+            
+            <span class="menu-title">归档</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories">
+            
+            <i class="icon icon-folder"></i>
+            
+            <span class="menu-title">分类</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags">
+            
+            <i class="icon icon-tags"></i>
+            
+            <span class="menu-title">标签</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about">
+            
+            <i class="icon icon-cup-fill"></i>
+            
+            <span class="menu-title">关于</span>
+          </a>
+        </li>
+        
+      </ul>
+      
+	
+    <ul class="social-links">
+    	
+        <li><a href="https://github.com/hqd8080" target="_blank" title="Github" data-toggle=tooltip data-placement=top><i class="icon icon-github"></i></a></li>
+        
+        <li><a href="/atom.xml" target="_blank" title="Rss" data-toggle=tooltip data-placement=top><i class="icon icon-rss"></i></a></li>
+        
+    </ul>
+
+    </nav>
+  </div>
+</header>
+
+  
+    <aside class="sidebar" itemscope itemtype="http://schema.org/WPSideBar">
+  <div class="slimContent">
+    
+      <!--<div class="widget">-->
+<!--    <h3 class="widget-title">公告</h3>-->
+<!--    <div class="widget-body">-->
+<!--        <div id="board">-->
+<!--            <div class="content">-->
+<!--                -->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--</div>-->
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">分类</h3>
+    <div class="widget-body">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Docker/">Docker</a><span class="category-list-count">14</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Git/">Git</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Go%E8%AF%AD%E8%A8%80/">Go语言</a><span class="category-list-count">35</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Java/">Java</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Kafka/">Kafka</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Kubernetes/">Kubernetes</a><span class="category-list-count">11</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a><span class="category-list-count">6</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/MySQL/">MySQL</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Nginx/">Nginx</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Redis/">Redis</a><span class="category-list-count">7</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/gRPC/">gRPC</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/goZero/">goZero</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%8C%BA%E5%9D%97%E9%93%BE/">区块链</a><span class="category-list-count">8</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%9E%B6%E6%9E%84/">微服务架构</a><span class="category-list-count">2</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      <!---->
+<!--  <div class="widget">-->
+<!--    <h3 class="widget-title">标签</h3>-->
+<!--    <div class="widget-body">-->
+<!--      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Blockchain/" rel="tag">Blockchain</a><span class="tag-list-count">8</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Ethereum/" rel="tag">Ethereum</a><span class="tag-list-count">7</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java/" rel="tag">Java</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MySQL/" rel="tag">MySQL</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Nginx/" rel="tag">Nginx</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Solidity/" rel="tag">Solidity</a><span class="tag-list-count">8</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SpringBoot/" rel="tag">SpringBoot</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/WebSocket/" rel="tag">WebSocket</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/docker/" rel="tag">docker</a><span class="tag-list-count">14</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/gRPC/" rel="tag">gRPC</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/" rel="tag">git</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/go-zero/" rel="tag">go-zero</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/golang/" rel="tag">golang</a><span class="tag-list-count">45</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/gorm/" rel="tag">gorm</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/grafana/" rel="tag">grafana</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hardhat/" rel="tag">hardhat</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/k8s/" rel="tag">k8s</a><span class="tag-list-count">11</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/kafka/" rel="tag">kafka</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/kubernetes/" rel="tag">kubernetes</a><span class="tag-list-count">11</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux/" rel="tag">linux</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/microservice/" rel="tag">microservice</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/prometheus/" rel="tag">prometheus</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/redis/" rel="tag">redis</a><span class="tag-list-count">8</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8C%BA%E5%9D%97%E9%93%BE/" rel="tag">区块链</a><span class="tag-list-count">8</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%BE%AE%E6%9C%8D%E5%8A%A1/" rel="tag">微服务</a><span class="tag-list-count">2</span></li></ul>-->
+<!--    </div>-->
+<!--  </div>-->
+<!---->
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">标签云</h3>
+    <div class="widget-body tagcloud">
+      <a href="/tags/Blockchain/" style="font-size: 13.67px;">Blockchain</a> <a href="/tags/Ethereum/" style="font-size: 13.56px;">Ethereum</a> <a href="/tags/Java/" style="font-size: 13.11px;">Java</a> <a href="/tags/MySQL/" style="font-size: 13.11px;">MySQL</a> <a href="/tags/Nginx/" style="font-size: 13px;">Nginx</a> <a href="/tags/Solidity/" style="font-size: 13.67px;">Solidity</a> <a href="/tags/SpringBoot/" style="font-size: 13.11px;">SpringBoot</a> <a href="/tags/WebSocket/" style="font-size: 13.11px;">WebSocket</a> <a href="/tags/docker/" style="font-size: 13.89px;">docker</a> <a href="/tags/gRPC/" style="font-size: 13.11px;">gRPC</a> <a href="/tags/git/" style="font-size: 13.22px;">git</a> <a href="/tags/go-zero/" style="font-size: 13.33px;">go-zero</a> <a href="/tags/golang/" style="font-size: 14px;">golang</a> <a href="/tags/gorm/" style="font-size: 13px;">gorm</a> <a href="/tags/grafana/" style="font-size: 13px;">grafana</a> <a href="/tags/hardhat/" style="font-size: 13px;">hardhat</a> <a href="/tags/k8s/" style="font-size: 13.78px;">k8s</a> <a href="/tags/kafka/" style="font-size: 13.33px;">kafka</a> <a href="/tags/kubernetes/" style="font-size: 13.78px;">kubernetes</a> <a href="/tags/linux/" style="font-size: 13.44px;">linux</a> <a href="/tags/microservice/" style="font-size: 13.11px;">microservice</a> <a href="/tags/prometheus/" style="font-size: 13px;">prometheus</a> <a href="/tags/redis/" style="font-size: 13.67px;">redis</a> <a href="/tags/%E5%8C%BA%E5%9D%97%E9%93%BE/" style="font-size: 13.67px;">区块链</a> <a href="/tags/%E5%BE%AE%E6%9C%8D%E5%8A%A1/" style="font-size: 13.11px;">微服务</a>
+    </div>
+  </div>
+
+    
+  </div>
+</aside>
+
+  
+  
+<main class="main" role="main">
+  <div class="content">
+  <article id="post-springBoot/springBoot-study1" class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
+    
+    <div class="article-header">
+      
+        
+  
+    <h1 class="article-title" itemprop="name">
+      SpringBoot（一）学习笔记
+    </h1>
+  
+
+      
+      <div class="article-meta">
+        <span class="article-date">
+    <i class="icon icon-calendar-check"></i>
+	<a href="/2020/01/02/springBoot/springBoot-study1/" class="article-date">
+	  <time datetime="2020-01-02T11:22:11.000Z" itemprop="datePublished">2020-01-02</time>
+	</a>
+</span>
+        
+  <span class="article-category">
+    <i class="icon icon-folder"></i>
+    <a class="article-category-link" href="/categories/Java/">Java</a>
+  </span>
+
+        
+  <span class="article-tag">
+    <i class="icon icon-tags"></i>
+	<a class="article-tag-link-link" href="/tags/Java/" rel="tag">Java</a>, <a class="article-tag-link-link" href="/tags/SpringBoot/" rel="tag">SpringBoot</a>
+  </span>
+
+
+        
+	<span class="article-read hidden-xs">
+	    <i class="icon icon-eye-fill" aria-hidden="true"></i>
+	    <span id="busuanzi_container_page_pv">
+			<span id="busuanzi_value_page_pv">0</span>
+		</span>
+	</span>
+
+
+        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2020/01/02/springBoot/springBoot-study1/#comments" class="article-comment-link">评论</a></span>
+        
+	
+		<span class="post-wordcount hidden-xs" itemprop="wordCount">字数统计: 1.1k(字)</span>
+	
+	
+
+      </div>
+    </div>
+    <div class="article-entry marked-body" itemprop="articleBody">
+      
+        <p>SpringBoot（一）学习笔记</p>
+<h4 id="SpringBoot-入门"><a href="#SpringBoot-入门" class="headerlink" title="SpringBoot 入门"></a>SpringBoot 入门</h4><p>SpringBoot 的设计思想是：<font color="red">约定优于配置</font></p>
+<p>SpringBoot 的优点：</p>
+<ul>
+<li>1、遵循“约定优于配置”的原则，使用 SpringBoot 只需要很少的配置或使用默认的配置</li>
+<li>2、使用 JavaConfig，避免使用 XML 的繁琐</li>
+<li>3、提供 Starters（启动器），简化 Maven 配置，避免依赖冲突</li>
+<li>4、提供内置 Servlet 容器，可选择内嵌 Tomcat、Jetty 等容器，不需要单独的 Web服务器，这就意味着不再需要启动 Servlet 或其他任何中间件</li>
+<li>5、提供了一系列项目中常见的非功能特性，如安全监控，应用监控，健康检测等</li>
+<li>6、与云计算、微服务的天然集成</li>
+</ul>
+<p>什么是“<font color="red">约定优于配置</font>”：<br>“约定优于配置”也被称作“按约定编程”，是一种软件设计范式，旨在减少软件开发者需要的配置项，这样既能使软件保持简单又不失灵活性；</p>
+<p><font color="red">Spring、SpringBoot、SpringCloud</font> 的关系：</p>
+<p>1、Spring 是一个开源的生态体系，是集大成者；<br>其核心是控制反转（Inversion of Controller，IoC）和面向切片编程（Aspect Oriented Programming，AOP）<br>正是 IoC 和 AOP 这两个核心功能成就了强大的 Spring，Spring 在这两大核心功能上不断地发展壮大，才有了 SpringMVC 等一系列成熟的产品，最终构建了功能强大的 Spring 生态帝国；</p>
+<p>2、SpringBoot 是在 Spring 的基础上发展而来的，它不是为了取代 Spring，而是为了简化 Spring 应用的创建、运行、调试、部署，让开发者更容易的使用 Spring；<br>它将目前比较成熟的服务框架和第三方组件合起来，按照“约定优于配置”的设计思想进行重新封装，屏蔽掉复杂的配置和实现，最终给开发者提供一套简单、易用、易部署、易维护的分布式系统开发工具包；</p>
+<p>3、SpringCloud 是基于 SpringBoot 实现的分布式微服务框架，它利用 SpringBoot 简单、易用、便捷的特性简化了分布式系统基础设施的开发；<br>如服务发现、服务注册、配置中心、消息总线、负载均衡、断路器、数据监控等基础组件都可以用 SpringBoot 的开发风格做到一键启动和部署；</p>
+<p>SpringBoot 推荐的目录结构：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">main</span><br><span class="line">   + com.hqd.helloworld</span><br><span class="line">       + common            //全局功能类、全局的配置文件、工具文件类</span><br><span class="line">       + model             //实体类 entity</span><br><span class="line">       + repository        //数据库访问层代码 dao</span><br><span class="line">       + service           //业务类代码</span><br><span class="line">       + web               //controller、负责前台访问的 controller</span><br><span class="line">       + Application.java  //项目的启动类</span><br></pre></td></tr></table></figure>
+
+<p>简单的控制器例子：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.hqd.helloworld.web;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> org.springframework.web.bind.annotation.RequestMapping;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.bind.annotation.RestController;</span><br><span class="line"></span><br><span class="line"><span class="meta">@RestController</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">HelloController</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@RequestMapping(&quot;/hello&quot;)</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span>  String <span class="title">hello</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;Hello @ SpringBoot!!!&quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="meta">@RestController</span> 和 <span class="meta">@Controller</span> 两种控制器的区别：</span><br><span class="line"></span><br><span class="line"><span class="meta">@RestController</span>：返回客户端数据请求，主要用于 RESTful 接口;</span><br><span class="line"><span class="meta">@Controller</span>：返回数据和页面，处理 HTTP 请求</span><br><span class="line"></span><br><span class="line">可以说 <span class="meta">@RestController</span> 是： <span class="meta">@Controller</span> 与 <span class="meta">@ResponseBody</span> 的结合体，因而具有两个标注合并起来的作用</span><br><span class="line"></span><br><span class="line"><span class="meta">@RestController</span> = <span class="meta">@Controller</span> + <span class="meta">@ResponseBody</span>;</span><br></pre></td></tr></table></figure>
+
+<h4 id="SpringBoot-单元测试"><a href="#SpringBoot-单元测试" class="headerlink" title="SpringBoot 单元测试"></a>SpringBoot 单元测试</h4><p>Maven 引入单元测试依赖：spring-boot-starter-test</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- 单元测试依赖 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-test<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">scope</span>&gt;</span>test<span class="tag">&lt;/<span class="name">scope</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>编写单元测试</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.hqd.helloworld;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> org.junit.jupiter.api.Test;</span><br><span class="line"><span class="keyword">import</span> org.springframework.boot.test.context.SpringBootTest;</span><br><span class="line"></span><br><span class="line"><span class="meta">@SpringBootTest</span>  <span class="comment">//系统会自动将测试程序加载到 SpringBoot 容器</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">HelloTest</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Test</span> <span class="comment">//表示该方法为单元测试方法</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">hello</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;Hello Spring Boot Test!&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+<h4 id="配置开发环境热部署"><a href="#配置开发环境热部署" class="headerlink" title="配置开发环境热部署"></a>配置开发环境热部署</h4><p>Maven 引入依赖：spring-boot-devtools</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-devtools<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- optional 依赖是否传递，设置为 true 时，表示依赖不会传递 --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">optional</span>&gt;</span>true<span class="tag">&lt;/<span class="name">optional</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>//true:其他项目如果引入此项目生成的 JAR 包，则不会包含 devtools；如果想使用 devtools，需要重新引入；</p>
+<h5 id="开发环境热部署配置"><a href="#开发环境热部署配置" class="headerlink" title="开发环境热部署配置"></a>开发环境热部署配置</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"># application.properties 文件中配置 devtools</span><br><span class="line"></span><br><span class="line"># 开启热部署</span><br><span class="line">spring.devtools.restart.enabled=true</span><br><span class="line"># 设置重启的目录</span><br><span class="line">spring.devtools.restart.additional-paths=src/main/java</span><br><span class="line"># classpath 目录下的 WEB-INF 文件夹内容修改不重启</span><br><span class="line">spring.devtools.restart.exclude=WEB-INF/**</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+
+      
+    </div>
+    <div class="article-footer">
+      <!--<blockquote class="mt-2x">-->
+<!--  <ul class="post-copyright list-unstyled">-->
+<!--    -->
+<!--    <li class="post-copyright-link hidden-xs">-->
+<!--      <strong>本文链接：</strong>-->
+<!--      <a href="https://hqd8080.github.io/2020/01/02/springBoot/springBoot-study1/" title="SpringBoot（一）学习笔记" target="_blank" rel="external">https://hqd8080.github.io/2020/01/02/springBoot/springBoot-study1/</a>-->
+<!--    </li>-->
+<!--    -->
+<!--    <li class="post-copyright-license">-->
+<!--      <strong>版权声明： </strong> 本博客所有文章除特别声明外，均采用 <a href="http://creativecommons.org/licenses/by/4.0/deed.zh" target="_blank" rel="external">CC BY 4.0 CN协议</a> 许可协议。转载请注明出处！-->
+<!--    </li>-->
+<!--  </ul>-->
+<!--</blockquote>-->
+
+
+<div class="panel panel-default panel-badger">
+  <div class="panel-body">
+    <figure class="media">
+      <div class="media-left">
+        <a href="https://github.com/hqd8080" target="_blank" class="img-burn thumb-sm visible-lg">
+          <img src="/images/avatar.jpeg" class="img-rounded w-full" alt="">
+        </a>
+      </div>
+      <div class="media-body">
+        <h3 class="media-heading"><a href="https://github.com/hqd8080" target="_blank"><span class="text-dark">🌴🌴🥥</span><small class="ml-1x">Gopher</small></a></h3>
+        <div>行是知之始，知是行之成.</div>
+      </div>
+    </figure>
+  </div>
+</div>
+
+
+    </div>
+  </article>
+  
+    
+  <section id="comments">
+  	
+            <div class="comments" id="comments">
+                <div id="giscus-container"></div>
+            </div>
+    
+  </section>
+
+
+  
+</div>
+
+  <nav class="bar bar-footer clearfix" data-stick-bottom>
+  <div class="bar-inner">
+  
+  <ul class="pager pull-left">
+    
+    <li class="prev">
+      <a href="/2020/01/06/springBoot/springBoot-study2/" title="SpringBoot（二）自定义配置"><i class="icon icon-angle-left" aria-hidden="true"></i><span>&nbsp;&nbsp;上一篇</span></a>
+    </li>
+    
+    
+    <li class="next">
+      <a href="/2020/01/02/golang/go-producer-consumer/" title="Go语言生产者和消费者模式"><span>下一篇&nbsp;&nbsp;</span><i class="icon icon-angle-right" aria-hidden="true"></i></a>
+    </li>
+    
+    
+  </ul>
+  
+  
+  
+  <div class="bar-right">
+    
+    <div class="share-component" data-sites="weibo,qq,wechat" data-mobile-sites="weibo,qq,qzone"></div>
+    
+  </div>
+  </div>
+</nav>
+  
+
+
+</main>
+
+  <footer class="footer" itemscope itemtype="http://schema.org/WPFooter">
+	
+	
+    <ul class="social-links">
+    	
+        <li><a href="https://github.com/hqd8080" target="_blank" title="Github" data-toggle=tooltip data-placement=top><i class="icon icon-github"></i></a></li>
+        
+        <li><a href="/atom.xml" target="_blank" title="Rss" data-toggle=tooltip data-placement=top><i class="icon icon-rss"></i></a></li>
+        
+    </ul>
+
+    <div class="copyright">
+    	
+        <div class="publishby">
+            <a href="https://github.com/hqd8080" target="_blank"> hqd8080 </a>All Rights Reserved <a href="https://github.com/cofess/hexo-theme-pure" target="_blank"></a>
+        </div>
+    </div>
+</footer>
+  <script src="//cdn.jsdelivr.net/npm/jquery@1.12.4/dist/jquery.min.js"></script>
+<script>
+window.jQuery || document.write('<script src="js/jquery.min.js"><\/script>')
+</script>
+
+<script src="/js/plugin.min.js"></script>
+
+
+<script src="/js/application.js"></script>
+
+
+    <script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: '文章',
+            PAGES: '页面',
+            CATEGORIES: '分类',
+            TAGS: '标签',
+            UNTITLED: '(未命名)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+
+<script src="/js/insight.js"></script>
+
+
+
+
+
+
+   
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+
+   
+    
+<script type="text/javascript">
+    (function() {
+        var giscus = document.createElement('script');
+        giscus.type = 'text/javascript';
+        giscus.async = true;
+        giscus.setAttribute('data-repo', 'hqd8080/giscus_discussions');
+        giscus.setAttribute('data-repo-id', 'R_kgDOJ1fP4Q');
+        giscus.setAttribute('data-category', 'Announcements');
+        giscus.setAttribute('data-category-id', 'DIC_kwDOJ1fP4c4CXjPf');
+        giscus.setAttribute('data-mapping', 'pathname');
+        giscus.setAttribute('data-strict', '1');
+        giscus.setAttribute('data-reactions-enabled', '1');
+        giscus.setAttribute('data-emit-metadata', '1');
+        giscus.setAttribute('data-input-position', 'bottom');
+        giscus.setAttribute('data-theme', 'preferred_color_scheme');
+        giscus.setAttribute('data-lang', 'zh-CN');
+        giscus.setAttribute('data-loading', 'lazy');
+        giscus.setAttribute('crossorigin', 'anonymous');
+        giscus.setAttribute('src', 'https://giscus.app/client.js');
+        document.getElementById('giscus-container').appendChild(giscus);
+    })();
+</script>
+
+
+
+
+  <script src="//cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.3.5/dist/jquery.fancybox.min.js"></script>
+  <script>
+  //利用 FancyBox 实现点击图片放大
+  $(document).ready(function() {
+    $('article img').not('[hidden]').not('.panel-body img').each(function() {
+      var $image = $(this);
+      var imageCaption = $image.attr('alt');
+      var $imageWrapLink = $image.parent('a');
+      if ($imageWrapLink.length < 1) {
+        var src = this.getAttribute('src');
+        var idx = src.lastIndexOf('?');
+        if (idx != -1) {
+          src = src.substring(0, idx);
+        }
+        $imageWrapLink = $image.wrap('<a href="' + src + '"></a>').parent('a');
+      }
+      $imageWrapLink.attr('data-fancybox', 'images');
+      if (imageCaption) {
+        $imageWrapLink.attr('data-caption', imageCaption);
+      }
+    });
+    $().fancybox({
+      selector: '[data-fancybox="images"]',
+      hash: false,
+      loop: false,
+    });
+  });
+  </script>
+
+
+
+
+
+</body>
+</html>

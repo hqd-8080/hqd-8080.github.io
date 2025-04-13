@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html lang=zh>
+<head>
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="Cache-Control" content="no-transform" />
+  <meta http-equiv="Cache-Control" content="no-siteapp" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="format-detection" content="telephone=no,email=no,adress=no">
+  <!-- Color theme for statusbar -->
+  <meta name="theme-color" content="#000000" />
+  <!-- 强制页面在当前窗口以独立页面显示,防止别人在框架里调用页面 -->
+  <meta http-equiv="window-target" content="_top" />
+  
+  
+  <title>SpringBoot（二）自定义配置 | @@</title>
+  <meta name="description" content="SpringBoot（二）自定义配置 SpringBoot 自定义配置项SpringBoot 提供三种方式自定义配置项： 123- 1、@Value- 2、@ConfigurationProperties- 3、@Environment  @Value注解在 application.properties 配置文件中添加自定义配置项： 12com.hqd8080.costum.firstname&#x3D;h">
+<meta property="og:type" content="article">
+<meta property="og:title" content="SpringBoot（二）自定义配置">
+<meta property="og:url" content="https://hqd8080.github.io/2020/01/06/springBoot/springBoot-study2/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="SpringBoot（二）自定义配置 SpringBoot 自定义配置项SpringBoot 提供三种方式自定义配置项： 123- 1、@Value- 2、@ConfigurationProperties- 3、@Environment  @Value注解在 application.properties 配置文件中添加自定义配置项： 12com.hqd8080.costum.firstname&#x3D;h">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2020-01-06T13:00:00.000Z">
+<meta property="article:modified_time" content="2025-04-13T04:17:29.674Z">
+<meta property="article:author" content="hqd8080">
+<meta property="article:tag" content="Java">
+<meta property="article:tag" content="SpringBoot">
+<meta name="twitter:card" content="summary">
+  <!-- Canonical links -->
+  <link rel="canonical" href="https://hqd8080.github.io/2020/01/06/springBoot/springBoot-study2/index.html">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png" type="image/x-icon">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+  
+  
+    <link href="//cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.3.5/dist/jquery.fancybox.min.css" rel="stylesheet">
+  
+  
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body class="main-center" itemscope itemtype="http://schema.org/WebPage">
+  <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+  <div class="slimContent">
+    <div class="navbar-header">
+      
+      
+      <div class="profile-block text-center">
+        <a id="avatar" href="/">
+          <img class="img-circle" src="/images/avatar.jpeg" width="200" height="200">
+        </a>
+        <h2 id="name" class="hidden-xs hidden-sm">🌴🌴🥥</h2>
+        <h3 id="title" class="hidden-xs hidden-sm hidden-md">Gopher</h3>
+        <small id="location" class="text-muted hidden-xs hidden-sm"><i class="icon icon-map-marker"></i> Shanghai, China</small>
+      </div>
+      
+      <div class="search" id="search-form-wrap">
+
+    <form class="search-form sidebar-form">
+        <div class="input-group">
+            <input type="text" class="search-form-input form-control" placeholder="搜索" />
+            <span class="input-group-btn">
+                <button type="submit" class="search-form-submit btn btn-flat" onclick="return false;"><i class="icon icon-search"></i></button>
+            </span>
+        </div>
+    </form>
+    <div class="ins-search">
+  <div class="ins-search-mask"></div>
+  <div class="ins-search-container">
+    <div class="ins-input-wrapper">
+      <input type="text" class="ins-search-input" placeholder="想要查找什么..." x-webkit-speech />
+      <button type="button" class="close ins-close ins-selectable" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+    </div>
+    <div class="ins-section-wrapper">
+      <div class="ins-section-container"></div>
+    </div>
+  </div>
+</div>
+
+
+</div>
+      <button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target="#main-navbar" aria-controls="main-navbar" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+    </div>
+    <nav id="main-navbar" class="collapse navbar-collapse" itemscope itemtype="http://schema.org/SiteNavigationElement" role="navigation">
+      <ul class="nav navbar-nav main-nav menu-highlight">
+        
+        
+        <li class="menu-item menu-item-home">
+          <a href="/.">
+            
+            <i class="icon icon-home-fill"></i>
+            
+            <span class="menu-title">首页</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives">
+            
+            <i class="icon icon-archives-fill"></i>
+            
+            <span class="menu-title">归档</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories">
+            
+            <i class="icon icon-folder"></i>
+            
+            <span class="menu-title">分类</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags">
+            
+            <i class="icon icon-tags"></i>
+            
+            <span class="menu-title">标签</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about">
+            
+            <i class="icon icon-cup-fill"></i>
+            
+            <span class="menu-title">关于</span>
+          </a>
+        </li>
+        
+      </ul>
+      
+	
+    <ul class="social-links">
+    	
+        <li><a href="https://github.com/hqd8080" target="_blank" title="Github" data-toggle=tooltip data-placement=top><i class="icon icon-github"></i></a></li>
+        
+        <li><a href="/atom.xml" target="_blank" title="Rss" data-toggle=tooltip data-placement=top><i class="icon icon-rss"></i></a></li>
+        
+    </ul>
+
+    </nav>
+  </div>
+</header>
+
+  
+    <aside class="sidebar" itemscope itemtype="http://schema.org/WPSideBar">
+  <div class="slimContent">
+    
+      <!--<div class="widget">-->
+<!--    <h3 class="widget-title">公告</h3>-->
+<!--    <div class="widget-body">-->
+<!--        <div id="board">-->
+<!--            <div class="content">-->
+<!--                -->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--</div>-->
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">分类</h3>
+    <div class="widget-body">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Docker/">Docker</a><span class="category-list-count">14</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Git/">Git</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Go%E8%AF%AD%E8%A8%80/">Go语言</a><span class="category-list-count">35</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Java/">Java</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Kafka/">Kafka</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Kubernetes/">Kubernetes</a><span class="category-list-count">11</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a><span class="category-list-count">6</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/MySQL/">MySQL</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Nginx/">Nginx</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Redis/">Redis</a><span class="category-list-count">7</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/gRPC/">gRPC</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/goZero/">goZero</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%8C%BA%E5%9D%97%E9%93%BE/">区块链</a><span class="category-list-count">8</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%9E%B6%E6%9E%84/">微服务架构</a><span class="category-list-count">2</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      <!---->
+<!--  <div class="widget">-->
+<!--    <h3 class="widget-title">标签</h3>-->
+<!--    <div class="widget-body">-->
+<!--      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Blockchain/" rel="tag">Blockchain</a><span class="tag-list-count">8</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Ethereum/" rel="tag">Ethereum</a><span class="tag-list-count">7</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java/" rel="tag">Java</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MySQL/" rel="tag">MySQL</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Nginx/" rel="tag">Nginx</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Solidity/" rel="tag">Solidity</a><span class="tag-list-count">8</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SpringBoot/" rel="tag">SpringBoot</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/WebSocket/" rel="tag">WebSocket</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/docker/" rel="tag">docker</a><span class="tag-list-count">14</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/gRPC/" rel="tag">gRPC</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/" rel="tag">git</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/go-zero/" rel="tag">go-zero</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/golang/" rel="tag">golang</a><span class="tag-list-count">45</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/gorm/" rel="tag">gorm</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/grafana/" rel="tag">grafana</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hardhat/" rel="tag">hardhat</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/k8s/" rel="tag">k8s</a><span class="tag-list-count">11</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/kafka/" rel="tag">kafka</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/kubernetes/" rel="tag">kubernetes</a><span class="tag-list-count">11</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux/" rel="tag">linux</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/microservice/" rel="tag">microservice</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/prometheus/" rel="tag">prometheus</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/redis/" rel="tag">redis</a><span class="tag-list-count">8</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8C%BA%E5%9D%97%E9%93%BE/" rel="tag">区块链</a><span class="tag-list-count">8</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%BE%AE%E6%9C%8D%E5%8A%A1/" rel="tag">微服务</a><span class="tag-list-count">2</span></li></ul>-->
+<!--    </div>-->
+<!--  </div>-->
+<!---->
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">标签云</h3>
+    <div class="widget-body tagcloud">
+      <a href="/tags/Blockchain/" style="font-size: 13.67px;">Blockchain</a> <a href="/tags/Ethereum/" style="font-size: 13.56px;">Ethereum</a> <a href="/tags/Java/" style="font-size: 13.11px;">Java</a> <a href="/tags/MySQL/" style="font-size: 13.11px;">MySQL</a> <a href="/tags/Nginx/" style="font-size: 13px;">Nginx</a> <a href="/tags/Solidity/" style="font-size: 13.67px;">Solidity</a> <a href="/tags/SpringBoot/" style="font-size: 13.11px;">SpringBoot</a> <a href="/tags/WebSocket/" style="font-size: 13.11px;">WebSocket</a> <a href="/tags/docker/" style="font-size: 13.89px;">docker</a> <a href="/tags/gRPC/" style="font-size: 13.11px;">gRPC</a> <a href="/tags/git/" style="font-size: 13.22px;">git</a> <a href="/tags/go-zero/" style="font-size: 13.33px;">go-zero</a> <a href="/tags/golang/" style="font-size: 14px;">golang</a> <a href="/tags/gorm/" style="font-size: 13px;">gorm</a> <a href="/tags/grafana/" style="font-size: 13px;">grafana</a> <a href="/tags/hardhat/" style="font-size: 13px;">hardhat</a> <a href="/tags/k8s/" style="font-size: 13.78px;">k8s</a> <a href="/tags/kafka/" style="font-size: 13.33px;">kafka</a> <a href="/tags/kubernetes/" style="font-size: 13.78px;">kubernetes</a> <a href="/tags/linux/" style="font-size: 13.44px;">linux</a> <a href="/tags/microservice/" style="font-size: 13.11px;">microservice</a> <a href="/tags/prometheus/" style="font-size: 13px;">prometheus</a> <a href="/tags/redis/" style="font-size: 13.67px;">redis</a> <a href="/tags/%E5%8C%BA%E5%9D%97%E9%93%BE/" style="font-size: 13.67px;">区块链</a> <a href="/tags/%E5%BE%AE%E6%9C%8D%E5%8A%A1/" style="font-size: 13.11px;">微服务</a>
+    </div>
+  </div>
+
+    
+  </div>
+</aside>
+
+  
+  
+<main class="main" role="main">
+  <div class="content">
+  <article id="post-springBoot/springBoot-study2" class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
+    
+    <div class="article-header">
+      
+        
+  
+    <h1 class="article-title" itemprop="name">
+      SpringBoot（二）自定义配置
+    </h1>
+  
+
+      
+      <div class="article-meta">
+        <span class="article-date">
+    <i class="icon icon-calendar-check"></i>
+	<a href="/2020/01/06/springBoot/springBoot-study2/" class="article-date">
+	  <time datetime="2020-01-06T13:00:00.000Z" itemprop="datePublished">2020-01-06</time>
+	</a>
+</span>
+        
+  <span class="article-category">
+    <i class="icon icon-folder"></i>
+    <a class="article-category-link" href="/categories/Java/">Java</a>
+  </span>
+
+        
+  <span class="article-tag">
+    <i class="icon icon-tags"></i>
+	<a class="article-tag-link-link" href="/tags/Java/" rel="tag">Java</a>, <a class="article-tag-link-link" href="/tags/SpringBoot/" rel="tag">SpringBoot</a>
+  </span>
+
+
+        
+	<span class="article-read hidden-xs">
+	    <i class="icon icon-eye-fill" aria-hidden="true"></i>
+	    <span id="busuanzi_container_page_pv">
+			<span id="busuanzi_value_page_pv">0</span>
+		</span>
+	</span>
+
+
+        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2020/01/06/springBoot/springBoot-study2/#comments" class="article-comment-link">评论</a></span>
+        
+	
+		<span class="post-wordcount hidden-xs" itemprop="wordCount">字数统计: 680(字)</span>
+	
+	
+
+      </div>
+    </div>
+    <div class="article-entry marked-body" itemprop="articleBody">
+      
+        <p>SpringBoot（二）自定义配置</p>
+<h4 id="SpringBoot-自定义配置项"><a href="#SpringBoot-自定义配置项" class="headerlink" title="SpringBoot 自定义配置项"></a>SpringBoot 自定义配置项</h4><p>SpringBoot 提供三种方式自定义配置项：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">- <span class="number">1</span>、<span class="meta">@Value</span></span><br><span class="line">- <span class="number">2</span>、<span class="meta">@ConfigurationProperties</span></span><br><span class="line">- <span class="number">3</span>、<span class="meta">@Environment</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="Value注解"><a href="#Value注解" class="headerlink" title="@Value注解"></a>@Value注解</h4><p>在 application.properties 配置文件中添加自定义配置项：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">com.hqd8080.costum.firstname=han</span><br><span class="line">com.hqd8080.costum.secondname=quanding</span><br></pre></td></tr></table></figure>
+
+<p>使用 @Value 读取配置项</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Value(&quot;$&#123;com.hqd8080.costum.firstname&#125;&quot;)</span></span><br><span class="line"><span class="keyword">private</span> String firstName;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Value(&quot;$&#123;com.hqd8080.costum.secondname&#125;&quot;)</span></span><br><span class="line"><span class="keyword">private</span> String secondName;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">注意 <span class="meta">@Value</span> 默认读取的是 application.properties 配置文件中的配置项，如果是其他配置文件要使用：<span class="meta">@PropertySource</span> 注解指定对应的配置文件；</span><br></pre></td></tr></table></figure>
+
+<h4 id="Environment注解"><a href="#Environment注解" class="headerlink" title="@Environment注解"></a>@Environment注解</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Autowired</span></span><br><span class="line"><span class="keyword">private</span> Environment env;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">getEnv</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    System.out.println(env.getProperty(<span class="string">&quot;com.hqd8080.costum.firstname&quot;</span>))</span><br><span class="line">    System.out.println(env.getProperty(<span class="string">&quot;com.hqd8080.costum.secondname&quot;</span>))</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">#使用 Environment 无需指定配置文件，获取到的是系统加载到的全部配置项；</span><br><span class="line">#需要注意配置文件的编码格式</span><br></pre></td></tr></table></figure>
+
+<h4 id="ConfigurationProperties-注解"><a href="#ConfigurationProperties-注解" class="headerlink" title="@ConfigurationProperties 注解"></a>@ConfigurationProperties 注解</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">- <span class="number">1</span>、创建自定义配置文件</span><br><span class="line">- <span class="number">2</span>、创建实体类</span><br><span class="line">- <span class="number">3</span>、调用配置项</span><br></pre></td></tr></table></figure>
+
+<h5 id="1、创建自定义配置文件"><a href="#1、创建自定义配置文件" class="headerlink" title="1、创建自定义配置文件"></a>1、创建自定义配置文件</h5><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">website.properties 配置文件中：</span><br><span class="line"></span><br><span class="line">com.hqd8080.resource.name=mall</span><br><span class="line">com.hqd8080.resource.website=www.mall.com</span><br><span class="line">com.hqd8080.resource.language=java</span><br></pre></td></tr></table></figure>
+
+<h5 id="2、创建实体类"><a href="#2、创建实体类" class="headerlink" title="2、创建实体类"></a>2、创建实体类</h5><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="meta">@ConfigurationProperties(prefix = &quot;com.hqd8080.resource&quot;)</span></span><br><span class="line"><span class="meta">@PropertySource(value = &quot;classpath:website.properties&quot;)</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">WebSiteProperties</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> String name;</span><br><span class="line">    <span class="keyword">private</span> String website;</span><br><span class="line">    <span class="keyword">private</span> String language;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">getName</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> name;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setName</span><span class="params">(String name)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.name = name;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="number">1</span>、<span class="meta">@Configuration</span> 定义此类为配置类，用于构建 bean 定义并初始化到 Spring 容器；</span><br><span class="line"><span class="number">2</span>、<span class="meta">@ConfigurationProperties(prefix = &quot;com.hqd8080.resource&quot;)</span> 绑定配置项，其中 prefix 表示所绑定的配置项名的前缀；</span><br><span class="line"><span class="number">3</span>、<span class="meta">@PropertySource(value = &quot;classpath:website.properties&quot;)</span> 指定读取的配置文件及其路径；<span class="meta">@PropertySource</span> 不支持引入 YML 文件；</span><br><span class="line"></span><br><span class="line">通过上面的 WebSiteProperties 类即可读取全部对应的配置项；</span><br></pre></td></tr></table></figure>
+
+<h5 id="3、调用配置项"><a href="#3、调用配置项" class="headerlink" title="3、调用配置项"></a>3、调用配置项</h5><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Autowired</span></span><br><span class="line"><span class="keyword">private</span> WebSiteProperties website;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">getProperties</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    System.out.println(website.getName())</span><br><span class="line">    System.out.println(website.getWebsite())</span><br><span class="line">    System.out.println(website.getLanguage())</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h4><p>使用配置文件注意事项：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">- <span class="number">1</span>、使用 YML 配置文件时注意空格和格式缩进的问题；</span><br><span class="line">- <span class="number">2</span>、properties 配置文件默认使用的是 ISO8859-<span class="number">1</span> 编码格式，容易出现乱码问题；</span><br><span class="line">如果含有中文，加入 spring.http.encoding.charset=UTF-<span class="number">8</span> 配置即可；</span><br><span class="line"></span><br><span class="line">- <span class="number">3</span>、properties 配置的优先级高于 YML文件；因为 YML文件的加载顺序先于 properties 文件；</span><br><span class="line">如果两个文件存在相同的配置；后面加载的 properties 中的配置会覆盖前面 YML 中的配置；</span><br><span class="line"></span><br><span class="line">- <span class="number">4</span>、<span class="meta">@PropertySource</span> 注解默认只会加载 properties 文件，YML 不能使用此注解；</span><br><span class="line">- <span class="number">5</span>、简单的配置推荐使用 <span class="meta">@Value</span> 复杂对象推荐使用 <span class="meta">@ConfigurationProperties</span>；</span><br><span class="line">- <span class="number">6</span>、只有 Spring 容器中的组件才能使用容器提供的各类方法，所以，配置读取类需要增加 <span class="meta">@Component</span> 注解才能加入 Sping 容器中；</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+      
+    </div>
+    <div class="article-footer">
+      <!--<blockquote class="mt-2x">-->
+<!--  <ul class="post-copyright list-unstyled">-->
+<!--    -->
+<!--    <li class="post-copyright-link hidden-xs">-->
+<!--      <strong>本文链接：</strong>-->
+<!--      <a href="https://hqd8080.github.io/2020/01/06/springBoot/springBoot-study2/" title="SpringBoot（二）自定义配置" target="_blank" rel="external">https://hqd8080.github.io/2020/01/06/springBoot/springBoot-study2/</a>-->
+<!--    </li>-->
+<!--    -->
+<!--    <li class="post-copyright-license">-->
+<!--      <strong>版权声明： </strong> 本博客所有文章除特别声明外，均采用 <a href="http://creativecommons.org/licenses/by/4.0/deed.zh" target="_blank" rel="external">CC BY 4.0 CN协议</a> 许可协议。转载请注明出处！-->
+<!--    </li>-->
+<!--  </ul>-->
+<!--</blockquote>-->
+
+
+<div class="panel panel-default panel-badger">
+  <div class="panel-body">
+    <figure class="media">
+      <div class="media-left">
+        <a href="https://github.com/hqd8080" target="_blank" class="img-burn thumb-sm visible-lg">
+          <img src="/images/avatar.jpeg" class="img-rounded w-full" alt="">
+        </a>
+      </div>
+      <div class="media-body">
+        <h3 class="media-heading"><a href="https://github.com/hqd8080" target="_blank"><span class="text-dark">🌴🌴🥥</span><small class="ml-1x">Gopher</small></a></h3>
+        <div>行是知之始，知是行之成.</div>
+      </div>
+    </figure>
+  </div>
+</div>
+
+
+    </div>
+  </article>
+  
+    
+  <section id="comments">
+  	
+            <div class="comments" id="comments">
+                <div id="giscus-container"></div>
+            </div>
+    
+  </section>
+
+
+  
+</div>
+
+  <nav class="bar bar-footer clearfix" data-stick-bottom>
+  <div class="bar-inner">
+  
+  <ul class="pager pull-left">
+    
+    <li class="prev">
+      <a href="/2020/05/14/golang/go-gobuild/" title="Go的交叉编译"><i class="icon icon-angle-left" aria-hidden="true"></i><span>&nbsp;&nbsp;上一篇</span></a>
+    </li>
+    
+    
+    <li class="next">
+      <a href="/2020/01/02/springBoot/springBoot-study1/" title="SpringBoot（一）学习笔记"><span>下一篇&nbsp;&nbsp;</span><i class="icon icon-angle-right" aria-hidden="true"></i></a>
+    </li>
+    
+    
+  </ul>
+  
+  
+  
+  <div class="bar-right">
+    
+    <div class="share-component" data-sites="weibo,qq,wechat" data-mobile-sites="weibo,qq,qzone"></div>
+    
+  </div>
+  </div>
+</nav>
+  
+
+
+</main>
+
+  <footer class="footer" itemscope itemtype="http://schema.org/WPFooter">
+	
+	
+    <ul class="social-links">
+    	
+        <li><a href="https://github.com/hqd8080" target="_blank" title="Github" data-toggle=tooltip data-placement=top><i class="icon icon-github"></i></a></li>
+        
+        <li><a href="/atom.xml" target="_blank" title="Rss" data-toggle=tooltip data-placement=top><i class="icon icon-rss"></i></a></li>
+        
+    </ul>
+
+    <div class="copyright">
+    	
+        <div class="publishby">
+            <a href="https://github.com/hqd8080" target="_blank"> hqd8080 </a>All Rights Reserved <a href="https://github.com/cofess/hexo-theme-pure" target="_blank"></a>
+        </div>
+    </div>
+</footer>
+  <script src="//cdn.jsdelivr.net/npm/jquery@1.12.4/dist/jquery.min.js"></script>
+<script>
+window.jQuery || document.write('<script src="js/jquery.min.js"><\/script>')
+</script>
+
+<script src="/js/plugin.min.js"></script>
+
+
+<script src="/js/application.js"></script>
+
+
+    <script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: '文章',
+            PAGES: '页面',
+            CATEGORIES: '分类',
+            TAGS: '标签',
+            UNTITLED: '(未命名)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+
+<script src="/js/insight.js"></script>
+
+
+
+
+
+
+   
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+
+   
+    
+<script type="text/javascript">
+    (function() {
+        var giscus = document.createElement('script');
+        giscus.type = 'text/javascript';
+        giscus.async = true;
+        giscus.setAttribute('data-repo', 'hqd8080/giscus_discussions');
+        giscus.setAttribute('data-repo-id', 'R_kgDOJ1fP4Q');
+        giscus.setAttribute('data-category', 'Announcements');
+        giscus.setAttribute('data-category-id', 'DIC_kwDOJ1fP4c4CXjPf');
+        giscus.setAttribute('data-mapping', 'pathname');
+        giscus.setAttribute('data-strict', '1');
+        giscus.setAttribute('data-reactions-enabled', '1');
+        giscus.setAttribute('data-emit-metadata', '1');
+        giscus.setAttribute('data-input-position', 'bottom');
+        giscus.setAttribute('data-theme', 'preferred_color_scheme');
+        giscus.setAttribute('data-lang', 'zh-CN');
+        giscus.setAttribute('data-loading', 'lazy');
+        giscus.setAttribute('crossorigin', 'anonymous');
+        giscus.setAttribute('src', 'https://giscus.app/client.js');
+        document.getElementById('giscus-container').appendChild(giscus);
+    })();
+</script>
+
+
+
+
+  <script src="//cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.3.5/dist/jquery.fancybox.min.js"></script>
+  <script>
+  //利用 FancyBox 实现点击图片放大
+  $(document).ready(function() {
+    $('article img').not('[hidden]').not('.panel-body img').each(function() {
+      var $image = $(this);
+      var imageCaption = $image.attr('alt');
+      var $imageWrapLink = $image.parent('a');
+      if ($imageWrapLink.length < 1) {
+        var src = this.getAttribute('src');
+        var idx = src.lastIndexOf('?');
+        if (idx != -1) {
+          src = src.substring(0, idx);
+        }
+        $imageWrapLink = $image.wrap('<a href="' + src + '"></a>').parent('a');
+      }
+      $imageWrapLink.attr('data-fancybox', 'images');
+      if (imageCaption) {
+        $imageWrapLink.attr('data-caption', imageCaption);
+      }
+    });
+    $().fancybox({
+      selector: '[data-fancybox="images"]',
+      hash: false,
+      loop: false,
+    });
+  });
+  </script>
+
+
+
+
+
+</body>
+</html>

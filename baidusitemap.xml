@@ -1,6 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>https://hqd8080.github.io/2020/01/06/springBoot/springBoot-study2/</loc>
+    <lastmod>2025-04-13</lastmod>
+  </url>
+  <url>
+    <loc>https://hqd8080.github.io/2020/01/02/springBoot/springBoot-study1/</loc>
+    <lastmod>2025-04-13</lastmod>
+  </url>
+  <url>
     <loc>https://hqd8080.github.io/2025/01/02/golang/go-singleflight/</loc>
     <lastmod>2025-03-18</lastmod>
   </url>
