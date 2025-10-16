@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang=zh>
+<head>
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="Cache-Control" content="no-transform" />
+  <meta http-equiv="Cache-Control" content="no-siteapp" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="format-detection" content="telephone=no,email=no,adress=no">
+  <!-- Color theme for statusbar -->
+  <meta name="theme-color" content="#000000" />
+  <!-- 强制页面在当前窗口以独立页面显示,防止别人在框架里调用页面 -->
+  <meta http-equiv="window-target" content="_top" />
+  
+  
+  <title>Go语言文件上传格式校验 | @@</title>
+  <meta name="description" content="12Go语言处理文件上传格式检验，对上传的文件进行格式检查！本文将使用一个常用的开源包进行文件格式的检验，主要介绍包的使用；适合一般的文件上传格式限制业务场景~  Go语言处理文件上传格式校验安装第三方包1go get -v -u github.com&#x2F;h2non&#x2F;filetype  处理文件上传业务逻辑1、gozero 框架的路由定义12345678910111213141516171819sy">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Go语言文件上传格式校验">
+<meta property="og:url" content="https://hqd8080.github.io/2025/09/25/go/go-filetype/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="12Go语言处理文件上传格式检验，对上传的文件进行格式检查！本文将使用一个常用的开源包进行文件格式的检验，主要介绍包的使用；适合一般的文件上传格式限制业务场景~  Go语言处理文件上传格式校验安装第三方包1go get -v -u github.com&#x2F;h2non&#x2F;filetype  处理文件上传业务逻辑1、gozero 框架的路由定义12345678910111213141516171819sy">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2025-09-25T09:26:30.000Z">
+<meta property="article:modified_time" content="2025-10-15T01:10:35.324Z">
+<meta property="article:author" content="hqd8080">
+<meta property="article:tag" content="Go">
+<meta property="article:tag" content="Golang">
+<meta name="twitter:card" content="summary">
+  <!-- Canonical links -->
+  <link rel="canonical" href="https://hqd8080.github.io/2025/09/25/go/go-filetype/index.html">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.ico" type="image/x-icon">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+  
+  
+    <link href="//cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.3.5/dist/jquery.fancybox.min.css" rel="stylesheet">
+  
+  
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body class="main-center" itemscope itemtype="http://schema.org/WebPage">
+  <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+  <div class="slimContent">
+    <div class="navbar-header">
+      
+      
+      <div class="profile-block text-center">
+        <a id="avatar" href="/">
+          <img class="img-circle" src="/images/avatar.jpeg" width="200" height="200">
+        </a>
+        <h2 id="name" class="hidden-xs hidden-sm">🌴🌴🧩🧩🥥</h2>
+        <h3 id="title" class="hidden-xs hidden-sm hidden-md">Gopher</h3>
+        <small id="location" class="text-muted hidden-xs hidden-sm"><i class="icon icon-map-marker"></i> Shanghai, China</small>
+      </div>
+      
+      <div class="search" id="search-form-wrap">
+
+    <form class="search-form sidebar-form">
+        <div class="input-group">
+            <input type="text" class="search-form-input form-control" placeholder="搜索" />
+            <span class="input-group-btn">
+                <button type="submit" class="search-form-submit btn btn-flat" onclick="return false;"><i class="icon icon-search"></i></button>
+            </span>
+        </div>
+    </form>
+    <div class="ins-search">
+  <div class="ins-search-mask"></div>
+  <div class="ins-search-container">
+    <div class="ins-input-wrapper">
+      <input type="text" class="ins-search-input" placeholder="想要查找什么..." x-webkit-speech />
+      <button type="button" class="close ins-close ins-selectable" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+    </div>
+    <div class="ins-section-wrapper">
+      <div class="ins-section-container"></div>
+    </div>
+  </div>
+</div>
+
+
+</div>
+      <button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target="#main-navbar" aria-controls="main-navbar" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+    </div>
+    <nav id="main-navbar" class="collapse navbar-collapse" itemscope itemtype="http://schema.org/SiteNavigationElement" role="navigation">
+      <ul class="nav navbar-nav main-nav menu-highlight">
+        
+        
+        <li class="menu-item menu-item-home">
+          <a href="/.">
+            
+            <i class="icon icon-home-fill"></i>
+            
+            <span class="menu-title">首页</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives">
+            
+            <i class="icon icon-archives-fill"></i>
+            
+            <span class="menu-title">归档</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories">
+            
+            <i class="icon icon-folder"></i>
+            
+            <span class="menu-title">分类</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags">
+            
+            <i class="icon icon-tags"></i>
+            
+            <span class="menu-title">标签</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about">
+            
+            <i class="icon icon-cup-fill"></i>
+            
+            <span class="menu-title">关于</span>
+          </a>
+        </li>
+        
+      </ul>
+      
+	
+    <ul class="social-links">
+    	
+        <li><a href="https://github.com/hqd8080" target="_blank" title="Github" data-toggle=tooltip data-placement=top><i class="icon icon-github"></i></a></li>
+        
+        <li><a href="/atom.xml" target="_blank" title="Rss" data-toggle=tooltip data-placement=top><i class="icon icon-rss"></i></a></li>
+        
+    </ul>
+
+    </nav>
+  </div>
+</header>
+
+  
+    <aside class="sidebar" itemscope itemtype="http://schema.org/WPSideBar">
+  <div class="slimContent">
+    
+      <!--<div class="widget">-->
+<!--    <h3 class="widget-title">公告</h3>-->
+<!--    <div class="widget-body">-->
+<!--        <div id="board">-->
+<!--            <div class="content">-->
+<!--                -->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--</div>-->
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">分类</h3>
+    <div class="widget-body">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Docker/">Docker</a><span class="category-list-count">14</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Git/">Git</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Go%E8%AF%AD%E8%A8%80/">Go语言</a><span class="category-list-count">39</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Java/">Java</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Kafka/">Kafka</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Kubernetes/">Kubernetes</a><span class="category-list-count">11</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a><span class="category-list-count">6</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/MySQL/">MySQL</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Nginx/">Nginx</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Redis/">Redis</a><span class="category-list-count">7</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/gRPC/">gRPC</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/goZero/">goZero</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%8C%BA%E5%9D%97%E9%93%BE/">区块链</a><span class="category-list-count">8</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%9E%B6%E6%9E%84/">微服务架构</a><span class="category-list-count">3</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      <!---->
+<!--  <div class="widget">-->
+<!--    <h3 class="widget-title">标签</h3>-->
+<!--    <div class="widget-body">-->
+<!--      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Blockchain/" rel="tag">Blockchain</a><span class="tag-list-count">8</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Ethereum/" rel="tag">Ethereum</a><span class="tag-list-count">7</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Go/" rel="tag">Go</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Golang/" rel="tag">Golang</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java/" rel="tag">Java</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MySQL/" rel="tag">MySQL</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Nginx/" rel="tag">Nginx</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Redis/" rel="tag">Redis</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Solidity/" rel="tag">Solidity</a><span class="tag-list-count">8</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SpringBoot/" rel="tag">SpringBoot</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/WebSocket/" rel="tag">WebSocket</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/docker/" rel="tag">docker</a><span class="tag-list-count">14</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/gRPC/" rel="tag">gRPC</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/" rel="tag">git</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/go-zero/" rel="tag">go-zero</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/golang/" rel="tag">golang</a><span class="tag-list-count">48</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/gorm/" rel="tag">gorm</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/grafana/" rel="tag">grafana</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hardhat/" rel="tag">hardhat</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/k8s/" rel="tag">k8s</a><span class="tag-list-count">11</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/kafka/" rel="tag">kafka</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/kubernetes/" rel="tag">kubernetes</a><span class="tag-list-count">11</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux/" rel="tag">linux</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/microservice/" rel="tag">microservice</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/prometheus/" rel="tag">prometheus</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/redis/" rel="tag">redis</a><span class="tag-list-count">8</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8C%BA%E5%9D%97%E9%93%BE/" rel="tag">区块链</a><span class="tag-list-count">8</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%BE%AE%E6%9C%8D%E5%8A%A1/" rel="tag">微服务</a><span class="tag-list-count">3</span></li></ul>-->
+<!--    </div>-->
+<!--  </div>-->
+<!---->
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">标签云</h3>
+    <div class="widget-body tagcloud">
+      <a href="/tags/Blockchain/" style="font-size: 13.7px;">Blockchain</a> <a href="/tags/Ethereum/" style="font-size: 13.6px;">Ethereum</a> <a href="/tags/Go/" style="font-size: 13.4px;">Go</a> <a href="/tags/Golang/" style="font-size: 13px;">Golang</a> <a href="/tags/Java/" style="font-size: 13.3px;">Java</a> <a href="/tags/MySQL/" style="font-size: 13.1px;">MySQL</a> <a href="/tags/Nginx/" style="font-size: 13px;">Nginx</a> <a href="/tags/Redis/" style="font-size: 13px;">Redis</a> <a href="/tags/Solidity/" style="font-size: 13.7px;">Solidity</a> <a href="/tags/SpringBoot/" style="font-size: 13.3px;">SpringBoot</a> <a href="/tags/WebSocket/" style="font-size: 13.1px;">WebSocket</a> <a href="/tags/docker/" style="font-size: 13.9px;">docker</a> <a href="/tags/gRPC/" style="font-size: 13.1px;">gRPC</a> <a href="/tags/git/" style="font-size: 13.2px;">git</a> <a href="/tags/go-zero/" style="font-size: 13.3px;">go-zero</a> <a href="/tags/golang/" style="font-size: 14px;">golang</a> <a href="/tags/gorm/" style="font-size: 13px;">gorm</a> <a href="/tags/grafana/" style="font-size: 13px;">grafana</a> <a href="/tags/hardhat/" style="font-size: 13px;">hardhat</a> <a href="/tags/k8s/" style="font-size: 13.8px;">k8s</a> <a href="/tags/kafka/" style="font-size: 13.3px;">kafka</a> <a href="/tags/kubernetes/" style="font-size: 13.8px;">kubernetes</a> <a href="/tags/linux/" style="font-size: 13.5px;">linux</a> <a href="/tags/microservice/" style="font-size: 13.2px;">microservice</a> <a href="/tags/prometheus/" style="font-size: 13px;">prometheus</a> <a href="/tags/redis/" style="font-size: 13.7px;">redis</a> <a href="/tags/%E5%8C%BA%E5%9D%97%E9%93%BE/" style="font-size: 13.7px;">区块链</a> <a href="/tags/%E5%BE%AE%E6%9C%8D%E5%8A%A1/" style="font-size: 13.2px;">微服务</a>
+    </div>
+  </div>
+
+    
+  </div>
+</aside>
+
+  
+  
+<main class="main" role="main">
+  <div class="content">
+  <article id="post-go/go-filetype" class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
+    
+    <div class="article-header">
+      
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Go语言文件上传格式校验
+    </h1>
+  
+
+      
+      <div class="article-meta">
+        <span class="article-date">
+    <i class="icon icon-calendar-check"></i>
+	<a href="/2025/09/25/go/go-filetype/" class="article-date">
+	  <time datetime="2025-09-25T09:26:30.000Z" itemprop="datePublished">2025-09-25</time>
+	</a>
+</span>
+        
+  <span class="article-category">
+    <i class="icon icon-folder"></i>
+    <a class="article-category-link" href="/categories/Go%E8%AF%AD%E8%A8%80/">Go语言</a>
+  </span>
+
+        
+  <span class="article-tag">
+    <i class="icon icon-tags"></i>
+	<a class="article-tag-link-link" href="/tags/Go/" rel="tag">Go</a>, <a class="article-tag-link-link" href="/tags/Golang/" rel="tag">Golang</a>
+  </span>
+
+
+        
+	<span class="article-read hidden-xs">
+	    <i class="icon icon-eye-fill" aria-hidden="true"></i>
+	    <span id="busuanzi_container_page_pv">
+			<span id="busuanzi_value_page_pv">0</span>
+		</span>
+	</span>
+
+
+        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2025/09/25/go/go-filetype/#comments" class="article-comment-link">评论</a></span>
+        
+	
+		<span class="post-wordcount hidden-xs" itemprop="wordCount">字数统计: 1.1k(字)</span>
+	
+	
+
+      </div>
+    </div>
+    <div class="article-entry marked-body" itemprop="articleBody">
+      
+        <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Go语言处理文件上传格式检验，对上传的文件进行格式检查！</span><br><span class="line">本文将使用一个常用的开源包进行文件格式的检验，主要介绍包的使用；适合一般的文件上传格式限制业务场景~</span><br></pre></td></tr></table></figure>
+
+<h4 id="Go语言处理文件上传格式校验"><a href="#Go语言处理文件上传格式校验" class="headerlink" title="Go语言处理文件上传格式校验"></a>Go语言处理文件上传格式校验</h4><h5 id="安装第三方包"><a href="#安装第三方包" class="headerlink" title="安装第三方包"></a>安装第三方包</h5><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">go</span> get -v -u github.com/h2non/filetype</span><br></pre></td></tr></table></figure>
+
+<h5 id="处理文件上传业务逻辑"><a href="#处理文件上传业务逻辑" class="headerlink" title="处理文件上传业务逻辑"></a>处理文件上传业务逻辑</h5><h6 id="1、gozero-框架的路由定义"><a href="#1、gozero-框架的路由定义" class="headerlink" title="1、gozero 框架的路由定义"></a>1、gozero 框架的路由定义</h6><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">syntax = <span class="string">&quot;v1&quot;</span></span><br><span class="line"></span><br><span class="line">@server(</span><br><span class="line">    group: v1/audio</span><br><span class="line">    middleware: UserAgentMiddleware</span><br><span class="line">)</span><br><span class="line">service app-api &#123;</span><br><span class="line">    @doc <span class="string">&quot;音频上传&quot;</span></span><br><span class="line">    @handler audioUpload</span><br><span class="line">    post /v1/course/audioUpload (AudioUploadReq) returns (AudioUploadResp)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">AudioUploadReq &#123;</span><br><span class="line">    ID  <span class="keyword">int</span> <span class="string">`form:&quot;id&quot;`</span>  <span class="comment">// 除了文件上传要选择文件，这个字段是关联业务 ID 字段</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">AudioUploadResp &#123;</span><br><span class="line">    FileUrl <span class="keyword">string</span> <span class="string">`json:&quot;file_url&quot;`</span> <span class="comment">// 文件上传成功之后 OSS 能访问到的文件地址</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h6 id="2、gozero-生成代码后上传业务处理"><a href="#2、gozero-生成代码后上传业务处理" class="headerlink" title="2、gozero 生成代码后上传业务处理"></a>2、gozero 生成代码后上传业务处理</h6><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> (</span><br><span class="line">    maxFileSize = <span class="number">1024</span> * <span class="number">1024</span> * <span class="number">50</span> <span class="comment">// 最大的文件上传大小（50MB）</span></span><br><span class="line">    uploadPath  = <span class="string">&quot;./upload&quot;</span>       <span class="comment">// 本地上传文件临时目录</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(l *AudioUploadLogic)</span> <span class="title">AudioUpload</span><span class="params">(req *types.AudioUploadReq, r *http.Request)</span> <span class="params">(resp *types.AudioUploadResp, err error)</span></span> &#123;</span><br><span class="line">    <span class="comment">// go-zero 框架的最大文件上传默认是 1M 超过 1M 记得在配置文件添加配置</span></span><br><span class="line">    <span class="comment">// MaxBytes: 52428800  # 这里设置为 50MB</span></span><br><span class="line">    _ = r.ParseMultipartForm(maxFileSize)</span><br><span class="line">    resp = <span class="built_in">new</span>(types.AudioUploadResp)</span><br><span class="line">    </span><br><span class="line">    sUserId := l.ctx.Value(<span class="string">&quot;userid&quot;</span>).(<span class="keyword">string</span>)</span><br><span class="line">    iUserId, _ := strconv.Atoi(sUserId)</span><br><span class="line">    </span><br><span class="line">    file, fileHeader, err := r.FormFile(<span class="string">&quot;file&quot;</span>)</span><br><span class="line">    <span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">nil</span>, errors.New(<span class="string">&quot;请选择要上传的文件！&quot;</span>)</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">defer</span> file.Close()</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 文件大小检查</span></span><br><span class="line">    <span class="keyword">if</span> fileHeader.Size &gt; maxFileSize &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">nil</span>, errors.New(<span class="string">&quot;文件已超过50M！&quot;</span>)</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 文件格式检查</span></span><br><span class="line">    buf := <span class="built_in">make</span>([]<span class="keyword">byte</span>, <span class="number">261</span>)</span><br><span class="line">    n, _ := io.ReadFull(file, buf)</span><br><span class="line">    buf = buf[:n]</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// MP3 的 MIME 通常为 &quot;audio/mpeg&quot;</span></span><br><span class="line">    <span class="keyword">if</span> !filetype.IsMIME(buf, <span class="string">&quot;audio/mpeg&quot;</span>) &#123; </span><br><span class="line">        <span class="keyword">return</span> <span class="literal">nil</span>, errors.New(<span class="string">&quot;文件格式不正确！&quot;</span>)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 判断路径是否存在</span></span><br><span class="line">    path := uploadPath + <span class="string">&quot;/&quot;</span> + time.Now().Format(time.DateOnly)</span><br><span class="line">    _, err = os.ReadDir(path)</span><br><span class="line">    <span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">        _ = os.MkdirAll(path, fs.ModePerm)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 生成随机的文件名包括 文件后缀</span></span><br><span class="line">    randomFileName := fmt.Sprintf(<span class="string">&quot;%s%s&quot;</span>, uuid.New().String(), filepath.Ext(fileHeader.Filename))</span><br><span class="line">    <span class="comment">// 生成本地上传的文件路径 目录 + 随机文件名称</span></span><br><span class="line">    localFileName := fmt.Sprintf(<span class="string">&quot;%s/%s&quot;</span>, path, randomFileName)</span><br><span class="line"></span><br><span class="line">    logx.Infof(<span class="string">&quot;randomFileName: %s&quot;</span>, randomFileName)</span><br><span class="line">    logx.Infof(<span class="string">&quot;localFileName: %s&quot;</span>, localFileName)</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 创建本地文件</span></span><br><span class="line">    f, err := os.OpenFile(localFileName, os.O_WRONLY|os.O_CREATE, <span class="number">0666</span>)</span><br><span class="line">    <span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">nil</span>, errors.New(<span class="string">&quot;上传失败、请重新上传！&quot;</span>)</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">defer</span> f.Close()</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 将上传的文件内容拷贝到目标文件</span></span><br><span class="line">    _, err = io.Copy(f, file)</span><br><span class="line">    <span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">nil</span>, errors.New(<span class="string">&quot;上传失败、请重新上传！&quot;</span>)</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 上传至阿里云 OSS 的文件位置</span></span><br><span class="line">    uploadFileName := <span class="string">&quot;manage/audio/&quot;</span> + randomFileName</span><br><span class="line">    uploadURL, err := pkg.UploadFileToOSS(l.svcCtx.Config, fileHeader, localFileName, uploadFileName)</span><br><span class="line">    <span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">        <span class="comment">//return nil, err</span></span><br><span class="line">        <span class="keyword">return</span> <span class="literal">nil</span>, errors.New(<span class="string">&quot;上传失败、请重新上传！&quot;</span>)</span><br><span class="line">    &#125;</span><br><span class="line">    logx.Infof(<span class="string">&quot;url: %s&quot;</span>, uploadURL)</span><br><span class="line"></span><br><span class="line">    db := l.svcCtx.DB</span><br><span class="line">    ret := db.Model(&amp;model.AudioOrderInfo&#123;&#125;).Where(<span class="string">&quot;id = ?&quot;</span>, req.ID).Updates(<span class="keyword">map</span>[<span class="keyword">string</span>]<span class="keyword">interface</span>&#123;&#125;&#123;</span><br><span class="line">        <span class="string">&quot;user_id&quot;</span>:    iUserId,</span><br><span class="line">        <span class="string">&quot;audio_url&quot;</span>:  uploadURL,</span><br><span class="line">        <span class="string">&quot;updated_at&quot;</span>: time.Now(),</span><br><span class="line">    &#125;)</span><br><span class="line">    <span class="keyword">if</span> ret.Error != <span class="literal">nil</span> || ret.RowsAffected == <span class="number">0</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">nil</span>, errors.New(<span class="string">&quot;上传失败、请重新上传！&quot;</span>)</span><br><span class="line">    &#125;</span><br><span class="line">    resp.FileUrl = uploadURL</span><br><span class="line">  </span><br><span class="line">    <span class="keyword">return</span> resp, <span class="literal">nil</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h6 id="3、文件格式校验说明"><a href="#3、文件格式校验说明" class="headerlink" title="3、文件格式校验说明"></a>3、文件格式校验说明</h6><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 文件格式检查</span></span><br><span class="line">buf := <span class="built_in">make</span>([]<span class="keyword">byte</span>, <span class="number">261</span>)</span><br><span class="line">n, _ := io.ReadFull(file, buf)</span><br><span class="line">buf = buf[:n]</span><br><span class="line"></span><br><span class="line"><span class="comment">// MP3 的 MIME 通常为 &quot;audio/mpeg&quot;</span></span><br><span class="line"><span class="keyword">if</span> !filetype.IsMIME(buf, <span class="string">&quot;audio/mpeg&quot;</span>) &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">nil</span>, errors.New(<span class="string">&quot;文件格式不正确！&quot;</span>)</span><br><span class="line">&#125;</span><br><span class="line">上面对文件格式的校验主要是使用的<span class="string">`filetype.IsMIME`</span>指定必须符合指定的文件才能进行文件上传操作～</span><br><span class="line"></span><br><span class="line">或者获取上传文件的 <span class="string">`MIME`</span> 信息,然后进行文件类型检查</span><br><span class="line">mime, _ := filetype.Get(buf)</span><br><span class="line">logx.Infof(<span class="string">&quot;mime:%s&quot;</span>, mime) <span class="comment">// mp3 音频文件的 mime 信息为：&quot;audio/mpeg&quot;</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h6 id="3、上传到阿里云-oss-代码"><a href="#3、上传到阿里云-oss-代码" class="headerlink" title="3、上传到阿里云 oss 代码"></a>3、上传到阿里云 oss 代码</h6><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">UploadFileToOSS</span><span class="params">(c config.Config, fileHeader *multipart.FileHeader, localFileName, uploadFileName <span class="keyword">string</span>)</span> <span class="params">(url <span class="keyword">string</span>, err error)</span></span> &#123;</span><br><span class="line">    client, err := oss.New(<span class="string">&quot;oss-cn-beijing.aliyuncs.com&quot;</span>, c.ALiYun.AccessKeyId, c.ALiYun.AccessKeySecret)</span><br><span class="line">    <span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">        logx.Errorf(<span class="string">&quot;Creates a new client err: %v&quot;</span>, err)</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;&quot;</span>, err</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    bucketName := <span class="string">&quot;you-bucket-name&quot;</span></span><br><span class="line">    bucket, err := client.Bucket(bucketName)</span><br><span class="line">    <span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">        logx.Errorf(<span class="string">&quot;Get the bucket instance err: %v&quot;</span>, err)</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;&quot;</span>, err</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 上传文件选项设置</span></span><br><span class="line">    opt := []oss.Option&#123;</span><br><span class="line">        oss.Meta(<span class="string">&quot;Content-Type&quot;</span>, fileHeader.Header.Get(<span class="string">&quot;Content-Type&quot;</span>)),</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">if</span> err = bucket.PutObjectFromFile(uploadFileName, localFileName, opt...); err != <span class="literal">nil</span> &#123;</span><br><span class="line">        logx.Errorf(<span class="string">&quot;PutObjectFromFile err: %v&quot;</span>, err)</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;&quot;</span>, err</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// oss 访问地址要更为自己申请的访问地址</span></span><br><span class="line">    <span class="keyword">return</span> fmt.Sprintf(<span class="string">&quot;https://oss-api-app.test.net/%s&quot;</span>, uploadFileName), <span class="literal">nil</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    <div class="article-footer">
+      <!--<blockquote class="mt-2x">-->
+<!--  <ul class="post-copyright list-unstyled">-->
+<!--    -->
+<!--    <li class="post-copyright-link hidden-xs">-->
+<!--      <strong>本文链接：</strong>-->
+<!--      <a href="https://hqd8080.github.io/2025/09/25/go/go-filetype/" title="Go语言文件上传格式校验" target="_blank" rel="external">https://hqd8080.github.io/2025/09/25/go/go-filetype/</a>-->
+<!--    </li>-->
+<!--    -->
+<!--    <li class="post-copyright-license">-->
+<!--      <strong>版权声明： </strong> 本博客所有文章除特别声明外，均采用 <a href="http://creativecommons.org/licenses/by/4.0/deed.zh" target="_blank" rel="external">CC BY 4.0 CN协议</a> 许可协议。转载请注明出处！-->
+<!--    </li>-->
+<!--  </ul>-->
+<!--</blockquote>-->
+
+
+<div class="panel panel-default panel-badger">
+  <div class="panel-body">
+    <figure class="media">
+      <div class="media-left">
+        <a href="https://github.com/hqd8080" target="_blank" class="img-burn thumb-sm visible-lg">
+          <img src="/images/avatar.jpeg" class="img-rounded w-full" alt="">
+        </a>
+      </div>
+      <div class="media-body">
+        <h3 class="media-heading"><a href="https://github.com/hqd8080" target="_blank"><span class="text-dark">🌴🌴🧩🧩🥥</span><small class="ml-1x">Gopher</small></a></h3>
+        <div>总有些事情需要坚持！</div>
+      </div>
+    </figure>
+  </div>
+</div>
+
+
+    </div>
+  </article>
+  
+    
+  <section id="comments">
+  	
+  </section>
+
+
+  
+</div>
+
+  <nav class="bar bar-footer clearfix" data-stick-bottom>
+  <div class="bar-inner">
+  
+  <ul class="pager pull-left">
+    
+    
+    <li class="next">
+      <a href="/2025/09/20/go/go-makefile/" title="Go项目编写 Makefile 文件"><span>下一篇&nbsp;&nbsp;</span><i class="icon icon-angle-right" aria-hidden="true"></i></a>
+    </li>
+    
+    
+  </ul>
+  
+  
+  
+  <div class="bar-right">
+    
+    <div class="share-component" data-sites="weibo,qq,wechat" data-mobile-sites="weibo,qq,qzone"></div>
+    
+  </div>
+  </div>
+</nav>
+  
+
+
+</main>
+
+  <footer class="footer" itemscope itemtype="http://schema.org/WPFooter">
+	
+	
+    <ul class="social-links">
+    	
+        <li><a href="https://github.com/hqd8080" target="_blank" title="Github" data-toggle=tooltip data-placement=top><i class="icon icon-github"></i></a></li>
+        
+        <li><a href="/atom.xml" target="_blank" title="Rss" data-toggle=tooltip data-placement=top><i class="icon icon-rss"></i></a></li>
+        
+    </ul>
+
+    <div class="copyright">
+    	
+        <div class="publishby">
+            <a href="https://github.com/hqd8080" target="_blank"> hqd8080 </a>All Rights Reserved <a href="https://github.com/cofess/hexo-theme-pure" target="_blank"></a>
+        </div>
+    </div>
+</footer>
+  <script src="//cdn.jsdelivr.net/npm/jquery@1.12.4/dist/jquery.min.js"></script>
+<script>
+window.jQuery || document.write('<script src="js/jquery.min.js"><\/script>')
+</script>
+
+<script src="/js/plugin.min.js"></script>
+
+
+<script src="/js/application.js"></script>
+
+
+    <script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: '文章',
+            PAGES: '页面',
+            CATEGORIES: '分类',
+            TAGS: '标签',
+            UNTITLED: '(未命名)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+
+<script src="/js/insight.js"></script>
+
+
+
+
+
+
+   
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+
+   
+
+
+  <script src="//cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.3.5/dist/jquery.fancybox.min.js"></script>
+  <script>
+  //利用 FancyBox 实现点击图片放大
+  $(document).ready(function() {
+    $('article img').not('[hidden]').not('.panel-body img').each(function() {
+      var $image = $(this);
+      var imageCaption = $image.attr('alt');
+      var $imageWrapLink = $image.parent('a');
+      if ($imageWrapLink.length < 1) {
+        var src = this.getAttribute('src');
+        var idx = src.lastIndexOf('?');
+        if (idx != -1) {
+          src = src.substring(0, idx);
+        }
+        $imageWrapLink = $image.wrap('<a href="' + src + '"></a>').parent('a');
+      }
+      $imageWrapLink.attr('data-fancybox', 'images');
+      if (imageCaption) {
+        $imageWrapLink.attr('data-caption', imageCaption);
+      }
+    });
+    $().fancybox({
+      selector: '[data-fancybox="images"]',
+      hash: false,
+      loop: false,
+    });
+  });
+  </script>
+
+
+
+
+
+</body>
+</html>

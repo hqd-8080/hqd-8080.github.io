@@ -1,8 +1,68 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>https://hqd8080.github.io/2020/05/22/microservice/microservice/</loc>
+    <lastmod>2025-10-15</lastmod>
+  </url>
+  <url>
     <loc>https://hqd8080.github.io/2024/07/22/microservice/qianyu-live-draw/</loc>
-    <lastmod>2025-07-06</lastmod>
+    <lastmod>2025-10-15</lastmod>
+  </url>
+  <url>
+    <loc>https://hqd8080.github.io/2020/05/22/microservice/microservice-CAP/</loc>
+    <lastmod>2025-10-15</lastmod>
+  </url>
+  <url>
+    <loc>https://hqd8080.github.io/2023/06/03/blockchain/hardhat/</loc>
+    <lastmod>2025-10-15</lastmod>
+  </url>
+  <url>
+    <loc>https://hqd8080.github.io/2021/03/29/blockchain/blockchain-eth-erc/</loc>
+    <lastmod>2025-10-15</lastmod>
+  </url>
+  <url>
+    <loc>https://hqd8080.github.io/2021/04/01/blockchain/solidity-erc-20/</loc>
+    <lastmod>2025-10-15</lastmod>
+  </url>
+  <url>
+    <loc>https://hqd8080.github.io/2021/03/28/blockchain/blockchain-eth-geth/</loc>
+    <lastmod>2025-10-15</lastmod>
+  </url>
+  <url>
+    <loc>https://hqd8080.github.io/2021/05/01/blockchain/solidity-erc-1155/</loc>
+    <lastmod>2025-10-15</lastmod>
+  </url>
+  <url>
+    <loc>https://hqd8080.github.io/2021/04/01/blockchain/solidity-erc-721/</loc>
+    <lastmod>2025-10-15</lastmod>
+  </url>
+  <url>
+    <loc>https://hqd8080.github.io/2021/05/01/blockchain/solidity-erc-wallet/</loc>
+    <lastmod>2025-10-15</lastmod>
+  </url>
+  <url>
+    <loc>https://hqd8080.github.io/2021/03/29/blockchain/blockchain-eth-node/</loc>
+    <lastmod>2025-10-15</lastmod>
+  </url>
+  <url>
+    <loc>https://hqd8080.github.io/2025/09/25/go/go-filetype/</loc>
+    <lastmod>2025-10-15</lastmod>
+  </url>
+  <url>
+    <loc>https://hqd8080.github.io/2025/09/20/go/go-makefile/</loc>
+    <lastmod>2025-09-22</lastmod>
+  </url>
+  <url>
+    <loc>https://hqd8080.github.io/2025/08/20/go/go-checkin/</loc>
+    <lastmod>2025-09-18</lastmod>
+  </url>
+  <url>
+    <loc>https://hqd8080.github.io/2025/08/24/go/go-anti-shake-lock/</loc>
+    <lastmod>2025-08-24</lastmod>
+  </url>
+  <url>
+    <loc>https://hqd8080.github.io/2025/01/02/go/go-singleflight/</loc>
+    <lastmod>2025-08-20</lastmod>
   </url>
   <url>
     <loc>https://hqd8080.github.io/2020/01/07/springBoot/springBoot-study3/</loc>
@@ -19,10 +79,6 @@
   <url>
     <loc>https://hqd8080.github.io/2020/01/02/springBoot/springBoot-study1/</loc>
     <lastmod>2025-04-13</lastmod>
-  </url>
-  <url>
-    <loc>https://hqd8080.github.io/2025/01/02/golang/go-singleflight/</loc>
-    <lastmod>2025-03-18</lastmod>
   </url>
   <url>
     <loc>https://hqd8080.github.io/2025/01/01/docker/docker-file/</loc>
@@ -53,39 +109,11 @@
     <lastmod>2025-02-28</lastmod>
   </url>
   <url>
-    <loc>https://hqd8080.github.io/2021/05/01/blockchain/solidity-erc-wallet/</loc>
-    <lastmod>2024-06-03</lastmod>
-  </url>
-  <url>
-    <loc>https://hqd8080.github.io/2021/05/01/blockchain/solidity-erc-1155/</loc>
-    <lastmod>2024-05-28</lastmod>
-  </url>
-  <url>
-    <loc>https://hqd8080.github.io/2021/04/01/blockchain/solidity-erc-721/</loc>
-    <lastmod>2024-05-28</lastmod>
-  </url>
-  <url>
-    <loc>https://hqd8080.github.io/2021/04/01/blockchain/solidity-erc-20/</loc>
-    <lastmod>2024-05-28</lastmod>
-  </url>
-  <url>
-    <loc>https://hqd8080.github.io/2021/03/28/blockchain/blockchain-eth-geth/</loc>
-    <lastmod>2024-05-28</lastmod>
-  </url>
-  <url>
-    <loc>https://hqd8080.github.io/2021/03/29/blockchain/blockchain-eth-erc/</loc>
-    <lastmod>2024-05-26</lastmod>
-  </url>
-  <url>
-    <loc>https://hqd8080.github.io/2021/03/29/blockchain/blockchain-eth-node/</loc>
-    <lastmod>2024-05-24</lastmod>
-  </url>
-  <url>
-    <loc>https://hqd8080.github.io/2024/01/02/golang/go-jwt-func/</loc>
+    <loc>https://hqd8080.github.io/2024/01/02/go/go-jwt-func/</loc>
     <lastmod>2024-04-26</lastmod>
   </url>
   <url>
-    <loc>https://hqd8080.github.io/2024/01/02/golang/go-bcrypt-hash/</loc>
+    <loc>https://hqd8080.github.io/2024/01/02/go/go-bcrypt-hash/</loc>
     <lastmod>2024-04-26</lastmod>
   </url>
   <url>
@@ -93,7 +121,7 @@
     <lastmod>2024-04-26</lastmod>
   </url>
   <url>
-    <loc>https://hqd8080.github.io/2024/04/25/golang/go-goroutine-limit/</loc>
+    <loc>https://hqd8080.github.io/2024/04/25/go/go-goroutine-limit/</loc>
     <lastmod>2024-04-25</lastmod>
   </url>
   <url>
@@ -141,14 +169,6 @@
     <lastmod>2024-04-02</lastmod>
   </url>
   <url>
-    <loc>https://hqd8080.github.io/2020/05/22/microservice/microservice-CAP/</loc>
-    <lastmod>2024-03-17</lastmod>
-  </url>
-  <url>
-    <loc>https://hqd8080.github.io/2020/05/22/microservice/microservice/</loc>
-    <lastmod>2024-03-17</lastmod>
-  </url>
-  <url>
     <loc>https://hqd8080.github.io/2020/05/14/grpc/grpc/</loc>
     <lastmod>2024-03-17</lastmod>
   </url>
@@ -157,19 +177,19 @@
     <lastmod>2024-03-17</lastmod>
   </url>
   <url>
-    <loc>https://hqd8080.github.io/2020/06/03/golang/go-file-and-template/</loc>
+    <loc>https://hqd8080.github.io/2020/06/03/go/go-file-and-template/</loc>
     <lastmod>2024-02-04</lastmod>
   </url>
   <url>
-    <loc>https://hqd8080.github.io/2022/03/31/golang/go-interface/</loc>
+    <loc>https://hqd8080.github.io/2022/03/31/go/go-interface/</loc>
     <lastmod>2023-12-20</lastmod>
   </url>
   <url>
-    <loc>https://hqd8080.github.io/2023/08/17/golang/go-gorilla/</loc>
+    <loc>https://hqd8080.github.io/2023/08/17/go/go-gorilla/</loc>
     <lastmod>2023-11-23</lastmod>
   </url>
   <url>
-    <loc>https://hqd8080.github.io/2023/08/15/golang/go-timeout/</loc>
+    <loc>https://hqd8080.github.io/2023/08/15/go/go-timeout/</loc>
     <lastmod>2023-11-22</lastmod>
   </url>
   <url>
@@ -185,120 +205,116 @@
     <lastmod>2023-11-01</lastmod>
   </url>
   <url>
-    <loc>https://hqd8080.github.io/2022/03/30/golang/go-map/</loc>
+    <loc>https://hqd8080.github.io/2022/03/30/go/go-map/</loc>
     <lastmod>2023-10-24</lastmod>
   </url>
   <url>
-    <loc>https://hqd8080.github.io/2022/03/31/golang/go-error/</loc>
+    <loc>https://hqd8080.github.io/2022/03/31/go/go-error/</loc>
     <lastmod>2023-10-24</lastmod>
   </url>
   <url>
-    <loc>https://hqd8080.github.io/2020/05/22/golang/go-chan/</loc>
+    <loc>https://hqd8080.github.io/2020/05/22/go/go-chan/</loc>
     <lastmod>2023-10-24</lastmod>
   </url>
   <url>
-    <loc>https://hqd8080.github.io/2020/05/22/golang/go-reflect/</loc>
+    <loc>https://hqd8080.github.io/2020/05/22/go/go-reflect/</loc>
     <lastmod>2023-10-24</lastmod>
   </url>
   <url>
-    <loc>https://hqd8080.github.io/2020/05/22/golang/go-work/</loc>
+    <loc>https://hqd8080.github.io/2020/05/22/go/go-work/</loc>
     <lastmod>2023-10-24</lastmod>
   </url>
   <url>
-    <loc>https://hqd8080.github.io/2020/05/14/golang/go-struct-to-map/</loc>
+    <loc>https://hqd8080.github.io/2020/05/14/go/go-struct-to-map/</loc>
     <lastmod>2023-10-24</lastmod>
   </url>
   <url>
-    <loc>https://hqd8080.github.io/2020/05/14/golang/go-gobuild/</loc>
+    <loc>https://hqd8080.github.io/2020/05/14/go/go-gobuild/</loc>
     <lastmod>2023-10-24</lastmod>
   </url>
   <url>
-    <loc>https://hqd8080.github.io/2020/01/02/golang/go-producer-consumer/</loc>
+    <loc>https://hqd8080.github.io/2020/01/02/go/go-producer-consumer/</loc>
     <lastmod>2023-10-24</lastmod>
   </url>
   <url>
-    <loc>https://hqd8080.github.io/2022/03/31/golang/go-time/</loc>
+    <loc>https://hqd8080.github.io/2022/03/31/go/go-time/</loc>
     <lastmod>2023-10-07</lastmod>
   </url>
   <url>
-    <loc>https://hqd8080.github.io/2020/06/04/golang/websocket/</loc>
+    <loc>https://hqd8080.github.io/2020/06/04/go/websocket/</loc>
     <lastmod>2023-10-07</lastmod>
   </url>
   <url>
-    <loc>https://hqd8080.github.io/2022/04/01/golang/go-stw/</loc>
+    <loc>https://hqd8080.github.io/2022/04/01/go/go-stw/</loc>
     <lastmod>2023-10-07</lastmod>
   </url>
   <url>
-    <loc>https://hqd8080.github.io/2022/03/31/golang/go-struct/</loc>
+    <loc>https://hqd8080.github.io/2022/03/31/go/go-struct/</loc>
     <lastmod>2023-10-07</lastmod>
   </url>
   <url>
-    <loc>https://hqd8080.github.io/2022/03/29/golang/go-string/</loc>
+    <loc>https://hqd8080.github.io/2022/03/29/go/go-string/</loc>
     <lastmod>2023-10-07</lastmod>
   </url>
   <url>
-    <loc>https://hqd8080.github.io/2022/03/30/golang/go-slice/</loc>
+    <loc>https://hqd8080.github.io/2022/03/30/go/go-slice/</loc>
     <lastmod>2023-10-07</lastmod>
   </url>
   <url>
-    <loc>https://hqd8080.github.io/2020/05/14/golang/go-simplejson/</loc>
+    <loc>https://hqd8080.github.io/2020/05/14/go/go-simplejson/</loc>
     <lastmod>2023-10-07</lastmod>
   </url>
   <url>
-    <loc>https://hqd8080.github.io/2020/05/14/golang/go-runecountInstring/</loc>
+    <loc>https://hqd8080.github.io/2020/05/14/go/go-runecountInstring/</loc>
     <lastmod>2023-10-07</lastmod>
   </url>
   <url>
-    <loc>https://hqd8080.github.io/2022/03/28/golang/go-response/</loc>
+    <loc>https://hqd8080.github.io/2022/03/28/go/go-response/</loc>
     <lastmod>2023-10-07</lastmod>
   </url>
   <url>
-    <loc>https://hqd8080.github.io/2020/06/04/golang/go-leakage/</loc>
+    <loc>https://hqd8080.github.io/2020/06/04/go/go-leakage/</loc>
     <lastmod>2023-10-07</lastmod>
   </url>
   <url>
-    <loc>https://hqd8080.github.io/2023/08/15/golang/go-gosimplejson/</loc>
+    <loc>https://hqd8080.github.io/2023/08/15/go/go-gosimplejson/</loc>
     <lastmod>2023-10-07</lastmod>
   </url>
   <url>
-    <loc>https://hqd8080.github.io/2022/04/01/golang/go-goroutine/</loc>
+    <loc>https://hqd8080.github.io/2022/04/01/go/go-goroutine/</loc>
     <lastmod>2023-10-07</lastmod>
   </url>
   <url>
-    <loc>https://hqd8080.github.io/2022/03/21/golang/go-gorm/</loc>
+    <loc>https://hqd8080.github.io/2022/03/21/go/go-gorm/</loc>
     <lastmod>2023-10-07</lastmod>
   </url>
   <url>
-    <loc>https://hqd8080.github.io/2020/05/22/golang/go-gmp/</loc>
+    <loc>https://hqd8080.github.io/2020/05/22/go/go-gmp/</loc>
     <lastmod>2023-10-07</lastmod>
   </url>
   <url>
-    <loc>https://hqd8080.github.io/2020/05/14/golang/go-gc/</loc>
+    <loc>https://hqd8080.github.io/2020/05/14/go/go-gc/</loc>
     <lastmod>2023-10-07</lastmod>
   </url>
   <url>
-    <loc>https://hqd8080.github.io/2020/05/22/golang/go-data-type-convert/</loc>
+    <loc>https://hqd8080.github.io/2020/05/22/go/go-data-type-convert/</loc>
     <lastmod>2023-10-07</lastmod>
   </url>
   <url>
-    <loc>https://hqd8080.github.io/2020/06/02/golang/go-concurrent-safe/</loc>
+    <loc>https://hqd8080.github.io/2020/06/02/go/go-concurrent-safe/</loc>
     <lastmod>2023-10-07</lastmod>
   </url>
   <url>
-    <loc>https://hqd8080.github.io/2022/04/01/golang/go-channel/</loc>
+    <loc>https://hqd8080.github.io/2022/04/01/go/go-channel/</loc>
     <lastmod>2023-10-07</lastmod>
   </url>
   <url>
-    <loc>https://hqd8080.github.io/2022/03/29/golang/go-array/</loc>
+    <loc>https://hqd8080.github.io/2022/03/29/go/go-array/</loc>
     <lastmod>2023-10-07</lastmod>
   </url>
   <url>
     <loc>https://hqd8080.github.io/2022/03/24/docker/docker-ps/</loc>
     <lastmod>2023-08-29</lastmod>
-  </url>
-  <url>
-    <loc>https://hqd8080.github.io/2023/06/03/blockchain/hardhat/</loc>
-    <lastmod>2023-08-28</lastmod>
   </url>
   <url>
     <loc>https://hqd8080.github.io/2022/02/17/nginx/nginx-ssl/</loc>
