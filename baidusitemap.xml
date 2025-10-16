@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>https://hqd8080.github.io/2022/03/21/go/go-gorm/</loc>
+    <lastmod>2025-10-16</lastmod>
+  </url>
+  <url>
     <loc>https://hqd8080.github.io/2020/05/22/microservice/microservice/</loc>
     <lastmod>2025-10-15</lastmod>
   </url>
@@ -282,10 +286,6 @@
   </url>
   <url>
     <loc>https://hqd8080.github.io/2022/04/01/go/go-goroutine/</loc>
-    <lastmod>2023-10-07</lastmod>
-  </url>
-  <url>
-    <loc>https://hqd8080.github.io/2022/03/21/go/go-gorm/</loc>
     <lastmod>2023-10-07</lastmod>
   </url>
   <url>
