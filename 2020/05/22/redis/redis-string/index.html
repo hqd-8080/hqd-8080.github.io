@@ -42,6 +42,9 @@
 <link rel="stylesheet" href="/css/style.css">
 
   
+<link rel="stylesheet" href="/css/custom.css">
+
+  
   
   
     <link href="//cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.3.5/dist/jquery.fancybox.min.css" rel="stylesheet">
@@ -269,21 +272,21 @@
     <div class="article-entry marked-body" itemprop="articleBody">
       
         <p>Redis字符串类型（string）的使用</p>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 设置key，value</span></span><br><span class="line"><span class="number">127.0</span><span class="number">.0</span><span class="number">.1</span>:<span class="number">6379</span>&gt; set address <span class="string">&quot;shanghai china&quot;</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-comment">// 设置key，value</span><br><span class="hljs-number">127.0</span><span class="hljs-number">.0</span><span class="hljs-number">.1</span>:<span class="hljs-number">6379</span>&gt; set address <span class="hljs-string">&quot;shanghai china&quot;</span><br><br></code></pre></td></tr></table></figure>
 
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 获取key对应的value</span></span><br><span class="line"><span class="number">127.0</span><span class="number">.0</span><span class="number">.1</span>:<span class="number">6379</span>&gt; get address  <span class="comment">// &quot;shanghai china&quot;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-comment">// 获取key对应的value</span><br><span class="hljs-number">127.0</span><span class="hljs-number">.0</span><span class="hljs-number">.1</span>:<span class="hljs-number">6379</span>&gt; get address  <span class="hljs-comment">// &quot;shanghai china&quot;</span><br></code></pre></td></tr></table></figure>
 
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 返回字符串长度，key不存在返回0</span></span><br><span class="line"><span class="number">127.0</span><span class="number">.0</span><span class="number">.1</span>:<span class="number">6379</span>&gt; strlen address  <span class="comment">// (integer) 14</span></span><br></pre></td></tr></table></figure>
-
-
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 字符串追加，拼接</span></span><br><span class="line"><span class="number">127.0</span><span class="number">.0</span><span class="number">.1</span>:<span class="number">6379</span>&gt; <span class="built_in">append</span> address <span class="string">&quot; chang ning&quot;</span> <span class="comment">// &quot;shanghai china chang ning&quot;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-comment">// 返回字符串长度，key不存在返回0</span><br><span class="hljs-number">127.0</span><span class="hljs-number">.0</span><span class="hljs-number">.1</span>:<span class="hljs-number">6379</span>&gt; strlen address  <span class="hljs-comment">// (integer) 14</span><br></code></pre></td></tr></table></figure>
 
 
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 仅在key不存在时，才设置键的值，键已经存在返回0</span></span><br><span class="line"><span class="number">127.0</span><span class="number">.0</span><span class="number">.1</span>:<span class="number">6379</span>&gt; setnx city <span class="string">&quot;shanghai china&quot;</span> <span class="comment">// &quot;shanghai china&quot;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-comment">// 字符串追加，拼接</span><br><span class="hljs-number">127.0</span><span class="hljs-number">.0</span><span class="hljs-number">.1</span>:<span class="hljs-number">6379</span>&gt; <span class="hljs-built_in">append</span> address <span class="hljs-string">&quot; chang ning&quot;</span> <span class="hljs-comment">// &quot;shanghai china chang ning&quot;</span><br></code></pre></td></tr></table></figure>
 
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// mset，mget原子性的一次性设置多个键值</span></span><br><span class="line"><span class="number">127.0</span><span class="number">.0</span><span class="number">.1</span>:<span class="number">6379</span>&gt; mset <span class="string">&quot;pudong&quot;</span> <span class="string">&quot;001&quot;</span> <span class="string">&quot;changning&quot;</span> <span class="string">&quot;002&quot;</span> <span class="string">&quot;xuhui&quot;</span> <span class="string">&quot;003&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="number">127.0</span><span class="number">.0</span><span class="number">.1</span>:<span class="number">6379</span>&gt; mget <span class="string">&quot;pudong&quot;</span> <span class="string">&quot;changning&quot;</span> <span class="string">&quot;xuhui&quot;</span></span><br><span class="line"><span class="number">1</span>) <span class="string">&quot;001&quot;</span></span><br><span class="line"><span class="number">2</span>) <span class="string">&quot;002&quot;</span></span><br><span class="line"><span class="number">3</span>) <span class="string">&quot;003&quot;</span></span><br></pre></td></tr></table></figure>
 
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 检查给定key是否存在，若key存在返回 1 ，否则返回 0</span></span><br><span class="line"><span class="number">127.0</span><span class="number">.0</span><span class="number">.1</span>:<span class="number">6379</span>&gt; exists city</span><br><span class="line">(integer) <span class="number">1</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-comment">// 仅在key不存在时，才设置键的值，键已经存在返回0</span><br><span class="hljs-number">127.0</span><span class="hljs-number">.0</span><span class="hljs-number">.1</span>:<span class="hljs-number">6379</span>&gt; setnx city <span class="hljs-string">&quot;shanghai china&quot;</span> <span class="hljs-comment">// &quot;shanghai china&quot;</span><br></code></pre></td></tr></table></figure>
+
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-comment">// mset，mget原子性的一次性设置多个键值</span><br><span class="hljs-number">127.0</span><span class="hljs-number">.0</span><span class="hljs-number">.1</span>:<span class="hljs-number">6379</span>&gt; mset <span class="hljs-string">&quot;pudong&quot;</span> <span class="hljs-string">&quot;001&quot;</span> <span class="hljs-string">&quot;changning&quot;</span> <span class="hljs-string">&quot;002&quot;</span> <span class="hljs-string">&quot;xuhui&quot;</span> <span class="hljs-string">&quot;003&quot;</span><br><br><span class="hljs-number">127.0</span><span class="hljs-number">.0</span><span class="hljs-number">.1</span>:<span class="hljs-number">6379</span>&gt; mget <span class="hljs-string">&quot;pudong&quot;</span> <span class="hljs-string">&quot;changning&quot;</span> <span class="hljs-string">&quot;xuhui&quot;</span><br><span class="hljs-number">1</span>) <span class="hljs-string">&quot;001&quot;</span><br><span class="hljs-number">2</span>) <span class="hljs-string">&quot;002&quot;</span><br><span class="hljs-number">3</span>) <span class="hljs-string">&quot;003&quot;</span><br></code></pre></td></tr></table></figure>
+
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-comment">// 检查给定key是否存在，若key存在返回 1 ，否则返回 0</span><br><span class="hljs-number">127.0</span><span class="hljs-number">.0</span><span class="hljs-number">.1</span>:<span class="hljs-number">6379</span>&gt; exists city<br>(integer) <span class="hljs-number">1</span><br></code></pre></td></tr></table></figure>
 
 
       
@@ -314,7 +317,7 @@
       </div>
       <div class="media-body">
         <h3 class="media-heading"><a href="https://github.com/hqd8080" target="_blank"><span class="text-dark">🌴🌴🧩🧩🥥</span><small class="ml-1x">Gopher</small></a></h3>
-        <div>总有些事情需要坚持！</div>
+        <div>心外无物，知行合一</div>
       </div>
     </figure>
   </div>
@@ -378,7 +381,7 @@
     <div class="copyright">
     	
         <div class="publishby">
-            <a href="https://github.com/hqd8080" target="_blank"> hqd8080 </a>All Rights Reserved <a href="https://github.com/cofess/hexo-theme-pure" target="_blank"></a>
+            <a href="https://github.com/hqd8080" target="_blank"> hqd8080 </a>All Rights Reserved 😀 <a href="/" target="_blank"></a>
         </div>
     </div>
 </footer>

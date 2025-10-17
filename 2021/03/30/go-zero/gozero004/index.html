@@ -43,6 +43,9 @@
 <link rel="stylesheet" href="/css/style.css">
 
   
+<link rel="stylesheet" href="/css/custom.css">
+
+  
   
   
     <link href="//cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.3.5/dist/jquery.fancybox.min.css" rel="stylesheet">
@@ -270,9 +273,9 @@
     <div class="article-entry marked-body" itemprop="articleBody">
       
         <p>两种方式配置日志输出格式</p>
-<h5 id="1-在配置文件etc-conf-yaml配置日志输出格式"><a href="#1-在配置文件etc-conf-yaml配置日志输出格式" class="headerlink" title="1.在配置文件etc/conf.yaml配置日志输出格式"></a>1.在配置文件<code>etc/conf.yaml</code>配置日志输出格式</h5><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"># 日志输出格式配置</span><br><span class="line">Log:</span><br><span class="line">  ServiceName: user-api</span><br><span class="line">  Encoding: plain</span><br><span class="line">  Stat: <span class="literal">false</span></span><br><span class="line">  TimeFormat: <span class="number">2006</span><span class="number">-01</span><span class="number">-02</span> <span class="number">15</span>:<span class="number">04</span>:<span class="number">05</span></span><br></pre></td></tr></table></figure>
+<h5 id="1-在配置文件etc-conf-yaml配置日志输出格式"><a href="#1-在配置文件etc-conf-yaml配置日志输出格式" class="headerlink" title="1.在配置文件etc/conf.yaml配置日志输出格式"></a>1.在配置文件<code>etc/conf.yaml</code>配置日志输出格式</h5><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs go"># 日志输出格式配置<br>Log:<br>  ServiceName: user-api<br>  Encoding: plain<br>  Stat: <span class="hljs-literal">false</span><br>  TimeFormat: <span class="hljs-number">2006</span><span class="hljs-number">-01</span><span class="hljs-number">-02</span> <span class="hljs-number">15</span>:<span class="hljs-number">04</span>:<span class="hljs-number">05</span><br></code></pre></td></tr></table></figure>
 
-<h5 id="2-在main-go文件配置日志输出格式"><a href="#2-在main-go文件配置日志输出格式" class="headerlink" title="2.在main.go文件配置日志输出格式"></a>2.在<code>main.go</code>文件配置日志输出格式</h5><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 硬编码的方式配置日志输出格式</span></span><br><span class="line">logx.MustSetup(logx.LogConf&#123;Stat: <span class="literal">false</span>, Encoding: <span class="string">&quot;plain&quot;</span>&#125;)</span><br></pre></td></tr></table></figure>
+<h5 id="2-在main-go文件配置日志输出格式"><a href="#2-在main-go文件配置日志输出格式" class="headerlink" title="2.在main.go文件配置日志输出格式"></a>2.在<code>main.go</code>文件配置日志输出格式</h5><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-comment">// 硬编码的方式配置日志输出格式</span><br>logx.MustSetup(logx.LogConf&#123;Stat: <span class="hljs-literal">false</span>, Encoding: <span class="hljs-string">&quot;plain&quot;</span>&#125;)<br></code></pre></td></tr></table></figure>
 
       
     </div>
@@ -302,7 +305,7 @@
       </div>
       <div class="media-body">
         <h3 class="media-heading"><a href="https://github.com/hqd8080" target="_blank"><span class="text-dark">🌴🌴🧩🧩🥥</span><small class="ml-1x">Gopher</small></a></h3>
-        <div>总有些事情需要坚持！</div>
+        <div>心外无物，知行合一</div>
       </div>
     </figure>
   </div>
@@ -366,7 +369,7 @@
     <div class="copyright">
     	
         <div class="publishby">
-            <a href="https://github.com/hqd8080" target="_blank"> hqd8080 </a>All Rights Reserved <a href="https://github.com/cofess/hexo-theme-pure" target="_blank"></a>
+            <a href="https://github.com/hqd8080" target="_blank"> hqd8080 </a>All Rights Reserved 😀 <a href="/" target="_blank"></a>
         </div>
     </div>
 </footer>

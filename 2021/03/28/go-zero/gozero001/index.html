@@ -45,6 +45,9 @@
 <link rel="stylesheet" href="/css/style.css">
 
   
+<link rel="stylesheet" href="/css/custom.css">
+
+  
   
   
     <link href="//cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.3.5/dist/jquery.fancybox.min.css" rel="stylesheet">
@@ -310,21 +313,21 @@
 <li>高并发支撑，稳定保障了疫情期间每天的流量洪峰</li>
 </ul>
 <h3 id="项目架构图"><a href="#项目架构图" class="headerlink" title="项目架构图"></a>项目架构图</h3><p><img src="https://s2.loli.net/2022/09/26/O981QRmWKijgrzE.png" alt="go-zero_001.png"></p>
-<h3 id="开发环境安装"><a href="#开发环境安装" class="headerlink" title="开发环境安装"></a>开发环境安装</h3><h4 id="安装goctl工具"><a href="#安装goctl工具" class="headerlink" title="安装goctl工具"></a>安装goctl工具</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">// Go 1.16 及以后版本</span><br><span class="line">GOPROXY=https://goproxy.cn/,direct go install github.com/zeromicro/go-zero/tools/goctl@latest</span><br></pre></td></tr></table></figure>
+<h3 id="开发环境安装"><a href="#开发环境安装" class="headerlink" title="开发环境安装"></a>开发环境安装</h3><h4 id="安装goctl工具"><a href="#安装goctl工具" class="headerlink" title="安装goctl工具"></a>安装goctl工具</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs plaintext">// Go 1.16 及以后版本<br>GOPROXY=https://goproxy.cn/,direct go install github.com/zeromicro/go-zero/tools/goctl@latest<br></code></pre></td></tr></table></figure>
 
-<h4 id="设置环境变量"><a href="#设置环境变量" class="headerlink" title="设置环境变量"></a>设置环境变量</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">sudo vim ~/.bash_profile</span><br><span class="line"></span><br><span class="line"># golang</span><br><span class="line">export GOROOT=/usr/local/go</span><br><span class="line">export GOPATH=/Users/hqd/go</span><br><span class="line">export GOPROXY=https://goproxy.cn,direct</span><br><span class="line">export GOSUMDB=sum.golang.google.cn</span><br><span class="line">export GO111MODULE=on</span><br><span class="line">export GOPRIVATE=*gitee.com</span><br><span class="line">export PATH=$GOROOT/bin:$GOPATH/bin:$PATH</span><br><span class="line"></span><br><span class="line">source ~/.bash_profile</span><br></pre></td></tr></table></figure>
+<h4 id="设置环境变量"><a href="#设置环境变量" class="headerlink" title="设置环境变量"></a>设置环境变量</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs plaintext">sudo vim ~/.bash_profile<br><br># golang<br>export GOROOT=/usr/local/go<br>export GOPATH=/Users/hqd/go<br>export GOPROXY=https://goproxy.cn,direct<br>export GOSUMDB=sum.golang.google.cn<br>export GO111MODULE=on<br>export GOPRIVATE=*gitee.com<br>export PATH=$GOROOT/bin:$GOPATH/bin:$PATH<br><br>source ~/.bash_profile<br></code></pre></td></tr></table></figure>
 
 
 
 <h4 id="查看版本"><a href="#查看版本" class="headerlink" title="查看版本"></a>查看版本</h4><p><code>goctl -v</code></p>
 <h4 id="安装protobuf工具、protoc-gen-go、protoc-gen-go-grpc"><a href="#安装protobuf工具、protoc-gen-go、protoc-gen-go-grpc" class="headerlink" title="安装protobuf工具、protoc-gen-go、protoc-gen-go-grpc"></a>安装protobuf工具、protoc-gen-go、protoc-gen-go-grpc</h4><p>去github官网下载相应版本最新版本到本地解压拿到可执行文件<code>protoc</code></p>
 <p><code>https://github.com/protocolbuffers/protobuf/releases</code></p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sudo mv protoc  /usr/local/bin</span><br><span class="line"></span><br><span class="line">sudo chmod  +x /usr/local/bin/protoc</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs plaintext">sudo mv protoc  /usr/local/bin<br><br>sudo chmod  +x /usr/local/bin/protoc<br></code></pre></td></tr></table></figure>
 
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">protoc --version</span><br><span class="line"></span><br><span class="line">libprotoc 3.20.2</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs plaintext">protoc --version<br><br>libprotoc 3.20.2<br></code></pre></td></tr></table></figure>
 
 
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">protoc &gt;= 3.13.0  </span><br><span class="line">如果没安装请先安装 https://github.com/protocolbuffers/protobuf，下载解压到$GOPATH/bin下即可，前提是$GOPATH/bin已经加入$PATH中</span><br><span class="line"></span><br><span class="line">protoc-gen-go </span><br><span class="line">如果没有安装请先安装 go install google.golang.org/protobuf/cmd/protoc-gen-go@latest</span><br><span class="line"></span><br><span class="line">protoc-gen-go-grpc</span><br><span class="line">如果没有安装请先安装 go install google.golang.org/grpc/cmd/protoc-gen-go-grpc@latest</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs plaintext">protoc &gt;= 3.13.0  <br>如果没安装请先安装 https://github.com/protocolbuffers/protobuf，下载解压到$GOPATH/bin下即可，前提是$GOPATH/bin已经加入$PATH中<br><br>protoc-gen-go <br>如果没有安装请先安装 go install google.golang.org/protobuf/cmd/protoc-gen-go@latest<br><br>protoc-gen-go-grpc<br>如果没有安装请先安装 go install google.golang.org/grpc/cmd/protoc-gen-go-grpc@latest<br></code></pre></td></tr></table></figure>
 
 
 
@@ -356,7 +359,7 @@
       </div>
       <div class="media-body">
         <h3 class="media-heading"><a href="https://github.com/hqd8080" target="_blank"><span class="text-dark">🌴🌴🧩🧩🥥</span><small class="ml-1x">Gopher</small></a></h3>
-        <div>总有些事情需要坚持！</div>
+        <div>心外无物，知行合一</div>
       </div>
     </figure>
   </div>
@@ -420,7 +423,7 @@
     <div class="copyright">
     	
         <div class="publishby">
-            <a href="https://github.com/hqd8080" target="_blank"> hqd8080 </a>All Rights Reserved <a href="https://github.com/cofess/hexo-theme-pure" target="_blank"></a>
+            <a href="https://github.com/hqd8080" target="_blank"> hqd8080 </a>All Rights Reserved 😀 <a href="/" target="_blank"></a>
         </div>
     </div>
 </footer>

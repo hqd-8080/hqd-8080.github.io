@@ -42,6 +42,9 @@
 <link rel="stylesheet" href="/css/style.css">
 
   
+<link rel="stylesheet" href="/css/custom.css">
+
+  
   
   
     <link href="//cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.3.5/dist/jquery.fancybox.min.css" rel="stylesheet">
@@ -270,21 +273,21 @@
       
         <p>Dockerfile文件常用指令说明</p>
 <p><code>FROM</code>:指定所创建镜像的基础镜像，任何Dockerfile中第一条指令必须为FROM指令</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># 基础镜像</span><br><span class="line">FROM ubuntu:18.04</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs plaintext"># 基础镜像<br>FROM ubuntu:18.04<br></code></pre></td></tr></table></figure>
 
 
 
 <p><code>LABEL</code>:指定镜像添加元数据标签信息，用来补助过滤特定镜像</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># 维护者   </span><br><span class="line">LABEL maintainer hqd8080&lt;github.com/hqd8080&gt;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs plaintext"># 维护者   <br>LABEL maintainer hqd8080&lt;github.com/hqd8080&gt;<br></code></pre></td></tr></table></figure>
 
 
 
 <p><code>EXPOSE</code>:声明镜像内服务监听的端口</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># 开放端口</span><br><span class="line">EXPOSE 22</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs plaintext"># 开放端口<br>EXPOSE 22<br></code></pre></td></tr></table></figure>
 
 
 <p><code>ENV</code>:指定环境变量，在镜像生成过程中被后续<code>RUN</code>指令使用</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ENV APP_VERSION=1.0</span><br><span class="line">ENV APP_HOME=/usr/local/app</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs plaintext">ENV APP_VERSION=1.0<br>ENV APP_HOME=/usr/local/app<br></code></pre></td></tr></table></figure>
 
 
 <p><code>ENTRYPOINT</code>:指定镜像的默认入口命令，启动容器时作为根命令执行，每个Dockerfile文件只能有一个ENTRYPOINT</p>
@@ -319,7 +322,7 @@
       </div>
       <div class="media-body">
         <h3 class="media-heading"><a href="https://github.com/hqd8080" target="_blank"><span class="text-dark">🌴🌴🧩🧩🥥</span><small class="ml-1x">Gopher</small></a></h3>
-        <div>总有些事情需要坚持！</div>
+        <div>心外无物，知行合一</div>
       </div>
     </figure>
   </div>
@@ -383,7 +386,7 @@
     <div class="copyright">
     	
         <div class="publishby">
-            <a href="https://github.com/hqd8080" target="_blank"> hqd8080 </a>All Rights Reserved <a href="https://github.com/cofess/hexo-theme-pure" target="_blank"></a>
+            <a href="https://github.com/hqd8080" target="_blank"> hqd8080 </a>All Rights Reserved 😀 <a href="/" target="_blank"></a>
         </div>
     </div>
 </footer>

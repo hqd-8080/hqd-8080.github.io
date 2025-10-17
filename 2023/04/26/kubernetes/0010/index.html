@@ -43,6 +43,9 @@
 <link rel="stylesheet" href="/css/style.css">
 
   
+<link rel="stylesheet" href="/css/custom.css">
+
+  
   
   
     <link href="//cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.3.5/dist/jquery.fancybox.min.css" rel="stylesheet">
@@ -270,14 +273,14 @@
     <div class="article-entry marked-body" itemprop="articleBody">
       
         <h4 id="使用kubectl命令生成YAML样版文件"><a href="#使用kubectl命令生成YAML样版文件" class="headerlink" title="使用kubectl命令生成YAML样版文件"></a>使用kubectl命令生成YAML样版文件</h4><p>可以利用kubectl指令来生成YAML配置文件的模板，简化我们编写YAML配置文件的过程</p>
-<h5 id="使用kubectl命令生成Pod的-YAML-样板示例"><a href="#使用kubectl命令生成Pod的-YAML-样板示例" class="headerlink" title="使用kubectl命令生成Pod的 YAML 样板示例"></a>使用kubectl命令生成Pod的 YAML 样板示例</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kubectl run mynginx --image=nginx:alpine --dry-run=client -o yaml</span><br></pre></td></tr></table></figure>
+<h5 id="使用kubectl命令生成Pod的-YAML-样板示例"><a href="#使用kubectl命令生成Pod的-YAML-样板示例" class="headerlink" title="使用kubectl命令生成Pod的 YAML 样板示例"></a>使用kubectl命令生成Pod的 YAML 样板示例</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs plaintext">kubectl run mynginx --image=nginx:alpine --dry-run=client -o yaml<br></code></pre></td></tr></table></figure>
 
-<h5 id="生成好的YAML配置文件模板"><a href="#生成好的YAML配置文件模板" class="headerlink" title="生成好的YAML配置文件模板"></a>生成好的YAML配置文件模板</h5><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">apiVersion:</span> <span class="string">v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">Pod</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line">  <span class="attr">creationTimestamp:</span> <span class="literal">null</span></span><br><span class="line">  <span class="attr">labels:</span></span><br><span class="line">    <span class="attr">run:</span> <span class="string">mynginx</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">mynginx</span></span><br><span class="line"><span class="attr">spec:</span></span><br><span class="line">  <span class="attr">containers:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="attr">image:</span> <span class="string">nginx:alpine</span></span><br><span class="line">    <span class="attr">name:</span> <span class="string">mynginx</span></span><br><span class="line">    <span class="attr">resources:</span> &#123;&#125;</span><br><span class="line">  <span class="attr">dnsPolicy:</span> <span class="string">ClusterFirst</span></span><br><span class="line">  <span class="attr">restartPolicy:</span> <span class="string">Always</span></span><br><span class="line"><span class="attr">status:</span> &#123;&#125;</span><br></pre></td></tr></table></figure>
+<h5 id="生成好的YAML配置文件模板"><a href="#生成好的YAML配置文件模板" class="headerlink" title="生成好的YAML配置文件模板"></a>生成好的YAML配置文件模板</h5><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs yaml"><span class="hljs-attr">apiVersion:</span> <span class="hljs-string">v1</span><br><span class="hljs-attr">kind:</span> <span class="hljs-string">Pod</span><br><span class="hljs-attr">metadata:</span><br>  <span class="hljs-attr">creationTimestamp:</span> <span class="hljs-literal">null</span><br>  <span class="hljs-attr">labels:</span><br>    <span class="hljs-attr">run:</span> <span class="hljs-string">mynginx</span><br>  <span class="hljs-attr">name:</span> <span class="hljs-string">mynginx</span><br><span class="hljs-attr">spec:</span><br>  <span class="hljs-attr">containers:</span><br>  <span class="hljs-bullet">-</span> <span class="hljs-attr">image:</span> <span class="hljs-string">nginx:alpine</span><br>    <span class="hljs-attr">name:</span> <span class="hljs-string">mynginx</span><br>    <span class="hljs-attr">resources:</span> &#123;&#125;<br>  <span class="hljs-attr">dnsPolicy:</span> <span class="hljs-string">ClusterFirst</span><br>  <span class="hljs-attr">restartPolicy:</span> <span class="hljs-string">Always</span><br><span class="hljs-attr">status:</span> &#123;&#125;<br></code></pre></td></tr></table></figure>
 
-<h5 id="使用生成好的文件发布pod资源对象"><a href="#使用生成好的文件发布pod资源对象" class="headerlink" title="使用生成好的文件发布pod资源对象"></a>使用生成好的文件发布pod资源对象</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kubectl apply -f mynginx.yaml</span><br></pre></td></tr></table></figure>
+<h5 id="使用生成好的文件发布pod资源对象"><a href="#使用生成好的文件发布pod资源对象" class="headerlink" title="使用生成好的文件发布pod资源对象"></a>使用生成好的文件发布pod资源对象</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs plaintext">kubectl apply -f mynginx.yaml<br></code></pre></td></tr></table></figure>
 
 
-<h5 id="查看pod"><a href="#查看pod" class="headerlink" title="查看pod"></a>查看pod</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kubectl get pods</span><br></pre></td></tr></table></figure>
+<h5 id="查看pod"><a href="#查看pod" class="headerlink" title="查看pod"></a>查看pod</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs plaintext">kubectl get pods<br></code></pre></td></tr></table></figure>
       
     </div>
     <div class="article-footer">
@@ -306,7 +309,7 @@
       </div>
       <div class="media-body">
         <h3 class="media-heading"><a href="https://github.com/hqd8080" target="_blank"><span class="text-dark">🌴🌴🧩🧩🥥</span><small class="ml-1x">Gopher</small></a></h3>
-        <div>总有些事情需要坚持！</div>
+        <div>心外无物，知行合一</div>
       </div>
     </figure>
   </div>
@@ -370,7 +373,7 @@
     <div class="copyright">
     	
         <div class="publishby">
-            <a href="https://github.com/hqd8080" target="_blank"> hqd8080 </a>All Rights Reserved <a href="https://github.com/cofess/hexo-theme-pure" target="_blank"></a>
+            <a href="https://github.com/hqd8080" target="_blank"> hqd8080 </a>All Rights Reserved 😀 <a href="/" target="_blank"></a>
         </div>
     </div>
 </footer>

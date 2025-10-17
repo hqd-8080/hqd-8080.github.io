@@ -42,6 +42,9 @@
 <link rel="stylesheet" href="/css/style.css">
 
   
+<link rel="stylesheet" href="/css/custom.css">
+
+  
   
   
     <link href="//cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.3.5/dist/jquery.fancybox.min.css" rel="stylesheet">
@@ -268,10 +271,10 @@
     </div>
     <div class="article-entry marked-body" itemprop="articleBody">
       
-        <h6 id="如果还没有-docker-group-就添加一个："><a href="#如果还没有-docker-group-就添加一个：" class="headerlink" title="如果还没有 docker group 就添加一个："></a>如果还没有 docker group 就添加一个：</h6><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo groupadd docker</span><br></pre></td></tr></table></figure>
-<h6 id="将用户加入该-group-内-然后退出并重新登录就生效"><a href="#将用户加入该-group-内-然后退出并重新登录就生效" class="headerlink" title="将用户加入该 group 内,然后退出并重新登录就生效"></a>将用户加入该 group 内,然后退出并重新登录就生效</h6><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo gpasswd -a $&#123;USER&#125; docker</span><br></pre></td></tr></table></figure>
-<h6 id="重启-docker-服务"><a href="#重启-docker-服务" class="headerlink" title="重启 docker 服务"></a>重启 docker 服务</h6><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">systemctl restart docker</span><br></pre></td></tr></table></figure>
-<h6 id="切换当前会话到新-group-或者重启-X-会话"><a href="#切换当前会话到新-group-或者重启-X-会话" class="headerlink" title="切换当前会话到新 group 或者重启 X 会话"></a>切换当前会话到新 group 或者重启 X 会话</h6><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">newgrp - docker</span><br></pre></td></tr></table></figure>
+        <h6 id="如果还没有-docker-group-就添加一个："><a href="#如果还没有-docker-group-就添加一个：" class="headerlink" title="如果还没有 docker group 就添加一个："></a>如果还没有 docker group 就添加一个：</h6><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs plaintext">sudo groupadd docker<br></code></pre></td></tr></table></figure>
+<h6 id="将用户加入该-group-内-然后退出并重新登录就生效"><a href="#将用户加入该-group-内-然后退出并重新登录就生效" class="headerlink" title="将用户加入该 group 内,然后退出并重新登录就生效"></a>将用户加入该 group 内,然后退出并重新登录就生效</h6><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs plaintext">sudo gpasswd -a $&#123;USER&#125; docker<br></code></pre></td></tr></table></figure>
+<h6 id="重启-docker-服务"><a href="#重启-docker-服务" class="headerlink" title="重启 docker 服务"></a>重启 docker 服务</h6><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs plaintext">systemctl restart docker<br></code></pre></td></tr></table></figure>
+<h6 id="切换当前会话到新-group-或者重启-X-会话"><a href="#切换当前会话到新-group-或者重启-X-会话" class="headerlink" title="切换当前会话到新 group 或者重启 X 会话"></a>切换当前会话到新 group 或者重启 X 会话</h6><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs plaintext">newgrp - docker<br></code></pre></td></tr></table></figure>
 <p><code>注意:最后一步是必须的，否则因为 groups 命令获取到的是缓存的组信息，刚添加的组信息未能生效所以 docker images 执行时同样有错</code></p>
 
       
@@ -302,7 +305,7 @@
       </div>
       <div class="media-body">
         <h3 class="media-heading"><a href="https://github.com/hqd8080" target="_blank"><span class="text-dark">🌴🌴🧩🧩🥥</span><small class="ml-1x">Gopher</small></a></h3>
-        <div>总有些事情需要坚持！</div>
+        <div>心外无物，知行合一</div>
       </div>
     </figure>
   </div>
@@ -366,7 +369,7 @@
     <div class="copyright">
     	
         <div class="publishby">
-            <a href="https://github.com/hqd8080" target="_blank"> hqd8080 </a>All Rights Reserved <a href="https://github.com/cofess/hexo-theme-pure" target="_blank"></a>
+            <a href="https://github.com/hqd8080" target="_blank"> hqd8080 </a>All Rights Reserved 😀 <a href="/" target="_blank"></a>
         </div>
     </div>
 </footer>

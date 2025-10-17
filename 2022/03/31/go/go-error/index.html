@@ -42,6 +42,9 @@
 <link rel="stylesheet" href="/css/style.css">
 
   
+<link rel="stylesheet" href="/css/custom.css">
+
+  
   
   
     <link href="//cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.3.5/dist/jquery.fancybox.min.css" rel="stylesheet">
@@ -272,7 +275,7 @@
 <p><font color='red'>panic</font>抛出异常、这个异常直接回导致程序崩溃暂停程序的执行，官方建议并发程序中慎用！</p>
 <p><font color='red'>defer</font>捕获异常、defer延迟执行、实现类似栈的”先进后出”的数据结构、一般defer后面直接和匿名函数+recover来捕获和处理异常；</p>
 <p><font color='red'>recover</font>恢复异常处理！recover必须和defer直接调用才有效，否则永远返回nil（编程陷阱）！</p>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">worker</span><span class="params">()</span></span> &#123;</span><br><span class="line">    <span class="keyword">defer</span> <span class="function"><span class="keyword">func</span><span class="params">()</span></span> &#123;</span><br><span class="line">        <span class="keyword">if</span> err := <span class="built_in">recover</span>(); err != <span class="literal">nil</span> &#123;</span><br><span class="line">            <span class="comment">// 日志记录堆栈信息</span></span><br><span class="line">            glog.Errorln(<span class="keyword">string</span>(debug.Stack()))</span><br><span class="line">            log.Println(<span class="string">&quot;err:%v&quot;</span>, err)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;()</span><br><span class="line">    <span class="built_in">panic</span>(<span class="string">&quot;抛出异常、致命恐慌、会中断程序&quot;</span>)</span><br><span class="line">    fmt.Println(<span class="string">&quot;执行不到的代码行&quot;</span>)</span><br><span class="line">&#125;	</span><br></pre></td></tr></table></figure>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">worker</span><span class="hljs-params">()</span></span> &#123;<br>    <span class="hljs-keyword">defer</span> <span class="hljs-function"><span class="hljs-keyword">func</span><span class="hljs-params">()</span></span> &#123;<br>        <span class="hljs-keyword">if</span> err := <span class="hljs-built_in">recover</span>(); err != <span class="hljs-literal">nil</span> &#123;<br>            <span class="hljs-comment">// 日志记录堆栈信息</span><br>            glog.Errorln(<span class="hljs-keyword">string</span>(debug.Stack()))<br>            log.Println(<span class="hljs-string">&quot;err:%v&quot;</span>, err)<br>        &#125;<br>    &#125;()<br>    <span class="hljs-built_in">panic</span>(<span class="hljs-string">&quot;抛出异常、致命恐慌、会中断程序&quot;</span>)<br>    fmt.Println(<span class="hljs-string">&quot;执行不到的代码行&quot;</span>)<br>&#125;	<br></code></pre></td></tr></table></figure>
       
     </div>
     <div class="article-footer">
@@ -301,7 +304,7 @@
       </div>
       <div class="media-body">
         <h3 class="media-heading"><a href="https://github.com/hqd8080" target="_blank"><span class="text-dark">🌴🌴🧩🧩🥥</span><small class="ml-1x">Gopher</small></a></h3>
-        <div>总有些事情需要坚持！</div>
+        <div>心外无物，知行合一</div>
       </div>
     </figure>
   </div>
@@ -365,7 +368,7 @@
     <div class="copyright">
     	
         <div class="publishby">
-            <a href="https://github.com/hqd8080" target="_blank"> hqd8080 </a>All Rights Reserved <a href="https://github.com/cofess/hexo-theme-pure" target="_blank"></a>
+            <a href="https://github.com/hqd8080" target="_blank"> hqd8080 </a>All Rights Reserved 😀 <a href="/" target="_blank"></a>
         </div>
     </div>
 </footer>

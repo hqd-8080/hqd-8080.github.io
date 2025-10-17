@@ -43,6 +43,9 @@
 <link rel="stylesheet" href="/css/style.css">
 
   
+<link rel="stylesheet" href="/css/custom.css">
+
+  
   
   
     <link href="//cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.3.5/dist/jquery.fancybox.min.css" rel="stylesheet">
@@ -283,7 +286,7 @@
 <li>4.双向流式RPC</li>
 </ul>
 <p>生成Go客户端和服务端代码：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">protoc --go_out=plugins=grpc:. pb/user.proto</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs plaintext">protoc --go_out=plugins=grpc:. pb/user.proto<br></code></pre></td></tr></table></figure>
 
 <p>使用流式编程的特点：<br>向客户端或者服务器发送批量的数据。可以不用等待所有的消息全部接收后才开始响应；而是接收到第一条消息的时候及时响应;从而减少服务的延迟；</p>
 <p>服务端采用流式响应：send<br>客户端采用流式调用：recv</p>
@@ -300,7 +303,7 @@
 </li>
 </ul>
 <p>例子：<code>hello.proto</code></p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">syntax = &quot;proto3&quot;;</span><br><span class="line">package services;</span><br><span class="line"></span><br><span class="line">message HelloRequest &#123;</span><br><span class="line">    string name = 1;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">message HelloReply &#123;</span><br><span class="line">    string message = 1;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">service HelloService &#123;</span><br><span class="line">    rpc  SayHello(HelloRequest)  returns (HelloReply);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// client.go</span><br><span class="line">grpc.Dial(*addr, grpc.WithInsecure())</span><br><span class="line"></span><br><span class="line">// server.go</span><br><span class="line">l, err := net.Listen(&quot;tcp&quot;, *addr)</span><br><span class="line">srv := grpc.NewServer()</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><code class="hljs plaintext">syntax = &quot;proto3&quot;;<br>package services;<br><br>message HelloRequest &#123;<br>    string name = 1;<br>&#125;<br><br>message HelloReply &#123;<br>    string message = 1;<br>&#125;<br><br>service HelloService &#123;<br>    rpc  SayHello(HelloRequest)  returns (HelloReply);<br>&#125;<br><br>// client.go<br>grpc.Dial(*addr, grpc.WithInsecure())<br><br>// server.go<br>l, err := net.Listen(&quot;tcp&quot;, *addr)<br>srv := grpc.NewServer()<br></code></pre></td></tr></table></figure>
 
 <p>gRPC是基于HTTP/2协议设计开发（长连接），减少网络延迟，服务器维护连接状态，不用频繁的创建连接带来的开销。<br>HTTP2 是一个全双工的流式协议, 服务端也可以主动 ping 客户端, 且服务端还会有一些检测连接可用性和控制客户端 ping 包频率的配置。gRPC 就是采用 HTTP2 来作为其基础通信模式的，所以默认的 gRPC 客户端都是长连接</p>
 <p>2 长连接的优势（keepalive）</p>
@@ -335,7 +338,7 @@
       </div>
       <div class="media-body">
         <h3 class="media-heading"><a href="https://github.com/hqd8080" target="_blank"><span class="text-dark">🌴🌴🧩🧩🥥</span><small class="ml-1x">Gopher</small></a></h3>
-        <div>总有些事情需要坚持！</div>
+        <div>心外无物，知行合一</div>
       </div>
     </figure>
   </div>
@@ -399,7 +402,7 @@
     <div class="copyright">
     	
         <div class="publishby">
-            <a href="https://github.com/hqd8080" target="_blank"> hqd8080 </a>All Rights Reserved <a href="https://github.com/cofess/hexo-theme-pure" target="_blank"></a>
+            <a href="https://github.com/hqd8080" target="_blank"> hqd8080 </a>All Rights Reserved 😀 <a href="/" target="_blank"></a>
         </div>
     </div>
 </footer>

@@ -43,6 +43,9 @@
 <link rel="stylesheet" href="/css/style.css">
 
   
+<link rel="stylesheet" href="/css/custom.css">
+
+  
   
   
     <link href="//cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.3.5/dist/jquery.fancybox.min.css" rel="stylesheet">
@@ -270,10 +273,10 @@
     <div class="article-entry marked-body" itemprop="articleBody">
       
         <h3 id="go-zero工具-goctl-生成-API、RPC-代码"><a href="#go-zero工具-goctl-生成-API、RPC-代码" class="headerlink" title="go-zero工具 goctl 生成 API、RPC 代码"></a>go-zero工具 goctl 生成 API、RPC 代码</h3><p>go-zero常用代码生成脚本</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"># 生成 API 服务</span><br><span class="line">goctl api go -api *.api -dir ../ --style=goZero</span><br><span class="line"></span><br><span class="line"># 生成 RPC 服务</span><br><span class="line">goctl rpc protoc *.proto --go_out=../ --go-grpc_out=../ --zrpc_out=../  --style=goZero</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs plaintext"># 生成 API 服务<br>goctl api go -api *.api -dir ../ --style=goZero<br><br># 生成 RPC 服务<br>goctl rpc protoc *.proto --go_out=../ --go-grpc_out=../ --zrpc_out=../  --style=goZero<br></code></pre></td></tr></table></figure>
 
 <p>生成单个proto文件代码</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">protoc -I./ --go_out = paths = source_relative:.--go -grpc_out = paths = source_relative:.common.proto</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs plaintext">protoc -I./ --go_out = paths = source_relative:.--go -grpc_out = paths = source_relative:.common.proto<br></code></pre></td></tr></table></figure>
 
       
     </div>
@@ -303,7 +306,7 @@
       </div>
       <div class="media-body">
         <h3 class="media-heading"><a href="https://github.com/hqd8080" target="_blank"><span class="text-dark">🌴🌴🧩🧩🥥</span><small class="ml-1x">Gopher</small></a></h3>
-        <div>总有些事情需要坚持！</div>
+        <div>心外无物，知行合一</div>
       </div>
     </figure>
   </div>
@@ -367,7 +370,7 @@
     <div class="copyright">
     	
         <div class="publishby">
-            <a href="https://github.com/hqd8080" target="_blank"> hqd8080 </a>All Rights Reserved <a href="https://github.com/cofess/hexo-theme-pure" target="_blank"></a>
+            <a href="https://github.com/hqd8080" target="_blank"> hqd8080 </a>All Rights Reserved 😀 <a href="/" target="_blank"></a>
         </div>
     </div>
 </footer>

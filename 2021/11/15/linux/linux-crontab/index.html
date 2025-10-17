@@ -42,6 +42,9 @@
 <link rel="stylesheet" href="/css/style.css">
 
   
+<link rel="stylesheet" href="/css/custom.css">
+
+  
   
   
     <link href="//cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.3.5/dist/jquery.fancybox.min.css" rel="stylesheet">
@@ -319,75 +322,75 @@
 <h5 id="crontab实例"><a href="#crontab实例" class="headerlink" title="crontab实例"></a>crontab实例</h5><ul>
 <li>每晚的21：30重启apache</li>
 </ul>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">30 21 * * * service httpd restart</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs plaintext">30 21 * * * service httpd restart<br></code></pre></td></tr></table></figure>
 
 <ul>
 <li>每月的1，10，22日的4：45重启apache</li>
 </ul>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">45 4 1，10，22，* * service httpd restart</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs plaintext">45 4 1，10，22，* * service httpd restart<br></code></pre></td></tr></table></figure>
 
 <ul>
 <li>每月的1到10日的4：45重启apache</li>
 </ul>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">45 4 1-10 * * service httpd restart</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs plaintext">45 4 1-10 * * service httpd restart<br></code></pre></td></tr></table></figure>
 
 <ul>
 <li>每隔两分钟重启apache服务器</li>
 </ul>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">*/2 * * * * service httpd restart</span><br><span class="line">1-59/2 * * * * service httpd restart</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs plaintext">*/2 * * * * service httpd restart<br>1-59/2 * * * * service httpd restart<br></code></pre></td></tr></table></figure>
 
 <ul>
 <li>晚上11点到早上7点之间，每隔一小时重启apache</li>
 </ul>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">0 23-7/1 * * * service httpd restart</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs plaintext">0 23-7/1 * * * service httpd restart<br></code></pre></td></tr></table></figure>
 
 <ul>
 <li>每天18：00至23：00之间每隔30分钟重启apache</li>
 </ul>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">0，30 18-23 * * * service httpd restart</span><br><span class="line">0-59/30 18-23 * * * service httpd restart</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs plaintext">0，30 18-23 * * * service httpd restart<br>0-59/30 18-23 * * * service httpd restart<br></code></pre></td></tr></table></figure>
 
 <ul>
 <li>每周一到周五的11:41开始，每隔10分钟执行一次</li>
 </ul>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">41,51 11 * * 1-5 root /home/test.sh</span><br><span class="line"></span><br><span class="line">1-59/10 12-23 * * 1-5 root /home/test.sh</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs plaintext">41,51 11 * * 1-5 root /home/test.sh<br><br>1-59/10 12-23 * * 1-5 root /home/test.sh<br></code></pre></td></tr></table></figure>
 
 <ul>
 <li>在每天的10:31开始，每隔2小时重复一次</li>
 </ul>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">31 10-23/2 * * * root /home/test.sh</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs plaintext">31 10-23/2 * * * root /home/test.sh<br></code></pre></td></tr></table></figure>
 
 <ul>
 <li>每天的10:30开始，每隔2小时重复一次</li>
 </ul>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">30 10-23/2 * * * root /home/test.sh</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs plaintext">30 10-23/2 * * * root /home/test.sh<br></code></pre></td></tr></table></figure>
 
 <ul>
 <li>每周一到周五9:30</li>
 </ul>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">30 9 * * 1-5 root /home/test.sh</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs plaintext">30 9 * * 1-5 root /home/test.sh<br></code></pre></td></tr></table></figure>
 
 <ul>
 <li>每周一到周五8:00，每周一到周五9:00</li>
 </ul>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">0 8,9 * * 1-5 root /home/test.sh</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs plaintext">0 8,9 * * 1-5 root /home/test.sh<br></code></pre></td></tr></table></figure>
 
 <ul>
 <li>每周一到周五9:25到11:35之间、13:00到15:00之间，每隔10分钟运行一次</li>
 </ul>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">25,35,45,55 9 * * 1-5 root /home/test.sh</span><br><span class="line"></span><br><span class="line">5-59/10 10 * * 1-5 root /home/test.sh</span><br><span class="line"></span><br><span class="line">5,15,25,35 11 * * 1-5 root /home/test.sh</span><br><span class="line"></span><br><span class="line">*/10 13-15 * * 1-5 root /home/test.sh</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs plaintext">25,35,45,55 9 * * 1-5 root /home/test.sh<br><br>5-59/10 10 * * 1-5 root /home/test.sh<br><br>5,15,25,35 11 * * 1-5 root /home/test.sh<br><br>*/10 13-15 * * 1-5 root /home/test.sh<br></code></pre></td></tr></table></figure>
 
 
 <ul>
 <li>每周一到周五8:30、8:50、9:30、10:00、10:30、11:00、11:30、13:30、14:00、14:30、5:00分别执行一次</li>
 </ul>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">30,50 8 * * 1-5 root /home/test.sh</span><br><span class="line"></span><br><span class="line">30 9 * * 1-5 root /home/test.sh</span><br><span class="line"></span><br><span class="line">*/30 10-11 * * 1-5 root /home/test.sh</span><br><span class="line"></span><br><span class="line">30 13 * * 1-5 root /home/test.sh</span><br><span class="line"></span><br><span class="line">0,30 14-15 * * 1-5 root /home/test.sh</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs plaintext">30,50 8 * * 1-5 root /home/test.sh<br><br>30 9 * * 1-5 root /home/test.sh<br><br>*/30 10-11 * * 1-5 root /home/test.sh<br><br>30 13 * * 1-5 root /home/test.sh<br><br>0,30 14-15 * * 1-5 root /home/test.sh<br></code></pre></td></tr></table></figure>
 
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">`crontab -e -u root` #为某个用户添加计划任务</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs plaintext">`crontab -e -u root` #为某个用户添加计划任务<br></code></pre></td></tr></table></figure>
 
 <ul>
 <li>crontab中最小只能设置到每分钟执行一个命令，如果想每半分钟执行某个命令，可以通过shell脚本的sleep命令配合crontab即可完成这一功能</li>
 </ul>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">*/1 * * * * sleep 30s； echo &quot;this is a test!!&quot;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs plaintext">*/1 * * * * sleep 30s； echo &quot;this is a test!!&quot;<br></code></pre></td></tr></table></figure>
 
 <h5 id="小结"><a href="#小结" class="headerlink" title="小结:"></a>小结:</h5><ul>
 <li>*，表示任何时候都匹配</li>
@@ -424,7 +427,7 @@
       </div>
       <div class="media-body">
         <h3 class="media-heading"><a href="https://github.com/hqd8080" target="_blank"><span class="text-dark">🌴🌴🧩🧩🥥</span><small class="ml-1x">Gopher</small></a></h3>
-        <div>总有些事情需要坚持！</div>
+        <div>心外无物，知行合一</div>
       </div>
     </figure>
   </div>
@@ -488,7 +491,7 @@
     <div class="copyright">
     	
         <div class="publishby">
-            <a href="https://github.com/hqd8080" target="_blank"> hqd8080 </a>All Rights Reserved <a href="https://github.com/cofess/hexo-theme-pure" target="_blank"></a>
+            <a href="https://github.com/hqd8080" target="_blank"> hqd8080 </a>All Rights Reserved 😀 <a href="/" target="_blank"></a>
         </div>
     </div>
 </footer>

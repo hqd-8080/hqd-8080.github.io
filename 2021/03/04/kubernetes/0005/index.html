@@ -43,6 +43,9 @@
 <link rel="stylesheet" href="/css/style.css">
 
   
+<link rel="stylesheet" href="/css/custom.css">
+
+  
   
   
     <link href="//cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.3.5/dist/jquery.fancybox.min.css" rel="stylesheet">
@@ -312,20 +315,20 @@ Kubernetes 授权方式之 RBAC
 <li>serviceAccount：服务账号</li>
 </ul>
 <h4 id="4-RBAC-鉴权"><a href="#4-RBAC-鉴权" class="headerlink" title="4.RBAC 鉴权"></a>4.RBAC 鉴权</h4><p>1、创建命名空间</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 查看已经存在的命名空间</span></span><br><span class="line">kubectl get namespace</span><br><span class="line"><span class="meta">#</span><span class="bash"> 创建自己的命名空间</span></span><br><span class="line">kubectl create ns webServer</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs shell"><span class="hljs-meta">#</span><span class="bash"> 查看已经存在的命名空间</span><br>kubectl get namespace<br><span class="hljs-meta">#</span><span class="bash"> 创建自己的命名空间</span><br>kubectl create ns webServer<br></code></pre></td></tr></table></figure>
 
 <p>2、命名空间内创建 Pod<br><font color='red'>如果不创建命名空间，Pod 默认在 default</font></p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kubectl run nginx --image=nginx -n webServer</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">kubectl run nginx --image=nginx -n webServer<br></code></pre></td></tr></table></figure>
 
 <p>3、创建角色</p>
 <p>通过 <code>rbac-role.yaml</code> 进行创建<br>tips: 这个角色只对 pod 有 get 和 list 权限</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">cat &gt; rbac-role.yaml &lt;&lt; EOF</span><br><span class="line">kind: Role</span><br><span class="line">apiVersion: rbac.authorization.k8s.io/v1</span><br><span class="line">metadata:</span><br><span class="line">  namespace: mytest</span><br><span class="line">  name: pod-reader</span><br><span class="line">rules:</span><br><span class="line">- apiGroups: [&quot;&quot;] # &quot;&quot; indicates the core API group</span><br><span class="line">  resources: [&quot;pods&quot;]</span><br><span class="line">  verbs: [&quot;get&quot;, &quot;watch&quot;, &quot;list&quot;]</span><br><span class="line">EOF</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs shell">cat &gt; rbac-role.yaml &lt;&lt; EOF<br>kind: Role<br>apiVersion: rbac.authorization.k8s.io/v1<br>metadata:<br>  namespace: mytest<br>  name: pod-reader<br>rules:<br>- apiGroups: [&quot;&quot;] # &quot;&quot; indicates the core API group<br>  resources: [&quot;pods&quot;]<br>  verbs: [&quot;get&quot;, &quot;watch&quot;, &quot;list&quot;]<br>EOF<br></code></pre></td></tr></table></figure>
 
 <p>通过 yaml 创建 role</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 创建</span></span><br><span class="line">kubectl apply -f rbac-role.yaml</span><br><span class="line"><span class="meta">#</span><span class="bash"> 查看</span></span><br><span class="line">kubectl get role -n mytest</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs shell"><span class="hljs-meta">#</span><span class="bash"> 创建</span><br>kubectl apply -f rbac-role.yaml<br><span class="hljs-meta">#</span><span class="bash"> 查看</span><br>kubectl get role -n mytest<br></code></pre></td></tr></table></figure>
 
 <p>4、创建角色绑定<br>通过 rbac-rolebinding.yaml 的方式，来创建我们的角色绑定</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">cat &gt; rbac-rolebinding.yaml &lt;&lt; EOF</span><br><span class="line">kind: RoleBinding</span><br><span class="line">apiVersion: rbac.authorization.k8s.io/v1</span><br><span class="line">metadata:</span><br><span class="line">  namespace: mytest</span><br><span class="line">  name: read-pods</span><br><span class="line">subjects:</span><br><span class="line">- kind: User</span><br><span class="line">  name: lucy</span><br><span class="line">  apiGroup: rbac.authorization.k8s.io</span><br><span class="line">roleRef: </span><br><span class="line">  kind: Role</span><br><span class="line">  name: pod-reader</span><br><span class="line">  apiGroup: rbac.authorization.k8s.io</span><br><span class="line">EOF</span><br><span class="line"></span><br><span class="line">kubectl apply -f rbac-rolebinding.yaml</span><br><span class="line">kubectl get role,rolebinding -n mytest</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash">  NAME                                        CREATED AT</span></span><br><span class="line"><span class="meta">#</span><span class="bash">  role.rbac.authorization.k8s.io/pod-reader   2021-03-04T20:05:57Z</span></span><br><span class="line"><span class="meta">#</span><span class="bash">  NAME                                              ROLE              AGE</span></span><br><span class="line"><span class="meta">#</span><span class="bash">  rolebinding.rbac.authorization.k8s.io/read-pods   Role/pod-reader   35s</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><code class="hljs shell">cat &gt; rbac-rolebinding.yaml &lt;&lt; EOF<br>kind: RoleBinding<br>apiVersion: rbac.authorization.k8s.io/v1<br>metadata:<br>  namespace: mytest<br>  name: read-pods<br>subjects:<br>- kind: User<br>  name: lucy<br>  apiGroup: rbac.authorization.k8s.io<br>roleRef: <br>  kind: Role<br>  name: pod-reader<br>  apiGroup: rbac.authorization.k8s.io<br>EOF<br><br>kubectl apply -f rbac-rolebinding.yaml<br>kubectl get role,rolebinding -n mytest<br><span class="hljs-meta"></span><br><span class="hljs-meta">#</span><span class="bash">  NAME                                        CREATED AT</span><br><span class="hljs-meta">#</span><span class="bash">  role.rbac.authorization.k8s.io/pod-reader   2021-03-04T20:05:57Z</span><br><span class="hljs-meta">#</span><span class="bash">  NAME                                              ROLE              AGE</span><br><span class="hljs-meta">#</span><span class="bash">  rolebinding.rbac.authorization.k8s.io/read-pods   Role/pod-reader   35s</span><br></code></pre></td></tr></table></figure>
 
 
 
@@ -359,7 +362,7 @@ Kubernetes 授权方式之 RBAC
       </div>
       <div class="media-body">
         <h3 class="media-heading"><a href="https://github.com/hqd8080" target="_blank"><span class="text-dark">🌴🌴🧩🧩🥥</span><small class="ml-1x">Gopher</small></a></h3>
-        <div>总有些事情需要坚持！</div>
+        <div>心外无物，知行合一</div>
       </div>
     </figure>
   </div>
@@ -423,7 +426,7 @@ Kubernetes 授权方式之 RBAC
     <div class="copyright">
     	
         <div class="publishby">
-            <a href="https://github.com/hqd8080" target="_blank"> hqd8080 </a>All Rights Reserved <a href="https://github.com/cofess/hexo-theme-pure" target="_blank"></a>
+            <a href="https://github.com/hqd8080" target="_blank"> hqd8080 </a>All Rights Reserved 😀 <a href="/" target="_blank"></a>
         </div>
     </div>
 </footer>

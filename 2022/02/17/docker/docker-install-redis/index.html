@@ -46,6 +46,9 @@
 <link rel="stylesheet" href="/css/style.css">
 
   
+<link rel="stylesheet" href="/css/custom.css">
+
+  
   
   
     <link href="//cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.3.5/dist/jquery.fancybox.min.css" rel="stylesheet">
@@ -273,17 +276,17 @@
     <div class="article-entry marked-body" itemprop="articleBody">
       
         <p>Docker安装Redis并配置密码详细教程</p>
-<h5 id="执行以下命令，查找docker官方提供的最新的redis镜像："><a href="#执行以下命令，查找docker官方提供的最新的redis镜像：" class="headerlink" title="执行以下命令，查找docker官方提供的最新的redis镜像："></a>执行以下命令，查找docker官方提供的最新的redis镜像：</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker search redis --filter &quot;is-official=true&quot; </span><br></pre></td></tr></table></figure>
+<h5 id="执行以下命令，查找docker官方提供的最新的redis镜像："><a href="#执行以下命令，查找docker官方提供的最新的redis镜像：" class="headerlink" title="执行以下命令，查找docker官方提供的最新的redis镜像："></a>执行以下命令，查找docker官方提供的最新的redis镜像：</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs plaintext">docker search redis --filter &quot;is-official=true&quot; <br></code></pre></td></tr></table></figure>
 
 <p><img src="https://s2.loli.net/2022/03/31/g9jVwdApJylGo1t.jpg" alt="001.jpeg"></p>
-<h5 id="将官方Redis镜像拉取到本地"><a href="#将官方Redis镜像拉取到本地" class="headerlink" title="将官方Redis镜像拉取到本地"></a>将官方Redis镜像拉取到本地</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker pull redis</span><br></pre></td></tr></table></figure>
+<h5 id="将官方Redis镜像拉取到本地"><a href="#将官方Redis镜像拉取到本地" class="headerlink" title="将官方Redis镜像拉取到本地"></a>将官方Redis镜像拉取到本地</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs plaintext">docker pull redis<br></code></pre></td></tr></table></figure>
 
-<h5 id="执行以下命令，根据Redis镜像生成本地容器"><a href="#执行以下命令，根据Redis镜像生成本地容器" class="headerlink" title="执行以下命令，根据Redis镜像生成本地容器"></a>执行以下命令，根据Redis镜像生成本地容器</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run --name myredis -p 6379:6379 -d --restart=always redis:latest redis-server --appendonly yes --requirepass &quot;123456&quot;</span><br></pre></td></tr></table></figure>
+<h5 id="执行以下命令，根据Redis镜像生成本地容器"><a href="#执行以下命令，根据Redis镜像生成本地容器" class="headerlink" title="执行以下命令，根据Redis镜像生成本地容器"></a>执行以下命令，根据Redis镜像生成本地容器</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs plaintext">docker run --name myredis -p 6379:6379 -d --restart=always redis:latest redis-server --appendonly yes --requirepass &quot;123456&quot;<br></code></pre></td></tr></table></figure>
 
 <p><code>-d</code> 设置docker容器在后台运行<br><code>-p</code> 6379:6379 设置端口映射，前者为本地端口，后者为docker容器端口<br><code>-v</code> d:/redisdata:/data 将容器中/data目录映射到本地d:\redisdata目录,作为redis数据持久化的存储目录<br><code>redis-server</code> –appendonly yes 启用aof持久化方式</p>
-<h5 id="执行以下命令，根据Redis镜像生成本地容器-添加目录映射"><a href="#执行以下命令，根据Redis镜像生成本地容器-添加目录映射" class="headerlink" title="执行以下命令，根据Redis镜像生成本地容器,添加目录映射"></a>执行以下命令，根据Redis镜像生成本地容器,添加目录映射</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run --name myredis redis:latest -d -p 6379:6379 -v d:\redisdata:/data  redis-server --appendonly yes --requirepass &quot;123456&quot;</span><br></pre></td></tr></table></figure>
+<h5 id="执行以下命令，根据Redis镜像生成本地容器-添加目录映射"><a href="#执行以下命令，根据Redis镜像生成本地容器-添加目录映射" class="headerlink" title="执行以下命令，根据Redis镜像生成本地容器,添加目录映射"></a>执行以下命令，根据Redis镜像生成本地容器,添加目录映射</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs plaintext">docker run --name myredis redis:latest -d -p 6379:6379 -v d:\redisdata:/data  redis-server --appendonly yes --requirepass &quot;123456&quot;<br></code></pre></td></tr></table></figure>
 
-<h5 id="查看镜像"><a href="#查看镜像" class="headerlink" title="查看镜像"></a>查看镜像</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker ps</span><br></pre></td></tr></table></figure>
+<h5 id="查看镜像"><a href="#查看镜像" class="headerlink" title="查看镜像"></a>查看镜像</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs plaintext">docker ps<br></code></pre></td></tr></table></figure>
 
 <p><img src="https://s2.loli.net/2022/03/31/i2QZNS6LdUmgelx.jpg" alt="002.jpeg"></p>
 
@@ -315,7 +318,7 @@
       </div>
       <div class="media-body">
         <h3 class="media-heading"><a href="https://github.com/hqd8080" target="_blank"><span class="text-dark">🌴🌴🧩🧩🥥</span><small class="ml-1x">Gopher</small></a></h3>
-        <div>总有些事情需要坚持！</div>
+        <div>心外无物，知行合一</div>
       </div>
     </figure>
   </div>
@@ -379,7 +382,7 @@
     <div class="copyright">
     	
         <div class="publishby">
-            <a href="https://github.com/hqd8080" target="_blank"> hqd8080 </a>All Rights Reserved <a href="https://github.com/cofess/hexo-theme-pure" target="_blank"></a>
+            <a href="https://github.com/hqd8080" target="_blank"> hqd8080 </a>All Rights Reserved 😀 <a href="/" target="_blank"></a>
         </div>
     </div>
 </footer>

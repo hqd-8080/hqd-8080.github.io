@@ -42,6 +42,9 @@
 <link rel="stylesheet" href="/css/style.css">
 
   
+<link rel="stylesheet" href="/css/custom.css">
+
+  
   
   
     <link href="//cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.3.5/dist/jquery.fancybox.min.css" rel="stylesheet">
@@ -269,15 +272,15 @@
     <div class="article-entry marked-body" itemprop="articleBody">
       
         <p>以下是docker Hub上下载官方仓库的<code>ubuntu14.04</code>镜像(188M)，用它来构建合适自己的ubuntu基础镜像</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">this dockerfile uses the ubuntu image</span></span><br><span class="line">使用docker Hub官方的ubuntu14.04镜像构建</span><br><span class="line">version 0.1</span><br><span class="line">author: hqd8080</span><br><span class="line">指定所创建镜像的基础镜像</span><br><span class="line">FROM ubuntu:14.04</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash">维护者信息</span></span><br><span class="line">MAINTAINER github.com/hqd8080</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash">指定镜像生成的元数据标签信息</span></span><br><span class="line">LABEL version=&quot;0.1&quot;</span><br><span class="line">LABEL description=&quot;ubuntu14.04 base image&quot;</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash">将复制指定的文件到容器中</span></span><br><span class="line"><span class="meta">#</span><span class="bash">格式:ADD</span>  </span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash">例子:ADD *.c /code/</span></span><br><span class="line">ADD sources.list /etc/apt/</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash">CMD用来启动容器时默认执行的命令</span></span><br><span class="line">CMD [&quot;/bin/bash&quot;]</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><code class="hljs shell"><span class="hljs-meta">#</span><span class="bash">this dockerfile uses the ubuntu image</span><br>使用docker Hub官方的ubuntu14.04镜像构建<br>version 0.1<br>author: hqd8080<br>指定所创建镜像的基础镜像<br>FROM ubuntu:14.04<br><span class="hljs-meta"></span><br><span class="hljs-meta">#</span><span class="bash">维护者信息</span><br>MAINTAINER github.com/hqd8080<br><span class="hljs-meta"></span><br><span class="hljs-meta">#</span><span class="bash">指定镜像生成的元数据标签信息</span><br>LABEL version=&quot;0.1&quot;<br>LABEL description=&quot;ubuntu14.04 base image&quot;<br><span class="hljs-meta"></span><br><span class="hljs-meta">#</span><span class="bash">将复制指定的文件到容器中</span><br><span class="hljs-meta">#</span><span class="bash">格式:ADD</span>  <br><span class="hljs-meta"></span><br><span class="hljs-meta">#</span><span class="bash">例子:ADD *.c /code/</span><br>ADD sources.list /etc/apt/<br><span class="hljs-meta"></span><br><span class="hljs-meta">#</span><span class="bash">CMD用来启动容器时默认执行的命令</span><br>CMD [&quot;/bin/bash&quot;]<br></code></pre></td></tr></table></figure>
 
 
 <h5 id="构建"><a href="#构建" class="headerlink" title="构建"></a>构建</h5><p><code>sudo docker build -t=&quot;hqd8080/my_ubuntu:14.04_base_images&quot; .</code></p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sudo docker build中-t表示容器的名字</span><br><span class="line">hqd8080/my_ubuntu中navas表示仓库名（不允许大写）,my_ubuntu表示镜像名</span><br><span class="line">my_ubuntu:14.04_base_images后的14.04_base_images是标签,如果没有指定,默认的是latest</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs plaintext">sudo docker build中-t表示容器的名字<br>hqd8080/my_ubuntu中navas表示仓库名（不允许大写）,my_ubuntu表示镜像名<br>my_ubuntu:14.04_base_images后的14.04_base_images是标签,如果没有指定,默认的是latest<br></code></pre></td></tr></table></figure>
 
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">#hqd8080$ tree.</span><br><span class="line">├── Dockerfile</span><br><span class="line">├── README.md</span><br><span class="line">└── sources.list(从我当前的系统复制过来)</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs linux">#hqd8080$ tree.<br>├── Dockerfile<br>├── README.md<br>└── sources.list(从我当前的系统复制过来)<br></code></pre></td></tr></table></figure>
 
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Successfully built 1a00f5985fdc</span><br><span class="line">Successfully tagged navas/my_ubuntu:14.04_base_images</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs linux">Successfully built 1a00f5985fdc<br>Successfully tagged navas/my_ubuntu:14.04_base_images<br></code></pre></td></tr></table></figure>
 
 <h5 id="查看镜像"><a href="#查看镜像" class="headerlink" title="查看镜像"></a>查看镜像</h5><p><code>sudo docker images -a</code></p>
 
@@ -309,7 +312,7 @@
       </div>
       <div class="media-body">
         <h3 class="media-heading"><a href="https://github.com/hqd8080" target="_blank"><span class="text-dark">🌴🌴🧩🧩🥥</span><small class="ml-1x">Gopher</small></a></h3>
-        <div>总有些事情需要坚持！</div>
+        <div>心外无物，知行合一</div>
       </div>
     </figure>
   </div>
@@ -373,7 +376,7 @@
     <div class="copyright">
     	
         <div class="publishby">
-            <a href="https://github.com/hqd8080" target="_blank"> hqd8080 </a>All Rights Reserved <a href="https://github.com/cofess/hexo-theme-pure" target="_blank"></a>
+            <a href="https://github.com/hqd8080" target="_blank"> hqd8080 </a>All Rights Reserved 😀 <a href="/" target="_blank"></a>
         </div>
     </div>
 </footer>
