@@ -272,9 +272,9 @@
     <div class="article-entry marked-body" itemprop="articleBody">
       
         <h6 id="docker-compose的下载地址为"><a href="#docker-compose的下载地址为" class="headerlink" title="docker-compose的下载地址为:"></a>docker-compose的下载地址为:</h6><p><code>https://github.com/docker/compose/releases</code></p>
-<h6 id="以下以docker-compose1-16-1版本安装为例子："><a href="#以下以docker-compose1-16-1版本安装为例子：" class="headerlink" title="以下以docker-compose1.16.1版本安装为例子："></a>以下以docker-compose1.16.1版本安装为例子：</h6><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">curl -L https://github.com/docker/compose/releases/download/1.16.1/docker-compose-`uname -s`-`uname -m` &gt; /usr/local/bin/docker-compose<br></code></pre></td></tr></table></figure>
+<h6 id="以下以docker-compose1-16-1版本安装为例子："><a href="#以下以docker-compose1-16-1版本安装为例子：" class="headerlink" title="以下以docker-compose1.16.1版本安装为例子："></a>以下以docker-compose1.16.1版本安装为例子：</h6><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl -L https://github.com/docker/compose/releases/download/1.16.1/docker-compose-`uname -s`-`uname -m` &gt; /usr/local/bin/docker-compose</span><br></pre></td></tr></table></figure>
 
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">chmod +x /usr/local/bin/docker-compose<br></code></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">chmod +x /usr/local/bin/docker-compose</span><br></pre></td></tr></table></figure>
 
 <h6 id="如果报错："><a href="#如果报错：" class="headerlink" title="如果报错："></a>如果报错：</h6><p><code>bash: /usr/local/bin/docker-compose: 权限不够</code></p>
 <h6 id="请切换超级管理员"><a href="#请切换超级管理员" class="headerlink" title="请切换超级管理员"></a>请切换超级管理员</h6><p><code>sudo -i</code></p>

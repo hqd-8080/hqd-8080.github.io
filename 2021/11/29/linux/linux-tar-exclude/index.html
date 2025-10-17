@@ -274,7 +274,7 @@
         <p>例如：在<code>/home/abc/</code>目录下有4个子目录：<code>abc01、abc02、abc03、abc04</code>，现在想把<code>/home/abc/</code>目录下的<code>abc01、abc02、abc03</code>打包成<code>abc.tar.gz</code>，不打包<code>abc04</code>！</p>
 <p>操作如下：</p>
 <p><code>cd  /home</code></p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs plaintext">tar  -zcvf  abc.tar.gz  --exclude=abc04  ./abc<br></code></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tar  -zcvf  abc.tar.gz  --exclude=abc04  ./abc</span><br></pre></td></tr></table></figure>
 
 <p>打包成功，可以在<code>/home</code>目录下面看到<code>abc.tar.gz</code>文件了</p>
 

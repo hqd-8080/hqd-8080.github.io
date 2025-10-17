@@ -277,18 +277,18 @@
 <p>docker hub公共镜像市场</p>
 <p><code>https://hub.docker.com/</code></p>
 <p>搜索官方镜像，并下载</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs plaintext">sudo docker search -s 5 centos<br><br>sudo docker pull cenros<br></code></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sudo docker search -s 5 centos</span><br><span class="line"></span><br><span class="line">sudo docker pull cenros</span><br></pre></td></tr></table></figure>
 
 <h4 id="Docker数据管理"><a href="#Docker数据管理" class="headerlink" title="Docker数据管理"></a>Docker数据管理</h4><p>容器数据管理的两种方式</p>
 <p><code>数据卷</code>：容器内数据直接映射到本地主机环境</p>
 <p><code>数据卷容器</code>：使用特定容器维护数据卷</p>
 <p><code>数据卷</code>：一个可以供容器使用的特殊目录，它将主机操作系统目录直接映射进容器</p>
 <h4 id="在容器内创建数据卷"><a href="#在容器内创建数据卷" class="headerlink" title="在容器内创建数据卷"></a>在容器内创建数据卷</h4><p>挂载一个主机目录作为数据卷</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs plaintext">docker run -d -P --name web -v /src/webapp:/opt/webapp training/webapp python app.py<br></code></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run -d -P --name web -v /src/webapp:/opt/webapp training/webapp python app.py</span><br></pre></td></tr></table></figure>
 
 
 <p>加载主机目录<code>/src/webapp</code>到容器<code>/opt/webapp</code>使用<code>training/webapp</code>创建一个容器web</p>
-<h4 id="数据卷容器操作例子"><a href="#数据卷容器操作例子" class="headerlink" title="数据卷容器操作例子"></a>数据卷容器操作例子</h4><h4 id="创建一个数据卷容器dbdata"><a href="#创建一个数据卷容器dbdata" class="headerlink" title="创建一个数据卷容器dbdata"></a>创建一个数据卷容器dbdata</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs plaintext">docker run -it -v /dbdata --name dbdata ubuntu<br></code></pre></td></tr></table></figure>
+<h4 id="数据卷容器操作例子"><a href="#数据卷容器操作例子" class="headerlink" title="数据卷容器操作例子"></a>数据卷容器操作例子</h4><h4 id="创建一个数据卷容器dbdata"><a href="#创建一个数据卷容器dbdata" class="headerlink" title="创建一个数据卷容器dbdata"></a>创建一个数据卷容器dbdata</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run -it -v /dbdata --name dbdata ubuntu</span><br></pre></td></tr></table></figure>
 
 <p>ok之后在其他容器中使用<code>--volumes-from</code>来挂载dbdata容器中的数据卷，例如db1,db2两个容器，并从dbdata容器挂载数据卷</p>
 <p><code>docker run -it --volumes-from dbdata --name db1 ubuntu</code></p>
@@ -296,10 +296,10 @@
 <p>这样三个容器都能共享数据</p>
 <h4 id="端口映射和容器互联"><a href="#端口映射和容器互联" class="headerlink" title="端口映射和容器互联"></a>端口映射和容器互联</h4><p>容器互联的使用</p>
 <p>创建数据库容器</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs plaintext">docker run -d --name db training/postgres<br></code></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run -d --name db training/postgres</span><br></pre></td></tr></table></figure>
 
 <p>创建一个新的web容器，并将它连接db容器</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs plaintext">docker run -d -P --name web --link db:db training/webapp python app.py<br></code></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run -d -P --name web --link db:db training/webapp python app.py</span><br></pre></td></tr></table></figure>
 
 
 

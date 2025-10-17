@@ -272,48 +272,48 @@
     <div class="article-entry marked-body" itemprop="articleBody">
       
         <p>获取镜像：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs shell">sudo docker pull ubuntu #(ubuntu:latest,获取最新版本的镜像)<br>sudo docker pull ubuntu:14.04 #(指定标签来下载指定版本的镜像)<br>sudo docker pull registory.hub.docker.com/ubutu:latest #(相当于以上两个命令的组合)<br>sudo docker pull dl.dockerpoll.com:5000/ubuntu #从dl.dockerpoll.com下载镜像<br></code></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">sudo docker pull ubuntu #(ubuntu:latest,获取最新版本的镜像)</span><br><span class="line">sudo docker pull ubuntu:14.04 #(指定标签来下载指定版本的镜像)</span><br><span class="line">sudo docker pull registory.hub.docker.com/ubutu:latest #(相当于以上两个命令的组合)</span><br><span class="line">sudo docker pull dl.dockerpoll.com:5000/ubuntu #从dl.dockerpoll.com下载镜像</span><br></pre></td></tr></table></figure>
 <p>利用镜像创建容器，在其中运行bash:</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">sudo docker run -t -i ubuntu /bin/bash<br></code></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo docker run -t -i ubuntu /bin/bash</span><br></pre></td></tr></table></figure>
 
 <p>查看本地已有镜像：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs shell">sudo docker images<br>sudo docker images -a<br></code></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo docker images</span><br><span class="line">sudo docker images -a</span><br></pre></td></tr></table></figure>
 
 <p>创建新的标签:</p>
 <p>＃（使用<code>docker tag</code>创建新的标签<code>d.dockerpoll.com:5000/ubuntu:latest</code>）</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs shell">sudo docker tag d.dockerpoll.com:5000/ubuntu:latest ubuntu:latest<br>sudo docker inspect image id  #查看镜像的详细信息,json格式<br>sudo docker inspect -f &#123;&#123;.Architecture&#125;&#125; 550  #查看其中的一项信息<br></code></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sudo docker tag d.dockerpoll.com:5000/ubuntu:latest ubuntu:latest</span><br><span class="line">sudo docker inspect image id  #查看镜像的详细信息,json格式</span><br><span class="line">sudo docker inspect -f &#123;&#123;.Architecture&#125;&#125; 550  #查看其中的一项信息</span><br></pre></td></tr></table></figure>
 
 <p>搜索镜像：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs shell">sudo docker search #搜索远端仓库中共享的镜像，默认搜索docker Hub官方仓库的镜像<br>sudo docker search mysql<br></code></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo docker search #搜索远端仓库中共享的镜像，默认搜索docker Hub官方仓库的镜像</span><br><span class="line">sudo docker search mysql</span><br></pre></td></tr></table></figure>
 
 <p>删除镜像：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs shell">sudo docker rmi IMAGE<br>sudo docker rmi dl.dockerpool.com:20000/ubuntu<br>sudo docker rmi -f ubuntu #强制删除镜像（有容器在运行时和存在要删除的镜像容器一般删除不了）<br></code></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sudo docker rmi IMAGE</span><br><span class="line">sudo docker rmi dl.dockerpool.com:20000/ubuntu</span><br><span class="line">sudo docker rmi -f ubuntu #强制删除镜像（有容器在运行时和存在要删除的镜像容器一般删除不了）</span><br></pre></td></tr></table></figure>
 <p>不推荐强制删除镜像，正确的做法是，先删除镜像的容器然后在删除镜像</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">sudo docker ps -a    #查看本机上存在的所有容器<br></code></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo docker ps -a    #查看本机上存在的所有容器</span><br></pre></td></tr></table></figure>
 
 <p>创建镜像：（３种）</p>
 <p>#1.基于已有镜像的容器创建 基于本地模板导入<br>#2.基于Dockerfile创建<br>#3.基于已有镜像的容器创建：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">sudo docker run -ti ubuntu:14.04 /bin/bash #(基于ubuntu14.04创建)<br></code></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo docker run -ti ubuntu:14.04 /bin/bash #(基于ubuntu14.04创建)</span><br></pre></td></tr></table></figure>
 
 <p>记住容器ID xxxxx</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">sudo docker commit -m&quot;Added a new file&quot; -a &quot;docker newbee&quot; xxxxx test #test是tag<br></code></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo docker commit -m&quot;Added a new file&quot; -a &quot;docker newbee&quot; xxxxx test #test是tag</span><br></pre></td></tr></table></figure>
 <p>基于本地模板导入：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">sudo cat ubuntu-14.04-x86_64-minimal.tar.gz | docker import - ubuntu:14.04<br></code></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo cat ubuntu-14.04-x86_64-minimal.tar.gz | docker import - ubuntu:14.04</span><br></pre></td></tr></table></figure>
 <p>存入和载入镜像</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs shell">存入镜像：sudo docker save -o ubuntu_14.04.tar ubuntu:14.04<br>载入镜像：sudo docker load -input ubuntu_14.04.tar 或者 sudo docker load &lt; ubuntu_14.04.tar<br></code></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">存入镜像：sudo docker save -o ubuntu_14.04.tar ubuntu:14.04</span><br><span class="line">载入镜像：sudo docker load -input ubuntu_14.04.tar 或者 sudo docker load &lt; ubuntu_14.04.tar</span><br></pre></td></tr></table></figure>
 <p>上传镜像：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs shell">sudo docker tar test:latest user/test:latest<br>sudo docker push user/test:latest<br></code></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo docker tar test:latest user/test:latest</span><br><span class="line">sudo docker push user/test:latest</span><br></pre></td></tr></table></figure>
 <p>新建容器</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs shell">sudo docker create -it ubuntu:latest<br>sudo docker ps -a<br>sudo docker start<br>sudo docker run ubuntu /bin/echo &#x27;hello world&#x27;<br>sudo docker run -t -i ubuntu:14.04 /bin/bash<br></code></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">sudo docker create -it ubuntu:latest</span><br><span class="line">sudo docker ps -a</span><br><span class="line">sudo docker start</span><br><span class="line">sudo docker run ubuntu /bin/echo &#x27;hello world&#x27;</span><br><span class="line">sudo docker run -t -i ubuntu:14.04 /bin/bash</span><br></pre></td></tr></table></figure>
 <p>(启动一个bash终端,允许用户进行交互)，<br>-t: <code>让docker分配一个伪终端,并绑定到容器的标准输入上</code><br>-i：<code>让容器的标准输入保持打开</code></p>
 <p>终止容器：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs shell">sudo docker stop ce5<br>sudo docker ps -a -q#查看终止状态的容器ID信息<br>sudo docker start ce5#启动终止状态的容器<br>sudo docker restart ce5#启动终止状态的容器<br></code></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">sudo docker stop ce5</span><br><span class="line">sudo docker ps -a -q#查看终止状态的容器ID信息</span><br><span class="line">sudo docker start ce5#启动终止状态的容器</span><br><span class="line">sudo docker restart ce5#启动终止状态的容器</span><br></pre></td></tr></table></figure>
 <p>进入容器：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">sudo docker exec -ti 容器ID /bin/bash<br></code></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo docker exec -ti 容器ID /bin/bash</span><br></pre></td></tr></table></figure>
 <p>删除容器：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs shell">sudo docker ps -a<br>sudo docker rm 容器ID<br>sudo docker rm -f 容器ID<br></code></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sudo docker ps -a</span><br><span class="line">sudo docker rm 容器ID</span><br><span class="line">sudo docker rm -f 容器ID</span><br></pre></td></tr></table></figure>
 <p>导入和导出容器：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs shell">sudo docker export ce5&gt;test_for_run_tar<br>cat test_for_run_tar | sudo docker import - test/ubuntu:v1.0<br></code></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo docker export ce5&gt;test_for_run_tar</span><br><span class="line">cat test_for_run_tar | sudo docker import - test/ubuntu:v1.0</span><br></pre></td></tr></table></figure>
       
     </div>
     <div class="article-footer">

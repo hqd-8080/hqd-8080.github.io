@@ -272,9 +272,9 @@
     <div class="article-entry marked-body" itemprop="articleBody">
       
         <p>Go语言的交叉编译在不同的系统打包编译的命令</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment">#-o：指定编译后的二进制包名称</span><br>GOOS=linux GOARCH=amd64 go build -o app  main.go<br></code></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#-o：指定编译后的二进制包名称</span></span><br><span class="line">GOOS=linux GOARCH=amd64 go build -o app  main.go</span><br></pre></td></tr></table></figure>
 
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment">#编译windows的exe文件</span><br>CGO_ENABLED=0 GOOS=windows GOARCH=amd64 go build -o test.exe main.go<br></code></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#编译windows的exe文件</span></span><br><span class="line">CGO_ENABLED=0 GOOS=windows GOARCH=amd64 go build -o test.exe main.go</span><br></pre></td></tr></table></figure>
 
       
     </div>

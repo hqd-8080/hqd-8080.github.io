@@ -278,20 +278,20 @@
 <li>4.<code>release</code>分支，发布线上分支，<code>develop</code>分支足够成熟可合并到<code>release</code>分支</li>
 <li>5.<code>feature</code>分支，新增功能的分支，从<code>develop</code>分支划出，完成后合并回<code>develop</code>分支</li>
 </ul>
-<h6 id="新建新分支"><a href="#新建新分支" class="headerlink" title="新建新分支"></a>新建新分支</h6><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs plaintext">git branch new-branch<br></code></pre></td></tr></table></figure>
+<h6 id="新建新分支"><a href="#新建新分支" class="headerlink" title="新建新分支"></a>新建新分支</h6><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git branch new-branch</span><br></pre></td></tr></table></figure>
 
-<h6 id="新建分支并且切换至新分支"><a href="#新建分支并且切换至新分支" class="headerlink" title="新建分支并且切换至新分支"></a>新建分支并且切换至新分支</h6><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs plaintext">git checkout -b new-branch<br></code></pre></td></tr></table></figure>
+<h6 id="新建分支并且切换至新分支"><a href="#新建分支并且切换至新分支" class="headerlink" title="新建分支并且切换至新分支"></a>新建分支并且切换至新分支</h6><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git checkout -b new-branch</span><br></pre></td></tr></table></figure>
 
-<h6 id="查看分支"><a href="#查看分支" class="headerlink" title="查看分支"></a>查看分支</h6><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs plaintext">git branch      当前分支<br>git branch -a   所有分支<br>git branch -r   远程分支<br></code></pre></td></tr></table></figure>
+<h6 id="查看分支"><a href="#查看分支" class="headerlink" title="查看分支"></a>查看分支</h6><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git branch      当前分支</span><br><span class="line">git branch -a   所有分支</span><br><span class="line">git branch -r   远程分支</span><br></pre></td></tr></table></figure>
 
 
-<h6 id="修改分支名称，development改成develop"><a href="#修改分支名称，development改成develop" class="headerlink" title="修改分支名称，development改成develop"></a>修改分支名称，development改成develop</h6><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs plaintext">git branch -m development develop<br></code></pre></td></tr></table></figure>
+<h6 id="修改分支名称，development改成develop"><a href="#修改分支名称，development改成develop" class="headerlink" title="修改分支名称，development改成develop"></a>修改分支名称，development改成develop</h6><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git branch -m development develop</span><br></pre></td></tr></table></figure>
 
-<h6 id="删除分支"><a href="#删除分支" class="headerlink" title="删除分支"></a>删除分支</h6><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs plaintext">git branch -d develop<br></code></pre></td></tr></table></figure>
+<h6 id="删除分支"><a href="#删除分支" class="headerlink" title="删除分支"></a>删除分支</h6><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git branch -d develop</span><br></pre></td></tr></table></figure>
 
-<h6 id="强制删除，还没合并的分支也能删除"><a href="#强制删除，还没合并的分支也能删除" class="headerlink" title="强制删除，还没合并的分支也能删除"></a>强制删除，还没合并的分支也能删除</h6><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs plaintext">git branch -D dev<br></code></pre></td></tr></table></figure>
+<h6 id="强制删除，还没合并的分支也能删除"><a href="#强制删除，还没合并的分支也能删除" class="headerlink" title="强制删除，还没合并的分支也能删除"></a>强制删除，还没合并的分支也能删除</h6><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git branch -D dev</span><br></pre></td></tr></table></figure>
 
-<h6 id="查看提交记录"><a href="#查看提交记录" class="headerlink" title="查看提交记录"></a>查看提交记录</h6><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs plaintext">git log --oneline<br></code></pre></td></tr></table></figure>
+<h6 id="查看提交记录"><a href="#查看提交记录" class="headerlink" title="查看提交记录"></a>查看提交记录</h6><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git log --oneline</span><br></pre></td></tr></table></figure>
 
 <h6 id="git切换分支做的事情"><a href="#git切换分支做的事情" class="headerlink" title="git切换分支做的事情"></a>git切换分支做的事情</h6><ul>
 <li>1.更新暂存区和工作目录</li>

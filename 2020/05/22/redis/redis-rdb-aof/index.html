@@ -275,10 +275,10 @@
 <p>redis有两种数据持久化类型：<code>RDB</code>和<code>AOF</code></p>
 <p>RDB可以看做是某个时间点上的快照，非常适合于备份和灾难恢复（仅包含某个时间点上的redis数据快照）<br>AOF（append-only file）则是一个写入操作的日志，将在服务器启动时被重放（只记录redis写入的追加式日志文件，因为每个写入命令都会被追加到文件中，所以AOF的数据一致性比RDB更高）</p>
 <p>在一个正在运行的redis实例上启用AOF持久化</p>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-number">127.0</span><span class="hljs-number">.0</span><span class="hljs-number">.1</span>:<span class="hljs-number">6379</span>&gt; config set appendonly yes<br></code></pre></td></tr></table></figure>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">127.0</span><span class="number">.0</span><span class="number">.1</span>:<span class="number">6379</span>&gt; config set appendonly yes</span><br></pre></td></tr></table></figure>
 
 <p>在配置文件中开启</p>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs go">cat conf/redis.conf |grep <span class="hljs-string">&quot;^appendonly yes&quot;</span><br></code></pre></td></tr></table></figure>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cat conf/redis.conf |grep <span class="string">&quot;^appendonly yes&quot;</span></span><br></pre></td></tr></table></figure>
       
     </div>
     <div class="article-footer">
