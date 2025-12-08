@@ -1,6 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>https://hqd8080.github.io/2025/08/24/go/go-anti-shake-lock/</loc>
+    <lastmod>2025-12-08</lastmod>
+  </url>
+  <url>
+    <loc>https://hqd8080.github.io/2025/09/20/go/go-makefile/</loc>
+    <lastmod>2025-12-08</lastmod>
+  </url>
+  <url>
+    <loc>https://hqd8080.github.io/2025/09/25/go/go-filetype/</loc>
+    <lastmod>2025-12-08</lastmod>
+  </url>
+  <url>
     <loc>https://hqd8080.github.io/2022/03/21/go/go-gorm/</loc>
     <lastmod>2025-10-16</lastmod>
   </url>
@@ -49,20 +61,8 @@
     <lastmod>2025-10-15</lastmod>
   </url>
   <url>
-    <loc>https://hqd8080.github.io/2025/09/25/go/go-filetype/</loc>
-    <lastmod>2025-10-15</lastmod>
-  </url>
-  <url>
-    <loc>https://hqd8080.github.io/2025/09/20/go/go-makefile/</loc>
-    <lastmod>2025-09-22</lastmod>
-  </url>
-  <url>
     <loc>https://hqd8080.github.io/2025/08/20/go/go-checkin/</loc>
     <lastmod>2025-09-18</lastmod>
-  </url>
-  <url>
-    <loc>https://hqd8080.github.io/2025/08/24/go/go-anti-shake-lock/</loc>
-    <lastmod>2025-08-24</lastmod>
   </url>
   <url>
     <loc>https://hqd8080.github.io/2025/01/02/go/go-singleflight/</loc>
